@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es5",
+    "rootDir": "src",
+    "outDir": "dist",
+    "lib": ["ES2015", "ES2016"],
+    "typeRoots": ["./@types", "./node_modules/@types"],
+    "sourceMap": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "declaration": false,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "alwaysStrict": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
+  },
+  "includes": ["src/**/*"],
+  "exclude": ["node_modules", "dist/**/*"],
+  "compileOnSave": false
+}

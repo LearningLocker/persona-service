@@ -1,0 +1,6 @@
+{
+  "extends": "./node_modules/jscommons/tslint.json",
+  "rules": {
+    "match-default-export-name": false
+  }
+}
