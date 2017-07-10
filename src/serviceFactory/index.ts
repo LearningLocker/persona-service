@@ -6,7 +6,6 @@ export default (): Service => {
   const repoFacade = repoFactory();
 
   return service({
-    defaultTimeout: 1000,
     repo: repoFacade,
   });
 };
