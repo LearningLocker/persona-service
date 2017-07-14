@@ -1,6 +1,6 @@
-interface Account {
-  name: string;
+interface Model {
   homePage: string;
+  name: string;
 }
 
-export default Account;
+export default Model;

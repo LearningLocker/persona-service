@@ -1,20 +1,20 @@
 import commonService from 'jscommons/dist/service';
 import Service from '../serviceFactory/Service';
 import Config from './Config';
-import deleteAgentProfile from './deleteAgentProfile';
-import getAgentProfile from './getAgentProfile';
-import getAgentProfiles from './getAgentProfiles';
-import overwriteAgentProfile from './overwriteAgentProfile';
-import patchAgentProfile from './patchAgentProfile';
+import deleteProfile from './deleteProfile';
+import getProfile from './getProfile';
+import getProfiles from './getProfiles';
+import overwriteProfile from './overwriteProfile';
+import patchProfile from './patchProfile';
 
 export default (config: Config): Service => {
   return {
-    // Agent Profile functions for the xAPI.
-    deleteAgentProfile: deleteAgentProfile(config),
-    getAgentProfile: getAgentProfile(config),
-    getAgentProfiles: getAgentProfiles(config),
-    overwriteAgentProfile: overwriteAgentProfile(config),
-    patchAgentProfile: patchAgentProfile(config),
+    // Profile functions for the xAPI.
+    deleteProfile: deleteProfile(config),
+    getProfile: getProfile(config),
+    getProfiles: getProfiles(config),
+    overwriteProfile: overwriteProfile(config),
+    patchProfile: patchProfile(config),
 
     ...commonService(config),
   };

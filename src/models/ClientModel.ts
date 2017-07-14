@@ -1,6 +1,6 @@
 import Actor from './Actor';
 
-interface ClientModel {
+interface Model {
   _id: string;
   title: string;
   organisation: string;
@@ -10,4 +10,4 @@ interface ClientModel {
   scopes: string[];
 }
 
-export default ClientModel;
+export default Model;

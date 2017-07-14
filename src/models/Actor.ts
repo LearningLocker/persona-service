@@ -1,6 +1,6 @@
 import Agent from './Agent';
 import Group from './Group';
 
-type Actor = (Agent|Group);
+type Model = (Agent|Group);
 
-export default Actor;
+export default Model;

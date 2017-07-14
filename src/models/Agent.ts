@@ -1,11 +1,10 @@
 import Account from './Account';
 
-interface Agent {
-  objectType: 'Agent';
+interface Model {
   mbox?: string;
-  openid?: string;
   mbox_sha1sum?: string;
+  openid?: string;
   account?: Account;
 }
 
-export default Agent;
+export default Model;

@@ -1,18 +1,18 @@
 import CommonService from 'jscommons/dist/serviceFactory/Service';
-import DeleteAgentProfileOptions from './options/DeleteAgentProfileOptions';
-import GetAgentProfileOptions from './options/GetAgentProfileOptions';
-import GetAgentProfilesOptions from './options/GetAgentProfilesOptions';
-import OverwriteAgentProfileOptions from './options/OverwriteAgentProfileOptions';
-import PatchAgentProfileOptions from './options/PatchAgentProfileOptions';
-import GetAgentProfileResult from './results/GetAgentProfileResult';
-import GetAgentProfilesResult from './results/GetAgentProfilesResult';
+import DeleteProfileOptions from './options/DeleteProfileOptions';
+import GetProfileOptions from './options/GetProfileOptions';
+import GetProfilesOptions from './options/GetProfilesOptions';
+import OverwriteProfileOptions from './options/OverwriteProfileOptions';
+import PatchProfileOptions from './options/PatchProfileOptions';
+import GetProfileResult from './results/GetProfileResult';
+import GetProfilesResult from './results/GetProfilesResult';
 
 interface Service extends CommonService {
-  deleteAgentProfile: (opts: DeleteAgentProfileOptions) => Promise<void>;
-  getAgentProfile: (opts: GetAgentProfileOptions) => Promise<GetAgentProfileResult>;
-  getAgentProfiles: (opts: GetAgentProfilesOptions) => Promise<GetAgentProfilesResult>;
-  overwriteAgentProfile: (opts: OverwriteAgentProfileOptions) => Promise<void>;
-  patchAgentProfile: (opts: PatchAgentProfileOptions) => Promise<void>;
+  deleteProfile: (opts: DeleteProfileOptions) => Promise<void>;
+  getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
+  getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
+  overwriteProfile: (opts: OverwriteProfileOptions) => Promise<void>;
+  patchProfile: (opts: PatchProfileOptions) => Promise<void>;
 }
 
 export default Service;

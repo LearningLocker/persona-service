@@ -1,10 +1,9 @@
-import { S3 } from 'aws-sdk';
-import { MongoClient } from 'mongodb';
 import config from '../config';
 import localStorageRepo from '../localStorageRepo';
 import memoryModelsRepo from '../memoryModelsRepo';
-import mongoModelsRepo from '../mongoModelsRepo';
-import s3StorageRepo from '../s3StorageRepo';
+import Identifier from '../models/Identifier';
+import Persona from '../models/Persona';
+import Profile from '../models/Profile';
 import ModelsRepo from './ModelsRepo';
 import Repo from './Repo';
 import StorageRepo from './StorageRepo';
@@ -12,13 +11,13 @@ import StorageRepo from './StorageRepo';
 /* istanbul ignore next */
 const getModelsRepo = (): ModelsRepo => {
   switch (config.repoFactory.modelsRepoName) {
-    case 'mongo':
-      return mongoModelsRepo({
-        db: MongoClient.connect(config.mongoModelsRepo.url),
-      });
     default: case 'memory':
       return memoryModelsRepo({
-        state: { statements: [] },
+        state: {
+          agentProfiles: [] as Profile[],
+          personaIdentifiers: [] as Identifier[],
+          personas: [] as Persona[],
+        },
       });
   }
 };
@@ -26,12 +25,6 @@ const getModelsRepo = (): ModelsRepo => {
 /* istanbul ignore next */
 const getStorageRepo = (): StorageRepo => {
   switch (config.repoFactory.storageRepoName) {
-    case 's3':
-      return s3StorageRepo({
-        bucketName: config.s3StorageRepo.bucketName,
-        client: new S3(config.s3StorageRepo.awsConfig),
-        subFolder: config.s3StorageRepo.subFolder,
-      });
     default:
     case 'local':
       return localStorageRepo(config.localStorageRepo);

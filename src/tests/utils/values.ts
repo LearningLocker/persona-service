@@ -16,5 +16,6 @@ export const TEST_CLIENT: ClientModel = {
 
 export const TEST_AGENT: Agent = {
   mbox: 'mailto:test_agent@example.org',
-  objectType: 'Agent',
 };
+
+export const TEST_PROFILE_ID = 'dummy_profile_id';

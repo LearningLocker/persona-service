@@ -1,7 +1,7 @@
 import Account from './Account';
 import Actor from './Actor';
 
-interface Group {
+interface Model {
   objectType: 'Group';
   mbox?: string;
   openid?: string;
@@ -10,4 +10,4 @@ interface Group {
   member?: Actor[];
 }
 
-export default Group;
+export default Model;

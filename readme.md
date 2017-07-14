@@ -9,3 +9,6 @@
 1. Build the code `npm run build`.
 1. Run migrations `npm run migrate`.
 1. Start the server `npm start`.
+
+### Notes
+https://stackoverflow.com/questions/16358857/mongodb-atomic-findorcreate-findone-insert-if-nonexistent-but-do-not-update
