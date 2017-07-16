@@ -11,4 +11,6 @@
 1. Start the server `npm start`.
 
 ### Notes
+- Need to implement validation for Agent Profiles.
+
 https://stackoverflow.com/questions/16358857/mongodb-atomic-findorcreate-findone-insert-if-nonexistent-but-do-not-update
