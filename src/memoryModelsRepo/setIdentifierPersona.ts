@@ -18,6 +18,7 @@ export default (config: Config) => {
     });
 
     if (found === false) {
+      /* istanbul ignore next */
       throw new NoModel('Persona Identifier');
     }
   };

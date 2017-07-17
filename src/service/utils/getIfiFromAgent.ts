@@ -29,5 +29,6 @@ export default (agent: Agent): Ifi => {
       },
     };
   }
+  /* istanbul ignore next */
   throw new Error('Missing Agent IFI');
 };

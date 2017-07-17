@@ -1,3 +1,9 @@
-import ProfileOptions from './ProfileOptions';
+import ClientModel from '../../models/ClientModel';
 
-export default ProfileOptions;
+interface Options {
+  agent: any;
+  client: ClientModel;
+  profileId: string;
+}
+
+export default Options;

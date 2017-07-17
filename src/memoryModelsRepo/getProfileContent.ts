@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { defaultTo } from 'lodash';
 import * as stringToStream from 'string-to-stream';
 import GetProfileContentOptions from '../repoFactory/options/GetProfileContentOptions';
 import GetProfileContentResult from '../repoFactory/results/GetProfileContentResult';
@@ -18,7 +19,8 @@ export default (config: Config) => {
       throw new NoModel('Agent Profile');
     }
 
-    const content = stringToStream(matchingProfiles[0].content || '');
+    const profileContent = matchingProfiles[0].content;
+    const content = stringToStream(defaultTo<string>(profileContent, ''));
     return { content };
   };
 };

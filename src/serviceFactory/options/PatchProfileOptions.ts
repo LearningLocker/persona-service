@@ -1,3 +1,10 @@
-import WriteProfileOptions from './WriteProfileOptions';
+import ClientModel from '../../models/ClientModel';
 
-export default WriteProfileOptions;
+interface Options {
+  agent: any;
+  client: ClientModel;
+  profileId: string;
+  content: NodeJS.ReadableStream;
+}
+
+export default Options;

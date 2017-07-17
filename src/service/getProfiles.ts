@@ -19,6 +19,7 @@ export default (config: Config) => {
       if (err !== null && err !== undefined && err.constructor === NoModel) {
         return { profileIds: [] };
       }
+      /* istanbul ignore next */
       throw err;
     }
   };
