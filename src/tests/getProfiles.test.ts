@@ -6,10 +6,10 @@ describe('getProfiles', () => {
   const service = setup();
 
   it('should return no profile ids when getting a non-existing agent', async () => {
-    await service.getProfiles({
+    const profilesResult = await service.getProfiles({
       agent: TEST_MBOX_AGENT,
       client: TEST_CLIENT,
     });
-    assert(true);
+    assert.deepEqual([], profilesResult.profileIds);
   });
 });
