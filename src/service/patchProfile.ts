@@ -1,5 +1,6 @@
 import { isPlainObject } from 'lodash';
 import * as streamToString from 'stream-to-string';
+import NonJsonObject from '../errors/NonJsonObject';
 import PatchProfileOptions from '../serviceFactory/options/PatchProfileOptions';
 import Config from './Config';
 import getIfiFromAgent from './utils/getIfiFromAgent';
@@ -25,12 +26,12 @@ export default (config: Config) => {
 
     // Patches the content if the content is JSON.
     if (opts.contentType !== 'application/json') {
-      throw new Error();
+      throw new NonJsonObject();
     }
 
     const content = JSON.parse(await streamToString(opts.content));
     if (!isPlainObject(content)) {
-      throw new Error();
+      throw new NonJsonObject();
     }
 
     await config.repo.patchProfile({

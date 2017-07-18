@@ -1,4 +1,5 @@
 import { isPlainObject } from 'lodash';
+import NonJsonObject from '../errors/NonJsonObject';
 import PatchProfileOptions from '../repoFactory/options/PatchProfileOptions';
 import Config from './Config';
 import createProfile from './utils/createProfile';
@@ -22,7 +23,7 @@ export default (config: Config) => {
 
       isExistingProfile = true;
       if (!isJson) {
-        throw new Error();
+        throw new NonJsonObject();
       }
 
       return {

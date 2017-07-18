@@ -1,6 +1,7 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
 import * as stringToStream from 'string-to-stream';
+import NonJsonObject from '../../errors/NonJsonObject';
 import assertProfile from '../utils/assertProfile';
 import createImmutableProfile from '../utils/createImmutableProfile';
 import setup from '../utils/setup';
@@ -22,12 +23,12 @@ describe('patchProfile with non-existing model', () => {
 
   it('should error when patching with text content', async () => {
     const promise = patchContent(TEST_CONTENT, TEXT_CONTENT_TYPE);
-    await assertError(Error, promise);
+    await assertError(NonJsonObject, promise);
   });
 
   it('should error when patching with JSON content', async () => {
     const promise = patchContent(TEST_JSON_CONTENT, JSON_CONTENT_TYPE);
-    await assertError(Error, promise);
+    await assertError(NonJsonObject, promise);
   });
 
   it('should create when patching with object content', async () => {
