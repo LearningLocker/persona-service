@@ -41,3 +41,7 @@ export const TEST_OBJECT_CONTENT = '{"foo":1}';
 
 export const TEXT_CONTENT_TYPE = 'text/plain';
 export const JSON_CONTENT_TYPE = 'application/json';
+
+export const TEST_INVALID_AGENT = {
+  foo: 10,
+};

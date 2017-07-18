@@ -1,14 +1,9 @@
 import * as assert from 'assert';
 import * as streamToString from 'stream-to-string';
-import service from '../../../tester';
-import {
-  TEST_CLIENT,
-  TEST_MBOX_AGENT,
-  TEST_PROFILE_ID,
-} from '../../utils/values';
+import service from '../../tester';
+import { TEST_CLIENT, TEST_PROFILE_ID } from './values';
 
-export default async (content: string) => {
-  const agent = TEST_MBOX_AGENT;
+export default async (agent: any, content: string) => {
   const expectedProfileIds = [TEST_PROFILE_ID];
 
   // Checks the profileIds.

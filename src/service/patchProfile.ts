@@ -3,9 +3,13 @@ import * as streamToString from 'stream-to-string';
 import PatchProfileOptions from '../serviceFactory/options/PatchProfileOptions';
 import Config from './Config';
 import getIfiFromAgent from './utils/getIfiFromAgent';
+import validateAgent from './utils/validateAgent';
 
 export default (config: Config) => {
   return async (opts: PatchProfileOptions): Promise<void> => {
+    // Validates agent.
+    validateAgent(opts.agent, ['agent']);
+
     // Finds or creates Identifier.
     const ifi = getIfiFromAgent(opts.agent);
     const createIdentifierResult = await config.repo.createIdentifier({ ifi });
