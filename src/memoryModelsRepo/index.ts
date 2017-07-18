@@ -3,6 +3,7 @@ import ModelsRepo from '../repoFactory/ModelsRepo';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
+import deleteProfile from './deleteProfile';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import getProfileContent from './getProfileContent';
 import getProfiles from './getProfiles';
@@ -14,6 +15,7 @@ export default (config: Config): ModelsRepo => {
   return {
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
+    deleteProfile: deleteProfile(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
     getProfileContent: getProfileContent(config),
     getProfiles: getProfiles(config),

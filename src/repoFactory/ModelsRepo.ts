@@ -1,6 +1,7 @@
 import CommonRepo from 'jscommons/dist/repoFactory/Repo';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
+import DeleteProfileOptions from './options/DeleteProfileOptions';
 import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetProfileContentOptions from './options/GetProfileContentOptions';
 import GetProfilesOptions from './options/GetProfilesOptions';
@@ -16,6 +17,7 @@ import GetProfilesResult from './results/GetProfilesResult';
 interface Repo extends CommonRepo {
   createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
   createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
+  deleteProfile: (opts: DeleteProfileOptions) => Promise<void>;
   getIdentifierByIfi: (opts: GetIdentifierByIfiOptions) => Promise<GetIdentifierByIfiResult>;
   getProfileContent: (opts: GetProfileContentOptions) => Promise<GetProfileContentResult>;
   getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
