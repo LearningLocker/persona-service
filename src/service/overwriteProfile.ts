@@ -1,4 +1,5 @@
 import * as rulr from 'rulr';
+import * as streamToString from 'stream-to-string';
 import * as xapi from 'xapi-validation/dist/factory';
 import IfiCountWarning from 'xapi-validation/dist/warnings/IfiCountWarning';
 import NoIfiWarning from 'xapi-validation/dist/warnings/NoIfiWarning';
@@ -44,8 +45,15 @@ export default (config: Config) => {
     }
 
     // Update or create Profile.
+    const contentString = await streamToString(opts.content);
+    const content = (
+      opts.contentType === 'application/json'
+      ? JSON.parse(contentString)
+      : contentString
+    );
     await config.repo.overwriteProfile({
-      content: opts.content,
+      content,
+      contentType: opts.contentType,
       personaIdentifier: identifierId,
       profileId: opts.profileId,
     });

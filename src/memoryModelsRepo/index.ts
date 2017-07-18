@@ -7,6 +7,7 @@ import getIdentifierByIfi from './getIdentifierByIfi';
 import getProfileContent from './getProfileContent';
 import getProfiles from './getProfiles';
 import overwriteProfile from './overwriteProfile';
+import patchProfile from './patchProfile';
 import setIdentifierPersona from './setIdentifierPersona';
 
 export default (config: Config): ModelsRepo => {
@@ -17,6 +18,7 @@ export default (config: Config): ModelsRepo => {
     getProfileContent: getProfileContent(config),
     getProfiles: getProfiles(config),
     overwriteProfile: overwriteProfile(config),
+    patchProfile: patchProfile(config),
     setIdentifierPersona: setIdentifierPersona(config),
     ...commonMemoryRepo(config),
   };

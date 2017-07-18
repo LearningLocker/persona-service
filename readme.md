@@ -14,3 +14,4 @@
 - Need to implement validation for Agent Profiles.
 
 https://stackoverflow.com/questions/16358857/mongodb-atomic-findorcreate-findone-insert-if-nonexistent-but-do-not-update
+https://docs.mongodb.com/manual/reference/operator/query/type/#op._S_type

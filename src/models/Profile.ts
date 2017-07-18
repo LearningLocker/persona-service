@@ -3,7 +3,8 @@ interface Model {
   organisation: string;
   personaIdentifier: string;
   profileId: string;
-  content?: string;
+  content?: any;
+  contentType: string;
 }
 
 export default Model;

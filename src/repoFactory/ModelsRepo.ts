@@ -5,6 +5,7 @@ import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetProfileContentOptions from './options/GetProfileContentOptions';
 import GetProfilesOptions from './options/GetProfilesOptions';
 import OverwriteProfileOptions from './options/OverwriteProfileOptions';
+import PatchProfileOptions from './options/PatchProfileOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
@@ -19,6 +20,7 @@ interface Repo extends CommonRepo {
   getProfileContent: (opts: GetProfileContentOptions) => Promise<GetProfileContentResult>;
   getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
   overwriteProfile: (opts: OverwriteProfileOptions) => Promise<void>;
+  patchProfile: (opts: PatchProfileOptions) => Promise<void>;
   setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
 }
 

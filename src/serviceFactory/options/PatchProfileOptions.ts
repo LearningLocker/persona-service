@@ -5,6 +5,7 @@ interface Options {
   client: ClientModel;
   profileId: string;
   content: NodeJS.ReadableStream;
+  contentType: string;
 }
 
 export default Options;

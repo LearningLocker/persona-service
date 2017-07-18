@@ -1,5 +1,6 @@
 interface Result {
-  content: NodeJS.ReadableStream;
+  content: any;
+  contentType: string;
 }
 
 export default Result;

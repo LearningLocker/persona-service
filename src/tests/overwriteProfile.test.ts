@@ -4,6 +4,7 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
 import * as streamToString from 'stream-to-string';
 import * as stringToStream from 'string-to-stream';
+import createImmutableProfile from './utils/createImmutableProfile';
 import setup from './utils/setup';
 import {
   TEST_ACCOUNT_AGENT,
@@ -13,6 +14,7 @@ import {
   TEST_MBOXSHA1_AGENT,
   TEST_OPENID_AGENT,
   TEST_PROFILE_ID,
+  TEXT_CONTENT_TYPE,
 } from './utils/values';
 
 describe('overwriteProfile', () => {
@@ -27,6 +29,7 @@ describe('overwriteProfile', () => {
       agent,
       client: TEST_CLIENT,
       content: stringToStream(expectedContent),
+      contentType: TEXT_CONTENT_TYPE,
       profileId: TEST_PROFILE_ID,
     });
 
@@ -53,6 +56,7 @@ describe('overwriteProfile', () => {
       agent,
       client: TEST_CLIENT,
       content: stringToStream(TEST_CONTENT),
+      contentType: TEXT_CONTENT_TYPE,
       profileId: TEST_PROFILE_ID,
     });
     await assertError(Warnings, promise);
@@ -66,6 +70,7 @@ describe('overwriteProfile', () => {
       agent: TEST_MBOX_AGENT,
       client: TEST_CLIENT,
       content: stringToStream(initialContent),
+      contentType: TEXT_CONTENT_TYPE,
       profileId: TEST_PROFILE_ID,
     });
 
@@ -75,12 +80,7 @@ describe('overwriteProfile', () => {
 
   it('should not overwrite existing models when using a non-existing model', async () => {
     // Creates existing models.
-    await service.overwriteProfile({
-      agent: TEST_OPENID_AGENT,
-      client: TEST_CLIENT,
-      content: stringToStream(TEST_CONTENT),
-      profileId: TEST_PROFILE_ID,
-    });
+    await createImmutableProfile();
 
     // Overwrites with a non-existing model.
     await assertOverwrite(TEST_MBOX_AGENT);

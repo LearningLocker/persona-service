@@ -36,3 +36,8 @@ export const TEST_ACCOUNT_AGENT: Agent = {
 export const TEST_PROFILE_ID = 'dummy_profile_id';
 
 export const TEST_CONTENT = 'dummy_content';
+export const TEST_JSON_CONTENT = '[]';
+export const TEST_OBJECT_CONTENT = '{"foo":1}';
+
+export const TEXT_CONTENT_TYPE = 'text/plain';
+export const JSON_CONTENT_TYPE = 'application/json';

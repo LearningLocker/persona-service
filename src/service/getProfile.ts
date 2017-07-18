@@ -1,3 +1,4 @@
+import * as stringToStream from 'string-to-stream';
 import GetProfileOptions from '../serviceFactory/options/GetProfileOptions';
 import GetProfileResult from '../serviceFactory/results/GetProfileResult';
 import Config from './Config';
@@ -11,7 +12,12 @@ export default (config: Config) => {
 
     // Get profile content.
     const profileId = opts.profileId;
-    const content = (await config.repo.getProfileContent({ profileId, personaIdentifier })).content;
+    const profile = await config.repo.getProfileContent({ personaIdentifier, profileId });
+    const content = (
+      profile.contentType === 'application/json'
+      ? stringToStream(JSON.stringify(profile.content))
+      : stringToStream(profile.content)
+    );
 
     return { content };
   };
