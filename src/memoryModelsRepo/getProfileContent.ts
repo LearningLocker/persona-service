@@ -16,6 +16,7 @@ export default (config: Config) => {
 
     const isExistingIfi = matchingProfiles.length !== 0;
     if (!isExistingIfi) {
+      /* istanbul ignore next */
       throw new NoModel('Agent Profile');
     }
 
