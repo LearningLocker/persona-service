@@ -2,12 +2,12 @@ import * as stringToStream from 'string-to-stream';
 import GetProfileOptions from '../serviceFactory/options/GetProfileOptions';
 import GetProfileResult from '../serviceFactory/results/GetProfileResult';
 import Config from './Config';
-import checkReadScopes from './utils/checkReadScopes';
+import checkProfileReadScopes from './utils/checkProfileReadScopes';
 import getIdentifierByIfi from './utils/getIdentifierByIfi';
 
 export default (config: Config) => {
   return async (opts: GetProfileOptions): Promise<GetProfileResult> => {
-    checkReadScopes(opts.client.scopes);
+    checkProfileReadScopes(opts.client.scopes);
     const personaIdentifier = await getIdentifierByIfi({
       agent: opts.agent,
       client: opts.client,

@@ -1,12 +1,14 @@
 import * as streamToString from 'stream-to-string';
 import OverwriteProfileOptions from '../serviceFactory/options/OverwriteProfileOptions';
 import Config from './Config';
+import checkProfileWriteScopes from './utils/checkProfileWriteScopes';
 import getIfiFromAgent from './utils/getIfiFromAgent';
 import validateAgent from './utils/validateAgent';
 
 export default (config: Config) => {
   return async (opts: OverwriteProfileOptions) => {
     const client = opts.client;
+    checkProfileWriteScopes(client.scopes);
 
     // Validates agent.
     validateAgent(opts.agent, ['agent']);
