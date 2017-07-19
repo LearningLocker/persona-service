@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
-import setup from './utils/setup';
-import { TEST_CLIENT, TEST_INVALID_AGENT, TEST_MBOX_AGENT } from './utils/values';
+import setup from '../utils/setup';
+import { TEST_CLIENT, TEST_INVALID_AGENT, TEST_MBOX_AGENT } from '../utils/values';
 
-describe('getProfiles', () => {
+describe('getProfiles with non-existing agent', () => {
   const service = setup();
 
   it('should return no profile ids when getting a non-existing agent', async () => {

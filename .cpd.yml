@@ -12,7 +12,7 @@ exclude:
   - src/serviceFactory/**/*.ts
   - src/repoFactory/**/*.ts
 min-lines: 5
-min-tokens: 38
+min-tokens: 45
 debug: false
 skip-comments: true
 skip-regex: (import [\'\w\*\{\s\,\.\/\}]+\;*)|(export\sdefault\s\(config:\sConfig\)\s=>\s{)|( +return\sasync\s\(opts:\s\w+\):\sPromise<[^>]+>\s=>\s{)

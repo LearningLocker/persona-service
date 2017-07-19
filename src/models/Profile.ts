@@ -5,6 +5,7 @@ interface Model {
   profileId: string;
   content?: any;
   contentType: string;
+  lrs: string;
 }
 
 export default Model;

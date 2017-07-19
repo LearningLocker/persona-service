@@ -1,7 +1,7 @@
 import ClientModel from '../../models/ClientModel';
 import Ifi from '../../models/Ifi';
 import Config from '../Config';
-import matchIdentifierIfi from './matchIdentifierIfi';
+import getIdentifiersMatchingIfi from './getIdentifiersMatchingIfi';
 
 interface Options {
   client: ClientModel;
@@ -10,7 +10,6 @@ interface Options {
 }
 
 export default ({ config, client, ifi }: Options) => {
-  return config.state.personaIdentifiers.filter((identifier) => {
-    return matchIdentifierIfi({ identifier, client, ifi });
-  });
+  const matchingIdentifiers = getIdentifiersMatchingIfi({ client, config, ifi });
+  return matchingIdentifiers.length !== 0;
 };

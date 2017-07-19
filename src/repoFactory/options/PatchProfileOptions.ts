@@ -1,8 +1,11 @@
+import ClientModel from '../../models/ClientModel';
+
 interface Options {
-  profileId: string;
-  personaIdentifier: string;
+  client: ClientModel;
   content: any;
   contentType: string;
+  profileId: string;
+  personaIdentifier: string;
 }
 
 export default Options;

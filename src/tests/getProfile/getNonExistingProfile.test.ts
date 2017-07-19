@@ -1,10 +1,15 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import { Warnings } from 'rulr';
-import setup from './utils/setup';
-import { TEST_CLIENT, TEST_INVALID_AGENT, TEST_MBOX_AGENT, TEST_PROFILE_ID } from './utils/values';
+import setup from '../utils/setup';
+import {
+  TEST_CLIENT,
+  TEST_INVALID_AGENT,
+  TEST_MBOX_AGENT,
+  TEST_PROFILE_ID,
+} from '../utils/values';
 
-describe('getProfile', () => {
+describe('getProfile with non-existing model', () => {
   const service = setup();
 
   it('should error when getting a non-existing model', async () => {

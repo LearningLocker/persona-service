@@ -45,3 +45,13 @@ export const JSON_CONTENT_TYPE = 'application/json';
 export const TEST_INVALID_AGENT = {
   foo: 10,
 };
+
+export const TEST_CLIENT_OUTSIDE_STORE = {
+  ...TEST_CLIENT,
+  lrs_id: 'incorrect_lrs_id',
+};
+
+export const TEST_CLIENT_OUTSIDE_ORG = {
+  ...TEST_CLIENT,
+  organisation: 'incorrect_organisation',
+};

@@ -7,8 +7,15 @@ import getIdentifierByIfi from './utils/getIdentifierByIfi';
 export default (config: Config) => {
   return async (opts: GetProfilesOptions): Promise<GetProfilesResult> => {
     try {
-      const personaIdentifier = await getIdentifierByIfi(config, opts.agent);
-      const profileIds = (await config.repo.getProfiles({ personaIdentifier })).profileIds;
+      const personaIdentifier = await getIdentifierByIfi({
+        agent: opts.agent,
+        client: opts.client,
+        config,
+      });
+      const profileIds = (await config.repo.getProfiles({
+        client: opts.client,
+        personaIdentifier,
+      })).profileIds;
 
       return { profileIds };
     } catch (err) {

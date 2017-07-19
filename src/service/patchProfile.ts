@@ -8,19 +8,21 @@ import validateAgent from './utils/validateAgent';
 
 export default (config: Config) => {
   return async (opts: PatchProfileOptions): Promise<void> => {
+    const client = opts.client;
+
     // Validates agent.
     validateAgent(opts.agent, ['agent']);
 
     // Finds or creates Identifier.
     const ifi = getIfiFromAgent(opts.agent);
-    const createIdentifierResult = await config.repo.createIdentifier({ ifi });
+    const createIdentifierResult = await config.repo.createIdentifier({ client, ifi });
     const identifierId = createIdentifierResult.identifier.id;
     const isCreatedIdentifier = createIdentifierResult.wasCreated;
 
     // Creates a Persona if the Identifier doesn't have one.
     if (isCreatedIdentifier) {
       const name = ifi.key === 'account' ? ifi.value.name : ifi.value;
-      const persona = (await config.repo.createPersona({ name })).persona.id;
+      const persona = (await config.repo.createPersona({ client, name })).persona.id;
       await config.repo.setIdentifierPersona({ id: identifierId, persona });
     }
 
@@ -35,6 +37,7 @@ export default (config: Config) => {
     }
 
     await config.repo.patchProfile({
+      client,
       content,
       contentType: opts.contentType,
       personaIdentifier: identifierId,

@@ -6,7 +6,11 @@ import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 
 export default (config: Config) => {
   return async (opts: GetIdentifierByIfiOptions): Promise<GetIdentifierByIfiResult> => {
-    const matchingIdentifiers = getIdentifiersMatchingIfi(config, opts.ifi);
+    const matchingIdentifiers = getIdentifiersMatchingIfi({
+      client: opts.client,
+      config,
+      ifi: opts.ifi,
+    });
 
     const isExistingIfi = matchingIdentifiers.length !== 0;
     if (!isExistingIfi) {

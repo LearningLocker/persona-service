@@ -7,7 +7,11 @@ import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 
 export default (config: Config) => {
   return async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
-    const matchingIdentifiers = getIdentifiersMatchingIfi(config, opts.ifi);
+    const matchingIdentifiers = getIdentifiersMatchingIfi({
+      client: opts.client,
+      config,
+      ifi: opts.ifi,
+    });
 
     // Creates the identifier if the IFI doesn't already exist.
     const isExistingIfi = matchingIdentifiers.length !== 0;
@@ -15,7 +19,7 @@ export default (config: Config) => {
       const identifier: Identifier = {
         id: uuid(),
         ifi: opts.ifi,
-        organisation: '',
+        organisation: opts.client.organisation,
       };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,
