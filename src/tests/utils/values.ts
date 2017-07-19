@@ -1,5 +1,6 @@
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
+import { ALL } from '../../utils/scopes';
 
 export const TEST_CLIENT: ClientModel = {
   _id: 'dummy_id',
@@ -10,7 +11,7 @@ export const TEST_CLIENT: ClientModel = {
   isTrusted: true,
   lrs_id: 'dummy_lrs_id',
   organisation: 'dummy_organisation',
-  scopes: [],
+  scopes: [ALL],
   title: 'dummy_title',
 };
 
