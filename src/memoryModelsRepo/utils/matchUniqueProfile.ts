@@ -1,8 +1,17 @@
+import ClientModel from '../../models/ClientModel';
 import Profile from '../../models/Profile';
+import matchProfileIdentifier from './matchProfileIdentifier';
 
-export default (profile: Profile, personaIdentifier: string, profileId: string) => {
+interface Options {
+  client: ClientModel;
+  personaIdentifier: string;
+  profile: Profile;
+  profileId: string;
+}
+
+export default ({ client, personaIdentifier, profile, profileId }: Options) => {
   return (
-    profile.personaIdentifier === personaIdentifier &&
+    matchProfileIdentifier({ client, personaIdentifier, profile }) &&
     profile.profileId === profileId
   );
 };

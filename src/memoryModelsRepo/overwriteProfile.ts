@@ -8,16 +8,19 @@ export default (config: Config) => {
   return async (opts: OverwriteProfileOptions): Promise<OverwriteProfileResult> => {
     // Overwrites the content if the profile does already exist.
     let existingId: string|undefined;
-    config.state.agentProfiles = config.state.agentProfiles.map((storedProfile) => {
-      const isMatch = matchUniqueProfile(storedProfile, opts.personaIdentifier, opts.profileId);
+    const personaIdentifier = opts.personaIdentifier;
+    const profileId = opts.profileId;
+    const client = opts.client;
+    config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
+      const isMatch = matchUniqueProfile({ client, personaIdentifier, profile, profileId });
 
       if (!isMatch) {
-        return storedProfile;
+        return profile;
       }
 
-      existingId = storedProfile.id;
+      existingId = profile.id;
       return {
-        ...storedProfile,
+        ...profile,
 
         // Overwrites the content and contentType.
         content: opts.content,

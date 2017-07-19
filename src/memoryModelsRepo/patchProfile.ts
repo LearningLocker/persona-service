@@ -9,16 +9,19 @@ export default (config: Config) => {
   return async (opts: PatchProfileOptions): Promise<void> => {
     // Patches the content if the profile does already exist.
     let isExistingProfile = false;
-    config.state.agentProfiles = config.state.agentProfiles.map((storedProfile) => {
-      const isMatch = matchUniqueProfile(storedProfile, opts.personaIdentifier, opts.profileId);
+    const personaIdentifier = opts.personaIdentifier;
+    const profileId = opts.profileId;
+    const client = opts.client;
+    config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
+      const isMatch = matchUniqueProfile({ client, personaIdentifier, profile, profileId });
       const isJson = (
         isMatch &&
-        storedProfile.contentType === 'application/json' &&
-        isPlainObject(storedProfile.content)
+        profile.contentType === 'application/json' &&
+        isPlainObject(profile.content)
       );
 
       if (!isMatch) {
-        return storedProfile;
+        return profile;
       }
 
       isExistingProfile = true;
@@ -27,11 +30,11 @@ export default (config: Config) => {
       }
 
       return {
-        ...storedProfile,
+        ...profile,
 
         // Merges top-level properties in content.
         content: {
-          ...storedProfile.content,
+          ...profile.content,
           ...opts.content,
         },
 
