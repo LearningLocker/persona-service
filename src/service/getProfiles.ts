@@ -2,10 +2,12 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import GetProfilesOptions from '../serviceFactory/options/GetProfilesOptions';
 import GetProfilesResult from '../serviceFactory/results/GetProfilesResult';
 import Config from './Config';
+import checkReadScopes from './utils/checkReadScopes';
 import getIdentifierByIfi from './utils/getIdentifierByIfi';
 
 export default (config: Config) => {
   return async (opts: GetProfilesOptions): Promise<GetProfilesResult> => {
+    checkReadScopes(opts.client.scopes);
     try {
       const personaIdentifier = await getIdentifierByIfi({
         agent: opts.agent,

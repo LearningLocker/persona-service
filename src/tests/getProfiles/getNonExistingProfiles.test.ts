@@ -12,7 +12,7 @@ describe('getProfiles with non-existing agent', () => {
       agent: TEST_MBOX_AGENT,
       client: TEST_CLIENT,
     });
-    assert.deepEqual([], profilesResult.profileIds);
+    assert.deepEqual(profilesResult.profileIds, []);
   });
 
   it('should throw warnings when using an invalid agent', async () => {

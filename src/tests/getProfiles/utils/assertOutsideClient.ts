@@ -7,5 +7,5 @@ export default async () => {
     agent: TEST_MBOX_AGENT,
     client: TEST_CLIENT,
   });
-  assert.deepEqual([], profilesResult.profileIds);
+  assert.deepEqual(profilesResult.profileIds, []);
 };

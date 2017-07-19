@@ -11,8 +11,8 @@ exclude:
   - src/localStorageRepo/index.ts
   - src/serviceFactory/**/*.ts
   - src/repoFactory/**/*.ts
-min-lines: 5
-min-tokens: 45
+min-lines: 7
+min-tokens: 50
 debug: false
 skip-comments: true
-skip-regex: (import [\'\w\*\{\s\,\.\/\}]+\;*)|(export\sdefault\s\(config:\sConfig\)\s=>\s{)|( +return\sasync\s\(opts:\s\w+\):\sPromise<[^>]+>\s=>\s{)
+skip-regex: (import [\'\w\*\{\s\,\.\/\}]+\;*)|(export\sdefault\s\(config:\sConfig\)\s=>\s{)|( +return\sasync\s\(opts:\s\w+\):\sPromise<[^>]+>\s=>\s{)|(it\([\'\"\`][\w\s]+[\'\"\`],\s(async)?\s)
