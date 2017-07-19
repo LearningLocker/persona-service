@@ -27,19 +27,25 @@ export default (config: Config) => {
     }
 
     // Update or create Profile.
-    const contentString = await streamToString(opts.content);
-    const content = (
+    const jsonContent = (
       opts.contentType === 'application/json'
-      ? JSON.parse(contentString)
-      : contentString
+      ? JSON.parse(await streamToString(opts.content))
+      : undefined
     );
-    await config.repo.overwriteProfile({
+    const overwriteProfileResult = await config.repo.overwriteProfile({
       client,
-      content,
+      content: jsonContent,
       contentType: opts.contentType,
       personaIdentifier: identifierId,
       profileId: opts.profileId,
     });
+
+    if (opts.contentType !== 'application/json') {
+      await config.repo.storeProfileContent({
+        content: opts.content,
+        key: overwriteProfileResult.id,
+      });
+    }
 
     return;
   };

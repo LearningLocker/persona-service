@@ -11,7 +11,7 @@ interface Options {
   client: ClientModel;
 }
 
-export default (config: Config, opts: Options) => {
+export default (config: Config, opts: Options): Profile => {
   const profile: Profile = {
     content: opts.content,
     contentType: opts.contentType,
@@ -26,4 +26,5 @@ export default (config: Config, opts: Options) => {
     ...config.state.agentProfiles,
     profile,
   ];
+  return profile;
 };

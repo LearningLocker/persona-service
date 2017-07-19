@@ -10,6 +10,8 @@ import {
   TEXT_CONTENT_TYPE,
 } from '../utils/values';
 
+const TEST_DELAY_MS = 2;
+
 describe('getProfiles with since', () => {
   const service = setup();
 
@@ -33,7 +35,7 @@ describe('getProfiles with since', () => {
 
   it('should return no profile ids when updated before since', async () => {
     await createProfile();
-    await Promise.resolve(delay(1));
+    await Promise.resolve(delay(TEST_DELAY_MS));
     const timestamp = new Date();
     const getProfilesResult = await getProfiles(timestamp);
     assert.deepEqual(getProfilesResult.profileIds, []);
@@ -41,7 +43,7 @@ describe('getProfiles with since', () => {
 
   it('should return the profile id when updated after since', async () => {
     const timestamp = new Date();
-    await Promise.resolve(delay(1));
+    await Promise.resolve(delay(TEST_DELAY_MS));
     await createProfile();
     const getProfilesResult = await getProfiles(timestamp);
     assert.deepEqual(getProfilesResult.profileIds, [TEST_PROFILE_ID]);

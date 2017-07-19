@@ -15,22 +15,22 @@ import overwriteProfile from './utils/overwriteProfile';
 describe('overwriteProfile with non-existing model', () => {
   setup();
 
-  it('should create when with mbox', async () => {
+  it('should create when using mbox', async () => {
     await overwriteProfile(TEST_MBOX_AGENT, TEST_CONTENT);
     await assertProfile(TEST_MBOX_AGENT, TEST_CONTENT);
   });
 
-  it('should create when with mbox_sha1sum', async () => {
+  it('should create when using mbox_sha1sum', async () => {
     await overwriteProfile(TEST_MBOXSHA1_AGENT, TEST_CONTENT);
     await assertProfile(TEST_MBOXSHA1_AGENT, TEST_CONTENT);
   });
 
-  it('should create when with openid', async () => {
+  it('should create when using openid', async () => {
     await overwriteProfile(TEST_OPENID_AGENT, TEST_CONTENT);
     await assertProfile(TEST_OPENID_AGENT, TEST_CONTENT);
   });
 
-  it('should create when with account', async () => {
+  it('should create when using account', async () => {
     await overwriteProfile(TEST_ACCOUNT_AGENT, TEST_CONTENT);
     await assertProfile(TEST_ACCOUNT_AGENT, TEST_CONTENT);
   });

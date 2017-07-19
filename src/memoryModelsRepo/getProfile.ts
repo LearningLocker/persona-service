@@ -1,11 +1,11 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import GetProfileContentOptions from '../repoFactory/options/GetProfileContentOptions';
-import GetProfileContentResult from '../repoFactory/results/GetProfileContentResult';
+import GetProfileOptions from '../repoFactory/options/GetProfileOptions';
+import GetProfileResult from '../repoFactory/results/GetProfileResult';
 import Config from './Config';
 import matchProfileIdentifier from './utils/matchProfileIdentifier';
 
 export default (config: Config) => {
-  return async (opts: GetProfileContentOptions): Promise<GetProfileContentResult> => {
+  return async (opts: GetProfileOptions): Promise<GetProfileResult> => {
     const client = opts.client;
     const personaIdentifier = opts.personaIdentifier;
     const matchingProfiles = config.state.agentProfiles.filter((profile) => {
@@ -21,7 +21,7 @@ export default (config: Config) => {
       throw new NoModel('Agent Profile');
     }
 
-    const { content, contentType } = matchingProfiles[0];
-    return { content, contentType };
+    const { id, content, contentType } = matchingProfiles[0];
+    return { id, content, contentType };
   };
 };

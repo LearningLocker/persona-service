@@ -13,17 +13,19 @@ export default (config: Config) => {
       client: opts.client,
       config,
     });
-    const profile = await config.repo.getProfileContent({
+    const profile = await config.repo.getProfile({
       client: opts.client,
       personaIdentifier,
       profileId: opts.profileId,
     });
-    const content = (
-      profile.contentType === 'application/json'
-      ? stringToStream(JSON.stringify(profile.content))
-      : stringToStream(profile.content)
-    );
 
-    return { content };
+    if (profile.content !== undefined) {
+      return { content: stringToStream(JSON.stringify(profile.content)) };
+    }
+
+    const profileContentResult = await config.repo.getProfileContent({
+      key: profile.id,
+    });
+    return { content: profileContentResult.content };
   };
 };
