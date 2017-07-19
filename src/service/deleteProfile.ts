@@ -4,12 +4,10 @@ import getIdentifierByIfi from './utils/getIdentifierByIfi';
 
 export default (config: Config) => {
   return async (opts: DeleteProfileOptions): Promise<void> => {
-    const personaIdentifier = await getIdentifierByIfi({
-      agent: opts.agent,
-      client: opts.client,
-      config,
-    });
+    const agent = opts.agent;
+    const client = opts.client;
+    const personaIdentifier = await getIdentifierByIfi({ agent, client, config });
     const profileId = opts.profileId;
-    await config.repo.deleteProfile({ personaIdentifier, profileId });
+    await config.repo.deleteProfile({ client, personaIdentifier, profileId });
   };
 };
