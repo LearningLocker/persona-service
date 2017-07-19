@@ -6,6 +6,7 @@ interface Model {
   content?: any;
   contentType: string;
   lrs: string;
+  updatedAt: Date;
 }
 
 export default Model;

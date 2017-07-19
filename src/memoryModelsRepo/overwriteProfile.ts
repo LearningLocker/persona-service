@@ -21,6 +21,9 @@ export default (config: Config) => {
         // Overwrites the content and contentType.
         content: opts.content,
         contentType: opts.contentType,
+
+        // Updates updatedAt time.
+        updatedAt: new Date(),
       };
     });
 

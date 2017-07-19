@@ -34,6 +34,9 @@ export default (config: Config) => {
           ...storedProfile.content,
           ...opts.content,
         },
+
+        // Updates updatedAt time.
+        updatedAt: new Date(),
       };
     });
 

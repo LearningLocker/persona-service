@@ -20,6 +20,7 @@ export default (config: Config, opts: Options) => {
     organisation: opts.client.organisation,
     personaIdentifier: opts.personaIdentifier,
     profileId: opts.profileId,
+    updatedAt: new Date(),
   };
   config.state.agentProfiles = [
     ...config.state.agentProfiles,

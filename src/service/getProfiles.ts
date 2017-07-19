@@ -17,6 +17,7 @@ export default (config: Config) => {
       const profileIds = (await config.repo.getProfiles({
         client: opts.client,
         personaIdentifier,
+        since: opts.since,
       })).profileIds;
 
       return { profileIds };
