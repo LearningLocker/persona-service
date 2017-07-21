@@ -1,5 +1,5 @@
 interface Options {
-  key: string;
+  readonly key: string;
 }
 
 export default Options;

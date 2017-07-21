@@ -1,5 +1,5 @@
 interface Result {
-  identifierId: string;
+  readonly identifierId: string;
 }
 
 export default Result;

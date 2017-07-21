@@ -1,13 +1,13 @@
 import ClientModel from '../../models/ClientModel';
 
 interface Options {
-  agent: any;
-  client: ClientModel;
-  content: NodeJS.ReadableStream;
-  contentType: string;
-  ifMatch?: string;
-  ifNoneMatch?: string;
-  profileId: string;
+  readonly agent: any;
+  readonly client: ClientModel;
+  readonly content: NodeJS.ReadableStream;
+  readonly contentType: string;
+  readonly ifMatch?: string;
+  readonly ifNoneMatch?: string;
+  readonly profileId: string;
 }
 
 export default Options;

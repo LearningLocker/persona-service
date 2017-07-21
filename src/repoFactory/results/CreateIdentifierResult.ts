@@ -1,8 +1,8 @@
 import Identifier from '../../models/Identifier';
 
 interface Result {
-  identifier: Identifier;
-  wasCreated: boolean;
+  readonly identifier: Identifier;
+  readonly wasCreated: boolean;
 }
 
 export default Result;

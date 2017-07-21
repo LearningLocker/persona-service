@@ -1,6 +1,6 @@
 interface Result {
-  id: string;
-  contentType: string;
+  readonly id: string;
+  readonly contentType: string;
 }
 
 export default Result;

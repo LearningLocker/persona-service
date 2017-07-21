@@ -1,9 +1,9 @@
 import ClientModel from '../../models/ClientModel';
 
 interface Options {
-  client: ClientModel;
-  personaIdentifier: string;
-  profileId: string;
+  readonly client: ClientModel;
+  readonly personaIdentifier: string;
+  readonly profileId: string;
 }
 
 export default Options;

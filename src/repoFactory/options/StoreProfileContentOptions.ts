@@ -1,6 +1,6 @@
 interface Options {
-  key: string;
-  content: NodeJS.ReadableStream;
+  readonly key: string;
+  readonly content: NodeJS.ReadableStream;
 }
 
 export default Options;

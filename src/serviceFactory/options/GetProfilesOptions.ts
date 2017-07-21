@@ -1,9 +1,9 @@
 import ClientModel from '../../models/ClientModel';
 
 interface Options {
-  agent: any;
-  client: ClientModel;
-  since?: Date;
+  readonly agent: any;
+  readonly client: ClientModel;
+  readonly since?: Date;
 }
 
 export default Options;

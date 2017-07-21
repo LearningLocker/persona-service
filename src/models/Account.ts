@@ -1,6 +1,6 @@
 interface Model {
-  homePage: string;
-  name: string;
+  readonly homePage: string;
+  readonly name: string;
 }
 
 export default Model;

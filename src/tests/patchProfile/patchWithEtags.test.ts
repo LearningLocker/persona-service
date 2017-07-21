@@ -1,6 +1,7 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import * as stringToStream from 'string-to-stream';
-import EtagPrecondition from '../../errors/EtagPrecondition';
+import IfMatch from '../../errors/IfMatch';
+import IfNoneMatch from '../../errors/IfNoneMatch';
 import setup from '../utils/setup';
 import {
   JSON_CONTENT_TYPE,
@@ -53,13 +54,13 @@ describe('patchProfile with etags', () => {
   it('should throw precondition error when using an incorrect ifMatch', async () => {
     await createProfile();
     const promise = patchProfileWithEtag({ ifMatch: 'incorrect_etag' });
-    await assertError(EtagPrecondition, promise);
+    await assertError(IfMatch, promise);
   });
 
   it('should throw precondition error when using an incorrect ifNoneMatch', async () => {
     await createProfile();
     const promise = patchProfileWithEtag({ ifNoneMatch: '*' });
-    await assertError(EtagPrecondition, promise);
+    await assertError(IfNoneMatch, promise);
   });
 
   it('should allow patch when not using an ifMatch or ifNoneMatch', async () => {

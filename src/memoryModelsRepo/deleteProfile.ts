@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import EtagPrecondition from '../errors/EtagPrecondition';
+import IfMatch from '../errors/IfMatch';
 import DeleteProfileOptions from '../repoFactory/options/DeleteProfileOptions';
 import DeleteProfileResult from '../repoFactory/results/DeleteProfileResult';
 import Config from './Config';
@@ -23,7 +23,7 @@ export default (config: Config) => {
         existingContentType = profile.contentType;
 
         if (opts.ifMatch !== undefined && profile.etag !== opts.ifMatch) {
-          throw new EtagPrecondition();
+          throw new IfMatch();
         }
       }
 

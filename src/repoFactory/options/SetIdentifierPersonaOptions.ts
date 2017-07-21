@@ -1,6 +1,6 @@
 interface Options {
-  id: string;
-  persona: string;
+  readonly id: string;
+  readonly persona: string;
 }
 
 export default Options;

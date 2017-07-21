@@ -1,7 +1,7 @@
 import Persona from '../../models/Persona';
 
 interface Result {
-  persona: Persona;
+  readonly persona: Persona;
 }
 
 export default Result;

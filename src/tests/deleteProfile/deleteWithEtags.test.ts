@@ -1,5 +1,5 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import EtagPrecondition from '../../errors/EtagPrecondition';
+import IfMatch from '../../errors/IfMatch';
 import createTextProfile from '../utils/createTextProfile';
 import setup from '../utils/setup';
 import {
@@ -34,7 +34,7 @@ describe('deleteProfile with etags', () => {
       ifMatch: 'incorrect_etag',
       profileId: TEST_PROFILE_ID,
     });
-    await assertError(EtagPrecondition, promise);
+    await assertError(IfMatch, promise);
   });
 
   it('should allow deletion when not using an IfMatch', async () => {

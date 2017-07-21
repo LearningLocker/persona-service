@@ -1,4 +1,5 @@
-import EtagPrecondition from '../../errors/EtagPrecondition';
+import IfMatch from '../../errors/IfMatch';
+import IfNoneMatch from '../../errors/IfNoneMatch';
 import Profile from '../../models/Profile';
 
 interface Options {
@@ -9,10 +10,10 @@ interface Options {
 
 export default ({ profile, ifMatch, ifNoneMatch }: Options) => {
   if (ifMatch !== undefined && profile.etag !== ifMatch) {
-    throw new EtagPrecondition();
+    throw new IfMatch();
   }
 
   if (ifNoneMatch !== undefined && ifNoneMatch === '*') {
-    throw new EtagPrecondition();
+    throw new IfNoneMatch();
   }
 };

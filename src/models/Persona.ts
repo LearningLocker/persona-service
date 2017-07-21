@@ -1,7 +1,7 @@
 interface Model {
-  id: string;
-  organisation: string;
-  name: string;
+  readonly id: string;
+  readonly organisation: string;
+  readonly name: string;
 }
 
 export default Model;

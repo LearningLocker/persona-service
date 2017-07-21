@@ -1,5 +1,5 @@
 interface Result {
-  profileIds: string[];
+  readonly profileIds: string[];
 }
 
 export default Result;

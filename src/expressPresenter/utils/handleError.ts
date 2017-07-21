@@ -3,6 +3,10 @@ import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
+import Conflict from '../../errors/Conflict';
+import IfMatch from '../../errors/IfMatch';
+import IfNoneMatch from '../../errors/IfNoneMatch';
+import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
 
 interface Options extends CommonOptions {
@@ -17,7 +21,23 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    default: {
+    case Conflict: {
+      const code = 409;
+      const message = translator.conflictError(err as Conflict);
+      return sendMessage({ res, code, errorId, message });
+    } case IfMatch: {
+      const code = 412;
+      const message = translator.ifMatchError(err as IfMatch);
+      return sendMessage({ res, code, errorId, message });
+    } case IfNoneMatch: {
+      const code = 412;
+      const message = translator.ifNoneMatchError(err as IfNoneMatch);
+      return sendMessage({ res, code, errorId, message });
+    } case NonJsonObject: {
+      const code = 400;
+      const message = translator.nonJsonObjectError(err as NonJsonObject);
+      return sendMessage({ res, code, errorId, message });
+    } default: {
       return commonErrorHandler({ translator, errorId, res, err });
     }
   }

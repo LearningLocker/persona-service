@@ -1,10 +1,10 @@
 import ClientModel from '../../models/ClientModel';
 
 interface Options {
-  client: ClientModel;
-  ifMatch?: string;
-  personaIdentifier: string;
-  profileId: string;
+  readonly client: ClientModel;
+  readonly ifMatch?: string;
+  readonly personaIdentifier: string;
+  readonly profileId: string;
 }
 
 export default Options;

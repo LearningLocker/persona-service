@@ -1,13 +1,13 @@
 interface Model {
-  etag: string;
-  id: string;
-  organisation: string;
-  personaIdentifier: string;
-  profileId: string;
-  content?: any;
-  contentType: string;
-  lrs: string;
-  updatedAt: Date;
+  readonly etag: string;
+  readonly id: string;
+  readonly organisation: string;
+  readonly personaIdentifier: string;
+  readonly profileId: string;
+  readonly content?: any;
+  readonly contentType: string;
+  readonly lrs: string;
+  readonly updatedAt: Date;
 }
 
 export default Model;
