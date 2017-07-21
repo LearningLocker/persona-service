@@ -18,6 +18,9 @@ const translator: Translator = {
     const count = warning.usedIfis.length;
     return `Only expected 1 IFI in ${path} not ${count} (${usedIfis})`;
   },
+  invalidMethodError: (err) => (
+    `Method (${err.method}) is invalid for alternate request syntax`
+  ),
   noIfiWarning: (warning) => {
     const path = stringPath(warning.path);
     return `Expected 1 IFI in ${path} not 0`;

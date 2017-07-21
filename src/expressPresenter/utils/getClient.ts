@@ -4,7 +4,7 @@ import Actor from '../../models/Actor';
 import ClientModel from '../../models/ClientModel';
 import Config from '../Config';
 
-export default async (config: Config, authHeader: string): Promise<ClientModel> => {
+export default async (config: Config, authHeader = ''): Promise<ClientModel> => {
   try {
     const json = await fetch(config.llClientInfoEndpoint, {
       headers: {

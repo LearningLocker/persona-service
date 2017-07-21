@@ -7,6 +7,7 @@ import { Warnings } from 'rulr';
 import Conflict from '../../errors/Conflict';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
+import InvalidMethod from '../../errors/InvalidMethod';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
 import sendWarnings from './sendWarnings';
@@ -43,6 +44,10 @@ export default ({ translator, errorId, res, err }: Options): Response => {
       const code = 400;
       const warnings = (err as Warnings).warnings;
       return sendWarnings({ res, code, errorId, warnings, translator });
+    } case InvalidMethod: {
+      const code = 400;
+      const message = translator.invalidMethodError(err as InvalidMethod);
+      return sendMessage({ res, code, errorId, message });
     } default: {
       return commonErrorHandler({ translator, errorId, res, err });
     }

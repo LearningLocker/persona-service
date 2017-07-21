@@ -1,0 +1,7 @@
+POST http://localhost:1338/xAPI/agents/profile?profileId=helloworld&agent={"mbox":"mailto:dummy2@example.org"} HTTP/1.1
+Content-Type: application/json
+If-Match: "edadcdc9538be4d2145a0c73ae8d9ccf28f7de77"
+
+{
+  "bar": 2
+}

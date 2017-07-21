@@ -22,6 +22,7 @@ export default (config: Config) => {
     if (profile.content !== undefined) {
       return {
         content: stringToStream(JSON.stringify(profile.content)),
+        contentType: profile.contentType,
         etag: profile.etag,
         updatedAt: profile.updatedAt,
       };
@@ -32,6 +33,7 @@ export default (config: Config) => {
     });
     return {
       content: profileContentResult.content,
+      contentType: profile.contentType,
       etag: profile.etag,
       updatedAt: profile.updatedAt,
     };

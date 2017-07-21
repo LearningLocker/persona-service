@@ -1,7 +1,8 @@
 interface Result {
-  readonly content: any;
-  readonly updatedAt: Date;
+  readonly content: NodeJS.ReadableStream;
+  readonly contentType: string;
   readonly etag: string;
+  readonly updatedAt: Date;
 }
 
 export default Result;
