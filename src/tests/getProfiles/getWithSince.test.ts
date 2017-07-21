@@ -1,29 +1,17 @@
 import * as assert from 'assert';
 import { delay } from 'bluebird';
-import * as stringToStream from 'string-to-stream';
+import createTextProfile from '../utils/createTextProfile';
 import setup from '../utils/setup';
 import {
   TEST_CLIENT,
-  TEST_CONTENT,
   TEST_MBOX_AGENT,
   TEST_PROFILE_ID,
-  TEXT_CONTENT_TYPE,
 } from '../utils/values';
 
 const TEST_DELAY_MS = 2;
 
 describe('getProfiles with since', () => {
   const service = setup();
-
-  const createProfile = async () => {
-    await service.overwriteProfile({
-      agent: TEST_MBOX_AGENT,
-      client: TEST_CLIENT,
-      content: stringToStream(TEST_CONTENT),
-      contentType: TEXT_CONTENT_TYPE,
-      profileId: TEST_PROFILE_ID,
-    });
-  };
 
   const getProfiles = async (timestamp: Date) => {
     return service.getProfiles({
@@ -34,7 +22,7 @@ describe('getProfiles with since', () => {
   };
 
   it('should return no profile ids when updated before since', async () => {
-    await createProfile();
+    await createTextProfile();
     await Promise.resolve(delay(TEST_DELAY_MS));
     const timestamp = new Date();
     const getProfilesResult = await getProfiles(timestamp);
@@ -44,7 +32,7 @@ describe('getProfiles with since', () => {
   it('should return the profile id when updated after since', async () => {
     const timestamp = new Date();
     await Promise.resolve(delay(TEST_DELAY_MS));
-    await createProfile();
+    await createTextProfile();
     const getProfilesResult = await getProfiles(timestamp);
     assert.deepEqual(getProfilesResult.profileIds, [TEST_PROFILE_ID]);
   });

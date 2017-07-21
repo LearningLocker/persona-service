@@ -14,6 +14,7 @@ import {
   TEXT_CONTENT_TYPE,
 } from '../utils/values';
 import patchContent from './utils/patchContent';
+import patchExistingContent from './utils/patchExistingContent';
 
 describe('patchProfile with existing object content', () => {
   const service = setup();
@@ -42,7 +43,7 @@ describe('patchProfile with existing object content', () => {
 
   it('should merge when patching with object content', async () => {
     await createObjectContent();
-    await patchContent('{"bar": 2}', JSON_CONTENT_TYPE);
+    await patchExistingContent('{"bar": 2}', JSON_CONTENT_TYPE);
     await assertProfile(TEST_MBOX_AGENT, '{"foo":1,"bar":2}');
   });
 });

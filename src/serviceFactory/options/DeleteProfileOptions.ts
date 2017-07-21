@@ -4,6 +4,7 @@ interface Options {
   agent: any;
   client: ClientModel;
   profileId: string;
+  ifMatch?: string;
 }
 
 export default Options;

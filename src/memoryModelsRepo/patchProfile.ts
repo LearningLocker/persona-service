@@ -2,6 +2,7 @@ import { isPlainObject } from 'lodash';
 import NonJsonObject from '../errors/NonJsonObject';
 import PatchProfileOptions from '../repoFactory/options/PatchProfileOptions';
 import Config from './Config';
+import checkEtag from './utils/checkEtag';
 import createProfile from './utils/createProfile';
 import matchUniqueProfile from './utils/matchUniqueProfile';
 
@@ -9,9 +10,8 @@ export default (config: Config) => {
   return async (opts: PatchProfileOptions): Promise<void> => {
     // Patches the content if the profile does already exist.
     let isExistingProfile = false;
-    const personaIdentifier = opts.personaIdentifier;
-    const profileId = opts.profileId;
-    const client = opts.client;
+
+    const { personaIdentifier, profileId, client, ifMatch, ifNoneMatch } = opts;
     config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
       const isMatch = matchUniqueProfile({ client, personaIdentifier, profile, profileId });
       const isJson = (
@@ -23,6 +23,8 @@ export default (config: Config) => {
       if (!isMatch) {
         return profile;
       }
+
+      checkEtag({ profile, ifMatch, ifNoneMatch });
 
       isExistingProfile = true;
       if (!isJson) {
@@ -37,6 +39,7 @@ export default (config: Config) => {
           ...profile.content,
           ...opts.content,
         },
+        etag: opts.etag,
 
         // Updates updatedAt time.
         updatedAt: new Date(),

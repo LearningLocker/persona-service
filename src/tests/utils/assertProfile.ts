@@ -22,4 +22,6 @@ export default async (agent: any, content: string) => {
   });
   const actualContent = await streamToString(agentProfileResult.content);
   assert.equal(actualContent, content);
+  assert.equal(agentProfileResult.updatedAt.constructor, Date);
+  assert.equal(agentProfileResult.etag.constructor, String);
 };

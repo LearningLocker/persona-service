@@ -20,12 +20,20 @@ export default (config: Config) => {
     });
 
     if (profile.content !== undefined) {
-      return { content: stringToStream(JSON.stringify(profile.content)) };
+      return {
+        content: stringToStream(JSON.stringify(profile.content)),
+        etag: profile.etag,
+        updatedAt: profile.updatedAt,
+      };
     }
 
     const profileContentResult = await config.repo.getProfileContent({
       key: profile.id,
     });
-    return { content: profileContentResult.content };
+    return {
+      content: profileContentResult.content,
+      etag: profile.etag,
+      updatedAt: profile.updatedAt,
+    };
   };
 };

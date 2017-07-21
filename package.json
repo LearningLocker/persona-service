@@ -41,6 +41,7 @@
     "mongodb": "^2.2.26",
     "node-fetch": "^1.6.3",
     "rulr": "^3.0.0",
+    "sha1": "^1.1.1",
     "source-map-support": "^0.4.11",
     "stream-to-string": "^1.1.0",
     "string-to-stream": "^1.1.0",

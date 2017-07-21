@@ -1,11 +1,18 @@
+import * as stringToStream from 'string-to-stream';
 import assertProfile from '../utils/assertProfile';
 import createImmutableProfile from '../utils/createImmutableProfile';
 import setup from '../utils/setup';
-import { TEST_CONTENT, TEST_MBOX_AGENT } from '../utils/values';
+import {
+  TEST_CLIENT,
+  TEST_CONTENT,
+  TEST_MBOX_AGENT,
+  TEST_PROFILE_ID,
+  TEXT_CONTENT_TYPE,
+} from '../utils/values';
 import overwriteProfile from './utils/overwriteProfile';
 
 describe('overwriteProfile replacing profiles', () => {
-  setup();
+  const service = setup();
 
   it('should overwrite model when overwriting an existing model', async () => {
     // Creates model with initial content.
@@ -13,7 +20,19 @@ describe('overwriteProfile replacing profiles', () => {
     await overwriteProfile(TEST_MBOX_AGENT, initialContent);
 
     // Overwrites model with expected content.
-    await overwriteProfile(TEST_MBOX_AGENT, TEST_CONTENT);
+    const getProfileResult = await service.getProfile({
+      agent: TEST_MBOX_AGENT,
+      client: TEST_CLIENT,
+      profileId: TEST_PROFILE_ID,
+    });
+    await service.overwriteProfile({
+      agent: TEST_MBOX_AGENT,
+      client: TEST_CLIENT,
+      content: stringToStream(TEST_CONTENT),
+      contentType: TEXT_CONTENT_TYPE,
+      ifMatch: getProfileResult.etag,
+      profileId: TEST_PROFILE_ID,
+    });
     await assertProfile(TEST_MBOX_AGENT, TEST_CONTENT);
   });
 

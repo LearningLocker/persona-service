@@ -1,4 +1,5 @@
 interface Model {
+  etag: string;
   id: string;
   organisation: string;
   personaIdentifier: string;

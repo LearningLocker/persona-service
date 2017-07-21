@@ -4,17 +4,19 @@ import Profile from '../../models/Profile';
 import Config from '../Config';
 
 interface Options {
+  client: ClientModel;
   content: any;
   contentType: string;
+  etag: string;
   personaIdentifier: string;
   profileId: string;
-  client: ClientModel;
 }
 
 export default (config: Config, opts: Options): Profile => {
   const profile: Profile = {
     content: opts.content,
     contentType: opts.contentType,
+    etag: opts.etag,
     id: uuid(),
     lrs: opts.client.lrs_id,
     organisation: opts.client.organisation,

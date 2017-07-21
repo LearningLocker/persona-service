@@ -13,6 +13,7 @@ import {
   TEXT_CONTENT_TYPE,
 } from '../utils/values';
 import patchContent from './utils/patchContent';
+import patchExistingContent from './utils/patchExistingContent';
 
 describe('patchProfile with existing JSON content', () => {
   const service = setup();
@@ -41,7 +42,7 @@ describe('patchProfile with existing JSON content', () => {
 
   it('should error when patching with object content', async () => {
     await createJsonContent();
-    const promise = patchContent(TEST_OBJECT_CONTENT, JSON_CONTENT_TYPE);
+    const promise = patchExistingContent(TEST_OBJECT_CONTENT, JSON_CONTENT_TYPE);
     await assertError(NonJsonObject, promise);
   });
 });

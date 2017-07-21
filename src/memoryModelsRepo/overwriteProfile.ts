@@ -1,6 +1,8 @@
+import Conflict from '../errors/Conflict';
 import OverwriteProfileOptions from '../repoFactory/options/OverwriteProfileOptions';
 import OverwriteProfileResult from '../repoFactory/results/OverwriteProfileResult';
 import Config from './Config';
+import checkEtag from './utils/checkEtag';
 import createProfile from './utils/createProfile';
 import matchUniqueProfile from './utils/matchUniqueProfile';
 
@@ -8,14 +10,18 @@ export default (config: Config) => {
   return async (opts: OverwriteProfileOptions): Promise<OverwriteProfileResult> => {
     // Overwrites the content if the profile does already exist.
     let existingId: string|undefined;
-    const personaIdentifier = opts.personaIdentifier;
-    const profileId = opts.profileId;
-    const client = opts.client;
+    const { personaIdentifier, profileId, client, ifMatch, ifNoneMatch } = opts;
     config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
       const isMatch = matchUniqueProfile({ client, personaIdentifier, profile, profileId });
 
       if (!isMatch) {
         return profile;
+      }
+
+      checkEtag({ profile, ifMatch, ifNoneMatch });
+
+      if (ifMatch === undefined && ifNoneMatch === undefined) {
+        throw new Conflict();
       }
 
       existingId = profile.id;
@@ -25,6 +31,7 @@ export default (config: Config) => {
         // Overwrites the content and contentType.
         content: opts.content,
         contentType: opts.contentType,
+        etag: opts.etag,
 
         // Updates updatedAt time.
         updatedAt: new Date(),

@@ -10,11 +10,11 @@ export default (config: Config) => {
 
     const agent = opts.agent;
     const personaIdentifier = await getIdentifierByIfi({ agent, client, config });
-    const profileId = opts.profileId;
     const deleteResult = await config.repo.deleteProfile({
       client,
+      ifMatch: opts.ifMatch,
       personaIdentifier,
-      profileId,
+      profileId: opts.profileId,
     });
 
     if (deleteResult.contentType !== 'application/json') {
