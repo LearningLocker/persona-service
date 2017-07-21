@@ -1,4 +1,5 @@
 import commonTranslator from 'jscommons/dist/translatorFactory/en';
+import stringPath from 'jscommons/dist/translatorFactory/utils/stringPath';
 import Translator from './Translator';
 
 const translator: Translator = {
@@ -11,6 +12,16 @@ const translator: Translator = {
   ifNoneMatchError: () => (
     'IfNoneMatch was used to detect that the resource was already present'
   ),
+  ifiCountWarning: (warning) => {
+    const path = stringPath(warning.path);
+    const usedIfis = `'${warning.usedIfis.join("', '")}'`;
+    const count = warning.usedIfis.length;
+    return `Only expected 1 IFI in ${path} not ${count} (${usedIfis})`;
+  },
+  noIfiWarning: (warning) => {
+    const path = stringPath(warning.path);
+    return `Expected 1 IFI in ${path} not 0`;
+  },
   nonJsonObjectError: () => (
     'Expected a JSON object to be provided and stored (if it exists)'
   ),

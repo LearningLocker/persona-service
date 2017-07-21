@@ -3,11 +3,13 @@ import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
+import { Warnings } from 'rulr';
 import Conflict from '../../errors/Conflict';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
+import sendWarnings from './sendWarnings';
 
 interface Options extends CommonOptions {
   translator: Translator;
@@ -37,6 +39,10 @@ export default ({ translator, errorId, res, err }: Options): Response => {
       const code = 400;
       const message = translator.nonJsonObjectError(err as NonJsonObject);
       return sendMessage({ res, code, errorId, message });
+    } case Warnings: {
+      const code = 400;
+      const warnings = (err as Warnings).warnings;
+      return sendWarnings({ res, code, errorId, warnings, translator });
     } default: {
       return commonErrorHandler({ translator, errorId, res, err });
     }
