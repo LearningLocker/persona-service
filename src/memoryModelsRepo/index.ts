@@ -5,6 +5,8 @@ import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import deleteProfile from './deleteProfile';
 import getIdentifierByIfi from './getIdentifierByIfi';
+import getIfisByPersona from './getIfisByPersona';
+import getPersona from './getPersona';
 import getProfile from './getProfile';
 import getProfiles from './getProfiles';
 import overwriteProfile from './overwriteProfile';
@@ -17,6 +19,8 @@ export default (config: Config): ModelsRepo => {
     createPersona: createPersona(config),
     deleteProfile: deleteProfile(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
+    getIfisByPersona: getIfisByPersona(config),
+    getPersona: getPersona(config),
     getProfile: getProfile(config),
     getProfiles: getProfiles(config),
     overwriteProfile: overwriteProfile(config),

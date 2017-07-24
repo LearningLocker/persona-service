@@ -18,6 +18,7 @@ export default (config: Config) => {
     }
 
     const identifierId = matchingIdentifiers[0].id;
-    return { identifierId };
+    const personaId = matchingIdentifiers[0].persona;
+    return { identifierId, personaId };
   };
 };

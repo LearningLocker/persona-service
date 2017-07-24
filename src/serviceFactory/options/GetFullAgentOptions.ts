@@ -1,8 +1,8 @@
 import ClientModel from '../../models/ClientModel';
 
 interface Options {
+  readonly agent: any;
   readonly client: ClientModel;
-  readonly name?: string;
 }
 
 export default Options;

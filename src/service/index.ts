@@ -2,6 +2,7 @@ import commonService from 'jscommons/dist/service';
 import Service from '../serviceFactory/Service';
 import Config from './Config';
 import deleteProfile from './deleteProfile';
+import getFullAgent from './getFullAgent';
 import getProfile from './getProfile';
 import getProfiles from './getProfiles';
 import overwriteProfile from './overwriteProfile';
@@ -11,6 +12,7 @@ export default (config: Config): Service => {
   return {
     // Profile functions for the xAPI.
     deleteProfile: deleteProfile(config),
+    getFullAgent: getFullAgent(config),
     getProfile: getProfile(config),
     getProfiles: getProfiles(config),
     overwriteProfile: overwriteProfile(config),

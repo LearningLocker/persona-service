@@ -22,8 +22,7 @@ export default (config: Config) => {
 
     // Creates a Persona if the Identifier doesn't have one.
     if (isCreatedIdentifier) {
-      const name = ifi.key === 'account' ? ifi.value.name : ifi.value;
-      const persona = (await config.repo.createPersona({ client, name })).persona.id;
+      const persona = (await config.repo.createPersona({ client })).persona.id;
       await config.repo.setIdentifierPersona({ id: identifierId, persona });
     }
 

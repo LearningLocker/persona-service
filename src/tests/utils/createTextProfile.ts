@@ -8,9 +8,9 @@ import {
   TEXT_CONTENT_TYPE,
 } from './values';
 
-export default async () => {
+export default async (agent: any = TEST_MBOX_AGENT) => {
   await service.overwriteProfile({
-    agent: TEST_MBOX_AGENT,
+    agent,
     client: TEST_CLIENT,
     content: stringToStream(TEST_CONTENT),
     contentType: TEXT_CONTENT_TYPE,
