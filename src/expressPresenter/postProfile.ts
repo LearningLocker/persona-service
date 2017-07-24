@@ -15,6 +15,8 @@ export default (config: Config) => {
 
     const opts = await getProfileWriteOpts(config, req);
     await config.service.patchProfile(opts);
-    res.status(204).send();
+    res.status(204);
+    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.send();
   });
 };

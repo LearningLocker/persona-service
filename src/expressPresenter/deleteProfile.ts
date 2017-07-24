@@ -14,6 +14,8 @@ export default (config: Config) => {
     const agent = getAgent(req.query.agent);
 
     await config.service.deleteProfile({ agent, client, profileId, ifMatch });
-    res.status(204).send();
+    res.status(204);
+    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.send();
   });
 };

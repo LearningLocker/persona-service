@@ -10,6 +10,8 @@ export default (config: Config) => {
     const client = await getClient(config, req.header('Authorization'));
     const agent = getAgent(req.query.agent);
     const result = await config.service.getFullAgent({ client, agent });
-    res.status(200).json(result);
+    res.status(200);
+    res.setHeader('X-Experience-API-Version', '1.0.0');
+    res.json(result);
   });
 };
