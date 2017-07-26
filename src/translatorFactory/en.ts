@@ -21,6 +21,9 @@ const translator: Translator = {
   invalidMethodError: (err) => (
     `Method (${err.method}) is invalid for alternate request syntax`
   ),
+  maxEtagsError: () => (
+    'IfMatch and IfNoneMatch cannot be used at the same time'
+  ),
   noIfiWarning: (warning) => {
     const path = stringPath(warning.path);
     return `Expected 1 IFI in ${path} not 0`;

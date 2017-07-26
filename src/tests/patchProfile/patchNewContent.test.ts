@@ -18,7 +18,7 @@ import {
 } from '../utils/values';
 import patchContent from './utils/patchContent';
 
-describe('patchProfile with non-existing model', () => {
+describe('patchProfile with new content', () => {
   const service = setup();
 
   it('should error when patching with text content', async () => {

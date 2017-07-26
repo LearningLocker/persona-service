@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
+import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
@@ -8,6 +8,7 @@ import Conflict from '../../errors/Conflict';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
 import InvalidMethod from '../../errors/InvalidMethod';
+import MaxEtags from '../../errors/MaxEtags';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
 import sendWarnings from './sendWarnings';
@@ -24,7 +25,11 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case Conflict: {
+    case MaxEtags: {
+      const code = 400;
+      const message = translator.maxEtagsError(err as MaxEtags);
+      return sendMessage({ res, code, errorId, message });
+    } case Conflict: {
       const code = 409;
       const message = translator.conflictError(err as Conflict);
       return sendMessage({ res, code, errorId, message });

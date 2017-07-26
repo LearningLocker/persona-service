@@ -2,6 +2,7 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import * as stringToStream from 'string-to-stream';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
+import MaxEtags from '../../errors/MaxEtags';
 import setup from '../utils/setup';
 import {
   JSON_CONTENT_TYPE,
@@ -66,5 +67,11 @@ describe('patchProfile with etags', () => {
   it('should allow patch when not using an ifMatch or ifNoneMatch', async () => {
     await createProfile();
     await patchProfileWithEtag({});
+  });
+
+  it('should throw max etag error when using ifMatch and ifNoneMatch', async () => {
+    await createProfile();
+    const promise = patchProfileWithEtag({ ifMatch: 'incorrect_etag', ifNoneMatch: '*' });
+    await assertError(MaxEtags, promise);
   });
 });

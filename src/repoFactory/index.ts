@@ -1,9 +1,11 @@
+import { MongoClient } from 'mongodb';
 import config from '../config';
 import localStorageRepo from '../localStorageRepo';
 import memoryModelsRepo from '../memoryModelsRepo';
 import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
 import Profile from '../models/Profile';
+import mongoModelsRepo from '../mongoModelsRepo';
 import ModelsRepo from './ModelsRepo';
 import Repo from './Repo';
 import StorageRepo from './StorageRepo';
@@ -11,6 +13,10 @@ import StorageRepo from './StorageRepo';
 /* istanbul ignore next */
 const getModelsRepo = (): ModelsRepo => {
   switch (config.repoFactory.modelsRepoName) {
+    case 'mongo':
+      return mongoModelsRepo({
+        db: MongoClient.connect(config.mongoModelsRepo.url),
+      });
     default: case 'memory':
       return memoryModelsRepo({
         state: {

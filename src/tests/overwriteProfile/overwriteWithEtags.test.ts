@@ -3,6 +3,7 @@ import * as stringToStream from 'string-to-stream';
 import Conflict from '../../errors/Conflict';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
+import MaxEtags from '../../errors/MaxEtags';
 import createTextProfile from '../utils/createTextProfile';
 import setup from '../utils/setup';
 import {
@@ -59,5 +60,11 @@ describe('overwriteProfile with etags', () => {
     await createTextProfile();
     const promise = overwriteProfileWithEtag({});
     await assertError(Conflict, promise);
+  });
+
+  it('should throw max etag error when using ifMatch and ifNoneMatch', async () => {
+    await createTextProfile();
+    const promise = overwriteProfileWithEtag({ ifMatch: 'incorrect_etag', ifNoneMatch: '*' });
+    await assertError(MaxEtags, promise);
   });
 });

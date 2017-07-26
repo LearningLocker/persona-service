@@ -3,6 +3,7 @@ import OverwriteProfileOptions from '../repoFactory/options/OverwriteProfileOpti
 import OverwriteProfileResult from '../repoFactory/results/OverwriteProfileResult';
 import Config from './Config';
 import checkEtag from './utils/checkEtag';
+import checkMaxEtags from './utils/checkMaxEtags';
 import createProfile from './utils/createProfile';
 import matchUniqueProfile from './utils/matchUniqueProfile';
 
@@ -11,6 +12,7 @@ export default (config: Config) => {
     // Overwrites the content if the profile does already exist.
     let existingId: string|undefined;
     const { personaIdentifier, profileId, client, ifMatch, ifNoneMatch } = opts;
+    checkMaxEtags(ifMatch, ifNoneMatch);
     config.state.agentProfiles = config.state.agentProfiles.map((profile) => {
       const isMatch = matchUniqueProfile({ client, personaIdentifier, profile, profileId });
 
