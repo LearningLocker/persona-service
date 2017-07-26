@@ -9,9 +9,3 @@
 1. Build the code `npm run build`.
 1. Run migrations `npm run migrate`.
 1. Start the server `npm start`.
-
-### Notes
-- Need to implement validation for Agent Profiles.
-
-https://stackoverflow.com/questions/16358857/mongodb-atomic-findorcreate-findone-insert-if-nonexistent-but-do-not-update
-https://docs.mongodb.com/manual/reference/operator/query/type/#op._S_type
