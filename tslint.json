@@ -5,6 +5,10 @@
   ],
   "rules": {
     "readonly-keyword": true,
+    "no-this": true,
+    "no-class": true,
+    "no-mixed-interface": true,
+    "no-expression-statement": false,
     "match-default-export-name": false
   }
 }
