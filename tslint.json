@@ -5,6 +5,8 @@
   ],
   "rules": {
     "readonly-keyword": true,
+    "readonly-array": false, // We'd like this in future.
+    "no-let": true,
     "no-this": true,
     "no-class": true,
     "no-mixed-interface": true,

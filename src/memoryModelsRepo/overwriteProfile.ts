@@ -1,3 +1,4 @@
+/* tslint:disable:no-let */
 import Conflict from '../errors/Conflict';
 import OverwriteProfileOptions from '../repoFactory/options/OverwriteProfileOptions';
 import OverwriteProfileResult from '../repoFactory/results/OverwriteProfileResult';

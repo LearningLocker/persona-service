@@ -1,3 +1,4 @@
+/* tslint:disable:no-let */
 import NoModel from 'jscommons/dist/errors/NoModel';
 import IfMatch from '../errors/IfMatch';
 import DeleteProfileOptions from '../repoFactory/options/DeleteProfileOptions';

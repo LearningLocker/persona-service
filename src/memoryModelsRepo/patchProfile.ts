@@ -1,3 +1,4 @@
+/* tslint:disable:no-let */
 import { isPlainObject } from 'lodash';
 import NonJsonObject from '../errors/NonJsonObject';
 import PatchProfileOptions from '../repoFactory/options/PatchProfileOptions';

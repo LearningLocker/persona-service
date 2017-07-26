@@ -1,3 +1,4 @@
+/* tslint:disable:no-let */
 import NoModel from 'jscommons/dist/errors/NoModel';
 import SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
 import Config from './Config';
