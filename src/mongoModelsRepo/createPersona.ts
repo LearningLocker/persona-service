@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import Persona from '../models/Persona';
 import CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
 import CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
@@ -9,7 +10,7 @@ export default (config: Config) => {
 
     const docToInsert = {
       name: opts.name,
-      organisation: opts.client.organisation,
+      organisation: new ObjectID(opts.client.organisation),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertOne

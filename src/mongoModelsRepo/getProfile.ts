@@ -1,5 +1,6 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { defaultTo } from 'lodash';
+import { ObjectID } from 'mongodb';
 import GetProfileOptions from '../repoFactory/options/GetProfileOptions';
 import GetProfileResult from '../repoFactory/results/GetProfileResult';
 import Config from './Config';
@@ -9,9 +10,9 @@ export default (config: Config) => {
     const collection = (await config.db).collection('agentProfiles');
 
     const filter = {
-      lrs: opts.client.lrs_id,
-      organisation: opts.client.organisation,
-      personaIdentifier: opts.personaIdentifier,
+      lrs: new ObjectID(opts.client.lrs_id),
+      organisation: new ObjectID(opts.client.organisation),
+      personaIdentifier: new ObjectID(opts.personaIdentifier),
       profileId: opts.profileId,
     };
 

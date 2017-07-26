@@ -1,3 +1,4 @@
+import { ObjectID } from 'mongodb';
 import Identifier from '../models/Identifier';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
@@ -11,7 +12,7 @@ export default (config: Config) => {
     // Filters on the IFI and organisation.
     const ifiFilter = getIdentifierIfiFilter(opts.ifi);
     const filter = {
-      organisation: opts.client.organisation,
+      organisation: new ObjectID(opts.client.organisation),
       ...ifiFilter,
     };
 
@@ -20,7 +21,7 @@ export default (config: Config) => {
     const update = {
       $setOnInsert: {
         ifi: opts.ifi,
-        organisation: opts.client.organisation,
+        organisation: new ObjectID(opts.client.organisation),
       },
     };
 
@@ -37,7 +38,7 @@ export default (config: Config) => {
     const identifier: Identifier = {
       id: document._id.toString(),
       ifi: document.ifi,
-      organisation: document.organisation,
+      organisation: document.organisation.toString(),
     };
 
     // Determines if the identifier was created or found.

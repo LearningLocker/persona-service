@@ -1,4 +1,5 @@
 /* tslint:disable:deprecation - find isn't really deprecated */
+import { ObjectID } from 'mongodb';
 import GetProfilesOptions from '../repoFactory/options/GetProfilesOptions';
 import GetProfilesResult from '../repoFactory/results/GetProfilesResult';
 import Config from './Config';
@@ -13,9 +14,9 @@ export default (config: Config) => {
       : {}
     );
     const filter = {
-      lrs: opts.client.lrs_id,
-      organisation: opts.client.organisation,
-      personaIdentifier: opts.personaIdentifier,
+      lrs: new ObjectID(opts.client.lrs_id),
+      organisation: new ObjectID(opts.client.organisation),
+      personaIdentifier: new ObjectID(opts.personaIdentifier),
       ...sinceFilter,
     };
 

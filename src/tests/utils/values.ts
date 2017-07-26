@@ -3,14 +3,14 @@ import ClientModel from '../../models/ClientModel';
 import { ALL } from '../../utils/scopes';
 
 export const TEST_CLIENT: ClientModel = {
-  _id: 'dummy_id',
+  _id: '58fe13e34effd3c26a7fc4b8',
   authority: {
     mbox: 'mailto:test_authority@example.org',
     objectType: 'Agent',
   },
   isTrusted: true,
-  lrs_id: 'dummy_lrs_id',
-  organisation: 'dummy_organisation',
+  lrs_id: '58fe13e34effd3c26a7fc4b7',
+  organisation: '58fe13e34effd3c26a7fc4b6',
   scopes: [ALL],
   title: 'dummy_title',
 };
@@ -49,10 +49,10 @@ export const TEST_INVALID_AGENT = {
 
 export const TEST_CLIENT_OUTSIDE_STORE = {
   ...TEST_CLIENT,
-  lrs_id: 'incorrect_lrs_id',
+  lrs_id: '58fe13e34effd3c26a7fc4c7',
 };
 
 export const TEST_CLIENT_OUTSIDE_ORG = {
   ...TEST_CLIENT,
-  organisation: 'incorrect_organisation',
+  organisation: '58fe13e34effd3c26a7fc4c6',
 };

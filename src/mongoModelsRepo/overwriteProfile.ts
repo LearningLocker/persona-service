@@ -1,5 +1,6 @@
 /* tslint:disable:max-file-line-count */
 import { isPlainObject } from 'lodash';
+import { ObjectID } from 'mongodb';
 import Conflict from '../errors/Conflict';
 import IfMatch from '../errors/IfMatch';
 import IfNoneMatch from '../errors/IfNoneMatch';
@@ -23,9 +24,9 @@ export default (config: Config) => {
     }
 
     const profileFilter = {
-      lrs: opts.client.lrs_id,
-      organisation: opts.client.organisation,
-      personaIdentifier: opts.personaIdentifier,
+      lrs: new ObjectID(opts.client.lrs_id),
+      organisation: new ObjectID(opts.client.organisation),
+      personaIdentifier: new ObjectID(opts.personaIdentifier),
       profileId: opts.profileId,
     };
 

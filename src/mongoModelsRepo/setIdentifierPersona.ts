@@ -13,7 +13,7 @@ export default (config: Config) => {
 
     const update = {
       $set: {
-        persona: opts.persona,
+        persona: new ObjectID(opts.persona),
       },
     };
 

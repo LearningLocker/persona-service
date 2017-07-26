@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { ObjectID } from 'mongodb';
 import IfMatch from '../errors/IfMatch';
 import DeleteProfileOptions from '../repoFactory/options/DeleteProfileOptions';
 import DeleteProfileResult from '../repoFactory/results/DeleteProfileResult';
@@ -16,9 +17,9 @@ export default (config: Config) => {
     );
 
     const profileFilter = {
-      lrs: opts.client.lrs_id,
-      organisation: opts.client.organisation,
-      personaIdentifier: opts.personaIdentifier,
+      lrs: new ObjectID(opts.client.lrs_id),
+      organisation: new ObjectID(opts.client.organisation),
+      personaIdentifier: new ObjectID(opts.personaIdentifier),
       profileId: opts.profileId,
     };
 

@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { ObjectID } from 'mongodb';
 import GetIdentifierByIfiOptions from '../repoFactory/options/GetIdentifierByIfiOptions';
 import GetIdentifierByIfiResult from '../repoFactory/results/GetIdentifierByIfiResult';
 import Config from './Config';
@@ -11,7 +12,7 @@ export default (config: Config) => {
     // Filters on the IFI and organisation.
     const ifiFilter = getIdentifierIfiFilter(opts.ifi);
     const filter = {
-      organisation: opts.client.organisation,
+      organisation: new ObjectID(opts.client.organisation),
       ...ifiFilter,
     };
 
@@ -23,7 +24,7 @@ export default (config: Config) => {
     }
 
     const identifierId = document._id.toString();
-    const personaId = document.persona;
+    const personaId = document.persona.toString();
     return { identifierId, personaId };
   };
 };
