@@ -4,9 +4,9 @@ import getIfiFromAgent from './getIfiFromAgent';
 import validateAgent from './validateAgent';
 
 interface Options {
-  config: Config;
-  client: ClientModel;
-  agent: any;
+  readonly config: Config;
+  readonly client: ClientModel;
+  readonly agent: any;
 }
 
 export default async ({ config, client, agent }: Options) => {

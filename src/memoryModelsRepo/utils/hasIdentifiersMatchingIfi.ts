@@ -4,9 +4,9 @@ import Config from '../Config';
 import getIdentifiersMatchingIfi from './getIdentifiersMatchingIfi';
 
 interface Options {
-  client: ClientModel;
-  config: Config;
-  ifi: Ifi;
+  readonly client: ClientModel;
+  readonly config: Config;
+  readonly ifi: Ifi;
 }
 
 export default ({ config, client, ifi }: Options) => {

@@ -3,9 +3,9 @@ import IfNoneMatch from '../../errors/IfNoneMatch';
 import Profile from '../../models/Profile';
 
 interface Options {
-  profile: Profile;
-  ifMatch?: string;
-  ifNoneMatch?: string;
+  readonly profile: Profile;
+  readonly ifMatch?: string;
+  readonly ifNoneMatch?: string;
 }
 
 export default ({ profile, ifMatch, ifNoneMatch }: Options) => {

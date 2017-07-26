@@ -4,11 +4,11 @@ import ClientModel from '../../models/ClientModel';
 import Config from '../Config';
 
 interface Options {
-  agent: any;
-  client: ClientModel;
-  config: Config;
-  profileId: string;
-  res: Response;
+  readonly agent: any;
+  readonly client: ClientModel;
+  readonly config: Config;
+  readonly profileId: string;
+  readonly res: Response;
 }
 
 export default async ({ agent, client, config, profileId, res }: Options) => {

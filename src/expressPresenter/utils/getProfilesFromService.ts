@@ -4,10 +4,10 @@ import ClientModel from '../../models/ClientModel';
 import Config from '../Config';
 
 interface Options {
-  agent: any;
-  client: ClientModel;
-  config: Config;
-  res: Response;
+  readonly agent: any;
+  readonly client: ClientModel;
+  readonly config: Config;
+  readonly res: Response;
 }
 
 export default async ({ agent, client, config, res }: Options) => {

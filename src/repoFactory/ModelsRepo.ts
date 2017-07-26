@@ -21,17 +21,18 @@ import GetProfilesResult from './results/GetProfilesResult';
 import OverwriteProfileResult from './results/OverwriteProfileResult';
 
 interface Repo extends CommonRepo {
-  createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
-  createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
-  deleteProfile: (opts: DeleteProfileOptions) => Promise<DeleteProfileResult>;
-  getIdentifierByIfi: (opts: GetIdentifierByIfiOptions) => Promise<GetIdentifierByIfiResult>;
-  getIfisByPersona: (opts: GetIfisByPersonaOptions) => Promise<GetIfisByPersonaResult>;
-  getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
-  getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
-  getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
-  overwriteProfile: (opts: OverwriteProfileOptions) => Promise<OverwriteProfileResult>;
-  patchProfile: (opts: PatchProfileOptions) => Promise<void>;
-  setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
+  readonly createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
+  readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
+  readonly deleteProfile: (opts: DeleteProfileOptions) => Promise<DeleteProfileResult>;
+  readonly getIdentifierByIfi:
+    (opts: GetIdentifierByIfiOptions) => Promise<GetIdentifierByIfiResult>;
+  readonly getIfisByPersona: (opts: GetIfisByPersonaOptions) => Promise<GetIfisByPersonaResult>;
+  readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
+  readonly getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
+  readonly getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
+  readonly overwriteProfile: (opts: OverwriteProfileOptions) => Promise<OverwriteProfileResult>;
+  readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
+  readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
 }
 
 export default Repo;

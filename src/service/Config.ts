@@ -1,7 +1,7 @@
 import Repo from '../repoFactory/Repo';
 
 interface Config {
-  repo: Repo;
+  readonly repo: Repo;
 }
 
 export default Config;

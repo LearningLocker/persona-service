@@ -10,12 +10,12 @@ import GetProfileResult from './results/GetProfileResult';
 import GetProfilesResult from './results/GetProfilesResult';
 
 interface Service extends CommonService {
-  deleteProfile: (opts: DeleteProfileOptions) => Promise<void>;
-  getFullAgent: (opts: GetFullAgentOptions) => Promise<GetFullAgentResult>;
-  getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
-  getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
-  overwriteProfile: (opts: OverwriteProfileOptions) => Promise<void>;
-  patchProfile: (opts: PatchProfileOptions) => Promise<void>;
+  readonly deleteProfile: (opts: DeleteProfileOptions) => Promise<void>;
+  readonly getFullAgent: (opts: GetFullAgentOptions) => Promise<GetFullAgentResult>;
+  readonly getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
+  readonly getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
+  readonly overwriteProfile: (opts: OverwriteProfileOptions) => Promise<void>;
+  readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
 }
 
 export default Service;

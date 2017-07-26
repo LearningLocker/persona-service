@@ -10,10 +10,10 @@ import getProfileId from './getProfileId';
 import getProfilesFromService from './getProfilesFromService';
 
 interface Options {
-  config: Config;
-  method: string;
-  req: Request;
-  res: Response;
+  readonly config: Config;
+  readonly method: string;
+  readonly req: Request;
+  readonly res: Response;
 }
 
 export default async ({ config, method, req, res }: Options) => {

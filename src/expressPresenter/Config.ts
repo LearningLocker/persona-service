@@ -3,9 +3,9 @@ import Service from '../serviceFactory/Service';
 import Translator from '../translatorFactory/Translator';
 
 interface Config extends CommonExpressConfig {
-  llClientInfoEndpoint: string;
-  service: Service;
-  translator: Translator;
+  readonly llClientInfoEndpoint: string;
+  readonly service: Service;
+  readonly translator: Translator;
 }
 
 export default Config;

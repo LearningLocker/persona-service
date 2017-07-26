@@ -15,8 +15,8 @@ import {
 } from '../utils/values';
 
 interface EtagOptions {
-  ifMatch?: string;
-  ifNoneMatch?: string;
+  readonly ifMatch?: string;
+  readonly ifNoneMatch?: string;
 }
 
 describe('overwriteProfile with etags', () => {

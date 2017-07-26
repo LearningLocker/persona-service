@@ -4,12 +4,12 @@ import Profile from '../../models/Profile';
 import Config from '../Config';
 
 interface Options {
-  client: ClientModel;
-  content: any;
-  contentType: string;
-  etag: string;
-  personaIdentifier: string;
-  profileId: string;
+  readonly client: ClientModel;
+  readonly content: any;
+  readonly contentType: string;
+  readonly etag: string;
+  readonly personaIdentifier: string;
+  readonly profileId: string;
 }
 
 export default (config: Config, opts: Options): Profile => {

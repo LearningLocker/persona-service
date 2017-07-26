@@ -5,11 +5,11 @@ import Translator from '../../translatorFactory/Translator';
 import translateWarning from './translateWarning';
 
 export interface Opts {
-  res: Response;
-  code: number;
-  errorId: string;
-  warnings: Warning[];
-  translator: Translator;
+  readonly res: Response;
+  readonly code: number;
+  readonly errorId: string;
+  readonly warnings: Warning[];
+  readonly translator: Translator;
 }
 
 export default ({ res, code, errorId, warnings, translator }: Opts): Response => {

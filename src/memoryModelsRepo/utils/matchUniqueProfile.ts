@@ -3,10 +3,10 @@ import Profile from '../../models/Profile';
 import matchProfileIdentifier from './matchProfileIdentifier';
 
 interface Options {
-  client: ClientModel;
-  personaIdentifier: string;
-  profile: Profile;
-  profileId: string;
+  readonly client: ClientModel;
+  readonly personaIdentifier: string;
+  readonly profile: Profile;
+  readonly profileId: string;
 }
 
 export default ({ client, personaIdentifier, profile, profileId }: Options) => {

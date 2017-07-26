@@ -68,6 +68,7 @@
     "nyc": "^11.0.0",
     "travis-cov": "^0.2.5",
     "tslint": "^5.5.0",
+    "tslint-immutable": "^4.0.2",
     "typescript": "^2.0.0"
   }
 }

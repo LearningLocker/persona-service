@@ -2,9 +2,9 @@ import ClientModel from '../../models/ClientModel';
 import Profile from '../../models/Profile';
 
 interface Options {
-  client: ClientModel;
-  personaIdentifier: string;
-  profile: Profile;
+  readonly client: ClientModel;
+  readonly personaIdentifier: string;
+  readonly profile: Profile;
 }
 
 export default ({ client, personaIdentifier, profile }: Options) => {

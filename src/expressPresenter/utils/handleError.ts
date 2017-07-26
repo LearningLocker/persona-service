@@ -14,7 +14,7 @@ import Translator from '../../translatorFactory/Translator';
 import sendWarnings from './sendWarnings';
 
 interface Options extends CommonOptions {
-  translator: Translator;
+  readonly translator: Translator;
 }
 
 export default ({ translator, errorId, res, err }: Options): Response => {

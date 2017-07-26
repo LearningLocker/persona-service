@@ -3,9 +3,9 @@ import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
 
 interface Options {
-  client: ClientModel;
-  identifier: Identifier;
-  ifi: Ifi;
+  readonly client: ClientModel;
+  readonly identifier: Identifier;
+  readonly ifi: Ifi;
 }
 
 export default ({ client, identifier, ifi }: Options) => {
