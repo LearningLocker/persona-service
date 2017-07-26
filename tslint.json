@@ -11,6 +11,6 @@
     "no-class": true,
     "no-mixed-interface": true,
     "no-expression-statement": false,
-    "match-default-export-name": false
+    "match-default-export-name": false // We'd like this in future.
   }
 }
