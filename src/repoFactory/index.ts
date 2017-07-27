@@ -17,7 +17,10 @@ const getModelsRepo = (): ModelsRepo => {
   switch (config.repoFactory.modelsRepoName) {
     case 'mongo':
       return mongoModelsRepo({
-        db: MongoClient.connect(config.mongoModelsRepo.url),
+        db: MongoClient.connect(
+          config.mongoModelsRepo.url,
+          config.mongoModelsRepo.options,
+        ),
       });
     default: case 'memory':
       return memoryModelsRepo({
