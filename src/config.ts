@@ -41,7 +41,7 @@ export default {
   mongoModelsRepo: {
     options: {
       acceptableLatencyMS: getMongoNumberOption(process.env.MONGO_ACCEPTABLE_LATENCY_MS),
-      appname: defaultTo<string>(process.env.MONGO_APP_NAME, 'xapiagents'),
+      appname: process.env.MONGO_APP_NAME, // Not supported below Mongo 3.4.
       bufferMaxEntries: getMongoNumberOption(process.env.MONGO_BUFFER_MAX_ENTRIES),
       connectTimeoutMS: getMongoNumberOption(process.env.MONGO_CONNECT_TIMEOUT_MS),
       maxStalenessSeconds: getMongoNumberOption(process.env.MONGO_MAX_STALENESS_SECONDS),
