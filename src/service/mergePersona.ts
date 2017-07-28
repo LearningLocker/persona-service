@@ -16,8 +16,8 @@ export default (config: Config) => async ({
   }
   try {
     await Promise.all([
-      config.repo.getPersona({personaId: fromPersonaId, client}),
-      config.repo.getPersona({personaId: toPersonaId, client}),
+      config.repo.getPersona({ personaId: fromPersonaId, client }),
+      config.repo.getPersona({ personaId: toPersonaId, client }),
     ]);
   } catch (err) {
     if (err instanceof NoModelWithId) {
@@ -28,6 +28,7 @@ export default (config: Config) => async ({
         throw new MissingMergeToPersona(err.modelName, err.id);
       }
     }
+    /* istanbul ignore next */
     throw err;
   }
 
