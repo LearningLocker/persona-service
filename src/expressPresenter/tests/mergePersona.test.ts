@@ -3,7 +3,7 @@ import * as supertest from 'supertest';
 import config from '../../config';
 import logger from '../../logger';
 import serviceFactory from '../../serviceFactory';
-import createTestPersona from '../../tests/utils/createTestPersona';
+import { TEST_CLIENT } from '../../tests/utils/values';
 import translatorFactory from '../../translatorFactory';
 import expressPresenterFacade from '../index';
 import { OK_200_HTTP_CODE } from '../utils/httpCodes';
@@ -25,8 +25,14 @@ app.use(expressPresenter);
 
 describe('/mergePersona', () => {
   it('should merge when using different existing personas', async () => {
-    const fromPersona = await createTestPersona();
-    const toPersona = await createTestPersona();
+    const { persona: fromPersona } = await service.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave1',
+    });
+    const { persona: toPersona } = await service.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave2',
+    });
     await supertest(app)
       .post('/mergePersona')
       .set('Content-Type', 'application/json')
