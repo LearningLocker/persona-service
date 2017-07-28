@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import { S3 } from 'aws-sdk';
 import { MongoClient } from 'mongodb';
 import config from '../config';
@@ -8,10 +9,10 @@ import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
 import Profile from '../models/Profile';
 import mongoModelsRepo from '../mongoModelsRepo';
+import s3StorageRepo from '../s3StorageRepo';
 import testAuthRepo from '../testAuthRepo';
 import { ALL } from '../utils/scopes';
 import AuthRepo from './AuthRepo';
-import s3StorageRepo from '../s3StorageRepo';
 import ModelsRepo from './ModelsRepo';
 import Repo from './Repo';
 import StorageRepo from './StorageRepo';
