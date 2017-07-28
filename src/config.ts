@@ -46,7 +46,9 @@ export default {
       connectTimeoutMS: getMongoNumberOption(process.env.MONGO_CONNECT_TIMEOUT_MS),
       maxStalenessSeconds: getMongoNumberOption(process.env.MONGO_MAX_STALENESS_SECONDS),
       poolSize: getMongoNumberOption(process.env.MONGO_POOL_SIZE),
-      readConcern: defaultTo<string>(process.env.MONGO_READ_CONCERN, 'local'),
+      readConcern: {
+        level: defaultTo<string>(process.env.MONGO_READ_CONCERN, 'local'),
+      },
       readPreference: getMongoReadPreference(process.env.MONGO_READ_PREFERENCE),
       secondaryAcceptableLatencyMS: getMongoNumberOption(
         process.env.MONGO_SECONDARY_ACCEPTABLE_LATENCY_MS,
