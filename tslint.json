@@ -1,16 +1,8 @@
 {
   "extends": [
-    "./node_modules/jscommons/tslint.json",
-    "tslint-immutable"
+    "./node_modules/jscommons/tslint.json"
   ],
   "rules": {
-    "readonly-keyword": true,
-    "readonly-array": false, // We'd like this in future.
-    "no-let": true,
-    "no-this": true,
-    "no-class": true,
-    "no-mixed-interface": true,
-    "no-expression-statement": false,
-    "match-default-export-name": false // We'd like this in future.
+    "match-default-export-name": false
   }
 }

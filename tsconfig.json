@@ -1,25 +1,14 @@
 {
+  "extends": "./node_modules/jscommons/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
     "target": "es5",
     "rootDir": "src",
     "outDir": "dist",
     "lib": ["es2015", "es2016", "dom"],
     "typeRoots": ["./@types", "./node_modules/@types"],
     "sourceMap": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "declaration": false,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "alwaysStrict": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true
+    "declaration": false
   },
   "includes": ["src/**/*"],
-  "exclude": ["node_modules", "dist/**/*"],
-  "compileOnSave": false
+  "exclude": ["node_modules", "dist/**/*"]
 }

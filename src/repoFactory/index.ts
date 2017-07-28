@@ -1,3 +1,4 @@
+import { S3 } from 'aws-sdk';
 import { MongoClient } from 'mongodb';
 import config from '../config';
 import fetchAuthRepo from '../fetchAuthRepo';
@@ -10,6 +11,7 @@ import mongoModelsRepo from '../mongoModelsRepo';
 import testAuthRepo from '../testAuthRepo';
 import { ALL } from '../utils/scopes';
 import AuthRepo from './AuthRepo';
+import s3StorageRepo from '../s3StorageRepo';
 import ModelsRepo from './ModelsRepo';
 import Repo from './Repo';
 import StorageRepo from './StorageRepo';
@@ -44,7 +46,10 @@ const getModelsRepo = (): ModelsRepo => {
   switch (config.repoFactory.modelsRepoName) {
     case 'mongo':
       return mongoModelsRepo({
-        db: MongoClient.connect(config.mongoModelsRepo.url),
+        db: MongoClient.connect(
+          config.mongoModelsRepo.url,
+          config.mongoModelsRepo.options,
+        ),
       });
     default: case 'memory':
       return memoryModelsRepo({
@@ -60,6 +65,12 @@ const getModelsRepo = (): ModelsRepo => {
 /* istanbul ignore next */
 const getStorageRepo = (): StorageRepo => {
   switch (config.repoFactory.storageRepoName) {
+    case 's3':
+      return s3StorageRepo({
+        bucketName: config.s3StorageRepo.bucketName,
+        client: new S3(config.s3StorageRepo.awsConfig),
+        subFolder: config.s3StorageRepo.subFolder,
+      });
     default:
     case 'local':
       return localStorageRepo(config.localStorageRepo);
