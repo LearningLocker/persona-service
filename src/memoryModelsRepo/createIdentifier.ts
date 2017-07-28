@@ -20,6 +20,7 @@ export default (config: Config) => {
         id: uuid(),
         ifi: opts.ifi,
         organisation: opts.client.organisation,
+        persona: opts.persona,
       };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,

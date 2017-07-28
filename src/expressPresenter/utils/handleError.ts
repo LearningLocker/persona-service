@@ -1,10 +1,11 @@
 import { Response } from 'express';
-import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
+import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
 import Conflict from '../../errors/Conflict';
+import DuplicateMergeId from '../../errors/DuplicateMergeId';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
 import InvalidMethod from '../../errors/InvalidMethod';
@@ -25,7 +26,11 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case MaxEtags: {
+    case DuplicateMergeId: {
+      const code = 400;
+      const message = translator.duplicateMergeIdError(err as DuplicateMergeId);
+      return sendMessage({ res, code, errorId, message });
+    } case MaxEtags: {
       const code = 400;
       const message = translator.maxEtagsError(err as MaxEtags);
       return sendMessage({ res, code, errorId, message });

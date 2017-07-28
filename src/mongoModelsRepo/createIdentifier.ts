@@ -22,6 +22,11 @@ export default (config: Config) => {
       $setOnInsert: {
         ifi: opts.ifi,
         organisation: new ObjectID(opts.client.organisation),
+        ...(
+          opts.persona !== undefined
+          ? { persona: new ObjectID(opts.persona) }
+          : {}
+        ),
       },
     };
 
@@ -39,6 +44,7 @@ export default (config: Config) => {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
+      persona: opts.persona,
     };
 
     // Determines if the identifier was created or found.

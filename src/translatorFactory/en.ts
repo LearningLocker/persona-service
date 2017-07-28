@@ -6,6 +6,7 @@ const translator: Translator = {
   conflictError: () => (
     'Get the profile to retrieve the Etag, then set the If-Match header to the Etag'
   ),
+  duplicateMergeIdError: (err) => (`Can not merge with dupliate id (${err.id})`),
   ifMatchError: () => (
     'IfMatch does not match Etag because a modification has been made since it was retrieved'
   ),

@@ -5,7 +5,7 @@
     "target": "es5",
     "rootDir": "src",
     "outDir": "dist",
-    "lib": ["ES2015", "ES2016"],
+    "lib": ["es2015", "es2016"],
     "typeRoots": ["./@types", "./node_modules/@types"],
     "sourceMap": true,
     "removeComments": false,

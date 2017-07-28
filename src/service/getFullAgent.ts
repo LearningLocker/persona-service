@@ -41,7 +41,7 @@ export default (config: Config) => {
       const getIfisResult = await config.repo.getIfisByPersona({ personaId });
 
       // Calculates the full agent from the IFIs.
-      const personaResult = await config.repo.getPersona({ personaId });
+      const personaResult = await config.repo.getPersona({ personaId, client });
       const initialResult: GetFullAgentResult = {
         account: [],
         mbox: [],

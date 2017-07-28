@@ -1,10 +1,8 @@
 import ClientModel from '../../models/ClientModel';
-import Ifi from '../../models/Ifi';
 
 interface Options {
   readonly client: ClientModel;
-  readonly ifi: Ifi;
-  readonly persona?: string;
+  readonly id: string;
 }
 
 export default Options;
