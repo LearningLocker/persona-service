@@ -8,9 +8,8 @@ export default (config: Config) => {
   return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult> => {
     const collection = (await config.db).collection('personaIdentifiers');
 
-    // Filters on the IFI and organisation.
     const filter = {
-      id: new ObjectID(opts.id),
+      _id: new ObjectID(opts.id),
       organisation: new ObjectID(opts.client.organisation),
     };
 
@@ -21,7 +20,12 @@ export default (config: Config) => {
       throw new NoModel('Identifier');
     }
 
-    const identifier = document;
+    const identifier = {
+      id: document._id.toString(),
+      ifi: document.ifi,
+      organisation: document.organisation.toString(),
+      persona: document.persona.toString(),
+    };
     return { identifier };
   };
 };

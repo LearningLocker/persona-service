@@ -17,8 +17,16 @@ export default (config: Config) => async ({
   ]);
 
   // Do the merge
+  const { identifierIds } = await config.repo.mergePersona({
+    fromPersonaId,
+    organisation: client.organisation,
+    toPersonaId,
+  });
 
-  await config.repo.deletePersona({ personaId: fromPersonaId });
+  await config.repo.deletePersona({
+    organisation: client.organisation,
+    personaId: fromPersonaId,
+  });
 
-  return {identifierIds: []};
+  return { identifierIds };
 };

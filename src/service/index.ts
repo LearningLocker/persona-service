@@ -3,6 +3,7 @@ import Service from '../serviceFactory/Service';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
+import deletePersona from './deletePersona';
 import deleteProfile from './deleteProfile';
 import getFullAgent from './getFullAgent';
 import getIdentifier from './getIdentifier';
@@ -17,6 +18,7 @@ export default (config: Config): Service => {
   return {
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
+    deletePersona: deletePersona(config),
     deleteProfile: deleteProfile(config),
     getFullAgent: getFullAgent(config),
     getIdentifier: getIdentifier(config),

@@ -6,7 +6,10 @@ export default (config: Config) => {
   return async (opts: DeletePersonaOptions): Promise<void> => {
     const storedPersonas = config.state.personas;
     const remainingPersonas = storedPersonas.filter((persona) => {
-      return persona.id !== opts.personaId;
+      return !(
+        persona.id === opts.personaId &&
+        persona.organisation === opts.organisation
+      );
     });
 
     if (storedPersonas.length === remainingPersonas.length) {

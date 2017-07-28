@@ -2,9 +2,9 @@ import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
 import MergePersonaResult from '../../serviceFactory/results/MergePersonaResult';
+import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import { TEST_CLIENT } from '../utils/values';
-import createTestPersona from './utils/createTestPersona';
 
 const MISSING_ID = '58fa13b34effd3c26a9fc4b8';
 

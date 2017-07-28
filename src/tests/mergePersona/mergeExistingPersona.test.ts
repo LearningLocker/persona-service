@@ -2,10 +2,9 @@ import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import DuplicateMergeId from '../../errors/DuplicateMergeId';
 import NoModelWithId from '../../errors/NoModelWithId';
-import Ifi from '../../models/Ifi';
+import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
-import { TEST_CLIENT } from '../utils/values';
-import createTestPersona from './utils/createTestPersona';
+import { TEST_CLIENT, TEST_IFI } from '../utils/values';
 
 describe('mergePersona with existing personas', () => {
   const service = setup();
@@ -37,18 +36,13 @@ describe('mergePersona with existing personas', () => {
     await assertError(DuplicateMergeId, promise);
   });
 
-  it('Should add the persona from the from persona', async () => {
+  it('Should add the persona from the merge source', async () => {
 
     const fromPersona = await createTestPersona();
 
-    const fromIfi: Ifi = {
-      key: 'mbox',
-      value: 'test@test.com',
-    };
-
     const {identifier: fromIdentifier} = await service.createIdentifier({
       client: TEST_CLIENT,
-      ifi: fromIfi,
+      ifi: TEST_IFI,
       persona: fromPersona.id,
     });
 
@@ -68,5 +62,26 @@ describe('mergePersona with existing personas', () => {
     assert.equal(resultIdentifier.persona, toPersona.id);
 
     assert.deepEqual(identifierIds, [resultIdentifier.id]);
+  });
+
+  it('Should keep identifiers that already exist on the merge target', async () => {
+    const sourcePersona = await createTestPersona();
+    const targetPersona = await createTestPersona();
+    const {identifier: existingIdentifier} = await service.createIdentifier({
+      client: TEST_CLIENT,
+      ifi: TEST_IFI,
+      persona: targetPersona.id,
+    });
+    const {identifierIds} = await service.mergePersona({
+      client: TEST_CLIENT,
+      fromPersonaId: sourcePersona.id,
+      toPersonaId: targetPersona.id,
+    });
+    const {identifier: resultIdentifier} = await service.getIdentifier({
+      client: TEST_CLIENT,
+      id: existingIdentifier.id,
+    });
+    assert.equal(resultIdentifier.persona, targetPersona.id);
+    assert.deepEqual(identifierIds, []);
   });
 });

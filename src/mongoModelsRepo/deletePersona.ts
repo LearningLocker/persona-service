@@ -8,11 +8,12 @@ export default (config: Config) => {
 
     const collection = (await config.db).collection('personas');
 
-    const result = await collection.remove({
+    const result = await collection.deleteOne({
       _id: new ObjectID(opts.personaId),
+      organisation: new ObjectID(opts.organisation),
     });
 
-    if (!result.result) {
+    if (result.deletedCount === 0) {
       throw new NoModel('Persona');
     }
   };

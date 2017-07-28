@@ -1,4 +1,5 @@
 import * as assert from 'assert';
+import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import { TEST_CLIENT } from '../utils/values';
 
@@ -7,8 +8,7 @@ describe('createPersona', () => {
   const service = setup();
 
   it('Should create persona', async () => {
-    const {persona} = await service.createPersona({name: 'Dave', client: TEST_CLIENT});
-
+    const persona = await createTestPersona();
     const {persona: actualPersona} = await service.getPersona({
       client: TEST_CLIENT,
       personaId: persona.id,

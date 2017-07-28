@@ -9,6 +9,7 @@ import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import GetProfileOptions from './options/GetProfileOptions';
 import GetProfilesOptions from './options/GetProfilesOptions';
+import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteProfileOptions from './options/OverwriteProfileOptions';
 import PatchProfileOptions from './options/PatchProfileOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
@@ -21,6 +22,7 @@ import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
 import GetPersonaResult from './results/GetPersonaResult';
 import GetProfileResult from './results/GetProfileResult';
 import GetProfilesResult from './results/GetProfilesResult';
+import MergePersonaResult from './results/MergePersonaResult';
 import OverwriteProfileResult from './results/OverwriteProfileResult';
 
 interface Repo extends CommonRepo {
@@ -38,6 +40,7 @@ interface Repo extends CommonRepo {
   readonly overwriteProfile: (opts: OverwriteProfileOptions) => Promise<OverwriteProfileResult>;
   readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
+  readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
 }
 
 export default Repo;
