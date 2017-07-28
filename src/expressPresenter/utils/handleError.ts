@@ -10,6 +10,9 @@ import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
 import InvalidMethod from '../../errors/InvalidMethod';
 import MaxEtags from '../../errors/MaxEtags';
+import MissingMergeFromPersona from '../../errors/MissingMergeFromPersona';
+import MissingMergeToPersona from '../../errors/MissingMergeToPersona';
+import NoModelWithId from '../../errors/NoModelWithId';
 import NonJsonObject from '../../errors/NonJsonObject';
 import Translator from '../../translatorFactory/Translator';
 import sendWarnings from './sendWarnings';
@@ -26,7 +29,19 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case DuplicateMergeId: {
+    case MissingMergeFromPersona: {
+      const code = 400;
+      const message = translator.missingMergeFromPersona(err as MissingMergeFromPersona);
+      return sendMessage({ res, code, errorId, message });
+    } case MissingMergeToPersona: {
+      const code = 400;
+      const message = translator.missingMergeToPersona(err as MissingMergeToPersona);
+      return sendMessage({ res, code, errorId, message });
+    } case NoModelWithId: {
+      const code = 404;
+      const message = translator.noModelWithIdError(err as NoModelWithId);
+      return sendMessage({ res, code, errorId, message });
+    } case DuplicateMergeId: {
       const code = 400;
       const message = translator.duplicateMergeIdError(err as DuplicateMergeId);
       return sendMessage({ res, code, errorId, message });

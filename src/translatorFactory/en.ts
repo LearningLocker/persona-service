@@ -25,10 +25,19 @@ const translator: Translator = {
   maxEtagsError: () => (
     'IfMatch and IfNoneMatch cannot be used at the same time'
   ),
+  missingMergeFromPersona: (err) => (
+    `Could not find the source persona (${err.id})`
+  ),
+  missingMergeToPersona: (err) => (
+    `Could not find the target persona (${err.id})`
+  ),
   noIfiWarning: (warning) => {
     const path = stringPath(warning.path);
     return `Expected 1 IFI in ${path} not 0`;
   },
+  noModelWithIdError: (err) => (
+    `Could not find the ${err.modelName} (${err.id})`
+  ),
   nonJsonObjectError: () => (
     'Expected a JSON object to be provided and stored (if it exists)'
   ),
