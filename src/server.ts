@@ -16,7 +16,6 @@ const presenterFacade = presenter({
   bodyParserLimit: config.express.bodyParserLimit,
   customRoute: config.express.customRoute,
   customRouteText: config.express.customRouteText,
-  llClientInfoEndpoint: config.llClientInfoEndpoint,
   logger,
   morganDirectory: config.express.morganDirectory,
   service: serviceFacade,

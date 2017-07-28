@@ -15,7 +15,6 @@ const expressPresenter = expressPresenterFacade({
   bodyParserLimit: config.express.bodyParserLimit,
   customRoute: config.express.customRoute,
   customRouteText: config.express.customRouteText,
-  llClientInfoEndpoint: config.llClientInfoEndpoint,
   logger,
   morganDirectory: config.express.morganDirectory,
   service,
@@ -32,7 +31,8 @@ describe('/mergePersona', () => {
       .post('/mergePersona')
       .set('Content-Type', 'application/json')
       .send({
-        stuff: 'stuff',
+        fromPersonaId: fromPersona.id,
+        toPersonaId: toPersona.id,
       })
       .expect(OK_200_HTTP_CODE, []);
   });

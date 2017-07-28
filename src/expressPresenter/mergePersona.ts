@@ -9,12 +9,7 @@ export default (config: Config) => {
     const client = await getClient(config, req.header('Authorization'));
     const fromPersonaId = req.body.fromPersonaId as string;
     const toPersonaId = req.body.toPersonaId as string;
-    console.log('001', fromPersonaId);
-    console.log('002', req.body);
-    console.log('003', req.params);
-    console.log('004', req.query);
-    console.log('005', req.headers);
-    // Console.log('006', req);
+    console.log(req.body);
 
     const { identifierIds } = await config.service.mergePersona({
       client,
