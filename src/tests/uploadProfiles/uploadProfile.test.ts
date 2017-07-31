@@ -37,11 +37,9 @@ describe('upload profile', () => {
     assert.equal(persona.id, identifierResult.persona);
   });
 
-  it('should create new persona if no persona is found', () => {
+  // It('should create new persona if no persona is found', () => {});
 
-  });
-
-  // It('should add identies to existing persona if 1 persona is found and singlePersona flag is set', () => {
+  // It('should add identifiers to existing persona if 1 persona is found', () => {
 
   // })
 

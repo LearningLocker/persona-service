@@ -19,7 +19,7 @@ export default (config: Config) => async ({
   // Creates personas for newly created identifiers.
   await Promise.all(
     identifiersCreationResult.map(async (result) => {
-      if (result.wasCreated === true) {
+      if (result.wasCreated) {
         const {persona} = await config.repo.createPersona({ client });
         await config.repo.setIdentifierPersona({
           id: result.identifier.id,
