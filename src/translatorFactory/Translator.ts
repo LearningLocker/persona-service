@@ -25,6 +25,7 @@ interface Translator extends CommonTranslator {
   readonly nonJsonObjectError: (err: NonJsonObject) => string;
   readonly noIfiWarning: (err: NoIfiWarning) => string;
   readonly noModelWithIdError: (err: NoModelWithId) => string;
+  readonly routeNotFound: () => string;
 }
 
 export default Translator;

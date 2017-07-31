@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import * as express from 'express';
 import * as supertest from 'supertest';
-import serviceFactory from '../../serviceFactory';
-import { TEST_CLIENT } from '../../tests/utils/values';
-import { BAD_REQUEST_400_HTTP_CODE } from '../utils/httpCodes';
-import createExpressPresenterFacade from './utils/createExpressPresenterFacade';
+import serviceFactory from '../../../serviceFactory';
+import { TEST_CLIENT } from '../../../tests/utils/values';
+import { BAD_REQUEST_400_HTTP_CODE } from '../../utils/httpCodes';
+import createExpressPresenterFacade from '../utils/createExpressPresenterFacade';
 
 const app = express();
 

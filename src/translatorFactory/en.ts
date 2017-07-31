@@ -41,6 +41,9 @@ const translator: Translator = {
   nonJsonObjectError: () => (
     'Expected a JSON object to be provided and stored (if it exists)'
   ),
+  routeNotFound: () => (
+    'Route not found'
+  ),
   ...commonTranslator,
 };
 

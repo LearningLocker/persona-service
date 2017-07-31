@@ -1,9 +1,9 @@
 import * as express from 'express';
 import * as supertest from 'supertest';
-import serviceFactory from '../../serviceFactory';
-import { TEST_CLIENT, TEST_IFI } from '../../tests/utils/values';
-import { OK_200_HTTP_CODE } from '../utils/httpCodes';
-import createExpressPresenterFacade from './utils/createExpressPresenterFacade';
+import serviceFactory from '../../../serviceFactory';
+import { TEST_CLIENT, TEST_IFI } from '../../../tests/utils/values';
+import { OK_200_HTTP_CODE } from '../../utils/httpCodes';
+import createExpressPresenterFacade from '../utils/createExpressPresenterFacade';
 
 const app = express();
 
