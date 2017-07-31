@@ -1,25 +1,14 @@
 import * as express from 'express';
 import * as supertest from 'supertest';
-import config from '../../config';
-import logger from '../../logger';
 import serviceFactory from '../../serviceFactory';
 import { TEST_CLIENT, TEST_IFI } from '../../tests/utils/values';
-import translatorFactory from '../../translatorFactory';
-import expressPresenterFacade from '../index';
 import { OK_200_HTTP_CODE } from '../utils/httpCodes';
+import createExpressPresenterFacade from './utils/createExpressPresenterFacade';
 
 const app = express();
 
 const service = serviceFactory();
-const expressPresenter = expressPresenterFacade({
-  bodyParserLimit: config.express.bodyParserLimit,
-  customRoute: config.express.customRoute,
-  customRouteText: config.express.customRouteText,
-  logger,
-  morganDirectory: config.express.morganDirectory,
-  service,
-  translator: translatorFactory(),
-});
+const expressPresenter = createExpressPresenterFacade(service);
 
 app.use(expressPresenter);
 
