@@ -12,6 +12,7 @@ import GetProfilesOptions from './options/GetProfilesOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteProfileOptions from './options/OverwriteProfileOptions';
 import PatchProfileOptions from './options/PatchProfileOptions';
+import UploadProfilesOptions from './options/UploadProfilesOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import GetClientResult from './results/GetClientResult';
@@ -21,6 +22,7 @@ import GetPersonaResult from './results/GetPersonaResult';
 import GetProfileResult from './results/GetProfileResult';
 import GetProfilesResult from './results/GetProfilesResult';
 import MergePersonaResult from './results/MergePersonaResult';
+import UploadProfilesResult from './results/UploadProfilesResult';
 
 interface Service extends CommonService {
   readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
@@ -36,6 +38,7 @@ interface Service extends CommonService {
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
   readonly overwriteProfile: (opts: OverwriteProfileOptions) => Promise<void>;
   readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
+  readonly uploadProfiles: (opts: UploadProfilesOptions) => Promise<UploadProfilesResult>;
 }
 
 export default Service;

@@ -14,6 +14,7 @@ import getProfiles from './getProfiles';
 import mergePersona from './mergePersona';
 import overwriteProfile from './overwriteProfile';
 import patchProfile from './patchProfile';
+import uploadProfiles from './uploadProfiles';
 
 export default (config: Config): Service => {
   return {
@@ -30,6 +31,7 @@ export default (config: Config): Service => {
     mergePersona: mergePersona(config),
     overwriteProfile: overwriteProfile(config),
     patchProfile: patchProfile(config),
+    uploadProfiles: uploadProfiles(config),
 
     ...commonService(config),
   };

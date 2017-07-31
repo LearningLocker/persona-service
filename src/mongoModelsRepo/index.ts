@@ -2,6 +2,7 @@ import commonMongoRepo from 'jscommons/dist/mongoRepo';
 import ModelsRepo from '../repoFactory/ModelsRepo';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
+import createIdentifiers from './createIdentifiers';
 import createPersona from './createPersona';
 import deletePersona from './deletePersona';
 import deleteProfile from './deleteProfile';
@@ -19,6 +20,7 @@ import setIdentifierPersona from './setIdentifierPersona';
 export default (config: Config): ModelsRepo => {
   return {
     createIdentifier: createIdentifier(config),
+    createIdentifiers: createIdentifiers(config),
     createPersona: createPersona(config),
     deletePersona: deletePersona(config),
     deleteProfile: deleteProfile(config),
