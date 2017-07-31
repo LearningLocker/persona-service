@@ -3,7 +3,7 @@ import * as supertest from 'supertest';
 import config from '../../config';
 import logger from '../../logger';
 import serviceFactory from '../../serviceFactory';
-import { TEST_CLIENT } from '../../tests/utils/values';
+import { TEST_CLIENT, TEST_IFI } from '../../tests/utils/values';
 import translatorFactory from '../../translatorFactory';
 import expressPresenterFacade from '../index';
 import { OK_200_HTTP_CODE } from '../utils/httpCodes';
@@ -24,7 +24,7 @@ const expressPresenter = expressPresenterFacade({
 app.use(expressPresenter);
 
 describe('/mergePersona', () => {
-  it('should merge when using different existing personas', async () => {
+  it('should merge when two empty personas', async () => {
     const { persona: fromPersona } = await service.createPersona({
       client: TEST_CLIENT,
       name: 'Dave1',
@@ -41,5 +41,36 @@ describe('/mergePersona', () => {
         toPersonaId: toPersona.id,
       })
       .expect(OK_200_HTTP_CODE, []);
+  });
+
+  it('should merge identy persoans returning the merged identity ids', async () => {
+    const {persona: fromPersona } = await service.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave Source',
+    });
+    const {identifier: fromIdentifier} = await service.createIdentifier({
+      client: TEST_CLIENT,
+      ifi: TEST_IFI,
+      persona: fromPersona.id,
+    });
+
+    const {persona: toPersona} = await service.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave Target',
+    });
+    await service.createIdentifier({
+      client: TEST_CLIENT,
+      ifi: TEST_IFI,
+      persona: toPersona.id,
+    });
+
+    await supertest(app)
+      .post('/mergePersona')
+      .set('Content-Type', 'application/json')
+      .send({
+        fromPersonaId: fromPersona.id,
+        toPersonaId: toPersona.id,
+      })
+      .expect(OK_200_HTTP_CODE, [fromIdentifier.id]);
   });
 });
