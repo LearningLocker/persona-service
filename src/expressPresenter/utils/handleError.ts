@@ -14,7 +14,9 @@ import MissingMergeFromPersona from '../../errors/MissingMergeFromPersona';
 import MissingMergeToPersona from '../../errors/MissingMergeToPersona';
 import NoModelWithId from '../../errors/NoModelWithId';
 import NonJsonObject from '../../errors/NonJsonObject';
+import UnassignedPersonaOnIdentifier from '../../errors/UnassignedPersonaOnIdentifier';
 import Translator from '../../translatorFactory/Translator';
+import { SERVER_ERROR_500_HTTP_CODE } from './httpCodes';
 import sendWarnings from './sendWarnings';
 
 interface Options extends CommonOptions {
@@ -29,7 +31,12 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case MissingMergeFromPersona: {
+    case UnassignedPersonaOnIdentifier: {
+      const message =
+        translator.unassignedPersonaOnIdentifier(err as UnassignedPersonaOnIdentifier);
+      const code = SERVER_ERROR_500_HTTP_CODE;
+      return sendMessage({ res, code, errorId, message});
+    } case MissingMergeFromPersona: {
       const code = 400;
       const message = translator.missingMergeFromPersona(err as MissingMergeFromPersona);
       return sendMessage({ res, code, errorId, message });

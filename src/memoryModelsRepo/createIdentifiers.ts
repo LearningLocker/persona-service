@@ -6,10 +6,15 @@ import createIdentifier from './createIdentifier';
 export default (config: Config) => {
   const createIdentifierFn = createIdentifier(config);
 
-  return async ({client, ifis}: CreateIdentifiersOptions): Promise<CreateIdentifiersResult> => {
+  return async ({
+    client,
+    ifis,
+    personaId,
+  }: CreateIdentifiersOptions): Promise<CreateIdentifiersResult> => {
     const result = await Promise.all(ifis.map((ifi) => createIdentifierFn({
       client,
       ifi,
+      persona: personaId,
     })));
 
     return {

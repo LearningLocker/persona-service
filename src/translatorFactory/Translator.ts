@@ -11,6 +11,7 @@ import MissingMergeFromPersona from '../errors/MissingMergeFromPersona';
 import MissingMergeToPersona from '../errors/MissingMergeToPersona';
 import NoModelWithId from '../errors/NoModelWithId';
 import NonJsonObject from '../errors/NonJsonObject';
+import UnassignedPersonaOnIdentifier from '../errors/UnassignedPersonaOnIdentifier';
 
 interface Translator extends CommonTranslator {
   readonly conflictError: (err: Conflict) => string;
@@ -26,6 +27,7 @@ interface Translator extends CommonTranslator {
   readonly noIfiWarning: (err: NoIfiWarning) => string;
   readonly noModelWithIdError: (err: NoModelWithId) => string;
   readonly routeNotFound: () => string;
+  readonly unassignedPersonaOnIdentifier: (err: UnassignedPersonaOnIdentifier) => string;
 }
 
 export default Translator;

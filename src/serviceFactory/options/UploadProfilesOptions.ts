@@ -3,7 +3,8 @@ import ClientModel from '../../models/ClientModel';
 
 interface UploadProfilesOptions {
   readonly client: ClientModel;
-  readonly agents: Agent[];
+  readonly primaryAgent: Agent;
+  readonly secondaryAgents: Agent[];
   readonly profiles: {
     [key: string]: any;
   };

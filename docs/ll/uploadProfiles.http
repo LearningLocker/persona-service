@@ -2,6 +2,7 @@ POST http://localhost:1338/uploadProfiles HTTP/1.1
 Content-Type: application/json
 
 {
+  "primaryAgent": { "mbox": "mailto:test@exaple.org" },
   "agents": [
     { "mbox": "mailto:test@exaple.org" },
     { "openid": "http://www.example.org/users/1" },

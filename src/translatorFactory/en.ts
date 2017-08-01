@@ -44,6 +44,9 @@ const translator: Translator = {
   routeNotFound: () => (
     'Route not found'
   ),
+  unassignedPersonaOnIdentifier: () => (
+    'Persona was not found on the identifier, something went wrong'
+  ),
   ...commonTranslator,
 };
 

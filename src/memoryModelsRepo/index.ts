@@ -13,6 +13,7 @@ import getPersona from './getPersona';
 import getProfile from './getProfile';
 import getProfiles from './getProfiles';
 import mergePersona from './mergePersona';
+import overwriteIdentifier from './overwriteIdentifier';
 import overwriteProfile from './overwriteProfile';
 import patchProfile from './patchProfile';
 import setIdentifierPersona from './setIdentifierPersona';
@@ -31,6 +32,7 @@ export default (config: Config): ModelsRepo => {
     getProfile: getProfile(config),
     getProfiles: getProfiles(config),
     mergePersona: mergePersona(config),
+    overwriteIdentifier: overwriteIdentifier(config),
     overwriteProfile: overwriteProfile(config),
     patchProfile: patchProfile(config),
     setIdentifierPersona: setIdentifierPersona(config),

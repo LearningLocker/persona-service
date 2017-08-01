@@ -3,7 +3,7 @@ import Ifi from '../../models/Ifi';
 
 interface Options {
   readonly client: ClientModel;
-  readonly ifis: Ifi[];
+  readonly ifi: Ifi;
   readonly personaId: string;
 }
 
