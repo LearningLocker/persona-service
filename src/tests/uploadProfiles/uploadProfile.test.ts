@@ -1,7 +1,10 @@
 import * as assert from 'assert';
+import * as streamToString from 'stream-to-string';
+import overwriteProfile from '../overwriteProfile/utils/overwriteProfile';
 import setup from '../utils/setup';
 import {
   TEST_CLIENT,
+  TEST_CONTENT,
   TEST_MBOX_AGENT,
 } from '../utils/values';
 
@@ -49,25 +52,52 @@ describe('upload profile', () => {
       profileId: 'eye colour',
     });
 
-    let profileData = '';
-    profileContent.on('data', (chunk: Buffer) => {
-      profileData = profileData.concat(chunk.toString());
-    });
-    await new Promise((resolve) => {
-      profileContent.on('end', resolve);
-    });
+    const profileData = await streamToString(profileContent);
 
     assert.equal(profileData, '"green"');
     assert.equal(profileContentType, 'application/json');
+  });
+
+  it('should delete any existing profiles before adding new ones', async () => {
+    await overwriteProfile(TEST_MBOX_AGENT, TEST_CONTENT);
+
+    await service.uploadProfiles({
+      agents: [
+        TEST_MBOX_AGENT,
+      ],
+      client: TEST_CLIENT,
+      profiles: {
+        'eye colour': 'green',
+      },
+    });
+
+    const profiles = await service.getProfiles({
+      agent: TEST_MBOX_AGENT,
+      client: TEST_CLIENT,
+    });
+
+    assert.equal(profiles.profileIds.length, 1);
+
+    const profile = await service.getProfile({
+      agent: TEST_MBOX_AGENT,
+      client: TEST_CLIENT,
+      profileId: profiles.profileIds[0],
+    });
+    const stringContent = await streamToString(profile.content);
+
+    assert.equal(stringContent, '"green"');
   });
 
   // It('should create new persona if no persona is found', () => {
 
   // });
 
-  // It('should add identies to existing persona if 1 persona is found and singlePersona flag is set', () => {
-
-  // })
+  // It(
+  //   'should add identies to existing persona if 1 persona ' +
+  //   'is found and singlePersona flag is set'
+  // , () => {
+  //   Console.log('001');
+  // });
 
   // It('should error if more than 1 persona exists and singelPersona flag is set', () => {
 

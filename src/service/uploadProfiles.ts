@@ -1,4 +1,5 @@
 import { map } from 'lodash';
+import { flatten } from 'lodash';
 import ClientModel from '../models/ClientModel';
 import Identifier from '../models/Identifier';
 import UploadProfilesOptions from '../serviceFactory/options/UploadProfilesOptions';
@@ -34,7 +35,7 @@ export default (config: Config) => async ({
   );
 
   // Add profile to Identifiers
-  addProfilesToIdentifiers({
+  await addProfilesToIdentifiers({
     client,
     config,
     identifiers: identifiersCreationResult.map(({identifier}) => identifier),
@@ -53,14 +54,39 @@ interface AddProfilesToIdentifiersOptions {
   readonly identifiers: Identifier[];
   readonly profiles: {[key: string]: any};
 }
-const addProfilesToIdentifiers = ({
+const addProfilesToIdentifiers = async ({
   client,
   config,
   identifiers,
   profiles,
 }: AddProfilesToIdentifiersOptions) => {
 
-  console.log('profiles', profiles);
+  // Delete all profiles for identifiers.
+  const allProfileResults =
+    await Promise.all(
+      identifiers.map(async (identifier) => {
+        const profilesResult = await config.repo.getProfiles({
+          client,
+          personaIdentifier: identifier.id,
+        });
+
+        return {
+          identifierId: identifier.id,
+          profileIds: profilesResult.profileIds,
+        };
+      }),
+    );
+  await Promise.all(
+    allProfileResults.map(({identifierId, profileIds}) => {
+      return profileIds.map((profileId: string) => {
+        return config.repo.deleteProfile({
+          client,
+          personaIdentifier: identifierId,
+          profileId,
+        });
+      });
+    }),
+  );
 
   return Promise.all(
     identifiers.map(async (identifier) => {
