@@ -14,7 +14,9 @@ describe('upload profile', () => {
         TEST_MBOX_AGENT,
       ],
       client: TEST_CLIENT,
-      profiles: {},
+      profiles: {
+        'eye colour': 'green',
+      },
     });
 
     assert.equal(result.identifierIds.length, 1);
@@ -30,16 +32,38 @@ describe('upload profile', () => {
       client: TEST_CLIENT,
       personaId: identifierResult.persona,
     });
+
     assert.deepEqual(identifierResult.ifi, {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox,
     });
+
     assert.equal(persona.id, identifierResult.persona);
+
+    const {
+      content: profileContent,
+      contentType: profileContentType,
+    } = await service.getProfile({
+      agent: TEST_MBOX_AGENT,
+      client: TEST_CLIENT,
+      profileId: 'eye colour',
+    });
+
+    let profileData = '';
+    profileContent.on('data', (chunk: Buffer) => {
+      profileData = profileData.concat(chunk.toString());
+    });
+    await new Promise((resolve) => {
+      profileContent.on('end', resolve);
+    });
+
+    assert.equal(profileData, '"green"');
+    assert.equal(profileContentType, 'application/json');
   });
 
-  it('should create new persona if no persona is found', () => {
+  // It('should create new persona if no persona is found', () => {
 
-  });
+  // });
 
   // It('should add identies to existing persona if 1 persona is found and singlePersona flag is set', () => {
 
