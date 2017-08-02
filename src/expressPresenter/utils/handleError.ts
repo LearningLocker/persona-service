@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import commonErrorHandler from 'jscommons/dist/expressPresenter/utils/handleError';
+import { Options as CommonOptions } from 'jscommons/dist/expressPresenter/utils/handleError';
 import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
@@ -8,6 +8,8 @@ import Conflict from '../../errors/Conflict';
 import DuplicateMergeId from '../../errors/DuplicateMergeId';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
+import InvalidGetPersonaFromIdentifierOptions from // tslint:disable:import-spacing
+  '../../errors/InvalidGetPersonaFromIdentifierOptions';
 import InvalidMethod from '../../errors/InvalidMethod';
 import MaxEtags from '../../errors/MaxEtags';
 import MissingMergeFromPersona from '../../errors/MissingMergeFromPersona';
@@ -80,6 +82,10 @@ export default ({ translator, errorId, res, err }: Options): Response => {
       const code = 400;
       const message = translator.invalidMethodError(err as InvalidMethod);
       return sendMessage({ res, code, errorId, message });
+    }case InvalidGetPersonaFromIdentifierOptions: {
+      const code = SERVER_ERROR_500_HTTP_CODE;
+      const message = translator.invalidGetPersonaFromIdentifierOptions();
+      return sendMessage({res, code, errorId, message});
     } default: {
       return commonErrorHandler({ translator, errorId, res, err });
     }

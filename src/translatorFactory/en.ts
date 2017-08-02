@@ -19,6 +19,9 @@ const translator: Translator = {
     const count = warning.usedIfis.length;
     return `Only expected 1 IFI in ${path} not ${count} (${usedIfis})`;
   },
+  invalidGetPersonaFromIdentifierOptions: () => (
+    'Persona was allready set on the identifier, this was unexpected.'
+  ),
   invalidMethodError: (err) => (
     `Method (${err.method}) is invalid for alternate request syntax`
   ),

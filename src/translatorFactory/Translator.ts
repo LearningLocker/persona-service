@@ -28,6 +28,7 @@ interface Translator extends CommonTranslator {
   readonly noModelWithIdError: (err: NoModelWithId) => string;
   readonly routeNotFound: () => string;
   readonly unassignedPersonaOnIdentifier: (err: UnassignedPersonaOnIdentifier) => string;
+  readonly invalidGetPersonaFromIdentifierOptions: () => string;
 }
 
 export default Translator;
