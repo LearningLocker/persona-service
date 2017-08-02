@@ -63,16 +63,26 @@ export default (config: Config) => async ({
     wasCreated: primaryWasCreated,
   });
 
-  const {identifiersCreationResult} = await config.repo.overwriteIdentifiers({
-    client,
-    ifis,
-    personaId,
-  });
+  const secondaryIdentifierIds =
+    (await Promise.all(
+      ifis.map((ifi) => {
+        return config.repo.overwriteIdentifier({
+          client,
+          ifi,
+          personaId,
+        });
+      }),
+    )).map(({ identifier: {id} }) => id );
+  // Const {identifiersCreationResult} = await config.repo.overwriteIdentifiers({
+  //   Client,
+  //   Ifis,
+  //   PersonaId,
+  // });
 
   // Return created and found identifier ids
   const identifierIds = [
     primaryIdentifier.id,
-    ...identifiersCreationResult.map(({identifier}) => identifier.id),
+    ...secondaryIdentifierIds,
   ];
 
   // Add profile to Identifiers

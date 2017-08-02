@@ -95,6 +95,7 @@ describe('upload profile', () => {
       key: 'openid',
       value: TEST_OPENID_AGENT.openid as string,
     });
+
     if (secondaryIdentifier.persona === undefined) {
       throw new Error('Expected persona to be defined in secondaryIdentifier.');
     }

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 import Identifier from '../models/Identifier';
-import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
-import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
+import OverwriteIdentifierOptions from '../repoFactory/options/OverwriteIdentifierOptions';
+import OverwriteIdentifierResult from '../repoFactory/results/OverwriteIdentifierResult';
 import Config from './Config';
 import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 import matchIdentifierIfi from './utils/matchIdentifierIfi';
@@ -10,8 +10,8 @@ export default (config: Config) => {
   return async ({
     client,
     ifi,
-    persona,
-  }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
+    personaId,
+  }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
     const matchingIdentifiers = getIdentifiersMatchingIfi({ client, config, ifi });
     const isExistingIfi = matchingIdentifiers.length !== 0;
 
@@ -19,7 +19,7 @@ export default (config: Config) => {
     if (!isExistingIfi) {
       const organisation = client.organisation;
       const id = uuid();
-      const identifier: Identifier = { id, ifi, organisation, persona };
+      const identifier: Identifier = { id, ifi, organisation, persona: personaId };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,
         identifier,
@@ -36,13 +36,13 @@ export default (config: Config) => {
         return identifier;
       }
 
-      return { ...identifier, persona };
+      return { ...identifier, persona: personaId };
     });
 
     config.state.personaIdentifiers = updatedIdentifiers;
 
     return {
-      identifier: { ...matchingIdentifiers[0], persona },
+      identifier: { ...matchingIdentifiers[0], persona: personaId },
       wasCreated: false,
     };
   };
