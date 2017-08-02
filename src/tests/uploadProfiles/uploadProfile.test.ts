@@ -6,6 +6,7 @@ import setup from '../utils/setup';
 import {
   JSON_CONTENT_TYPE,
   TEST_CLIENT,
+  TEST_CLIENT_OUTSIDE_ORG,
   TEST_CONTENT,
   TEST_MBOX_AGENT,
   TEST_OPENID_AGENT,
@@ -21,6 +22,7 @@ describe('upload profile', () => {
       id: identifierId,
     });
     assert.deepEqual(identifierResult.ifi, expectedIfi);
+    assert.equal(identifierResult.organisation, TEST_CLIENT.organisation);
     return identifierResult;
   };
 
@@ -30,6 +32,7 @@ describe('upload profile', () => {
       personaId,
     });
     assert.equal(persona.id, personaId);
+    assert.equal(persona.organisation, TEST_CLIENT.organisation);
   };
 
   const assertProfile = async (agent: Agent) => {
@@ -63,6 +66,7 @@ describe('upload profile', () => {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox as string,
     });
+    /* istanbul ignore if  */
     if (identifierResult.persona === undefined) {
       throw new Error('Expected persona to be defined in identifierResult.');
     }
@@ -87,6 +91,7 @@ describe('upload profile', () => {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox as string,
     });
+    /* istanbul ignore if  */
     if (primaryIdentifier.persona === undefined) {
       throw new Error('Expected persona to be defined in primaryIdentifier.');
     }
@@ -96,6 +101,7 @@ describe('upload profile', () => {
       value: TEST_OPENID_AGENT.openid as string,
     });
 
+    /* istanbul ignore if  */
     if (secondaryIdentifier.persona === undefined) {
       throw new Error('Expected persona to be defined in secondaryIdentifier.');
     }
@@ -138,6 +144,7 @@ describe('upload profile', () => {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox as string,
     });
+    /* istanbul ignore if  */
     if (primaryIdentifier.persona === undefined) {
       throw new Error('Expected persona to be defined in primaryIdentifier.');
     }
@@ -148,6 +155,7 @@ describe('upload profile', () => {
       value: TEST_OPENID_AGENT.openid as string,
     });
     assert.equal(secondaryIdentifier.id, createdSecondaryIdentifier.id);
+    /* istanbul ignore if  */
     if (secondaryIdentifier.persona === undefined) {
       throw new Error('Expected persona to be defined in secondaryIdentifier.');
     }
@@ -206,5 +214,59 @@ describe('upload profile', () => {
 
     await assertProfile(TEST_MBOX_AGENT);
     await assertProfile(TEST_OPENID_AGENT);
+  });
+
+  it('Should not use identifiers outside org scope for primary identifier', async () => {
+    const { persona } = await service.createPersona({
+      client: TEST_CLIENT_OUTSIDE_ORG,
+      name: 'Dave',
+    });
+    const { identifier: createdPrimaryIdentifier } = await service.createIdentifier({
+      client: TEST_CLIENT_OUTSIDE_ORG,
+      ifi: {
+        key: 'mbox',
+        value: TEST_MBOX_AGENT.mbox as string,
+      },
+      persona: persona.id,
+    });
+
+    const result = await service.uploadProfiles({
+      client: TEST_CLIENT,
+      primaryAgent: TEST_MBOX_AGENT,
+      profiles: {
+        [TEST_PROFILE_ID]: TEST_CONTENT,
+      },
+      secondaryAgents: [TEST_OPENID_AGENT],
+    });
+
+    assert.notEqual(result.identifierIds[0], createdPrimaryIdentifier.id);
+    assert.notEqual(result.identifierIds[1], createdPrimaryIdentifier.id);
+  });
+
+  it('should not use identifiers outside org scope for secondry identifier', async () => {
+    const { persona } = await service.createPersona({
+      client: TEST_CLIENT_OUTSIDE_ORG,
+      name: 'Dave',
+    });
+    const { identifier: createdSecondaryIdentifier } = await service.createIdentifier({
+      client: TEST_CLIENT_OUTSIDE_ORG,
+      ifi: {
+        key: 'openid',
+        value: TEST_OPENID_AGENT.openid as string,
+      },
+      persona: persona.id,
+    });
+
+    const result = await service.uploadProfiles({
+      client: TEST_CLIENT,
+      primaryAgent: TEST_MBOX_AGENT,
+      profiles: {
+        [TEST_PROFILE_ID]: TEST_CONTENT,
+      },
+      secondaryAgents: [TEST_OPENID_AGENT],
+    });
+
+    assert.notEqual(result.identifierIds[0], createdSecondaryIdentifier.id);
+    assert.notEqual(result.identifierIds[1], createdSecondaryIdentifier.id);
   });
 }); // tslint:disable-line max-file-line-count
