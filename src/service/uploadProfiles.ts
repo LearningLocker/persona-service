@@ -73,11 +73,6 @@ export default (config: Config) => async ({
         });
       }),
     )).map(({ identifier: {id} }) => id );
-  // Const {identifiersCreationResult} = await config.repo.overwriteIdentifiers({
-  //   Client,
-  //   Ifis,
-  //   PersonaId,
-  // });
 
   // Return created and found identifier ids
   const identifierIds = [

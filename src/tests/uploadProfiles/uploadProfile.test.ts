@@ -164,18 +164,47 @@ describe('upload profile', () => {
     await assertProfile(TEST_OPENID_AGENT);
   });
 
-  // It('should create new persona if no persona is found', () => {
+  it('should use the primary persona', async () => {
+    const { persona: primaryPersona } = await service.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave',
+    });
+    const {identifier: createdPrimaryIdentifier} = await service.createIdentifier({
+      client: TEST_CLIENT,
+      ifi: {
+        key: 'mbox',
+        value: TEST_MBOX_AGENT.mbox as string,
+      },
+      persona: primaryPersona.id,
+    });
 
-  // });
+    const result = await service.uploadProfiles({
+      client: TEST_CLIENT,
+      primaryAgent: TEST_MBOX_AGENT,
+      profiles: {
+        [TEST_PROFILE_ID]: TEST_CONTENT,
+      },
+      secondaryAgents: [TEST_OPENID_AGENT],
+    });
 
-  // It(
-  //   'should add identies to existing persona if 1 persona ' +
-  //   'is found and singlePersona flag is set'
-  // , () => {
-  //   Console.log('001');
-  // });
+    const expectedIdentifiers = 2;
+    assert.equal(result.identifierIds.length, expectedIdentifiers);
 
-  // It('should error if more than 1 persona exists and singelPersona flag is set', () => {
+    const primaryIdentifier = await assertIdentifier(result.identifierIds[0], {
+      key: 'mbox',
+      value: TEST_MBOX_AGENT.mbox as string,
+    });
 
-  // });
-});
+    assert.equal(primaryIdentifier.persona, createdPrimaryIdentifier.persona);
+
+    const secondaryIdentifier = await assertIdentifier(result.identifierIds[1], {
+      key: 'openid',
+      value: TEST_OPENID_AGENT.openid as string,
+    });
+
+    assert.equal(secondaryIdentifier.persona, createdPrimaryIdentifier.persona);
+
+    await assertProfile(TEST_MBOX_AGENT);
+    await assertProfile(TEST_OPENID_AGENT);
+  });
+}); // tslint:disable-line max-file-line-count
