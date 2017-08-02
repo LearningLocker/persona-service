@@ -19,10 +19,12 @@ export default (config: Config) => {
     // Sets properties when the Identifier is created (not found).
     // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
     const update = {
+      $set: {
+        persona: new ObjectID(opts.personaId),
+      },
       $setOnInsert: {
         ifi: opts.ifi,
         organisation: new ObjectID(opts.client.organisation),
-        persona: new ObjectID(opts.personaId),
       },
     };
 
