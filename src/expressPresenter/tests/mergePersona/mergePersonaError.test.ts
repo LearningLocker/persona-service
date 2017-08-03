@@ -7,7 +7,6 @@ import { BAD_REQUEST_400_HTTP_CODE } from '../../utils/httpCodes';
 import createExpressPresenterFacade from '../utils/createExpressPresenterFacade';
 
 const app = express();
-
 const service = serviceFactory();
 const expressPresenter = createExpressPresenterFacade(service);
 app.use(expressPresenter);

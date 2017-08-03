@@ -13,6 +13,15 @@ import {
   TEST_OPENID_AGENT,
 } from '../utils/values';
 
+const createIdentifier = (config: Config) => (config.repo.createIdentifier({
+      client: TEST_CLIENT,
+      ifi: {
+        key: 'openid',
+        value: TEST_OPENID_AGENT.openid as string,
+      },
+      persona: undefined,
+    }));
+
 describe('getPersonaIdFromIdentifier getPersonaIdWithRetry', () => {
   it('should retry if persona is not on the identifier', async () => {
     const repoFacade = repoFactory();
@@ -43,14 +52,7 @@ describe('getPersonaIdFromIdentifier getPersonaIdWithRetry', () => {
 
     const config: Config = {repo: repoFacadeWithMock};
 
-    const {identifier} = await config.repo.createIdentifier({
-      client: TEST_CLIENT,
-      ifi: {
-        key: 'openid',
-        value: TEST_OPENID_AGENT.openid as string,
-      },
-      persona: undefined,
-    });
+    const {identifier} = await createIdentifier(config);
 
     const resultPromise = getPersonaIdFromIdentifier({
       client: TEST_CLIENT,
@@ -105,19 +107,12 @@ describe('getPersonaIdFromIdentifier getPersonaIdWithRetry', () => {
 
     const config: Config = {repo: repoFacadeWithMock};
 
-    const {identifier} = await config.repo.createIdentifier({
-      client: TEST_CLIENT,
-      ifi: {
-        key: 'openid',
-        value: TEST_OPENID_AGENT.openid as string,
-      },
-      persona: undefined,
-    });
+    const {identifier: identifier3} = await createIdentifier(config);
 
     const resultPromise = getPersonaIdFromIdentifier({
       client: TEST_CLIENT,
       config,
-      identifier,
+      identifier: identifier3,
       wasCreated: false,
     });
 

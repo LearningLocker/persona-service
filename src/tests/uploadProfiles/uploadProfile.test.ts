@@ -128,7 +128,7 @@ describe('upload profile', () => {
     });
 
     // Uploads profiles with the secondary agent.
-    const result = await service.uploadProfiles({
+    const result2 = await service.uploadProfiles({
       client: TEST_CLIENT,
       primaryAgent: TEST_MBOX_AGENT,
       profiles: {
@@ -137,10 +137,10 @@ describe('upload profile', () => {
       secondaryAgents: [TEST_OPENID_AGENT],
     });
     const expectedIdentifiers = 2;
-    assert.equal(result.identifierIds.length, expectedIdentifiers);
+    assert.equal(result2.identifierIds.length, expectedIdentifiers);
 
     // Checks that an identifier was created for the primary agent.
-    const primaryIdentifier = await assertIdentifier(result.identifierIds[0], {
+    const primaryIdentifier = await assertIdentifier(result2.identifierIds[0], {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox as string,
     });
@@ -150,7 +150,7 @@ describe('upload profile', () => {
     }
 
     // Checks that the identifier was reused for the secondary agent.
-    const secondaryIdentifier = await assertIdentifier(result.identifierIds[1], {
+    const secondaryIdentifier = await assertIdentifier(result2.identifierIds[1], {
       key: 'openid',
       value: TEST_OPENID_AGENT.openid as string,
     });
@@ -186,7 +186,7 @@ describe('upload profile', () => {
       persona: primaryPersona.id,
     });
 
-    const result = await service.uploadProfiles({
+    const result5 = await service.uploadProfiles({
       client: TEST_CLIENT,
       primaryAgent: TEST_MBOX_AGENT,
       profiles: {
@@ -196,16 +196,16 @@ describe('upload profile', () => {
     });
 
     const expectedIdentifiers = 2;
-    assert.equal(result.identifierIds.length, expectedIdentifiers);
+    assert.equal(result5.identifierIds.length, expectedIdentifiers);
 
-    const primaryIdentifier = await assertIdentifier(result.identifierIds[0], {
+    const primaryIdentifier = await assertIdentifier(result5.identifierIds[0], {
       key: 'mbox',
       value: TEST_MBOX_AGENT.mbox as string,
     });
 
     assert.equal(primaryIdentifier.persona, createdPrimaryIdentifier.persona);
 
-    const secondaryIdentifier = await assertIdentifier(result.identifierIds[1], {
+    const secondaryIdentifier = await assertIdentifier(result5.identifierIds[1], {
       key: 'openid',
       value: TEST_OPENID_AGENT.openid as string,
     });
@@ -230,7 +230,7 @@ describe('upload profile', () => {
       persona: persona.id,
     });
 
-    const result = await service.uploadProfiles({
+    const result3 = await service.uploadProfiles({
       client: TEST_CLIENT,
       primaryAgent: TEST_MBOX_AGENT,
       profiles: {
@@ -239,8 +239,8 @@ describe('upload profile', () => {
       secondaryAgents: [TEST_OPENID_AGENT],
     });
 
-    assert.notEqual(result.identifierIds[0], createdPrimaryIdentifier.id);
-    assert.notEqual(result.identifierIds[1], createdPrimaryIdentifier.id);
+    assert.notEqual(result3.identifierIds[0], createdPrimaryIdentifier.id);
+    assert.notEqual(result3.identifierIds[1], createdPrimaryIdentifier.id);
   });
 
   it('should not use identifiers outside org scope for secondry identifier', async () => {

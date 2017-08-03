@@ -16,7 +16,7 @@ export default (ifi: Ifi, organisation?: string) => {
     'ifi.key': ifi.key,
     ...valueFilter,
   };
-  if (organisation) {
+  if (organisation === undefined) {
     return {
       ...out,
       organisation: new ObjectID(organisation),
