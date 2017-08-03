@@ -1,6 +1,5 @@
 import CommonRepo from 'jscommons/dist/repoFactory/Repo';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
-import CreateIdentifiersOptions from './options/CreateIdentifiersOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import DeleteProfileOptions from './options/DeleteProfileOptions';
@@ -11,11 +10,11 @@ import GetPersonaOptions from './options/GetPersonaOptions';
 import GetProfileOptions from './options/GetProfileOptions';
 import GetProfilesOptions from './options/GetProfilesOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
+import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import OverwriteProfileOptions from './options/OverwriteProfileOptions';
 import PatchProfileOptions from './options/PatchProfileOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
-import CreateIdentifiersResult from './results/CreateIdentifiersResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import DeleteProfileResult from './results/DeleteProfileResult';
 import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
@@ -25,6 +24,7 @@ import GetPersonaResult from './results/GetPersonaResult';
 import GetProfileResult from './results/GetProfileResult';
 import GetProfilesResult from './results/GetProfilesResult';
 import MergePersonaResult from './results/MergePersonaResult';
+import OverwriteIdentifierResult from './results/OverwriteIdentifierResult';
 import OverwriteProfileResult from './results/OverwriteProfileResult';
 
 interface Repo extends CommonRepo {
@@ -39,11 +39,12 @@ interface Repo extends CommonRepo {
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
   readonly getProfile: (opts: GetProfileOptions) => Promise<GetProfileResult>;
   readonly getProfiles: (opts: GetProfilesOptions) => Promise<GetProfilesResult>;
+  readonly overwriteIdentifier:
+    (opts: OverwriteIdentifierOptions) => Promise<OverwriteIdentifierResult>;
   readonly overwriteProfile: (opts: OverwriteProfileOptions) => Promise<OverwriteProfileResult>;
   readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
-  readonly createIdentifiers: (opts: CreateIdentifiersOptions) => Promise<CreateIdentifiersResult>;
 }
 
 export default Repo;

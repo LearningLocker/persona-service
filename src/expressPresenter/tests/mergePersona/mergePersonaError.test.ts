@@ -7,7 +7,6 @@ import { BAD_REQUEST_400_HTTP_CODE } from '../../utils/httpCodes';
 import createExpressPresenterFacade from '../utils/createExpressPresenterFacade';
 
 const app = express();
-
 const service = serviceFactory();
 const expressPresenter = createExpressPresenterFacade(service);
 app.use(expressPresenter);
@@ -41,14 +40,17 @@ describe('/mergePersona errors', () => {
       .post('/mergePersona')
       .set('Content-Type', 'application/json')
       .send({
-        fromPersonaId: '1234-5678-9',
+        fromPersonaId: '123456789a123456789abcdf',
         toPersonaId: toPersona.id,
       })
       .expect(
         BAD_REQUEST_400_HTTP_CODE,
       )
       .expect((res: supertest.Response) => {
-        assert.equal(res.body.message, 'Could not find the source persona (1234-5678-9)');
+        assert.equal(
+          res.body.message,
+          'Could not find the source persona (123456789a123456789abcdf)',
+        );
         assert.equal(!!res.body.errorId, true);
       });
   });
@@ -81,13 +83,16 @@ describe('/mergePersona errors', () => {
       .set('Content-Type', 'application/json')
       .send({
         fromPersonaId: fromPersona.id,
-        toPersonaId: '1234-5678-9',
+        toPersonaId: '123456789a123456789abcdf',
       })
       .expect(
         BAD_REQUEST_400_HTTP_CODE,
       )
       .expect((res: supertest.Response) => {
-        assert.equal(res.body.message, 'Could not find the target persona (1234-5678-9)');
+        assert.equal(
+          res.body.message,
+          'Could not find the target persona (123456789a123456789abcdf)',
+        );
         assert.equal(!!res.body.errorId, true);
       });
   });

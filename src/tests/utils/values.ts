@@ -19,6 +19,9 @@ export const TEST_CLIENT: ClientModel = {
 export const TEST_MBOX_AGENT: Agent = {
   mbox: 'mailto:test_agent@example.org',
 };
+export const TEST_MBOX_AGENT_2: Agent = {
+  mbox: 'mailto:another_test_agent@example.org',
+};
 
 export const TEST_MBOXSHA1_AGENT: Agent = {
   mbox_sha1sum: 'aabbd60ef591bcc908fff6fd2571e8ef8d62461f',

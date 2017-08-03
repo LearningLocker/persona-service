@@ -37,11 +37,11 @@ describe('/persona get error', () => {
   });
   it('should return 404 if the persona does not exist', async () => {
     await supertest(app)
-      .get(`/persona/123-456-789`)
+      .get(`/persona/123456789a123456789abcdf`)
       .expect(NOT_FOUND_404_HTTP_CODE)
       .expect((res: supertest.Response) => {
         assert.equal(!!res.body.errorId, true);
-        assert.equal(res.body.message, 'Could not find the Persona (123-456-789)');
+        assert.equal(res.body.message, 'Could not find the Persona (123456789a123456789abcdf)');
       });
   });
 });

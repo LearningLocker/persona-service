@@ -40,6 +40,7 @@
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "node-fetch": "^1.6.3",
+    "promise-retry": "^1.1.1",
     "rulr": "^3.0.0",
     "sha1": "^1.1.1",
     "source-map-support": "^0.4.11",
