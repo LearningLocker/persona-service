@@ -39,7 +39,7 @@ describe('getPersonaIdFromIdentifier', () => {
       wasCreated: true,
     });
 
-    assert.equal(!!result, true);
+    assert.equal(typeof result, 'string');
   });
 
   it('Should use an existing persona', async () => {

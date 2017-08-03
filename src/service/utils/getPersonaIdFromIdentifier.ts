@@ -30,7 +30,7 @@ const getPersonaIdWithRetry = async (opts: GetPersonaIdWithRetryOptions): Promis
 
   if (identifier.persona === undefined && retryCount > 0) {
     const theDelay = 100;
-    await delay(theDelay);
+    await delay(theDelay); // tslint:disable-line:await-promise
     logger.warn('uploadproflies retrying finding identifier persona');
     return getPersonaIdWithRetry({
       ...opts,
