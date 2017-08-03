@@ -1,4 +1,4 @@
-import { delay } from 'bluebird';
+import * as promiseRetry from 'promise-retry';
 import InvalidGetPersonaFromIdentifierOptions from // tslint:disable:import-spacing
   '../../errors/InvalidGetPersonaFromIdentifierOptions';
 import UnassignedPersonaOnIdentifier from '../../errors/UnassignedPersonaOnIdentifier';
@@ -6,42 +6,6 @@ import logger from '../../logger';
 import ClientModel from '../../models/ClientModel';
 import Identifier from '../../models/Identifier';
 import Config from '../Config';
-
-const DEFAULT_RETRIES = 3;
-
-interface GetPersonaIdWithRetryOptions {
-  readonly client: ClientModel;
-  readonly config: Config;
-  readonly identifierId: string;
-  readonly retryCount?: number;
-}
-
-const getPersonaIdWithRetry = async (opts: GetPersonaIdWithRetryOptions): Promise<string> => {
-  const {
-    client,
-    config,
-    identifierId,
-    retryCount = DEFAULT_RETRIES,
-  } = opts;
-  const {identifier} = await config.repo.getIdentifier({
-    client,
-    id: identifierId,
-  });
-
-  if (identifier.persona === undefined && retryCount > 0) {
-    const theDelay = 100;
-    await Promise.resolve(delay(theDelay));
-    logger.warn('uploadproflies retrying finding identifier persona');
-    return getPersonaIdWithRetry({
-      ...opts,
-      retryCount: retryCount - 1,
-    });
-  } else if (identifier.persona !== undefined) {
-    return identifier.persona;
-  } else {
-    throw new UnassignedPersonaOnIdentifier();
-  }
-};
 
 export interface GetPersonaIdFromIdentifierOptions {
   client: ClientModel;
@@ -72,10 +36,22 @@ const getPersonaIdFromIdentifier = async ({
   } else /* if (!wasCreated && identifier.persona === undefined) */ {
     // Shouldn't happen, but just in case, retry 3 times, with backoff
 
-    return await getPersonaIdWithRetry({
-      client,
-      config,
-      identifierId: identifier.id,
+    return promiseRetry<string>(async (retry) => {
+      const {identifier: identifier2} = await config.repo.getIdentifier({
+        client,
+        id: identifier.id,
+      });
+
+      if (identifier2.persona === undefined) {
+        logger.warn('uploadproflies retrying finding identifier persona');
+        return retry(new UnassignedPersonaOnIdentifier());
+      }
+
+      return identifier2.persona;
+    }, {
+      maxTimeout: 300,
+      minTimeout: 50,
+      retries: 3,
     });
   }
 };

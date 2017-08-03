@@ -3,12 +3,7 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import setupService from 'jscommons/dist/tests/utils/setupService';
 import InvalidGetPersonaFromIdentifierOptions from // tslint:disable:import-spacing
   '../../errors/InvalidGetPersonaFromIdentifierOptions';
-import UnassignedPersonaOnIdentifier from '../../errors/UnassignedPersonaOnIdentifier';
-import Identifier from '../../models/Identifier';
 import repoFactory from '../../repoFactory';
-import GetIdentifierOptions from '../../repoFactory/options/GetIdentifierOptions';
-import Repo from '../../repoFactory/Repo';
-import GetIdentifierResult from '../../repoFactory/results/GetIdentifierResult';
 import service from '../../service';
 import Config from '../../service/Config';
 import getPersonaIdFromIdentifier from '../../service/utils/getPersonaIdFromIdentifier';

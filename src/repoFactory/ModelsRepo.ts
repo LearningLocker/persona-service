@@ -1,6 +1,5 @@
 import CommonRepo from 'jscommons/dist/repoFactory/Repo';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
-import CreateIdentifiersOptions from './options/CreateIdentifiersOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import DeleteProfileOptions from './options/DeleteProfileOptions';
@@ -16,7 +15,6 @@ import OverwriteProfileOptions from './options/OverwriteProfileOptions';
 import PatchProfileOptions from './options/PatchProfileOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
-import CreateIdentifiersResult from './results/CreateIdentifiersResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import DeleteProfileResult from './results/DeleteProfileResult';
 import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
@@ -47,7 +45,6 @@ interface Repo extends CommonRepo {
   readonly patchProfile: (opts: PatchProfileOptions) => Promise<void>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
-  readonly createIdentifiers: (opts: CreateIdentifiersOptions) => Promise<CreateIdentifiersResult>;
 }
 
 export default Repo;

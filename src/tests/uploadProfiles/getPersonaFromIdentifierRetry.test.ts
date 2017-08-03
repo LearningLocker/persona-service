@@ -64,7 +64,7 @@ describe('getPersonaIdFromIdentifier getPersonaIdWithRetry', () => {
     await config.repo.clearRepo();
   });
 
-  it('should retry if persona is not on the identifier 2nd attemp succesfull', async () => {
+  it('should retry if persona is not on the identifier 3nd attemp succesfull', async () => {
     const repoFacade = repoFactory();
 
     const {persona} = await repoFacade.createPersona({
