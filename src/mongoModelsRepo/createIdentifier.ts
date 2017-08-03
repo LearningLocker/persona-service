@@ -10,11 +10,10 @@ export default (config: Config) => {
     const collection = (await config.db).collection('personaIdentifiers');
 
     // Filters on the IFI and organisation.
-    const ifiFilter = getIdentifierIfiFilter(opts.ifi);
-    const filter = {
-      organisation: new ObjectID(opts.client.organisation),
-      ...ifiFilter,
-    };
+    const filter = getIdentifierIfiFilter(
+      opts.ifi,
+      opts.client.organisation,
+    );
 
     // Sets properties when the Identifier is created (not found).
     // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
