@@ -40,15 +40,19 @@ describe('getPersonaIdFromIdentifier', () => {
     });
 
     assert.equal(typeof result, 'string');
+
+    await config.repo.clearRepo();
   });
 
   it('Should use an existing persona', async () => {
     const repoFacade = repoFactory ();
     const config: Config = {repo: repoFacade};
 
-    const persona = {
-      id: 'persona_id',
-    };
+    const { persona } = await repoFacade.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave 7',
+    });
+
     const {identifier} = await config.repo.createIdentifier({
       client: TEST_CLIENT,
       ifi: {
@@ -66,15 +70,19 @@ describe('getPersonaIdFromIdentifier', () => {
     });
 
     assert.equal(result, persona.id);
+
+    await config.repo.clearRepo();
   });
 
   it('should error on invalid arguments', async () => {
     const repoFacade = repoFactory();
     const config: Config = {repo: repoFacade};
 
-    const persona = {
-      id: 'persona_id',
-    };
+    const { persona } = await repoFacade.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave 8',
+    });
+
     const {identifier} = await config.repo.createIdentifier({
       client: TEST_CLIENT,
       ifi: {
@@ -91,6 +99,8 @@ describe('getPersonaIdFromIdentifier', () => {
     });
 
     await assertError(InvalidGetPersonaFromIdentifierOptions, resultPromise);
+
+    await config.repo.clearRepo();
   });
 
   it('should retry if persona is not on the identifier', async () => {
@@ -139,14 +149,17 @@ describe('getPersonaIdFromIdentifier', () => {
     });
 
     await assertError(UnassignedPersonaOnIdentifier, resultPromise);
+
+    await config.repo.clearRepo();
   });
 
   it('should retry if persona is not on the identifier 2nd attemp succesfull', async () => {
     const repoFacade = repoFactory();
 
-    const persona = {
-      id: 'persona_id',
-    };
+    const {persona} = await repoFacade.createPersona({
+      client: TEST_CLIENT,
+      name: 'Dave 6',
+    });
 
     let getIdentifierCount = 0;
     const repoFacadeWithMock: Repo = {
@@ -200,5 +213,7 @@ describe('getPersonaIdFromIdentifier', () => {
     const result = await resultPromise;
 
     assert.equal(result, persona.id);
+
+    await config.repo.clearRepo();
   });
 }); // tslint:disable-line max-file-line-count
