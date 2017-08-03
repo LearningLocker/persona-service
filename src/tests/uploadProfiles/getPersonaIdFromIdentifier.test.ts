@@ -10,15 +10,12 @@ import Repo from '../../repoFactory/Repo';
 import GetIdentifierResult from '../../repoFactory/results/GetIdentifierResult';
 import Config from '../../service/Config';
 import getPersonaIdFromIdentifier from '../../service/utils/getPersonaIdFromIdentifier';
-import setup from '../utils/setup';
 import {
   TEST_CLIENT,
   TEST_OPENID_AGENT,
 } from '../utils/values';
 
 describe('getPersonaIdFromIdentifier', () => {
-  const service = setup();
-
   it('Should create a new persona if the identifier was created', async () => {
 
     const repoFacade = repoFactory();
@@ -42,22 +39,16 @@ describe('getPersonaIdFromIdentifier', () => {
       wasCreated: true,
     });
 
-    const {persona} = await service.getPersona({
-      client: TEST_CLIENT,
-      personaId: result,
-    });
-
-    assert.equal(persona.id, result);
+    assert.equal(!!result, true);
   });
 
   it('Should use an existing persona', async () => {
-    const repoFacade = repoFactory();
+    const repoFacade = repoFactory ();
     const config: Config = {repo: repoFacade};
 
-    const { persona } = await service.createPersona({
-      client: TEST_CLIENT,
-      name: 'Dave 2',
-    });
+    const persona = {
+      id: 'persona_id',
+    };
     const {identifier} = await config.repo.createIdentifier({
       client: TEST_CLIENT,
       ifi: {
@@ -81,10 +72,9 @@ describe('getPersonaIdFromIdentifier', () => {
     const repoFacade = repoFactory();
     const config: Config = {repo: repoFacade};
 
-    const { persona } = await service.createPersona({
-      client: TEST_CLIENT,
-      name: 'Dave 3',
-    });
+    const persona = {
+      id: 'persona_id',
+    };
     const {identifier} = await config.repo.createIdentifier({
       client: TEST_CLIENT,
       ifi: {
@@ -150,13 +140,12 @@ describe('getPersonaIdFromIdentifier', () => {
     await assertError(UnassignedPersonaOnIdentifier, resultPromise);
   });
 
-  it('should retry if persona is not on the identifier', async () => {
+  it('should retry if persona is not on the identifier 2nd attemp succesfull', async () => {
     const repoFacade = repoFactory();
 
-    const { persona } = await service.createPersona({
-      client: TEST_CLIENT,
-      name: 'Dave 4',
-    });
+    const persona = {
+      id: 'persona_id',
+    };
 
     let getIdentifierCount = 0;
     const repoFacadeWithMock: Repo = {
@@ -173,8 +162,8 @@ describe('getPersonaIdFromIdentifier', () => {
           organisation: TEST_CLIENT.organisation,
           persona: undefined,
         };
-        if (getIdentifierCount > (RETRIES + 1)) { // 4 = 1 + 2 retries
-          // On second retry, retrun the persona.
+        if (getIdentifierCount === (RETRIES + 1)) { // 4 = 1 + 2 retries
+          // On second retry, return the persona.
           const identifierWithPersona: Identifier = {
             ...identifierWithoutPersona,
             persona: persona.id,
