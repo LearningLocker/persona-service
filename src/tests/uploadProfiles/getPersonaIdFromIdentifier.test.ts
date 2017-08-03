@@ -102,6 +102,7 @@ describe('getPersonaIdFromIdentifier', () => {
       getIdentifier: async (opts: GetIdentifierOptions): Promise<GetIdentifierResult> => {
         ++getIdentifierCount;
         const DEFAULT_RETRIES = 3;
+        /* istanbul ignore if  */
         if (getIdentifierCount > (DEFAULT_RETRIES + 1)) { // 4 = 1 + 3 retries
           throw new Error('Retried more than 3 times');
         }
