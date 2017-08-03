@@ -1,13 +1,15 @@
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
 
+export interface Profiles {
+  [key: string]: any;
+}
+
 interface UploadProfilesOptions {
   readonly client: ClientModel;
   readonly primaryAgent: Agent;
   readonly secondaryAgents: Agent[];
-  readonly profiles: {
-    [key: string]: any;
-  };
+  readonly profiles: Profiles;
 }
 
 export default UploadProfilesOptions;

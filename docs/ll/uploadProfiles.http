@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "primaryAgent": { "mbox": "mailto:test@exaple.org" },
-  "agents": [
+  "secondaryAgents": [
     { "mbox": "mailto:test@exaple.org" },
     { "openid": "http://www.example.org/users/1" },
   ],

@@ -11,6 +11,7 @@ import getProfiles from './getProfiles';
 import mergePersona from './mergePersona';
 import postProfile from './postProfile';
 import putProfile from './putProfile';
+import uploadProfiles from './uploadProfiles';
 import { NOT_FOUND_404_HTTP_CODE } from './utils/httpCodes';
 
 export default (config: Config): Router => {
@@ -24,6 +25,7 @@ export default (config: Config): Router => {
   router.get('/xAPI/agents', getFullAgent(config));
   router.post('/mergePersona', mergePersona(config));
   router.get('/persona/:id', getPersona(config));
+  router.post('/uploadProfiles', uploadProfiles(config));
 
   router.use((_req: Request, res: Response) => {
     const errorId = uuid();
