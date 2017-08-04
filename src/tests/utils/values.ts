@@ -1,5 +1,6 @@
 import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
+import Ifi from '../../models/Ifi';
 import { ALL } from '../../utils/scopes';
 
 export const TEST_CLIENT: ClientModel = {
@@ -17,6 +18,9 @@ export const TEST_CLIENT: ClientModel = {
 
 export const TEST_MBOX_AGENT: Agent = {
   mbox: 'mailto:test_agent@example.org',
+};
+export const TEST_MBOX_AGENT_2: Agent = {
+  mbox: 'mailto:another_test_agent@example.org',
 };
 
 export const TEST_MBOXSHA1_AGENT: Agent = {
@@ -55,4 +59,9 @@ export const TEST_CLIENT_OUTSIDE_STORE = {
 export const TEST_CLIENT_OUTSIDE_ORG = {
   ...TEST_CLIENT,
   organisation: '58fe13e34effd3c26a7fc4c6',
+};
+
+export const TEST_IFI: Ifi = {
+  key: 'mbox',
+  value: 'test@test.com',
 };

@@ -33,8 +33,10 @@ export default {
     morganDirectory: defaultTo<string>(process.env.EXPRESS_MORGAN_DIRECTORY, accessLogsDir),
     port: expressPort,
   },
+  fetchAuthRepo: {
+    llClientInfoEndpoint: defaultTo<string>(process.env.LL_CLIENT_INFO_ENDPOINT, demoAuth),
+  },
   lang: defaultTo<string>(process.env.LANG, 'en'),
-  llClientInfoEndpoint: defaultTo<string>(process.env.LL_CLIENT_INFO_ENDPOINT, demoAuth),
   localStorageRepo: {
     storageDir: defaultTo<string>(process.env.FS_LOCAL_STORAGE_DIR, storageDir),
   },
@@ -58,6 +60,7 @@ export default {
     url: defaultTo<string>(process.env.MONGO_URL, 'mongodb://localhost:27017/xapiagents'),
   },
   repoFactory: {
+    authRepoName: defaultTo<string>(process.env.AUTH_REPO, 'fetch'),
     modelsRepoName: defaultTo<string>(process.env.MODELS_REPO, 'memory'),
     storageRepoName: defaultTo<string>(process.env.STORAGE_REPO, 'local'),
   },

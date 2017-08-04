@@ -5,12 +5,20 @@ import sendMessage from 'jscommons/dist/expressPresenter/utils/sendMessage';
 import { isNull, isUndefined } from 'lodash';
 import { Warnings } from 'rulr';
 import Conflict from '../../errors/Conflict';
+import DuplicateMergeId from '../../errors/DuplicateMergeId';
 import IfMatch from '../../errors/IfMatch';
 import IfNoneMatch from '../../errors/IfNoneMatch';
+import InvalidGetPersonaFromIdentifierOptions from // tslint:disable:import-spacing
+  '../../errors/InvalidGetPersonaFromIdentifierOptions';
 import InvalidMethod from '../../errors/InvalidMethod';
 import MaxEtags from '../../errors/MaxEtags';
+import MissingMergeFromPersona from '../../errors/MissingMergeFromPersona';
+import MissingMergeToPersona from '../../errors/MissingMergeToPersona';
+import NoModelWithId from '../../errors/NoModelWithId';
 import NonJsonObject from '../../errors/NonJsonObject';
+import UnassignedPersonaOnIdentifier from '../../errors/UnassignedPersonaOnIdentifier';
 import Translator from '../../translatorFactory/Translator';
+import { SERVER_ERROR_500_HTTP_CODE } from './httpCodes';
 import sendWarnings from './sendWarnings';
 
 interface Options extends CommonOptions {
@@ -25,7 +33,28 @@ export default ({ translator, errorId, res, err }: Options): Response => {
   }
 
   switch (err.constructor) {
-    case MaxEtags: {
+    case UnassignedPersonaOnIdentifier: {
+      const message =
+        translator.unassignedPersonaOnIdentifier(err as UnassignedPersonaOnIdentifier);
+      const code = SERVER_ERROR_500_HTTP_CODE;
+      return sendMessage({ res, code, errorId, message});
+    } case MissingMergeFromPersona: {
+      const code = 400;
+      const message = translator.missingMergeFromPersona(err as MissingMergeFromPersona);
+      return sendMessage({ res, code, errorId, message });
+    } case MissingMergeToPersona: {
+      const code = 400;
+      const message = translator.missingMergeToPersona(err as MissingMergeToPersona);
+      return sendMessage({ res, code, errorId, message });
+    } case NoModelWithId: {
+      const code = 404;
+      const message = translator.noModelWithIdError(err as NoModelWithId);
+      return sendMessage({ res, code, errorId, message });
+    } case DuplicateMergeId: {
+      const code = 400;
+      const message = translator.duplicateMergeIdError(err as DuplicateMergeId);
+      return sendMessage({ res, code, errorId, message });
+    } case MaxEtags: {
       const code = 400;
       const message = translator.maxEtagsError(err as MaxEtags);
       return sendMessage({ res, code, errorId, message });
@@ -53,6 +82,10 @@ export default ({ translator, errorId, res, err }: Options): Response => {
       const code = 400;
       const message = translator.invalidMethodError(err as InvalidMethod);
       return sendMessage({ res, code, errorId, message });
+    }case InvalidGetPersonaFromIdentifierOptions: {
+      const code = SERVER_ERROR_500_HTTP_CODE;
+      const message = translator.invalidGetPersonaFromIdentifierOptions();
+      return sendMessage({res, code, errorId, message});
     } default: {
       return commonErrorHandler({ translator, errorId, res, err });
     }
