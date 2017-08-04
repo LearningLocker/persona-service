@@ -13,6 +13,7 @@ export default (config: Config) => {
       client: opts.client,
       config,
     });
+
     const profile = await config.repo.getProfile({
       client: opts.client,
       personaIdentifier,

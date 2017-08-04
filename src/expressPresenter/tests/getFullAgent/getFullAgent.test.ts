@@ -1,4 +1,5 @@
 import * as express from 'express';
+import setupService from 'jscommons/dist/tests/utils/setupService';
 import * as stringToStream from 'string-to-stream';
 import * as supertest from 'supertest';
 import serviceFactory from '../../../serviceFactory';
@@ -16,12 +17,13 @@ import {
 } from '../../utils/httpCodes';
 import createExpressPresenterFacade from '../utils/createExpressPresenterFacade';
 
-const app = express();
-const service = serviceFactory();
-const expressPresenter = createExpressPresenterFacade(service);
-app.use(expressPresenter);
-
 describe('GET /xAPI/agents', () => {
+  const app = express();
+  const service = serviceFactory();
+  setupService(service)();
+  const expressPresenter = createExpressPresenterFacade(service);
+  app.use(expressPresenter);
+
   it('should respond with 200 when full agent not found', async () => {
     await supertest(app)
       .get(`/xAPI/agents`)
@@ -52,6 +54,16 @@ describe('GET /xAPI/agents', () => {
       .get(`/xAPI/agents`)
       .query({
         agent: JSON.stringify(TEST_INVALID_AGENT),
+      })
+      .expect(BAD_REQUEST_400_HTTP_CODE);
+  });
+
+  it('should throw warning warning if agent is not set', async () => {
+    await supertest(app)
+      .get('/xAPI/agents')
+      .set('Authorization', '12345')
+      .query({
+
       })
       .expect(BAD_REQUEST_400_HTTP_CODE);
   });

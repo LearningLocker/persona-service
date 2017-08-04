@@ -30,6 +30,5 @@ describe('getPersona with non-existing model', () => {
       personaId: persona.id,
     });
     await assertError(NoModelWithId, promise);
-
   });
 });

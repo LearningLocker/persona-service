@@ -9,7 +9,7 @@ import getProfileId from './getProfileId';
 
 const getContent = (req: Request, contentType: string) => {
   if (req.body === undefined) {
-    return req;
+    return req; // This is required, as if no body is set, then the req is a stream.
   }
   if (contentType === 'application/json') {
     return stringToStream(JSON.stringify(req.body));

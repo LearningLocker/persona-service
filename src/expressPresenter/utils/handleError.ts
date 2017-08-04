@@ -26,7 +26,7 @@ interface Options extends CommonOptions {
 }
 
 export default ({ translator, errorId, res, err }: Options): Response => {
-  if (isNull(err) || isUndefined(null)) {
+  if (isNull(err) || isUndefined(err)) {
     const code = 500;
     const message = translator.serverError();
     return sendMessage({ res, code, errorId, message });

@@ -1,9 +1,9 @@
-/* tslint:disable:no-magic-numbers */
 import { Request, Response } from 'express';
 import ClientModel from '../models/ClientModel';
 import { ALL } from '../utils/scopes';
 import Config from './Config';
 import catchErrors from './utils/catchErrors';
+import { OK_200_HTTP_CODE } from './utils/httpCodes';
 
 export default (config: Config) => {
   return catchErrors(config, async (_req: Request, res: Response): Promise<void> => {
@@ -19,6 +19,6 @@ export default (config: Config) => {
       scopes: [ALL],
       title: 'dummy_title',
     };
-    res.status(200).json(client);
+    res.status(OK_200_HTTP_CODE).json(client);
   });
 };
