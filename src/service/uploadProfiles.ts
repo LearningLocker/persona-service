@@ -11,7 +11,9 @@ interface AddProfilesToIdentifiersOptions {
   readonly client: ClientModel;
   readonly config: Config;
   readonly identifierIds: string[];
-  readonly profiles: {[key: string]: any};
+  readonly profiles: {
+    readonly [key: string]: any;
+  };
 }
 const addProfilesToIdentifiers = async ({
   client,
