@@ -2,7 +2,7 @@ import Agent from '../../models/Agent';
 import ClientModel from '../../models/ClientModel';
 
 export interface Profiles {
-  [key: string]: any;
+  readonly [key: string]: any;
 }
 
 interface UploadProfilesOptions {

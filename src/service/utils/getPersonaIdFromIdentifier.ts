@@ -8,10 +8,10 @@ import Identifier from '../../models/Identifier';
 import Config from '../Config';
 
 export interface GetPersonaIdFromIdentifierOptions {
-  client: ClientModel;
-  config: Config;
-  identifier: Identifier;
-  wasCreated: boolean;
+  readonly client: ClientModel;
+  readonly config: Config;
+  readonly identifier: Identifier;
+  readonly wasCreated: boolean;
 }
 const getPersonaIdFromIdentifier = async ({
   client,

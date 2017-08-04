@@ -26,7 +26,7 @@ describe('getPersonaIdFromIdentifier getPersonaIdWithRetry', () => {
   it('should retry if persona is not on the identifier', async () => {
     const repoFacade = repoFactory();
 
-    let getIdentifierCount = 0;
+    let getIdentifierCount = 0; // tslint:disable:prefer-const
     const repoFacadeWithMock: Repo = {
       ...repoFacade,
       getIdentifier: async (opts: GetIdentifierOptions): Promise<GetIdentifierResult> => {
