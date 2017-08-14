@@ -1,14 +1,11 @@
 import { map } from 'lodash';
-import ClientModel from '../models/ClientModel';
 import UploadProfilesOptions from '../serviceFactory/options/UploadProfilesOptions';
 import UploadProfilesResult from '../serviceFactory/results/UploadProfilesResult';
 import Config from './Config';
-import createEtag from './utils/createEtag';
-import getIfiFromAgent from './utils/getIfiFromAgent';
 import getPersonaIdFromIdentifier from './utils/getPersonaIdFromIdentifier';
 
 interface AddProfilesToIdentifiersOptions {
-  readonly client: ClientModel;
+  readonly organisation: string;
   readonly config: Config;
   readonly identifierIds: string[];
   readonly profiles: {
@@ -16,7 +13,7 @@ interface AddProfilesToIdentifiersOptions {
   };
 }
 const addProfilesToIdentifiers = async ({
-  client,
+  organisation,
   config,
   identifierIds,
   profiles,
@@ -27,7 +24,7 @@ const addProfilesToIdentifiers = async ({
       return Promise.all(
         map(profiles, (profile: string, profileKey: string) => {
           return config.repo.overwriteProfile({
-            client,
+            organisation,
             content: profile,
             contentType: 'application/json',
             etag: createEtag(),
@@ -41,7 +38,7 @@ const addProfilesToIdentifiers = async ({
 };
 
 export default (config: Config) => async ({
-  client,
+  organisation,
   profiles,
   primaryAgent,
   secondaryAgents,
@@ -54,12 +51,12 @@ export default (config: Config) => async ({
     identifier: primaryIdentifier,
     wasCreated: primaryWasCreated,
   } = await config.repo.createIdentifier({
-    client,
+    organisation,
     ifi: primaryIfi,
   });
 
   const personaId = await getPersonaIdFromIdentifier({
-    client,
+    organisation,
     config,
     identifier: primaryIdentifier,
     wasCreated: primaryWasCreated,
@@ -69,7 +66,7 @@ export default (config: Config) => async ({
     (await Promise.all(
       ifis.map((ifi) => {
         return config.repo.overwriteIdentifier({
-          client,
+          organisation,
           ifi,
           personaId,
         });
@@ -84,7 +81,7 @@ export default (config: Config) => async ({
 
   // Add profile to Identifiers
   await addProfilesToIdentifiers({
-    client,
+    organisation,
     config,
     identifierIds,
     profiles,

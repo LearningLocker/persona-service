@@ -21,7 +21,6 @@ export default (config: Config): Service => {
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
     deletePersona: deletePersona(config),
-    deleteProfile: deleteProfile(config),
     getClient: getClient(config),
     getFullAgent: getFullAgent(config),
     getIdentifier: getIdentifier(config),

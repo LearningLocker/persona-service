@@ -1,16 +1,15 @@
-import ClientModel from '../../models/ClientModel';
 import Ifi from '../../models/Ifi';
 import Config from '../Config';
 import matchIdentifierIfi from './matchIdentifierIfi';
 
 interface Options {
-  readonly client: ClientModel;
+  readonly organisation: string;
   readonly config: Config;
   readonly ifi: Ifi;
 }
 
-export default ({ config, client, ifi }: Options) => {
+export default ({ config, organisation, ifi }: Options) => {
   return config.state.personaIdentifiers.filter((identifier) => {
-    return matchIdentifierIfi({ identifier, client, ifi });
+    return matchIdentifierIfi({ identifier, organisation, ifi });
   });
 };
