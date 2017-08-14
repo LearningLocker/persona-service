@@ -11,7 +11,6 @@ import Profile from '../models/Profile';
 import mongoModelsRepo from '../mongoModelsRepo';
 import s3StorageRepo from '../s3StorageRepo';
 import testAuthRepo from '../testAuthRepo';
-import { ALL } from '../utils/scopes';
 import AuthRepo from './AuthRepo';
 import ModelsRepo from './ModelsRepo';
 import Repo from './Repo';
@@ -21,20 +20,7 @@ import StorageRepo from './StorageRepo';
 const getAuthRepo = (): AuthRepo => {
   switch (config.repoFactory.authRepoName) {
     case 'test':
-      return testAuthRepo({
-        client: {
-          _id: 'dummy_id',
-          authority: {
-            mbox: 'mailto:dummy@example.com',
-            objectType: 'Agent',
-          },
-          isTrusted: true,
-          lrs_id: 'dummy_lrs_id',
-          organisation: 'dummy_organisation',
-          scopes: [ALL],
-          title: 'dummy_title',
-        },
-      });
+      return testAuthRepo({});
     default: case 'fetch':
       return fetchAuthRepo({
         llClientInfoEndpoint: config.fetchAuthRepo.llClientInfoEndpoint,
