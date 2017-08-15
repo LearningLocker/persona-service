@@ -12,7 +12,7 @@ export default (config: Config) => {
     // Filters on the IFI and organisation.
     const filter = getIdentifierIfiFilter(
       opts.ifi,
-      opts.client.organisation,
+      opts.organisation,
     );
 
     // Sets properties when the Identifier is created (not found).
@@ -20,7 +20,7 @@ export default (config: Config) => {
     const update = {
       $setOnInsert: {
         ifi: opts.ifi,
-        organisation: new ObjectID(opts.client.organisation),
+        organisation: new ObjectID(opts.organisation),
         ...(
           opts.persona !== undefined
           ? { persona: new ObjectID(opts.persona) }

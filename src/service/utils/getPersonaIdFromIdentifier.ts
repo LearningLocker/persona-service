@@ -3,18 +3,17 @@ import InvalidGetPersonaFromIdentifierOptions from // tslint:disable:import-spac
   '../../errors/InvalidGetPersonaFromIdentifierOptions';
 import UnassignedPersonaOnIdentifier from '../../errors/UnassignedPersonaOnIdentifier';
 import logger from '../../logger';
-import ClientModel from '../../models/ClientModel';
 import Identifier from '../../models/Identifier';
 import Config from '../Config';
 
 export interface GetPersonaIdFromIdentifierOptions {
-  readonly client: ClientModel;
+  readonly organisation: string;
   readonly config: Config;
   readonly identifier: Identifier;
   readonly wasCreated: boolean;
 }
 const getPersonaIdFromIdentifier = async ({
-  client,
+  organisation,
   config,
   identifier,
   wasCreated, // Was identifier created, if so, create a Persona.
@@ -25,7 +24,7 @@ const getPersonaIdFromIdentifier = async ({
     );
   }
   if (wasCreated) {
-    const {persona} = await config.repo.createPersona({ client });
+    const {persona} = await config.repo.createPersona({ organisation });
     await config.repo.setIdentifierPersona({
       id: identifier.id,
       persona: persona.id,
@@ -38,8 +37,8 @@ const getPersonaIdFromIdentifier = async ({
 
     return promiseRetry<string>(async (retry) => {
       const {identifier: identifier2} = await config.repo.getIdentifier({
-        client,
         id: identifier.id,
+        organisation,
       });
 
       if (identifier2.persona === undefined) {

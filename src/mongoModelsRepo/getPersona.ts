@@ -12,7 +12,7 @@ export default (config: Config) => {
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#findOne
     const document = await collection.findOne({
       _id: new ObjectID(opts.personaId),
-      organisation: new ObjectID(opts.client.organisation),
+      organisation: new ObjectID(opts.organisation),
     });
 
     if (document === null || document === undefined) {

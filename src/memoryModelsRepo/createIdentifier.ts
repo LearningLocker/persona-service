@@ -8,9 +8,9 @@ import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 export default (config: Config) => {
   return async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
     const matchingIdentifiers = getIdentifiersMatchingIfi({
-      client: opts.client,
       config,
       ifi: opts.ifi,
+      organisation: opts.organisation,
     });
 
     // Creates the identifier if the IFI doesn't already exist.
@@ -19,7 +19,7 @@ export default (config: Config) => {
       const identifier: Identifier = {
         id: uuid(),
         ifi: opts.ifi,
-        organisation: opts.client.organisation,
+        organisation: opts.organisation,
         persona: opts.persona,
       };
       config.state.personaIdentifiers = [

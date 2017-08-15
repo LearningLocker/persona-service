@@ -1,12 +1,13 @@
+// Don't need this any more???
+
+/*
 import * as sourceMapSupport from 'source-map-support';
 sourceMapSupport.install();
 
 import * as express from 'express';
 import config from './config';
-import presenter from './expressPresenter';
 import logger from './logger';
 import serviceFactory from './serviceFactory';
-import translatorFactory from './translatorFactory';
 
 const app = express();
 
@@ -45,3 +46,4 @@ app.listen(config.express.port, () => {
   process.on('SIGTERM', handleExit('SIGTERM'));
   process.on('uncaughtException', handleExit('uncaughtException'));
 });
+*/

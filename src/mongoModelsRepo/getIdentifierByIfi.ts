@@ -12,7 +12,7 @@ export default (config: Config) => {
     // Filters on the IFI and organisation.
     const ifiFilter = getIdentifierIfiFilter(opts.ifi);
     const filter = {
-      organisation: new ObjectID(opts.client.organisation),
+      organisation: new ObjectID(opts.organisation),
       ...ifiFilter,
     };
 

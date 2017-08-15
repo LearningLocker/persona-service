@@ -10,7 +10,7 @@ export default (config: Config) => {
 
     const filter = {
       _id: new ObjectID(opts.id),
-      organisation: new ObjectID(opts.client.organisation),
+      organisation: new ObjectID(opts.organisation),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find

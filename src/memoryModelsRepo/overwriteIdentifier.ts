@@ -8,16 +8,15 @@ import matchIdentifierIfi from './utils/matchIdentifierIfi';
 
 export default (config: Config) => {
   return async ({
-    client,
+    organisation,
     ifi,
     personaId,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
-    const matchingIdentifiers = getIdentifiersMatchingIfi({ client, config, ifi });
+    const matchingIdentifiers = getIdentifiersMatchingIfi({ organisation, config, ifi });
     const isExistingIfi = matchingIdentifiers.length !== 0;
 
     // Creates the identifier when the IFI does not already exist.
     if (!isExistingIfi) {
-      const organisation = client.organisation;
       const id = uuid();
       const identifier: Identifier = { id, ifi, organisation, persona: personaId };
       config.state.personaIdentifiers = [
@@ -30,7 +29,7 @@ export default (config: Config) => {
     // Overwrites the identifier when the IFI does already exist.
     const storedIdentifiers = config.state.personaIdentifiers;
     const updatedIdentifiers = storedIdentifiers.map((identifier) => {
-      const isMatch = matchIdentifierIfi({ client, identifier, ifi });
+      const isMatch = matchIdentifierIfi({ organisation, identifier, ifi });
 
       if (!isMatch) {
         return identifier;

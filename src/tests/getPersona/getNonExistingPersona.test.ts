@@ -2,8 +2,8 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
 import setup from '../utils/setup';
 import {
-  TEST_CLIENT,
-  TEST_CLIENT_OUTSIDE_ORG,
+  TEST_ORGANISATION,
+  TEST_ORGANISATION_OUTSIDE_STORE,
 } from '../utils/values';
 
 const TEST_PERSONA_ID = '58fe13e34effd3c26a9fc4b8';
@@ -13,7 +13,7 @@ describe('getPersona with non-existing model', () => {
 
   it('should error when getting a non-existing model', async () => {
     const promise = service.getPersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: TEST_PERSONA_ID,
     });
     await assertError(NoModelWithId, promise);
@@ -21,12 +21,12 @@ describe('getPersona with non-existing model', () => {
 
   it('should error getting model outside the org', async () => {
     const {persona} = await service.createPersona({
-      client: TEST_CLIENT,
       name: 'Dave',
+      organisation: TEST_ORGANISATION,
     });
 
     const promise = service.getPersona({
-      client: TEST_CLIENT_OUTSIDE_ORG,
+      organisation: TEST_ORGANISATION_OUTSIDE_STORE,
       personaId: persona.id,
     });
     await assertError(NoModelWithId, promise);

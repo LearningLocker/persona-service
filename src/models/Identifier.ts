@@ -1,10 +1,10 @@
 import Ifi from './Ifi';
 
-interface Model {
+interface Identifier {
   readonly id: string;
   readonly organisation: string;
   readonly persona?: string;
   readonly ifi: Ifi;
 }
 
-export default Model;
+export default Identifier;

@@ -4,6 +4,7 @@ import CreatePersonaOptions from './options/CreatePersonaOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetIdentifierOptions from './options/GetIdentifierOptions';
+import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
@@ -13,6 +14,7 @@ import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
 import GetIdentifierResult from './results/GetIdentifierResult';
+import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
 import GetPersonaResult from './results/GetPersonaResult';
 import MergePersonaResult from './results/MergePersonaResult';
@@ -31,4 +33,5 @@ export default interface Repo extends CommonRepo {
     (opts: OverwriteIdentifierOptions) => Promise<OverwriteIdentifierResult>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
+  readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
 }

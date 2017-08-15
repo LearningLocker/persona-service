@@ -10,7 +10,7 @@ export default (config: Config) => {
 
     const docToInsert = {
       name: opts.name,
-      organisation: new ObjectID(opts.client.organisation),
+      organisation: new ObjectID(opts.organisation),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertOne
@@ -21,7 +21,7 @@ export default (config: Config) => {
     const persona: Persona = {
       id: opResult.insertedId.toString(),
       name: opts.name,
-      organisation: opts.client.organisation,
+      organisation: opts.organisation,
     };
 
     return { persona };
