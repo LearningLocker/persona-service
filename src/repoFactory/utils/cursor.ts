@@ -1,4 +1,5 @@
 import { Dictionary, keys, map, pick, reduce, result, zipObject } from 'lodash';
+import InvalidCursor from '../../errors/InvalidCursor';
 import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 
 const base64 = (i: string): string => {
@@ -13,24 +14,23 @@ export const toCursor = (data: object): string => {
   return base64(JSON.stringify(data));
 };
 
-export const fromCursor = (cursor?: string): object|null => {
-  if (cursor) {
-    try {
-      return JSON.parse(unbase64(cursor)) || null;
-    } catch (err) {
-      return null;
-    }
+export const fromCursor = (cursor: string): object|null => {
+  try {
+    return JSON.parse(unbase64(cursor)) || null;
+  } catch (err) {
+    return null;
   }
-  return null;
 };
 
 const sortDirectionToOperator = (sortDirection: 1|-1, cursorDirection: CursorDirection) => {
+  /* istanbul ignore else  */ // This can't happen
   if (cursorDirection === CursorDirection.FORWARDS) {
     switch (sortDirection) {
       case 1:
         return '$gt';
       case -1:
         return '$lt';
+      /* istanbul ignore next */ // This can't happen. As requested by Ryan.
       default:
         return null;
     }
@@ -40,10 +40,12 @@ const sortDirectionToOperator = (sortDirection: 1|-1, cursorDirection: CursorDir
         return '$lt';
       case -1:
         return '$gt';
+      /* istanbul ignore next */ // This can't happen. As requested by Ryan.
       default:
         return null;
     }
   }
+  /* istanbul ignore next */ // This can't happen. As requested by Ryan.
   return null;
 };
 
@@ -56,10 +58,13 @@ export const cursorToFilter = ({
   readonly sort: object;
   readonly direction: CursorDirection;
 }): object => {
+  console.log('000', cursor);
   if (!cursor) {
     return {};
   }
+  console.log('000.1');
   const parsedCursor: {readonly [key: string]: any} | null = fromCursor(cursor);
+
   const sortConditions = reduce<
     1|-1, {readonly oldKeys: string[]; readonly conditions: any[]}
   >(
@@ -67,8 +72,13 @@ export const cursorToFilter = ({
     ({ oldKeys, conditions }, sortValue, sortKey) => {
       const operator = sortDirectionToOperator(sortValue, direction);
       // { _id: 1 } >>> { _id: { $gt: 'sampleid' } }
-      if (operator === null || parsedCursor === null) {
-        return {oldKeys, conditions};
+      if (parsedCursor === null) {
+        throw new InvalidCursor();
+      }
+
+      /* istanbul ignore next */ // This can't happen. As requested by Ryan.
+      if (operator === null) {
+        throw new Error('Can not happen');
       }
 
       const latestCondition: object = { [sortKey]: { [operator]: result(parsedCursor, sortKey) } };

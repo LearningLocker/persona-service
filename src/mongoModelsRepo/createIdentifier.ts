@@ -21,11 +21,7 @@ export default (config: Config) => {
       $setOnInsert: {
         ifi: opts.ifi,
         organisation: new ObjectID(opts.organisation),
-        ...(
-          opts.persona !== undefined
-          ? { persona: new ObjectID(opts.persona) }
-          : {}
-        ),
+        persona: new ObjectID(opts.persona),
       },
     };
 

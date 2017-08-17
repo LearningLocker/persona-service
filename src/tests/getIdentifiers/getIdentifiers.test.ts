@@ -5,7 +5,7 @@ import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection'
 import Identifier from '../../models/Identifier';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import CreateIdentifierResult from '../../serviceFactory/results/CreateIdentifierResult';
-import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import { applyDefaultOptions, CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -13,7 +13,7 @@ import {
   TEST_ORGANISATION,
 } from '../utils/values';
 
-describe.only('getIdentifiers', () => {
+describe('getIdentifiers', () => {
   const service = setup();
 
   const addTestIdentifiers = async () => {
@@ -49,6 +49,8 @@ describe.only('getIdentifiers', () => {
         cursor: undefined,
         direction: CursorDirection.FORWARDS,
         filter: {},
+        hint: {
+        },
         limit: 10,
         maxScan: 0,
         maxTimeMS: 0,
@@ -132,7 +134,7 @@ describe.only('getIdentifiers', () => {
     assert.equal(identifiersResults.pageInfo.hasPreviousPage, true);
   });
 
-  it('Should return the top 10 cursors when direction is BACKWARDS', async () => {
+  it('Should throw error when direction is BACKWARDS and cursor is undefined', async () => {
     // Add 12 Identifiers
     const identifiers = await addTestIdentifiers(); // tslint:disable-line
     
@@ -192,6 +194,27 @@ describe.only('getIdentifiers', () => {
     assert.equal(identifiersResult.edges.length, THREE);
     assert.equal(identifiersResult.pageInfo.hasNextPage, true);
     assert.equal(identifiersResult.pageInfo.hasPreviousPage, false);
+  });
+
+  it('should return undefiend cursor, if no identifiers', async () => {
+    const identifiersResult = await service.getIdentifiers(
+      {
+        cursor: undefined,
+        direction: CursorDirection.FORWARDS,
+        filter: {},
+        limit: 1,
+        maxScan: 0,
+        maxTimeMS: 0,
+        organisation: TEST_ORGANISATION,
+        project: {},
+        sort: {
+          'ifi.value': 1,
+        },
+      },
+    );
+
+    assert.equal(identifiersResult.pageInfo.endCursor, undefined);
+    assert.equal(identifiersResult.pageInfo.startCursor, undefined);
   });
 
   it('Should return the previous 1 cursors when limit 1', async () => {

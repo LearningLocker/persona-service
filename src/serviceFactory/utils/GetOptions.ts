@@ -30,24 +30,4 @@ export interface RepoOptions {
   readonly hint?: Hint;
 }
 
-const DEFAULT_LIMIT = 10;
-const MAX_TIME_MS = process.env.MAX_TIME_MS
-  ? Number(process.env.MAX_TIME_MS)
-  : 0;
-const MAX_SCAN = process.env.MAX_SCAN ? Number(process.env.MAX_SCAN) : 0;
-
-export const applyDefaultOptions = ({
-  limit = DEFAULT_LIMIT,
-  maxTimeMS = MAX_TIME_MS,
-  maxScan = MAX_SCAN,
-  ...opts,
-}: GetOptions): GetOptions => {
-  return {
-    ...opts,
-    limit,
-    maxScan,
-    maxTimeMS,
-  };
-};
-
 export default interface GetOptions extends PaginationOptions, FilterOptions, RepoOptions {}

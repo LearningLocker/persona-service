@@ -6,12 +6,12 @@ import createPersona from './createPersona';
 import deletePersona from './deletePersona';
 import getIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
+import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
 import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
 import setIdentifierPersona from './setIdentifierPersona';
-import getIdentifiers from './getIdentifiers';
 
 export default (config: Config): Repo => {
   return {
@@ -19,8 +19,8 @@ export default (config: Config): Repo => {
     createPersona: createPersona(config),
     deletePersona: deletePersona(config),
     getIdentifier: getIdentifier(config),
-    getIdentifiers: getIdentifiers(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
+    getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
     mergePersona: mergePersona(config),

@@ -17,7 +17,7 @@ export default (config: Config, collectionName: string) => {
     direction,
     organisation,
     project,
-    sort = { _id: 1 },
+    sort,
     hint,
   }: GetOptions): Promise<PaginationResult<T>> => {
 
