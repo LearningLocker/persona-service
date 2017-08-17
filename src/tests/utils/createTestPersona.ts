@@ -1,3 +1,4 @@
+import PersonaModel from '../../models/Persona';
 import service from '../../tester';
 import { TEST_ORGANISATION } from '../utils/values';
 

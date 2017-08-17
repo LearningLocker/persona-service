@@ -11,6 +11,7 @@ import CreatePersonaResult from './results/CreatePersonaResult';
 import GetIdentifierResult from './results/GetIdentifierResult';
 import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetPersonaResult from './results/GetPersonaResult';
+import MergePersonaResult from './results/MergePersonaResult';
 
 interface Service extends CommonService {
   readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
@@ -18,8 +19,8 @@ interface Service extends CommonService {
   readonly deletePersona: (opts: DeletePersonaOptions) => Promise<void>;
   readonly getIdentifier: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult>;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
-  readonly mergePersona: (opts: MergePersonaOptions) => Promise<GetIdentifiersResult>;
-  readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersOptions>;
+  readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
+  readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
 }
 
 export default Service;

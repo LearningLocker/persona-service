@@ -2,7 +2,7 @@
 import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
 
-interface State {
+export interface State {
   personaIdentifiers: Identifier[];
   personas: Persona[];
 }

@@ -1,12 +1,12 @@
 import Account from '../models/Account';
 
 // Inverse function identifier
-interface StringIfi {
+export interface StringIfi {
   readonly key: 'mbox' | 'mbox_sha1sum' | 'openid';
   readonly value: string;
 }
 
-interface AccountIfi {
+export interface AccountIfi {
   readonly key: 'account';
   readonly value: Account;
 }

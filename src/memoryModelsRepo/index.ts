@@ -6,6 +6,7 @@ import createPersona from './createPersona';
 import deletePersona from './deletePersona';
 import getIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
+import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
 import mergePersona from './mergePersona';
@@ -19,6 +20,7 @@ export default (config: Config): Repo => {
     deletePersona: deletePersona(config),
     getIdentifier: getIdentifier(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
+    getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
     mergePersona: mergePersona(config),

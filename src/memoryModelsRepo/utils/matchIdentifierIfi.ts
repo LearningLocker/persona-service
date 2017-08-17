@@ -1,8 +1,7 @@
-
 import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
 
-interface Options {
+export interface Options {
   readonly organisation: string;
   readonly identifier: Identifier;
   readonly ifi: Ifi;

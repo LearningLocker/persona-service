@@ -1,8 +1,9 @@
+import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
 import Config from '../Config';
 import matchIdentifierIfi from './matchIdentifierIfi';
 
-interface Options {
+export interface Options {
   readonly organisation: string;
   readonly config: Config;
   readonly ifi: Ifi;
