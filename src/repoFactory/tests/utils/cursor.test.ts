@@ -57,6 +57,7 @@ describe('cursor', () => {
         direction: CursorDirection.FORWARDS,
         sort: mockSort,
       });
+      /* istanbul ignore next */
       assert.fail('Should not happen');
     }catch (err) {
       assert.equal(!!err, true);
@@ -95,9 +96,28 @@ describe('cursor', () => {
           name: 1,
         },
       });
+      /* istanbul ignore next */
       assert.fail('should not happen');
     } catch (err) {
       assert.equal(err.constructor, InvalidCursor);
     }
   });
-});
+
+  it('Should handle invalid cursors as false', () => {
+    const mockCursor = 'ZmFsc2U==';
+    try {
+      cursorToFilter({
+        cursor: mockCursor,
+        direction: CursorDirection.FORWARDS,
+        sort: {
+          _id: 1,
+          name: 1,
+        },
+      });
+      /* istanbul ignore next */
+      assert.fail('should not happen');
+    } catch (err) {
+      assert.equal(err.constructor, InvalidCursor);
+    }
+  });
+}); // tslint:disable-line: max-file-line-count

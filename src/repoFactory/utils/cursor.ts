@@ -16,7 +16,11 @@ export const toCursor = (data: object): string => {
 
 export const fromCursor = (cursor: string): object|null => {
   try {
-    return JSON.parse(unbase64(cursor)) || null;
+    const parsedCursor = JSON.parse(unbase64(cursor));
+    if (parsedCursor === false) {
+      return null;
+    }
+    return parsedCursor;
   } catch (err) {
     return null;
   }
@@ -58,12 +62,11 @@ export const cursorToFilter = ({
   readonly sort: object;
   readonly direction: CursorDirection;
 }): object => {
-  console.log('000', cursor);
-  if (!cursor) {
+  if (cursor === undefined) {
     return {};
   }
-  console.log('000.1');
-  const parsedCursor: {readonly [key: string]: any} | null = fromCursor(cursor);
+  type ParsedCursor = {readonly [key: string]: any} | null;
+  const parsedCursor: ParsedCursor = fromCursor(cursor);
 
   const sortConditions = reduce<
     1|-1, {readonly oldKeys: string[]; readonly conditions: any[]}
@@ -81,8 +84,12 @@ export const cursorToFilter = ({
         throw new Error('Can not happen');
       }
 
-      const latestCondition: object = { [sortKey]: { [operator]: result(parsedCursor, sortKey) } };
-      const oldConditions = zipObject(
+      const latestCondition: object = { [sortKey]: { [operator]: result(
+        parsedCursor,
+        sortKey,
+        parsedCursor,
+      )}};
+      const oldConditions = zipObject<string[], object>(
         oldKeys,
         map(oldKeys, (oldKey) => result(parsedCursor, oldKey)),
       );
@@ -108,7 +115,7 @@ export const modelToCursor = ({
   readonly model: object;
   readonly sort: object;
 }): string => {
-  const data = pick(model, keys(sort));
+  const data = pick<object, object>(model, keys(sort));
   const cursor = toCursor(data);
   return cursor;
 }; // tslint:disable-line: max-file-line-count

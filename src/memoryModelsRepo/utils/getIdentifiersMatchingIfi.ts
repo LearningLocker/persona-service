@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-unused
 import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
 import Config from '../Config';

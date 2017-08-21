@@ -4,7 +4,6 @@
   ],
   "rules": {
     "match-default-export-name": false,
-    "no-unused-variable": true,
     "comment-format": [true, "check-space"]
   }
 }

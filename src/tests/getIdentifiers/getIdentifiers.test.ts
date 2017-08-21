@@ -5,7 +5,7 @@ import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection'
 import Identifier from '../../models/Identifier';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import CreateIdentifierResult from '../../serviceFactory/results/CreateIdentifierResult';
-import { applyDefaultOptions, CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -155,7 +155,7 @@ describe('getIdentifiers', () => {
       },
     );
 
-    assertError(NoCursorBackwardsDirection, identifiersPromise);
+    return assertError(NoCursorBackwardsDirection, identifiersPromise);
   });
 
   it('Should return the previous 2 cursors when direction is BACKWARDS', async () => {
@@ -252,5 +252,31 @@ describe('getIdentifiers', () => {
     assert.equal(identifiersResult.edges.length, 1);
     assert.equal(identifiersResult.pageInfo.hasNextPage, true);
     assert.equal(identifiersResult.pageInfo.hasPreviousPage, true);
+  });
+
+  it('should test $and clause', async () => {
+    await addTestIdentifiers();
+
+    const identifiersResult = await service.getIdentifiers(
+      {
+        direction: CursorDirection.FORWARDS,
+        filter: {
+          $and: [{
+            'ifi.value': {$eq: '9_test@test.com'},
+          }],
+        },
+        limit: 6,
+        maxScan: 0,
+        maxTimeMS: 0,
+        organisation: TEST_ORGANISATION,
+        project: {},
+        sort: {
+          'ifi.value': -1,
+        },
+      },
+    );
+
+    assert.equal(identifiersResult.edges.length, 1);
+    assert.equal(identifiersResult.edges[0].node.ifi.value, '9_test@test.com');
   });
 }); // tslint:disable-line: max-file-line-count
