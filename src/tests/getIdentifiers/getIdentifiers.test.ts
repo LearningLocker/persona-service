@@ -1,11 +1,12 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import { map, times } from 'lodash';
+import { assign, map, times } from 'lodash';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import Identifier from '../../models/Identifier';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import CreateIdentifierResult from '../../serviceFactory/results/CreateIdentifierResult';
 import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import GetOptions from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -15,6 +16,30 @@ import {
 
 describe('getIdentifiers', () => {
   const service = setup();
+
+  const getIdentifiersOptions = {
+    direction: CursorDirection.FORWARDS,
+    filter: {},
+    limit: 10,
+    maxScan: 0,
+    maxTimeMS: 0,
+    organisation: TEST_ORGANISATION,
+    project: {},
+    sort: {
+      'ifi.value': 1,
+    },
+  } as GetOptions;
+
+  const fromFirstCursor = modelToCursor({
+    model: {
+      ifi: {
+        value: '1_test@test.com',
+      },
+    },
+    sort: {
+      'ifi.value': 1,
+    },
+  });
 
   const addTestIdentifiers = async () => {
     const persona = await createTestPersona();
@@ -113,19 +138,9 @@ describe('getIdentifiers', () => {
     });
 
     const identifiersResults = await service.getIdentifiers(
-      {
+      assign({}, getIdentifiersOptions, {
         cursor: fromCursor,
-        direction: CursorDirection.FORWARDS,
-        filter: {},
-        limit: 10,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
-        sort: {
-          'ifi.value': 1,
-        },
-      },
+      }),
     );
 
     const TWO = 2;
@@ -140,19 +155,9 @@ describe('getIdentifiers', () => {
     
     // Get the first 10 identifiers
     const identifiersPromise = service.getIdentifiers(
-      {
-        cursor: undefined,
+      assign({}, getIdentifiersOptions, {
         direction: CursorDirection.BACKWARDS,
-        filter: {},
-        limit: 10,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
-        sort: {
-          'ifi.value': 1,
-        },
-      },
+      }),
     );
 
     return assertError(NoCursorBackwardsDirection, identifiersPromise);
@@ -161,33 +166,13 @@ describe('getIdentifiers', () => {
   it('Should return the previous 2 cursors when direction is BACKWARDS', async () => {
     // Add 12 Identifiers
     const identifiers = await addTestIdentifiers(); // tslint:disable-line
-    
-    const fromCursor = modelToCursor({
-      model: {
-        ifi: {
-          value: '1_test@test.com',
-        },
-      },
-      sort: {
-        'ifi.value': 1,
-      },
-    });
 
     // Get the first 10 identifiers
     const identifiersResult = await service.getIdentifiers(
-      {
-        cursor: fromCursor,
+      assign({}, getIdentifiersOptions, {
+        cursor: fromFirstCursor,
         direction: CursorDirection.BACKWARDS,
-        filter: {},
-        limit: 10,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
-        sort: {
-          'ifi.value': 1,
-        },
-      },
+      }),
     );
 
     const THREE = 3;
@@ -198,55 +183,24 @@ describe('getIdentifiers', () => {
 
   it('should return undefiend cursor, if no identifiers', async () => {
     const identifiersResult = await service.getIdentifiers(
-      {
-        cursor: undefined,
-        direction: CursorDirection.FORWARDS,
-        filter: {},
+      assign({}, getIdentifiersOptions, {
         limit: 1,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
-        sort: {
-          'ifi.value': 1,
-        },
-      },
+      }),
     );
-
     assert.equal(identifiersResult.pageInfo.endCursor, undefined);
     assert.equal(identifiersResult.pageInfo.startCursor, undefined);
   });
 
   it('Should return the previous 1 cursors when limit 1', async () => {
-    // Add 12 Identifiers
     const identifiers = await addTestIdentifiers(); // tslint:disable-line
     
-    const fromCursor = modelToCursor({
-      model: {
-        ifi: {
-          value: '1_test@test.com',
-        },
-      },
-      sort: {
-        'ifi.value': 1,
-      },
-    });
-
-    // Get the first 10 identifiers
+    // Get the first identifier
     const identifiersResult = await service.getIdentifiers(
-      {
-        cursor: fromCursor,
+      assign({}, getIdentifiersOptions, {
+        cursor: fromFirstCursor,
         direction: CursorDirection.BACKWARDS,
-        filter: {},
         limit: 1,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
-        sort: {
-          'ifi.value': 1,
-        },
-      },
+      }),
     );
 
     assert.equal(identifiersResult.edges.length, 1);
@@ -258,22 +212,17 @@ describe('getIdentifiers', () => {
     await addTestIdentifiers();
 
     const identifiersResult = await service.getIdentifiers(
-      {
-        direction: CursorDirection.FORWARDS,
+      assign({}, getIdentifiersOptions, {
         filter: {
           $and: [{
             'ifi.value': {$eq: '9_test@test.com'},
           }],
         },
         limit: 6,
-        maxScan: 0,
-        maxTimeMS: 0,
-        organisation: TEST_ORGANISATION,
-        project: {},
         sort: {
           'ifi.value': -1,
         },
-      },
+      }),
     );
 
     assert.equal(identifiersResult.edges.length, 1);
