@@ -26,3 +26,11 @@ export const TEST_OPENID_IFI: Ifi = {
   key: 'openid',
   value: 'http://www.example.com',
 };
+
+export const TEST_ACCOUNT_IFI: Ifi = {
+  key: 'account',
+  value: {
+    homePage: 'test.com',
+    name: 'test',
+  },
+};

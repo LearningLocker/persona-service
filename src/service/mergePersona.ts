@@ -20,10 +20,12 @@ export default (config: Config) => async ({
       config.repo.getPersona({ personaId: toPersonaId, organisation }),
     ]);
   } catch (err) {
+    /* istanbul ignore else */
     if (err instanceof NoModelWithId) {
       if (err.id === fromPersonaId) {
         throw new MissingMergeFromPersona(err.modelName, err.id);
       }
+      /* istanbul ignore else */
       if (err.id === toPersonaId) {
         throw new MissingMergeToPersona(err.modelName, err.id);
       }

@@ -19,8 +19,8 @@
     "migrate": "node dist/migrate.js",
     "rollback": "node dist/rollback.js",
     "cover-s3": "nyc --lines 100 --check-coverage --exclude '(dist/mongoModelsRepo|dist/localStorageRepo|dist/config.js|dist/expressPresenter|dist/fetchAuthRepo|dist/translatorFactory)' npm run test-s3",
-    "cover-memory": "nyc --lines 100 --check-coverage --exclude '(dist/mongoModelsRepo|dist/s3StorageRepo|dist/config.js|dist/expressPresenter|dist/fetchAuthRepo|dist/translatorFactory)' npm run test-memory",
-    "cover-mongo": "nyc --lines 100 --check-coverage --exclude '(dist/memoryModelsRepo|dist/s3StorageRepo|dist/config.js|dist/expressPresenter|dist/fetchAuthRepo|dist/translatorFactory)' npm run test-mongo",
+    "cover-memory": "nyc --lines 100 --check-coverage --exclude '(dist/mongoModelsRepo|dist/s3StorageRepo|dist/config.js|dist/expressPresenter|dist/fetchAuthRepo|dist/translatorFactory|dist/repoFactory/index.js)' npm run test-memory",
+    "cover-mongo": "nyc --lines 100 --check-coverage --exclude '(dist/memoryModelsRepo|dist/s3StorageRepo|dist/config.js|dist/expressPresenter|dist/fetchAuthRepo|dist/translatorFactory|dist/repoFactory/index.js)' npm run test-mongo",
     "clean": "rm -rf dist",
     "lint": "./node_modules/tslint/bin/tslint --project ./tsconfig.json -c ./tslint.json",
     "duplication": "./node_modules/jscpd/bin/jscpd"
