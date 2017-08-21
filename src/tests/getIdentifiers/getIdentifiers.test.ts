@@ -5,8 +5,7 @@ import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection'
 import Identifier from '../../models/Identifier';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import CreateIdentifierResult from '../../serviceFactory/results/CreateIdentifierResult';
-import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
-import GetOptions from '../../serviceFactory/utils/GetOptions';
+import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {

@@ -1,9 +1,9 @@
 import Ifi from '../../models/Ifi';
 
-interface Options {
+interface OverwriteIdentifierOptions {
   readonly organisation: string;
   readonly ifi: Ifi;
   readonly persona: string;
 }
 
-export default Options;
+export default OverwriteIdentifierOptions;

@@ -10,7 +10,7 @@ export default (config: Config) => {
   return async ({
     organisation,
     ifi,
-    personaId,
+    persona,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
     const matchingIdentifiers = getIdentifiersMatchingIfi({ organisation, config, ifi });
     const isExistingIfi = matchingIdentifiers.length !== 0;
@@ -18,7 +18,7 @@ export default (config: Config) => {
     // Creates the identifier when the IFI does not already exist.
     if (!isExistingIfi) {
       const id = uuid();
-      const identifier: Identifier = { id, ifi, organisation, persona: personaId };
+      const identifier: Identifier = { id, ifi, organisation, persona };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,
         identifier,
@@ -35,13 +35,13 @@ export default (config: Config) => {
         return identifier;
       }
 
-      return { ...identifier, persona: personaId };
+      return { ...identifier, persona };
     });
 
     config.state.personaIdentifiers = updatedIdentifiers;
 
     return {
-      identifier: { ...matchingIdentifiers[0], persona: personaId },
+      identifier: { ...matchingIdentifiers[0], persona },
       wasCreated: false,
     };
   };

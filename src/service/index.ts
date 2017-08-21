@@ -7,7 +7,9 @@ import deletePersona from './deletePersona';
 import getIdentifier from './getIdentifier';
 import getIdentifiers from './getIdentifiers';
 import getPersona from './getPersona';
+import getPersonas from './getPersonas';
 import mergePersona from './mergePersona';
+import overwriteIdentifier from './overwriteIdentifier';
 
 export default (config: Config): Service => {
   return {
@@ -17,7 +19,9 @@ export default (config: Config): Service => {
     getIdentifier: getIdentifier(config),
     getIdentifiers: getIdentifiers(config),
     getPersona: getPersona(config),
+    getPersonas: getPersonas(config),
     mergePersona: mergePersona(config),
+    overwriteIdentifier: overwriteIdentifier(config),
 
     ...commonService(config),
   };

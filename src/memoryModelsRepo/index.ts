@@ -9,6 +9,7 @@ import getIdentifierByIfi from './getIdentifierByIfi';
 import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
+import getPersonas from './getPersonas';
 import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
 import setIdentifierPersona from './setIdentifierPersona';
@@ -23,6 +24,7 @@ export default (config: Config): Repo => {
     getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
+    getPersonas: getPersonas(config),
     mergePersona: mergePersona(config),
     overwriteIdentifier: overwriteIdentifier(config),
     setIdentifierPersona: setIdentifierPersona(config),
