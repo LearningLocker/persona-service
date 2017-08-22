@@ -1,0 +1,1 @@
+{"version":3,"file":"deletePersona.js","sourceRoot":"","sources":["../../src/service/deletePersona.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,iBAWA;;AARA,kBAAe,UAAC,MAAc;IAC5B,MAAM,CAAC,UAAO,IAA0B;;YACtC,sBAAO,MAAM,CAAC,IAAI,CAAC,aAAa,CAAC;oBAC/B,YAAY,EAAE,IAAI,CAAC,YAAY;oBAC/B,SAAS,EAAE,IAAI,CAAC,SAAS;iBAC1B,CAAC,EAAC;;SACJ,CAAC;AACJ,CAAC,CAAC"}
