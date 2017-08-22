@@ -2,7 +2,7 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { assign } from 'lodash';
 import SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
-import SetIdentifierPersonaResult from '../repoFactory/Results/SetIdentifierPersonaResult';
+import SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
 import Config from './Config';
 
 export default (config: Config) => {
