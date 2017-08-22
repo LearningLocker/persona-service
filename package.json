@@ -26,7 +26,7 @@
     "duplication": "./node_modules/jscpd/bin/jscpd"
   },
   "engines": {
-    "node": "^8.0.0",
+    "node": ">6.0.0",
     "npm": "^5.0.0"
   },
   "dependencies": {
