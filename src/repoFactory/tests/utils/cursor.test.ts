@@ -58,7 +58,7 @@ describe('cursor', () => {
         sort: mockSort,
       });
       /* istanbul ignore next */
-      assert.fail('Should not happen');
+      assert.equal(true, false, 'Should not happen');
     }catch (err) {
       assert.equal(!!err, true);
     }
@@ -97,7 +97,7 @@ describe('cursor', () => {
         },
       });
       /* istanbul ignore next */
-      assert.fail('should not happen');
+      assert.equal(true, false, 'should not happen');
     } catch (err) {
       assert.equal(err.constructor, InvalidCursor);
     }
@@ -115,7 +115,7 @@ describe('cursor', () => {
         },
       });
       /* istanbul ignore next */
-      assert.fail('should not happen');
+      assert.equal(true, false, 'should not happen');
     } catch (err) {
       assert.equal(err.constructor, InvalidCursor);
     }
