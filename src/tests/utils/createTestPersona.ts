@@ -3,9 +3,9 @@ import PersonaModel from '../../models/Persona';
 import service from '../../tester';
 import { TEST_ORGANISATION } from '../utils/values';
 
-export default async () => {
+export default async (name?: string) => {
   const {persona} = await service.createPersona({
-    name: 'Dave',
+    name: name === undefined ? 'Dave' : name,
     organisation: TEST_ORGANISATION,
   });
   return persona;

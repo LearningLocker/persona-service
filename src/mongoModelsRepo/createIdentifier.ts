@@ -26,8 +26,8 @@ export default (config: Config) => {
 
     return createOrUpdateIdentifier(config)({
       filter,
-      persona,
       update,
+      upsert: true,
     });
   };
 };

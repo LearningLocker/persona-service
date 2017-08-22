@@ -1,7 +1,8 @@
+import Ifi from '../../models/Ifi';
+
 interface Options {
-  readonly id: string;
-  readonly persona: string;
   readonly organisation: string;
+  readonly ifi: Ifi;
 }
 
 export default Options;

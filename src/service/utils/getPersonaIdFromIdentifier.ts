@@ -27,6 +27,7 @@ const getPersonaIdFromIdentifier = async ({
     const {persona} = await config.repo.createPersona({ organisation });
     await config.repo.setIdentifierPersona({
       id: identifier.id,
+      organisation,
       persona: persona.id,
     });
     return persona.id;

@@ -21,6 +21,7 @@ import GetPersonaResult from './results/GetPersonaResult';
 import GetPersonasResult from './results/GetPersonasResult';
 import MergePersonaResult from './results/MergePersonaResult';
 import OverwriteIdentifierResult from './results/OverwriteIdentifierResult';
+import SetIdentifierPersonaResult from './results/SetIdentifierPersonaResult';
 
 export default interface Repo extends CommonRepo {
   readonly createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
@@ -34,7 +35,8 @@ export default interface Repo extends CommonRepo {
   readonly getPersonas: (opts: GetPersonasOptions) => Promise<GetPersonasResult>;
   readonly overwriteIdentifier:
     (opts: OverwriteIdentifierOptions) => Promise<OverwriteIdentifierResult>;
-  readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) => Promise<void>;
+  readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) =>
+    Promise<SetIdentifierPersonaResult>;
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
   readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
 }

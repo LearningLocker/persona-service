@@ -5,12 +5,16 @@ import GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResul
 import Config from './Config';
 
 export default (config: Config) => {
-  return async (opts: GetIfisByPersonaOptions): Promise<GetIfisByPersonaResult> => {
+  return async ({
+    organisation,
+    ...opts,
+  }: GetIfisByPersonaOptions): Promise<GetIfisByPersonaResult> => {
     const collection = (await config.db).collection('personaIdentifiers');
 
     // Finds all Persona Identifiers matching the personaId.
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find
     const documents = await collection.find({
+      organisation: new ObjectID(organisation),
       persona: new ObjectID(opts.personaId),
     }).toArray();
 
