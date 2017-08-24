@@ -1,7 +1,8 @@
 import Ifi from '../../models/Ifi';
-interface Options {
+import Lockable from '../utils/Lockable';
+interface Options extends Lockable {
     readonly organisation: string;
     readonly ifi: Ifi;
-    readonly persona: string;
+    readonly persona?: string;
 }
 export default Options;

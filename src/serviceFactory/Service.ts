@@ -1,6 +1,7 @@
 import CommonService from 'jscommons/dist/serviceFactory/Service';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
+import CreateUpdateIdentifierPersonaOptions from './options/CreateUpdateIdentifierPersonaOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetIdentifierOptions from './options/GetIdentifierOptions';
@@ -13,6 +14,7 @@ import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
+import CreateUpdateIdentifierPersonaResult from './results/CreateUpdateIdentifierPersonaResult';
 import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
 import GetIdentifierResult from './results/GetIdentifierResult';
 import GetIdentifiersResult from './results/GetIdentifiersResult';
@@ -39,6 +41,8 @@ interface Service extends CommonService {
     Promise<SetIdentifierPersonaResult>;
   readonly overwriteIdentifier: (opt: OverwriteIdentifierOptions) =>
     Promise<OverwriteIdentifierResult>;
+  readonly createUpdateIdentifierPersona: (opts: CreateUpdateIdentifierPersonaOptions) =>
+    Promise<CreateUpdateIdentifierPersonaResult>;
 }
 
 export default Service;

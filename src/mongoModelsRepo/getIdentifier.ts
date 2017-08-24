@@ -23,6 +23,7 @@ export default (config: Config) => {
     const identifier = {
       id: document._id.toString(),
       ifi: document.ifi,
+      locked: document.locked,
       organisation: document.organisation.toString(),
       persona: document.persona.toString(),
     };

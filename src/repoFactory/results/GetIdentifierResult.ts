@@ -1,6 +1,7 @@
 import Identifier from '../../models/Identifier';
+import Lockable from '../utils/Lockable';
 
-interface Result {
+interface Result extends Lockable {
   readonly identifier: Identifier;
 }
 
