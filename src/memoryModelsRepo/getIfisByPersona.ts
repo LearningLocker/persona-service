@@ -3,9 +3,13 @@ import GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResul
 import Config from './Config';
 
 export default (config: Config) => {
-  return async (opts: GetIfisByPersonaOptions): Promise<GetIfisByPersonaResult> => {
+  return async ({
+    organisation,
+    ...opts,
+  }: GetIfisByPersonaOptions): Promise<GetIfisByPersonaResult> => {
     const ifis = config.state.personaIdentifiers.filter((identifier) => {
-      return identifier.persona === opts.personaId;
+      return identifier.persona === opts.personaId &&
+        identifier.organisation === organisation;
     }).map(({ ifi }) => {
       return ifi;
     });

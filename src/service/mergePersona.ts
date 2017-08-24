@@ -7,8 +7,8 @@ import MergePersonaResult from '../serviceFactory/results/MergePersonaResult';
 import Config from './Config';
 
 export default (config: Config) => async ({
-  client,
   fromPersonaId,
+  organisation,
   toPersonaId,
 }: MergePersonaOptions): Promise<MergePersonaResult> => {
   if (fromPersonaId === toPersonaId) {
@@ -16,14 +16,16 @@ export default (config: Config) => async ({
   }
   try {
     await Promise.all([
-      config.repo.getPersona({ personaId: fromPersonaId, client }),
-      config.repo.getPersona({ personaId: toPersonaId, client }),
+      config.repo.getPersona({ personaId: fromPersonaId, organisation }),
+      config.repo.getPersona({ personaId: toPersonaId, organisation }),
     ]);
   } catch (err) {
+    /* istanbul ignore else */
     if (err instanceof NoModelWithId) {
       if (err.id === fromPersonaId) {
         throw new MissingMergeFromPersona(err.modelName, err.id);
       }
+      /* istanbul ignore else */
       if (err.id === toPersonaId) {
         throw new MissingMergeToPersona(err.modelName, err.id);
       }
@@ -35,12 +37,12 @@ export default (config: Config) => async ({
   // Do the merge
   const { identifierIds } = await config.repo.mergePersona({
     fromPersonaId,
-    organisation: client.organisation,
+    organisation,
     toPersonaId,
   });
 
   await config.repo.deletePersona({
-    organisation: client.organisation,
+    organisation,
     personaId: fromPersonaId,
   });
 

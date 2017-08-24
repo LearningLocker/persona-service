@@ -9,7 +9,7 @@ export default (config: Config) => {
     const persona: Persona = {
       id: uuid(),
       name: opts.name,
-      organisation: opts.client.organisation,
+      organisation: opts.organisation,
     };
     config.state.personas = [
       ...config.state.personas,

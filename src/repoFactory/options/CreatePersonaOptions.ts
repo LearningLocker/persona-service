@@ -1,7 +1,6 @@
-import ClientModel from '../../models/ClientModel';
 
 interface Options {
-  readonly client: ClientModel;
+  readonly organisation: string;
   readonly name?: string;
 }
 

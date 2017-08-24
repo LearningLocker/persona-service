@@ -6,7 +6,7 @@ import Config from './Config';
 export default (config: Config) => {
   return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult> => {
     const matchingIdentifiers = config.state.personaIdentifiers.filter((identifier2) => {
-      return identifier2.id === opts.id && identifier2.organisation === opts.client.organisation;
+      return identifier2.id === opts.id && identifier2.organisation === opts.organisation;
     });
 
     const isExistingIdentinnfier = matchingIdentifiers.length !== 0;

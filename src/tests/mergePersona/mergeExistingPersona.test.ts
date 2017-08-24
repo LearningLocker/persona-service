@@ -4,7 +4,7 @@ import DuplicateMergeId from '../../errors/DuplicateMergeId';
 import NoModelWithId from '../../errors/NoModelWithId';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
-import { TEST_CLIENT, TEST_IFI } from '../utils/values';
+import { TEST_IFI, TEST_ORGANISATION } from '../utils/values';
 
 describe('mergePersona with existing personas', () => {
   const service = setup();
@@ -13,12 +13,12 @@ describe('mergePersona with existing personas', () => {
     const fromPersona = await createTestPersona();
     const toPersona = await createTestPersona();
     await service.mergePersona({
-      client: TEST_CLIENT,
       fromPersonaId: fromPersona.id,
+      organisation: TEST_ORGANISATION,
       toPersonaId: toPersona.id,
     });
     const promise = service.getPersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: fromPersona.id,
     });
     await assertError(NoModelWithId, promise);
@@ -28,8 +28,8 @@ describe('mergePersona with existing personas', () => {
     const thePersona = await createTestPersona();
 
     const promise = service.mergePersona({
-      client: TEST_CLIENT,
       fromPersonaId: thePersona.id,
+      organisation: TEST_ORGANISATION,
       toPersonaId: thePersona.id,
     });
 
@@ -41,23 +41,23 @@ describe('mergePersona with existing personas', () => {
     const fromPersona = await createTestPersona();
 
     const {identifier: fromIdentifier} = await service.createIdentifier({
-      client: TEST_CLIENT,
       ifi: TEST_IFI,
+      organisation: TEST_ORGANISATION,
       persona: fromPersona.id,
     });
 
     const toPersona = await createTestPersona();
 
     const {identifierIds} = await service.mergePersona({
-      client: TEST_CLIENT,
       fromPersonaId: fromPersona.id,
+      organisation: TEST_ORGANISATION,
       toPersonaId: toPersona.id,
     });
 
     // Assert identifiers points to the toPersona
     const {identifier: resultIdentifier} = await service.getIdentifier({
-      client: TEST_CLIENT,
       id: fromIdentifier.id,
+      organisation: TEST_ORGANISATION,
     });
     assert.equal(resultIdentifier.persona, toPersona.id);
 
@@ -68,18 +68,18 @@ describe('mergePersona with existing personas', () => {
     const sourcePersona = await createTestPersona();
     const targetPersona = await createTestPersona();
     const {identifier: existingIdentifier} = await service.createIdentifier({
-      client: TEST_CLIENT,
       ifi: TEST_IFI,
+      organisation: TEST_ORGANISATION,
       persona: targetPersona.id,
     });
     const {identifierIds} = await service.mergePersona({
-      client: TEST_CLIENT,
       fromPersonaId: sourcePersona.id,
+      organisation: TEST_ORGANISATION,
       toPersonaId: targetPersona.id,
     });
     const {identifier: resultIdentifier} = await service.getIdentifier({
-      client: TEST_CLIENT,
       id: existingIdentifier.id,
+      organisation: TEST_ORGANISATION,
     });
     assert.equal(resultIdentifier.persona, targetPersona.id);
     assert.deepEqual(identifierIds, []);

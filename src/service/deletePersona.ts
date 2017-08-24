@@ -4,7 +4,7 @@ import Config from './Config';
 export default (config: Config) => {
   return async (opts: DeletePersonaOptions): Promise<void> => {
     return config.repo.deletePersona({
-      organisation: opts.client.organisation,
+      organisation: opts.organisation,
       personaId: opts.personaId,
     });
   };

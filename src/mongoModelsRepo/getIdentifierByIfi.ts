@@ -1,5 +1,4 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
 import GetIdentifierByIfiOptions from '../repoFactory/options/GetIdentifierByIfiOptions';
 import GetIdentifierByIfiResult from '../repoFactory/results/GetIdentifierByIfiResult';
 import Config from './Config';
@@ -10,11 +9,7 @@ export default (config: Config) => {
     const collection = (await config.db).collection('personaIdentifiers');
 
     // Filters on the IFI and organisation.
-    const ifiFilter = getIdentifierIfiFilter(opts.ifi);
-    const filter = {
-      organisation: new ObjectID(opts.client.organisation),
-      ...ifiFilter,
-    };
+    const filter = getIdentifierIfiFilter(opts.ifi, opts.organisation);
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find
     const document = await collection.findOne(filter, {});

@@ -1,17 +1,16 @@
-import ClientModel from '../../models/ClientModel';
 import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
 
-interface Options {
-  readonly client: ClientModel;
+export interface Options {
+  readonly organisation: string;
   readonly identifier: Identifier;
   readonly ifi: Ifi;
 }
 
-export default ({ client, identifier, ifi }: Options) => {
+export default ({ organisation, identifier, ifi }: Options) => {
   const storedIfi = identifier.ifi;
 
-  if (identifier.organisation !== client.organisation) {
+  if (identifier.organisation !== organisation) {
     return false;
   }
 

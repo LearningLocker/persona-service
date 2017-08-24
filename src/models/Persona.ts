@@ -1,7 +1,8 @@
-interface Model {
-  readonly id: string;
+import BaseModel from './BaseModel';
+
+interface PersonaModel extends BaseModel {
   readonly organisation: string;
   readonly name?: string;
 }
 
-export default Model;
+export default PersonaModel;

@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
 import Ifi from '../../models/Ifi';
 
-export default (ifi: Ifi, organisation?: string) => {
+export default (ifi: Ifi, organisation: string) => {
   const valueFilter = (
     ifi.key === 'account'
     ? {
@@ -16,11 +16,10 @@ export default (ifi: Ifi, organisation?: string) => {
     'ifi.key': ifi.key,
     ...valueFilter,
   };
-  if (organisation !== undefined) {
-    return {
-      ...out,
-      organisation: new ObjectID(organisation),
-    };
-  }
-  return out;
+
+  return {
+    ...out,
+    organisation: new ObjectID(organisation),
+  };
+
 };

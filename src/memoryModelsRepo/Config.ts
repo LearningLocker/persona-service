@@ -1,10 +1,13 @@
 /* tslint:disable:readonly-keyword */
+import BaseModel from '../models/BaseModel';
 import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
-import Profile from '../models/Profile';
 
-interface State {
-  agentProfiles: Profile[];
+export interface BaseState {
+  [key: string]: BaseModel[];
+}
+
+export interface State extends BaseState {
   personaIdentifiers: Identifier[];
   personas: Persona[];
 }

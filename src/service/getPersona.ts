@@ -9,7 +9,7 @@ export default (config: Config) => {
       persona: {
         id: opts.personaId,
         name,
-        organisation: opts.client.organisation,
+        organisation: opts.organisation,
       },
     };
   };

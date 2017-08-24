@@ -3,7 +3,7 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
-import { TEST_CLIENT, TEST_CLIENT_OUTSIDE_ORG } from '../utils/values';
+import { TEST_ORGANISATION, TEST_ORGANISATION_OUTSIDE_STORE } from '../utils/values';
 
 const TEST_PERSONA_ID = '58fe13e34effd3c26a9fc4b8';
 
@@ -12,7 +12,7 @@ describe('deletePersona', () => {
 
   it('Should throw an error when deleting a non-existing persona', async () => {
     const promise = service.deletePersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: TEST_PERSONA_ID,
     });
     await assertError(NoModel, promise);
@@ -21,7 +21,7 @@ describe('deletePersona', () => {
   it('Should throw an error when deleting a persona outside the org', async () => {
     const persona = await createTestPersona();
     const promise = service.deletePersona({
-      client: TEST_CLIENT_OUTSIDE_ORG,
+      organisation: TEST_ORGANISATION_OUTSIDE_STORE,
       personaId: persona.id,
     });
     await assertError(NoModel, promise);
@@ -30,11 +30,11 @@ describe('deletePersona', () => {
   it('Should delete a persona when using valid options', async () => {
     const persona = await createTestPersona();
     await service.deletePersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });
     const promise = service.getPersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });
     await assertError(NoModelWithId, promise);

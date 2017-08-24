@@ -1,35 +1,31 @@
-import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectID } from 'mongodb';
 import SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
+import SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
 import Config from './Config';
+import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 
 export default (config: Config) => {
-  return async (opts: SetIdentifierPersonaOptions) => {
-    const collection = (await config.db).collection('personaIdentifiers');
+  return async ({
+    id,
+    organisation,
+    persona,
+  }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const filter = {
-      _id: new ObjectID(opts.id),
+      _id: new ObjectID(id),
+      organisation: new ObjectID(organisation),
     };
 
     const update = {
       $set: {
-        persona: new ObjectID(opts.persona),
+        persona: new ObjectID(persona),
       },
     };
 
-    // Updates the Identifier if it exists.
-    // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#updateOne
-    // Docs: http://bit.ly/updateWriteOpResult
-    const updateResult = await collection.updateOne(filter, update, {
-      upsert: false, // Does not create the Identifier when it doesn't exist.
+    return await createOrUpdateIdentifier(config)({
+      filter,
+      update,
+      upsert: false,
     });
-
-    // Determines if the Identifier was updated.
-    // Docs: https://docs.mongodb.com/manual/reference/command/getLastError/#getLastError.n
-    const updatedDocuments = updateResult.matchedCount;
-    if (updatedDocuments === 0) {
-      /* istanbul ignore next */
-      throw new NoModel('Persona Identifier');
-    }
   };
 };

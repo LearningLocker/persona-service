@@ -1,8 +1,8 @@
 import Identifier from '../../models/Identifier';
 
-interface Result {
+interface CreateIdentifierResult {
   readonly identifier: Identifier;
   readonly wasCreated: boolean;
 }
 
-export default Result;
+export default CreateIdentifierResult;

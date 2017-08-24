@@ -1,10 +1,12 @@
+// tslint:disable-next-line:no-unused
+import PersonaModel from '../../models/Persona';
 import service from '../../tester';
-import { TEST_CLIENT } from '../utils/values';
+import { TEST_ORGANISATION } from '../utils/values';
 
-export default async () => {
+export default async (name?: string) => {
   const {persona} = await service.createPersona({
-    client: TEST_CLIENT,
-    name: 'Dave',
+    name: name === undefined ? 'Dave' : name,
+    organisation: TEST_ORGANISATION,
   });
   return persona;
 };

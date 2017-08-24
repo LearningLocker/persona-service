@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
-import { TEST_CLIENT } from '../utils/values';
+import { TEST_ORGANISATION } from '../utils/values';
 
 describe('createPersona', () => {
 
@@ -10,12 +10,12 @@ describe('createPersona', () => {
   it('Should create persona', async () => {
     const persona = await createTestPersona();
     const {persona: actualPersona} = await service.getPersona({
-      client: TEST_CLIENT,
+      organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });
 
     assert.equal(actualPersona.id, persona.id);
     assert.equal(actualPersona.name, 'Dave');
-    assert.equal(actualPersona.organisation, TEST_CLIENT.organisation);
+    assert.equal(actualPersona.organisation, TEST_ORGANISATION);
   });
 });
