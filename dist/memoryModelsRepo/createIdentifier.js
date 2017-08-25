@@ -49,7 +49,7 @@ var PersonaNotSetAndUnlocked_1 = require("../errors/PersonaNotSetAndUnlocked");
 var getIdentifiersMatchingIfi_1 = require("./utils/getIdentifiersMatchingIfi");
 exports.default = function (config) {
     return function (_a) {
-        var locked = _a.locked, organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
+        var _b = _a.locked, locked = _b === void 0 ? true : _b, organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
         return __awaiter(_this, void 0, void 0, function () {
             var matchingIdentifiers, isExistingIfi, identifier;
             return __generator(this, function (_a) {

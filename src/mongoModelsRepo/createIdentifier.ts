@@ -9,7 +9,7 @@ import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 export default (config: Config) => {
   return async ({
     persona,
-    locked,
+    locked = true,
     organisation,
     ifi,
   }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {

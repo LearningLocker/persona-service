@@ -9,7 +9,7 @@ export default (config: Config) => {
     id,
     organisation,
     persona,
-    locked,
+    locked = false,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const filter = {

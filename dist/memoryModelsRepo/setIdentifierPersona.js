@@ -49,7 +49,7 @@ var NoModel_1 = require("jscommons/dist/errors/NoModel");
 var lodash_1 = require("lodash");
 exports.default = function (config) {
     return function (_a) {
-        var organisation = _a.organisation, persona = _a.persona, id = _a.id, locked = _a.locked;
+        var organisation = _a.organisation, persona = _a.persona, id = _a.id, _b = _a.locked, locked = _b === void 0 ? false : _b;
         return __awaiter(_this, void 0, void 0, function () {
             var personaIdentifeirsToUpdate, updatedIdentifiers;
             return __generator(this, function (_a) {

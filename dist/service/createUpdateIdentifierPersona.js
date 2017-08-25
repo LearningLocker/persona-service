@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var NoModel_1 = require("jscommons/dist/errors/NoModel");
 var promiseRetry = require("promise-retry");
 var Locked_1 = require("../errors/Locked");
-var index_1 = require("./index");
 var create = function (config) {
     return function (_a) {
         var organisation = _a.organisation, ifi = _a.ifi, personaName = _a.personaName;
@@ -54,7 +53,7 @@ var create = function (config) {
                         })];
                     case 1:
                         identifier = (_a.sent()).identifier;
-                        return [4 /*yield*/, index_1.default(config).createPersona({
+                        return [4 /*yield*/, config.repo.createPersona({
                                 name: personaName,
                                 organisation: organisation,
                             })];
@@ -86,7 +85,7 @@ var createUpdateIdentifierPersona = function (config) {
                 switch (_b.label) {
                     case 0:
                         _b.trys.push([0, 3, , 4]);
-                        return [4 /*yield*/, index_1.default(config).getIdentifierByIfi({
+                        return [4 /*yield*/, config.repo.getIdentifierByIfi({
                                 ifi: ifi,
                                 organisation: organisation,
                             })];

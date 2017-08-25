@@ -8,7 +8,7 @@ import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 
 export default (config: Config) => {
   return async ({
-    locked,
+    locked = true,
     organisation,
     persona,
     ifi,

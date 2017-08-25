@@ -6,7 +6,6 @@ import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacin
 import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
   from '../serviceFactory/results/CreateUpdateIdentifierPersonaResult';
 import Config from './Config';
-import service from './index';
 
 const create = (config: Config) =>
   async ({organisation, ifi, personaName}: CreateUpdateIdentifierPersonaOptions):
@@ -17,7 +16,7 @@ const create = (config: Config) =>
       organisation,
     });
 
-    const { persona } = await service(config).createPersona({
+    const { persona } = await config.repo.createPersona({
       name: personaName,
       organisation,
     });
@@ -44,7 +43,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
 
     // find the ifi
     try { // Identifier exists, so do nothing.
-      const { identifierId } = await service(config).getIdentifierByIfi({
+      const { identifierId } = await config.repo.getIdentifierByIfi({
         ifi,
         organisation,
       });

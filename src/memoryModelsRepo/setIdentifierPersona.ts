@@ -10,7 +10,7 @@ export default (config: Config) => {
     organisation,
     persona,
     id,
-    locked,
+    locked = false,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const personaIdentifeirsToUpdate = config.state.personaIdentifiers.filter((identifier) => {

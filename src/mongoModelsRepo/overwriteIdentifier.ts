@@ -8,7 +8,7 @@ import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 export default (config: Config) => {
   return async ({
     persona,
-    locked,
+    locked = false,
     organisation,
     ifi,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {

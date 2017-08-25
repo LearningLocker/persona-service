@@ -49,7 +49,7 @@ var getIdentifiersMatchingIfi_1 = require("./utils/getIdentifiersMatchingIfi");
 var matchIdentifierIfi_1 = require("./utils/matchIdentifierIfi");
 exports.default = function (config) {
     return function (_a) {
-        var organisation = _a.organisation, ifi = _a.ifi, persona = _a.persona;
+        var organisation = _a.organisation, ifi = _a.ifi, persona = _a.persona, _b = _a.locked, locked = _b === void 0 ? false : _b;
         return __awaiter(_this, void 0, void 0, function () {
             var matchingIdentifiers, isExistingIfi, id, identifier, storedIdentifiers, updatedIdentifiers;
             return __generator(this, function (_a) {
@@ -70,7 +70,7 @@ exports.default = function (config) {
                     if (!isMatch) {
                         return identifier;
                     }
-                    return __assign({}, identifier, { persona: persona });
+                    return __assign({}, identifier, { persona: persona, locked: locked });
                 });
                 config.state.personaIdentifiers = updatedIdentifiers;
                 return [2 /*return*/, {

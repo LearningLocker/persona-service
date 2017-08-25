@@ -40,7 +40,7 @@ var mongodb_1 = require("mongodb");
 var createOrUpdateIdentifier_1 = require("./utils/createOrUpdateIdentifier");
 exports.default = function (config) {
     return function (_a) {
-        var id = _a.id, organisation = _a.organisation, persona = _a.persona, locked = _a.locked;
+        var id = _a.id, organisation = _a.organisation, persona = _a.persona, _b = _a.locked, locked = _b === void 0 ? false : _b;
         return __awaiter(_this, void 0, void 0, function () {
             var filter, update;
             return __generator(this, function (_a) {

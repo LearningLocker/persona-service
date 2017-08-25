@@ -11,6 +11,7 @@ export default (config: Config) => {
     organisation,
     ifi,
     persona,
+    locked = false,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
     const matchingIdentifiers = getIdentifiersMatchingIfi({ organisation, config, ifi });
     const isExistingIfi = matchingIdentifiers.length !== 0;
@@ -35,7 +36,7 @@ export default (config: Config) => {
         return identifier;
       }
 
-      return { ...identifier, persona };
+      return { ...identifier, persona, locked };
     });
 
     config.state.personaIdentifiers = updatedIdentifiers;
