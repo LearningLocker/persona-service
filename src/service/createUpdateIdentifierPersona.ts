@@ -58,12 +58,13 @@ const createUpdateIdentifierPersona = (config: Config) =>
         throw new Locked();
       }
 
-      // Shouldn't happen, as persona should always be set
+      // Shouldn't happen, as persona should always be set if unlocked.
       if (foundIdentifier.persona === undefined) {
         throw new Error('Identifier should have a persona');
       }
 
       // What should happen if persona name is different ???
+      // currently it doesn't get updated
 
       return {
         identifierId,
