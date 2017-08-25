@@ -2,7 +2,11 @@ import CreateIdentifierOptions from '../serviceFactory/options/CreateIdentifierO
 import CreateIdentifierResult from '../serviceFactory/results/CreateIdentifierResult';
 import Config from './Config';
 
+// Deprecated: use createUpdateIdentifierPersona
 export default (config: Config) =>
   async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
-    return config.repo.createIdentifier(opts);
+    return config.repo.createIdentifier({
+      ...opts,
+      locked: false, // as persona is set.
+    });
   };

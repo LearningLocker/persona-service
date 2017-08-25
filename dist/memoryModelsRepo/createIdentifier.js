@@ -58,7 +58,7 @@ exports.default = function (config) {
                     ifi: ifi,
                     organisation: organisation,
                 });
-                if ((locked === false || locked === undefined) && persona === undefined) {
+                if (!locked && persona === undefined) {
                     throw new PersonaNotSetAndUnlocked_1.default();
                 }
                 isExistingIfi = matchingIdentifiers.length !== 0;

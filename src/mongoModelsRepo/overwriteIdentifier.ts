@@ -8,7 +8,6 @@ import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 export default (config: Config) => {
   return async ({
     persona,
-    locked = false,
     organisation,
     ifi,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
@@ -20,7 +19,7 @@ export default (config: Config) => {
     // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
     const update = {
       $set: {
-        locked,
+        locked: false,
         persona: new ObjectID(persona),
       },
       $setOnInsert: {

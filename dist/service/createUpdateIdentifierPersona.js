@@ -48,7 +48,6 @@ var create = function (config) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, config.repo.createIdentifier({
                             ifi: ifi,
-                            locked: true,
                             organisation: organisation,
                         })];
                     case 1:
@@ -61,7 +60,6 @@ var create = function (config) {
                         persona = (_a.sent()).persona;
                         return [4 /*yield*/, config.repo.setIdentifierPersona({
                                 id: identifier.id,
-                                locked: false,
                                 organisation: organisation,
                                 persona: persona.id,
                             })];

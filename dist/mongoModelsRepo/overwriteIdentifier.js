@@ -41,14 +41,14 @@ var createOrUpdateIdentifier_1 = require("./utils/createOrUpdateIdentifier");
 var getIdentifierIfiFilter_1 = require("./utils/getIdentifierIfiFilter");
 exports.default = function (config) {
     return function (_a) {
-        var persona = _a.persona, _b = _a.locked, locked = _b === void 0 ? false : _b, organisation = _a.organisation, ifi = _a.ifi;
+        var persona = _a.persona, organisation = _a.organisation, ifi = _a.ifi;
         return __awaiter(_this, void 0, void 0, function () {
             var filter, update;
             return __generator(this, function (_a) {
                 filter = getIdentifierIfiFilter_1.default(ifi, organisation);
                 update = {
                     $set: {
-                        locked: locked,
+                        locked: false,
                         persona: new mongodb_1.ObjectID(persona),
                     },
                     $setOnInsert: {

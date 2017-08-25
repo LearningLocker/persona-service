@@ -9,7 +9,6 @@ export default (config: Config) => {
     id,
     organisation,
     persona,
-    locked = false,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const filter = {
@@ -19,7 +18,7 @@ export default (config: Config) => {
 
     const update = {
       $set: {
-        locked,
+        locked: false,
         persona: new ObjectID(persona),
       },
     };

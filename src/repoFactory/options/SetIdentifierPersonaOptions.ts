@@ -1,6 +1,5 @@
-import Lockable from '../utils/Lockable';
 
-interface SetIdentifierPersonaOptions extends Lockable {
+interface SetIdentifierPersonaOptions {
   readonly id: string;
   readonly persona: string;
   readonly organisation: string;

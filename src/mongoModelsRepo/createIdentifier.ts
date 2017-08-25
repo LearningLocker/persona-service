@@ -14,7 +14,7 @@ export default (config: Config) => {
     ifi,
   }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
 
-    if ((locked === false || locked === undefined) && persona === undefined) {
+    if (!locked && persona === undefined) {
       throw new PersonaNotSetAndUnlocked();
     }
 

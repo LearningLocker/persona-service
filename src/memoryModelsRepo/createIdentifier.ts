@@ -19,7 +19,7 @@ export default (config: Config) => {
       organisation,
     });
 
-    if ((locked === false || locked === undefined) && persona === undefined) {
+    if (!locked && persona === undefined) {
       throw new PersonaNotSetAndUnlocked();
     }
 

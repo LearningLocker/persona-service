@@ -10,7 +10,6 @@ export default (config: Config) => {
     organisation,
     persona,
     id,
-    locked = false,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const personaIdentifeirsToUpdate = config.state.personaIdentifiers.filter((identifier) => {
@@ -27,7 +26,7 @@ export default (config: Config) => {
     const updatedIdentifiers = personaIdentifeirsToUpdate.map((identifier) => {
       return {
         ...identifier,
-        locked,
+        locked: false,
         persona,
       };
     });

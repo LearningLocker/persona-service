@@ -12,7 +12,6 @@ const create = (config: Config) =>
   Promise<CreateUpdateIdentifierPersonaResult> => {
     const { identifier } = await config.repo.createIdentifier({
       ifi,
-      locked: true,
       organisation,
     });
 
@@ -23,7 +22,6 @@ const create = (config: Config) =>
 
     await config.repo.setIdentifierPersona({
       id: identifier.id,
-      locked: false,
       organisation,
       persona: persona.id,
     });

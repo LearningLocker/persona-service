@@ -46,7 +46,7 @@ exports.default = function (config) {
         return __awaiter(_this, void 0, void 0, function () {
             var filter, update;
             return __generator(this, function (_a) {
-                if ((locked === false || locked === undefined) && persona === undefined) {
+                if (!locked && persona === undefined) {
                     throw new PersonaNotSetAndUnlocked_1.default();
                 }
                 filter = getIdentifierIfiFilter_1.default(ifi, organisation);

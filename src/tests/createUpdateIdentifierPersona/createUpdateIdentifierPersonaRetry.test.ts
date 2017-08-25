@@ -51,8 +51,10 @@ describe('createUpdateIdentifierPersona retry', () => {
     'should error if unlocked, but persona is not set, (should not be possible in rl)',
     async () =>
   { // tslint:disable-line:one-line
+    // process.exit();
     const createIdentifierPromise = config.repo.createIdentifier({
       ifi: TEST_IFI,
+      locked: false,
       organisation: TEST_ORGANISATION,
     });
 

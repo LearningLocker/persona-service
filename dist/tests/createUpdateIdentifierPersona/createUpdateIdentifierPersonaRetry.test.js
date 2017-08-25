@@ -107,6 +107,7 @@ describe('createUpdateIdentifierPersona retry', function () {
                 case 0:
                     createIdentifierPromise = config.repo.createIdentifier({
                         ifi: values_1.TEST_IFI,
+                        locked: false,
                         organisation: values_1.TEST_ORGANISATION,
                     });
                     return [4 /*yield*/, assertError_1.default(PersonaNotSetAndUnlocked_1.default, createIdentifierPromise)];

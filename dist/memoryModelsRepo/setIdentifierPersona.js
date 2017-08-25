@@ -49,7 +49,7 @@ var NoModel_1 = require("jscommons/dist/errors/NoModel");
 var lodash_1 = require("lodash");
 exports.default = function (config) {
     return function (_a) {
-        var organisation = _a.organisation, persona = _a.persona, id = _a.id, _b = _a.locked, locked = _b === void 0 ? false : _b;
+        var organisation = _a.organisation, persona = _a.persona, id = _a.id;
         return __awaiter(_this, void 0, void 0, function () {
             var personaIdentifeirsToUpdate, updatedIdentifiers;
             return __generator(this, function (_a) {
@@ -63,8 +63,7 @@ exports.default = function (config) {
                     throw new NoModel_1.default('Persona Identifier');
                 }
                 updatedIdentifiers = personaIdentifeirsToUpdate.map(function (identifier) {
-                    return __assign({}, identifier, { locked: locked,
-                        persona: persona });
+                    return __assign({}, identifier, { locked: false, persona: persona });
                 });
                 config.state.personaIdentifiers = lodash_1.assign(config.state.personaIdentifiers, updatedIdentifiers);
                 return [2 /*return*/, { identifier: updatedIdentifiers[0] }];
