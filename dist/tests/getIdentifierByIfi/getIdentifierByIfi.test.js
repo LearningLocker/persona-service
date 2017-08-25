@@ -39,6 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var assert = require("assert");
 var NoModel_1 = require("jscommons/dist/errors/NoModel");
 var assertError_1 = require("jscommons/dist/tests/utils/assertError");
+var repoFactory_1 = require("../../repoFactory");
+var service_1 = require("../../service");
 var createTestIdentifier_1 = require("../utils/createTestIdentifier");
 var setup_1 = require("../utils/setup");
 var values_1 = require("../utils/values");
@@ -70,6 +72,35 @@ describe('getIdentifierByIfi', function () {
                 organisation: values_1.TEST_ORGANISATION,
             });
             return [2 /*return*/, assertError_1.default(NoModel_1.default, resultPromise)];
+        });
+    }); });
+    it('get identifier with no persona', function () { return __awaiter(_this, void 0, void 0, function () {
+        var repoFacade, config, theService, personaId;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    repoFacade = repoFactory_1.default();
+                    config = { repo: repoFacade };
+                    return [4 /*yield*/, config.repo.clearRepo()];
+                case 1:
+                    _a.sent();
+                    theService = service_1.default(config);
+                    return [4 /*yield*/, config.repo.createIdentifier({
+                            ifi: values_1.TEST_IFI,
+                            locked: true,
+                            organisation: values_1.TEST_ORGANISATION,
+                        })];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, theService.getIdentifierByIfi({
+                            ifi: values_1.TEST_IFI,
+                            organisation: values_1.TEST_ORGANISATION,
+                        })];
+                case 3:
+                    personaId = (_a.sent()).personaId;
+                    assert.equal(personaId, undefined);
+                    return [2 /*return*/];
+            }
         });
     }); });
 });

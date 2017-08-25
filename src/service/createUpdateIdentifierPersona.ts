@@ -59,6 +59,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
       }
 
       // Shouldn't happen, as persona should always be set if unlocked.
+      /* istanbul ignore next */
       if (foundIdentifier.persona === undefined) {
         throw new Error('Identifier should have a persona');
       }
@@ -94,9 +95,11 @@ const retryCreateUpdateIdentifierPersona = (config: Config) =>
     try {
       return await createUpdateIdentifierPersonaFn(opts);
     } catch (err) {
+      /* istanbul ignore else */
       if (err instanceof Locked) {
         return retry(err);
       }
+      /* istanbul ignore next */
       throw err;
     }
   }, {

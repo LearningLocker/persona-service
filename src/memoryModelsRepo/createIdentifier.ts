@@ -1,4 +1,5 @@
 import { v4 as uuid } from 'uuid';
+import PersonaNotSetAndUnlocked from '../errors/PersonaNotSetAndUnlocked';
 import Identifier from '../models/Identifier';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
@@ -17,6 +18,10 @@ export default (config: Config) => {
       ifi,
       organisation,
     });
+
+    if ((locked === false || locked === undefined) && persona === undefined) {
+      throw new PersonaNotSetAndUnlocked();
+    }
 
     // Creates the identifier if the IFI doesn't already exist.
     const isExistingIfi = matchingIdentifiers.length !== 0;

@@ -1,4 +1,5 @@
 import { ObjectID } from 'mongodb';
+import PersonaNotSetAndUnlocked from '../errors/PersonaNotSetAndUnlocked';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
 import Config from './Config';
@@ -12,6 +13,10 @@ export default (config: Config) => {
     organisation,
     ifi,
   }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
+
+    if ((locked === false || locked === undefined) && persona === undefined) {
+      throw new PersonaNotSetAndUnlocked();
+    }
 
     // Filters on the IFI and organisation.
     const filter = getIdentifierIfiFilter(

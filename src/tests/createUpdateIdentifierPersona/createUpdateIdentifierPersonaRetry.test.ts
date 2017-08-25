@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import Locked from '../../errors/Locked';
+import PersonaNotSetAndUnlocked from '../../errors/PersonaNotSetAndUnlocked';
 import repoFactory from '../../repoFactory';
 import GetIdentifierOptions from '../../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../../repoFactory/results/GetIdentifierResult';
@@ -50,20 +51,12 @@ describe('createUpdateIdentifierPersona retry', () => {
     'should error if unlocked, but persona is not set, (should not be possible in rl)',
     async () =>
   { // tslint:disable-line:one-line
-    await config.repo.createIdentifier({
+    const createIdentifierPromise = config.repo.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
     });
 
-    try {
-      await theService.createUpdateIdentifierPersona({
-        ifi: TEST_IFI,
-        organisation: TEST_ORGANISATION,
-        personaName: 'Dave 6',
-      });
-    } catch (err) {
-      assert.equal(err.message, 'Identifier should have a persona');
-    }
+    assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
   });
 
   it('should retry twice and succed on 3rd attempt', async () => {

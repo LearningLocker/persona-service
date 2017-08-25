@@ -47,6 +47,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var assert = require("assert");
 var assertError_1 = require("jscommons/dist/tests/utils/assertError");
 var Locked_1 = require("../../errors/Locked");
+var PersonaNotSetAndUnlocked_1 = require("../../errors/PersonaNotSetAndUnlocked");
 var repoFactory_1 = require("../../repoFactory");
 // import setup from '../utils/setup';
 var service_1 = require("../../service");
@@ -100,32 +101,14 @@ describe('createUpdateIdentifierPersona retry', function () {
         });
     }); });
     it('should error if unlocked, but persona is not set, (should not be possible in rl)', function () { return __awaiter(_this, void 0, void 0, function () {
-        var err_1;
+        var createIdentifierPromise;
         return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, config.repo.createIdentifier({
-                        ifi: values_1.TEST_IFI,
-                        organisation: values_1.TEST_ORGANISATION,
-                    })];
-                case 1:
-                    _a.sent();
-                    _a.label = 2;
-                case 2:
-                    _a.trys.push([2, 4, , 5]);
-                    return [4 /*yield*/, theService.createUpdateIdentifierPersona({
-                            ifi: values_1.TEST_IFI,
-                            organisation: values_1.TEST_ORGANISATION,
-                            personaName: 'Dave 6',
-                        })];
-                case 3:
-                    _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
-                    err_1 = _a.sent();
-                    assert.equal(err_1.message, 'Identifier should have a persona');
-                    return [3 /*break*/, 5];
-                case 5: return [2 /*return*/];
-            }
+            createIdentifierPromise = config.repo.createIdentifier({
+                ifi: values_1.TEST_IFI,
+                organisation: values_1.TEST_ORGANISATION,
+            });
+            assertError_1.default(PersonaNotSetAndUnlocked_1.default, createIdentifierPromise);
+            return [2 /*return*/];
         });
     }); });
     it('should retry twice and succed on 3rd attempt', function () { return __awaiter(_this, void 0, void 0, function () {

@@ -1,12 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -44,42 +36,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var uuid_1 = require("uuid");
-var PersonaNotSetAndUnlocked_1 = require("../errors/PersonaNotSetAndUnlocked");
-var getIdentifiersMatchingIfi_1 = require("./utils/getIdentifiersMatchingIfi");
-exports.default = function (config) {
-    return function (_a) {
-        var locked = _a.locked, organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
-        return __awaiter(_this, void 0, void 0, function () {
-            var matchingIdentifiers, isExistingIfi, identifier;
-            return __generator(this, function (_a) {
-                matchingIdentifiers = getIdentifiersMatchingIfi_1.default({
-                    config: config,
-                    ifi: ifi,
-                    organisation: organisation,
-                });
-                if ((locked === false || locked === undefined) && persona === undefined) {
-                    throw new PersonaNotSetAndUnlocked_1.default();
-                }
-                isExistingIfi = matchingIdentifiers.length !== 0;
-                if (!isExistingIfi) {
-                    identifier = {
-                        id: uuid_1.v4(),
-                        ifi: ifi,
-                        organisation: organisation,
-                        persona: persona,
-                    };
-                    config.state.personaIdentifiers = config.state.personaIdentifiers.concat([
-                        __assign({}, identifier, { locked: locked }),
-                    ]);
-                    return [2 /*return*/, { identifier: identifier, wasCreated: true }];
-                }
-                return [2 /*return*/, {
-                        identifier: matchingIdentifiers[0],
-                        wasCreated: false,
-                    }];
-            });
+var assert = require("assert");
+var repoFactory_1 = require("../../repoFactory");
+var service_1 = require("../../service");
+var values_1 = require("../utils/values");
+describe('getIdentifier', function () {
+    it('getIdentifier with no persona', function () { return __awaiter(_this, void 0, void 0, function () {
+        var repoFacade, config, theService, identifier, identifierResult;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    repoFacade = repoFactory_1.default();
+                    config = { repo: repoFacade };
+                    return [4 /*yield*/, config.repo.clearRepo()];
+                case 1:
+                    _a.sent();
+                    theService = service_1.default(config);
+                    return [4 /*yield*/, config.repo.createIdentifier({
+                            ifi: values_1.TEST_IFI,
+                            locked: true,
+                            organisation: values_1.TEST_ORGANISATION,
+                        })];
+                case 2:
+                    identifier = (_a.sent()).identifier;
+                    return [4 /*yield*/, theService.getIdentifier({
+                            id: identifier.id,
+                            organisation: values_1.TEST_ORGANISATION,
+                        })];
+                case 3:
+                    identifierResult = (_a.sent()).identifier;
+                    assert.equal(identifierResult.persona, undefined);
+                    return [2 /*return*/];
+            }
         });
-    };
-};
-//# sourceMappingURL=createIdentifier.js.map
+    }); });
+});
+//# sourceMappingURL=getidentifier.test.js.map

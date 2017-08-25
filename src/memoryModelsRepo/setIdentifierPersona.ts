@@ -9,11 +9,12 @@ export default (config: Config) => {
   return async ({
     organisation,
     persona,
-    ...opts,
+    id,
+    locked,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
 
     const personaIdentifeirsToUpdate = config.state.personaIdentifiers.filter((identifier) => {
-      if (identifier.id === opts.id && identifier.organisation === organisation) {
+      if (identifier.id === id && identifier.organisation === organisation) {
         return true;
       }
       return false;
@@ -26,6 +27,7 @@ export default (config: Config) => {
     const updatedIdentifiers = personaIdentifeirsToUpdate.map((identifier) => {
       return {
         ...identifier,
+        locked,
         persona,
       };
     });

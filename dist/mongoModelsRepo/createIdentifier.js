@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
+var PersonaNotSetAndUnlocked_1 = require("../errors/PersonaNotSetAndUnlocked");
 var createOrUpdateIdentifier_1 = require("./utils/createOrUpdateIdentifier");
 var getIdentifierIfiFilter_1 = require("./utils/getIdentifierIfiFilter");
 exports.default = function (config) {
@@ -45,6 +46,9 @@ exports.default = function (config) {
         return __awaiter(_this, void 0, void 0, function () {
             var filter, update;
             return __generator(this, function (_a) {
+                if ((locked === false || locked === undefined) && persona === undefined) {
+                    throw new PersonaNotSetAndUnlocked_1.default();
+                }
                 filter = getIdentifierIfiFilter_1.default(ifi, organisation);
                 update = {
                     $setOnInsert: {

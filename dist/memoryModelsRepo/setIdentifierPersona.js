@@ -42,40 +42,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 /* tslint:disable:no-let */
 var NoModel_1 = require("jscommons/dist/errors/NoModel");
 var lodash_1 = require("lodash");
 exports.default = function (config) {
-    return function (_a) { return __awaiter(_this, void 0, void 0, function () {
-        var organisation = _a.organisation, persona = _a.persona, opts = __rest(_a, ["organisation", "persona"]);
-        var personaIdentifeirsToUpdate, updatedIdentifiers;
-        return __generator(this, function (_a) {
-            personaIdentifeirsToUpdate = config.state.personaIdentifiers.filter(function (identifier) {
-                if (identifier.id === opts.id && identifier.organisation === organisation) {
-                    return true;
+    return function (_a) {
+        var organisation = _a.organisation, persona = _a.persona, id = _a.id, locked = _a.locked;
+        return __awaiter(_this, void 0, void 0, function () {
+            var personaIdentifeirsToUpdate, updatedIdentifiers;
+            return __generator(this, function (_a) {
+                personaIdentifeirsToUpdate = config.state.personaIdentifiers.filter(function (identifier) {
+                    if (identifier.id === id && identifier.organisation === organisation) {
+                        return true;
+                    }
+                    return false;
+                });
+                if (personaIdentifeirsToUpdate.length === 0) {
+                    throw new NoModel_1.default('Persona Identifier');
                 }
-                return false;
+                updatedIdentifiers = personaIdentifeirsToUpdate.map(function (identifier) {
+                    return __assign({}, identifier, { locked: locked,
+                        persona: persona });
+                });
+                config.state.personaIdentifiers = lodash_1.assign(config.state.personaIdentifiers, updatedIdentifiers);
+                return [2 /*return*/, { identifier: updatedIdentifiers[0] }];
             });
-            if (personaIdentifeirsToUpdate.length === 0) {
-                throw new NoModel_1.default('Persona Identifier');
-            }
-            updatedIdentifiers = personaIdentifeirsToUpdate.map(function (identifier) {
-                return __assign({}, identifier, { persona: persona });
-            });
-            config.state.personaIdentifiers = lodash_1.assign(config.state.personaIdentifiers, updatedIdentifiers);
-            return [2 /*return*/, { identifier: updatedIdentifiers[0] }];
         });
-    }); };
+    };
 };
 //# sourceMappingURL=setIdentifierPersona.js.map

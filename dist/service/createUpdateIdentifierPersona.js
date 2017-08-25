@@ -102,11 +102,13 @@ var createUpdateIdentifierPersona = function (config) {
                             // We are locked, wait for unlock
                             throw new Locked_1.default();
                         }
-                        // Shouldn't happen, as persona should always be set
+                        // Shouldn't happen, as persona should always be set if unlocked.
+                        /* istanbul ignore next */
                         if (foundIdentifier.persona === undefined) {
                             throw new Error('Identifier should have a persona');
                         }
                         // What should happen if persona name is different ???
+                        // currently it doesn't get updated
                         return [2 /*return*/, {
                                 identifierId: identifierId,
                                 personaId: foundIdentifier.persona,
@@ -143,9 +145,11 @@ var retryCreateUpdateIdentifierPersona = function (config) {
                             case 1: return [2 /*return*/, _a.sent()];
                             case 2:
                                 err_2 = _a.sent();
+                                /* istanbul ignore else */
                                 if (err_2 instanceof Locked_1.default) {
                                     return [2 /*return*/, retry(err_2)];
                                 }
+                                /* istanbul ignore next */
                                 throw err_2;
                             case 3: return [2 /*return*/];
                         }
