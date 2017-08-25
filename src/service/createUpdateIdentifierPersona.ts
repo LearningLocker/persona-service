@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import * as promiseRetry from 'promise-retry';
 import Locked from '../errors/Locked';
 import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacing
   from '../serviceFactory/options/CreateUpdateIdentifierPersonaOptions';
@@ -21,7 +22,7 @@ const create = (config: Config) =>
       organisation,
     });
 
-    config.repo.setIdentifierPersona({
+    await config.repo.setIdentifierPersona({
       id: identifier.id,
       locked: false,
       organisation,
@@ -34,7 +35,7 @@ const create = (config: Config) =>
     };
   };
 
-export default (config: Config) =>
+const createUpdateIdentifierPersona = (config: Config) =>
   async ({
     organisation,
     ifi,
@@ -52,7 +53,7 @@ export default (config: Config) =>
         organisation,
       });
 
-      if ( locked ) {
+      if ( locked === true ) {
         // We are locked, wait for unlock
         throw new Locked();
       }
@@ -81,3 +82,27 @@ export default (config: Config) =>
     }
 
   };
+
+const retryCreateUpdateIdentifierPersona = (config: Config) =>
+  async (opts: CreateUpdateIdentifierPersonaOptions):
+  Promise<CreateUpdateIdentifierPersonaResult> => {
+
+  const createUpdateIdentifierPersonaFn = createUpdateIdentifierPersona(config);
+
+  return promiseRetry<CreateUpdateIdentifierPersonaResult>(async (retry) => {
+    try {
+      return await createUpdateIdentifierPersonaFn(opts);
+    } catch (err) {
+      if (err instanceof Locked) {
+        return retry(err);
+      }
+      throw err;
+    }
+  }, {
+    maxTimeout: 300,
+    minTimeout: 30,
+    retries: 3,
+  });
+};
+
+export default retryCreateUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count

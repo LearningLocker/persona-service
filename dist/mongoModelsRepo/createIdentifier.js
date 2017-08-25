@@ -51,7 +51,7 @@ exports.default = function (config) {
                         ifi: ifi,
                         locked: locked,
                         organisation: new mongodb_1.ObjectID(organisation),
-                        persona: new mongodb_1.ObjectID(persona),
+                        persona: persona === undefined ? undefined : new mongodb_1.ObjectID(persona),
                     },
                 };
                 return [2 /*return*/, createOrUpdateIdentifier_1.default(config)({

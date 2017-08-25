@@ -23,10 +23,9 @@ export default (config: Config) => {
     const identifier = {
       id: document._id.toString(),
       ifi: document.ifi,
-      locked: document.locked,
       organisation: document.organisation.toString(),
-      persona: document.persona.toString(),
+      persona: document.persona === null ? undefined : document.persona.toString(),
     };
-    return { identifier };
+    return { identifier, locked: document.locked };
   };
 };

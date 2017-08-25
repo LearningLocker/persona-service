@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var NoModel_1 = require("jscommons/dist/errors/NoModel");
+var promiseRetry = require("promise-retry");
 var Locked_1 = require("../errors/Locked");
 var index_1 = require("./index");
 var create = function (config) {
@@ -59,12 +60,14 @@ var create = function (config) {
                             })];
                     case 2:
                         persona = (_a.sent()).persona;
-                        config.repo.setIdentifierPersona({
-                            id: identifier.id,
-                            locked: false,
-                            organisation: organisation,
-                            persona: persona.id,
-                        });
+                        return [4 /*yield*/, config.repo.setIdentifierPersona({
+                                id: identifier.id,
+                                locked: false,
+                                organisation: organisation,
+                                persona: persona.id,
+                            })];
+                    case 3:
+                        _a.sent();
                         return [2 /*return*/, {
                                 identifierId: identifier.id,
                                 personaId: persona.id,
@@ -74,7 +77,7 @@ var create = function (config) {
         });
     };
 };
-exports.default = function (config) {
+var createUpdateIdentifierPersona = function (config) {
     return function (_a) {
         var organisation = _a.organisation, ifi = _a.ifi, personaName = _a.personaName;
         return __awaiter(_this, void 0, void 0, function () {
@@ -95,7 +98,7 @@ exports.default = function (config) {
                             })];
                     case 2:
                         _a = _b.sent(), foundIdentifier = _a.identifier, locked = _a.locked;
-                        if (locked) {
+                        if (locked === true) {
                             // We are locked, wait for unlock
                             throw new Locked_1.default();
                         }
@@ -124,4 +127,36 @@ exports.default = function (config) {
         });
     };
 };
+var retryCreateUpdateIdentifierPersona = function (config) {
+    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
+        var _this = this;
+        var createUpdateIdentifierPersonaFn;
+        return __generator(this, function (_a) {
+            createUpdateIdentifierPersonaFn = createUpdateIdentifierPersona(config);
+            return [2 /*return*/, promiseRetry(function (retry) { return __awaiter(_this, void 0, void 0, function () {
+                    var err_2;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 2, , 3]);
+                                return [4 /*yield*/, createUpdateIdentifierPersonaFn(opts)];
+                            case 1: return [2 /*return*/, _a.sent()];
+                            case 2:
+                                err_2 = _a.sent();
+                                if (err_2 instanceof Locked_1.default) {
+                                    return [2 /*return*/, retry(err_2)];
+                                }
+                                throw err_2;
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                }); }, {
+                    maxTimeout: 300,
+                    minTimeout: 30,
+                    retries: 3,
+                })];
+        });
+    }); };
+};
+exports.default = retryCreateUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count
 //# sourceMappingURL=createUpdateIdentifierPersona.js.map

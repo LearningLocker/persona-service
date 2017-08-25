@@ -6,11 +6,16 @@ import Config from './Config';
 import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 
 export default (config: Config) => {
-  return async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
+  return async ({
+    locked,
+    organisation,
+    persona,
+    ifi,
+  }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
     const matchingIdentifiers = getIdentifiersMatchingIfi({
       config,
-      ifi: opts.ifi,
-      organisation: opts.organisation,
+      ifi,
+      organisation,
     });
 
     // Creates the identifier if the IFI doesn't already exist.
@@ -18,13 +23,16 @@ export default (config: Config) => {
     if (!isExistingIfi) {
       const identifier: Identifier = {
         id: uuid(),
-        ifi: opts.ifi,
-        organisation: opts.organisation,
-        persona: opts.persona,
+        ifi,
+        organisation,
+        persona,
       };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,
-        identifier,
+        {
+          ...identifier,
+          locked,
+        },
       ];
       return { identifier, wasCreated: true };
     }

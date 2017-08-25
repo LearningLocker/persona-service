@@ -59,11 +59,10 @@ exports.default = function (config) {
                     identifier = {
                         id: document._id.toString(),
                         ifi: document.ifi,
-                        locked: document.locked,
                         organisation: document.organisation.toString(),
-                        persona: document.persona.toString(),
+                        persona: document.persona === null ? undefined : document.persona.toString(),
                     };
-                    return [2 /*return*/, { identifier: identifier }];
+                    return [2 /*return*/, { identifier: identifier, locked: document.locked }];
             }
         });
     }); };

@@ -26,7 +26,7 @@ export default (config: Config) => {
         ifi,
         locked,
         organisation: new ObjectID(organisation),
-        persona: new ObjectID(persona),
+        persona: persona === undefined ? undefined : new ObjectID(persona),
       },
     };
 
