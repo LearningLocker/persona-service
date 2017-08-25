@@ -103,12 +103,17 @@ describe('createUpdateIdentifierPersona retry', function () {
     it('should error if unlocked, but persona is not set, (should not be possible in rl)', function () { return __awaiter(_this, void 0, void 0, function () {
         var createIdentifierPromise;
         return __generator(this, function (_a) {
-            createIdentifierPromise = config.repo.createIdentifier({
-                ifi: values_1.TEST_IFI,
-                organisation: values_1.TEST_ORGANISATION,
-            });
-            assertError_1.default(PersonaNotSetAndUnlocked_1.default, createIdentifierPromise);
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    createIdentifierPromise = config.repo.createIdentifier({
+                        ifi: values_1.TEST_IFI,
+                        organisation: values_1.TEST_ORGANISATION,
+                    });
+                    return [4 /*yield*/, assertError_1.default(PersonaNotSetAndUnlocked_1.default, createIdentifierPromise)];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
         });
     }); });
     it('should retry twice and succed on 3rd attempt', function () { return __awaiter(_this, void 0, void 0, function () {

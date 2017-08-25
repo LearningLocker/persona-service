@@ -56,7 +56,7 @@ describe('createUpdateIdentifierPersona retry', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
+    await assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
   });
 
   it('should retry twice and succed on 3rd attempt', async () => {
