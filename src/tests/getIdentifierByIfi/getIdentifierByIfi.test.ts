@@ -38,7 +38,6 @@ describe('getIdentifierByIfi', () => {
 
     await config.repo.createIdentifier({
       ifi: TEST_IFI,
-      locked: true,
       organisation: TEST_ORGANISATION,
     });
 

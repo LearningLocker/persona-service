@@ -2,6 +2,7 @@ import { ObjectID } from 'mongodb';
 import PersonaNotSetAndUnlocked from '../errors/PersonaNotSetAndUnlocked';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
+import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
 import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
@@ -9,10 +10,10 @@ import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 export default (config: Config) => {
   return async ({
     persona,
-    locked = true,
+    locked = ((persona === undefined) ? true : false),
     organisation,
     ifi,
-  }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
+  }: CreateIdentifierOptions & Lockable): Promise<CreateIdentifierResult> => {
 
     if (!locked && persona === undefined) {
       throw new PersonaNotSetAndUnlocked();

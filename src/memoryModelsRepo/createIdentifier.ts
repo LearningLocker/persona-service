@@ -8,7 +8,6 @@ import getIdentifiersMatchingIfi from './utils/getIdentifiersMatchingIfi';
 
 export default (config: Config) => {
   return async ({
-    locked = true,
     organisation,
     persona,
     ifi,
@@ -18,10 +17,6 @@ export default (config: Config) => {
       ifi,
       organisation,
     });
-
-    if (!locked && persona === undefined) {
-      throw new PersonaNotSetAndUnlocked();
-    }
 
     // Creates the identifier if the IFI doesn't already exist.
     const isExistingIfi = matchingIdentifiers.length !== 0;
@@ -36,7 +31,6 @@ export default (config: Config) => {
         ...config.state.personaIdentifiers,
         {
           ...identifier,
-          locked,
         },
       ];
       return { identifier, wasCreated: true };

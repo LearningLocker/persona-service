@@ -49,7 +49,7 @@ exports.default = function (config) {
                 throw new NoModel_1.default('Identifier');
             }
             identifier = matchingIdentifiers[0];
-            return [2 /*return*/, { identifier: identifier, locked: identifier.locked }];
+            return [2 /*return*/, { identifier: identifier }];
         });
     }); };
 };

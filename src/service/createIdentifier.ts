@@ -5,8 +5,5 @@ import Config from './Config';
 // Deprecated: use createUpdateIdentifierPersona
 export default (config: Config) =>
   async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
-    return config.repo.createIdentifier({
-      ...opts,
-      locked: false, // as persona is set.
-    });
+    return config.repo.createIdentifier(opts);
   };

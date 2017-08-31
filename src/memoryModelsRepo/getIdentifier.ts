@@ -15,6 +15,6 @@ export default (config: Config) => {
     }
 
     const identifier = matchingIdentifiers[0];
-    return { identifier, locked: identifier.locked };
+    return { identifier };
   };
 };

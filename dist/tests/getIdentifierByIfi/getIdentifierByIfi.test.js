@@ -87,7 +87,6 @@ describe('getIdentifierByIfi', function () {
                     theService = service_1.default(config);
                     return [4 /*yield*/, config.repo.createIdentifier({
                             ifi: values_1.TEST_IFI,
-                            locked: true,
                             organisation: values_1.TEST_ORGANISATION,
                         })];
                 case 2:

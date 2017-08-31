@@ -45,11 +45,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = require("uuid");
-var PersonaNotSetAndUnlocked_1 = require("../errors/PersonaNotSetAndUnlocked");
 var getIdentifiersMatchingIfi_1 = require("./utils/getIdentifiersMatchingIfi");
 exports.default = function (config) {
     return function (_a) {
-        var _b = _a.locked, locked = _b === void 0 ? true : _b, organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
+        var organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
         return __awaiter(_this, void 0, void 0, function () {
             var matchingIdentifiers, isExistingIfi, identifier;
             return __generator(this, function (_a) {
@@ -58,9 +57,6 @@ exports.default = function (config) {
                     ifi: ifi,
                     organisation: organisation,
                 });
-                if (!locked && persona === undefined) {
-                    throw new PersonaNotSetAndUnlocked_1.default();
-                }
                 isExistingIfi = matchingIdentifiers.length !== 0;
                 if (!isExistingIfi) {
                     identifier = {
@@ -70,7 +66,7 @@ exports.default = function (config) {
                         persona: persona,
                     };
                     config.state.personaIdentifiers = config.state.personaIdentifiers.concat([
-                        __assign({}, identifier, { locked: locked }),
+                        __assign({}, identifier),
                     ]);
                     return [2 /*return*/, { identifier: identifier, wasCreated: true }];
                 }

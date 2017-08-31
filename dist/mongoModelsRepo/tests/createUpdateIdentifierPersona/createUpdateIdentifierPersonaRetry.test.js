@@ -46,15 +46,22 @@ var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var assert = require("assert");
 var assertError_1 = require("jscommons/dist/tests/utils/assertError");
-var Locked_1 = require("../../errors/Locked");
-var PersonaNotSetAndUnlocked_1 = require("../../errors/PersonaNotSetAndUnlocked");
-var repoFactory_1 = require("../../repoFactory");
-// import setup from '../utils/setup';
-var service_1 = require("../../service");
-var createTestPersona_1 = require("../utils/createTestPersona");
-var values_1 = require("../utils/values");
-describe('createUpdateIdentifierPersona retry', function () {
-    var config; // tslint:disable-line:no-let
+var mongodb_1 = require("mongodb");
+var config_1 = require("../../../config");
+var Locked_1 = require("../../../errors/Locked");
+var PersonaNotSetAndUnlocked_1 = require("../../../errors/PersonaNotSetAndUnlocked");
+var repoFactory_1 = require("../../../repoFactory");
+var service_1 = require("../../../service");
+var values_1 = require("../../../tests/utils/values");
+var createIdentifier_1 = require("../../createIdentifier");
+var createUpdateIdentifierPersona_1 = require("../../createUpdateIdentifierPersona");
+describe('createUpdateIdentifierPersona mongo retry', function () {
+    // Only test mongo repo
+    /* istanbul ignore next */
+    if (config_1.default.repoFactory.modelsRepoName !== 'mongo') {
+        return;
+    }
+    var serviceConfig; // tslint:disable-line:no-let
     var theService; // tslint:disable-line:no-let
     beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {
         var repoFacade;
@@ -62,30 +69,27 @@ describe('createUpdateIdentifierPersona retry', function () {
             switch (_a.label) {
                 case 0:
                     repoFacade = repoFactory_1.default();
-                    config = { repo: repoFacade };
-                    return [4 /*yield*/, config.repo.clearRepo()];
+                    serviceConfig = { repo: repoFacade };
+                    return [4 /*yield*/, serviceConfig.repo.clearRepo()];
                 case 1:
                     _a.sent();
-                    theService = service_1.default(config);
+                    theService = service_1.default(serviceConfig);
                     return [2 /*return*/];
             }
         });
     }); });
     it('Should error aftery trying 3 times and the identifier is locked', function () { return __awaiter(_this, void 0, void 0, function () {
-        var persona, resultPromise;
+        var resultPromise;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, createTestPersona_1.default()];
+                case 0: 
+                // Create mock
+                return [4 /*yield*/, serviceConfig.repo.createIdentifier({
+                        ifi: values_1.TEST_IFI,
+                        organisation: values_1.TEST_ORGANISATION,
+                        persona: undefined,
+                    })];
                 case 1:
-                    persona = _a.sent();
-                    // Create mock
-                    return [4 /*yield*/, config.repo.createIdentifier({
-                            ifi: values_1.TEST_IFI,
-                            locked: true,
-                            organisation: values_1.TEST_ORGANISATION,
-                            persona: persona.id,
-                        })];
-                case 2:
                     // Create mock
                     _a.sent();
                     resultPromise = theService.createUpdateIdentifierPersona({
@@ -94,18 +98,21 @@ describe('createUpdateIdentifierPersona retry', function () {
                         personaName: 'Dave 6',
                     });
                     return [4 /*yield*/, assertError_1.default(Locked_1.default, resultPromise)];
-                case 3:
+                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }
         });
     }); });
     it('should error if unlocked, but persona is not set, (should not be possible in rl)', function () { return __awaiter(_this, void 0, void 0, function () {
-        var createIdentifierPromise;
+        var repoConfig, createIdentifierPromise;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    createIdentifierPromise = config.repo.createIdentifier({
+                    repoConfig = {
+                        db: mongodb_1.MongoClient.connect(config_1.default.mongoModelsRepo.url, config_1.default.mongoModelsRepo.options),
+                    };
+                    createIdentifierPromise = createIdentifier_1.default(repoConfig)({
                         ifi: values_1.TEST_IFI,
                         locked: false,
                         organisation: values_1.TEST_ORGANISATION,
@@ -119,43 +126,46 @@ describe('createUpdateIdentifierPersona retry', function () {
     }); });
     it('should retry twice and succed on 3rd attempt', function () { return __awaiter(_this, void 0, void 0, function () {
         var _this = this;
-        var repoFacade, getIdentifierCount, RETRY_SUCCESS, repoFacadeWithMock, persona, result, personaResult, THREE;
+        var repoFacade, getIdentifierCount, RETRY_SUCCESS, mockGetIdentifier, persona, repoConfig, result, personaResult, THREE;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     repoFacade = repoFactory_1.default();
                     getIdentifierCount = 0;
                     RETRY_SUCCESS = 2;
-                    repoFacadeWithMock = __assign({}, repoFacade, { getIdentifier: function (opts) { return __awaiter(_this, void 0, void 0, function () {
-                            var realResult;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        getIdentifierCount = getIdentifierCount + 1;
-                                        return [4 /*yield*/, repoFacade.getIdentifier(opts)];
-                                    case 1:
-                                        realResult = _a.sent();
-                                        return [2 /*return*/, __assign({}, realResult, { locked: getIdentifierCount > RETRY_SUCCESS ? false : true })];
-                                }
-                            });
-                        }); } });
-                    config = { repo: repoFacadeWithMock };
-                    theService = service_1.default(config);
+                    mockGetIdentifier = function (opts) { return __awaiter(_this, void 0, void 0, function () {
+                        var realResult;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    getIdentifierCount = getIdentifierCount + 1;
+                                    return [4 /*yield*/, repoFacade.getIdentifier(opts)];
+                                case 1:
+                                    realResult = _a.sent();
+                                    return [2 /*return*/, __assign({}, realResult, { locked: getIdentifierCount > RETRY_SUCCESS ? false : true })];
+                            }
+                        });
+                    }); };
+                    serviceConfig = { repo: repoFacade };
+                    theService = service_1.default(serviceConfig);
                     return [4 /*yield*/, theService.createPersona({
                             name: 'Dave',
                             organisation: values_1.TEST_ORGANISATION,
                         })];
                 case 1:
                     persona = (_a.sent()).persona;
-                    return [4 /*yield*/, config.repo.createIdentifier({
+                    return [4 /*yield*/, serviceConfig.repo.createIdentifier({
                             ifi: values_1.TEST_IFI,
-                            locked: true,
                             organisation: values_1.TEST_ORGANISATION,
                             persona: persona.id,
                         })];
                 case 2:
                     _a.sent();
-                    return [4 /*yield*/, theService.createUpdateIdentifierPersona({
+                    repoConfig = {
+                        db: mongodb_1.MongoClient.connect(config_1.default.mongoModelsRepo.url, config_1.default.mongoModelsRepo.options),
+                    };
+                    return [4 /*yield*/, createUpdateIdentifierPersona_1.default(repoConfig)({
+                            getIdentifier: mockGetIdentifier,
                             ifi: values_1.TEST_IFI,
                             organisation: values_1.TEST_ORGANISATION,
                             personaName: 'Dave 6',
