@@ -42,26 +42,26 @@ var createPersona_1 = require("./createPersona");
 var getIdentifier_1 = require("./getIdentifier");
 var getIdentifierByIfi_1 = require("./getIdentifierByIfi");
 var setIdentifierPersona_1 = require("./setIdentifierPersona");
-var create = function (config) {
+var createIdentifierPersona = function (memoryConfig) {
     return function (_a) {
         var organisation = _a.organisation, ifi = _a.ifi, personaName = _a.personaName;
         return __awaiter(_this, void 0, void 0, function () {
             var identifier, persona;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, createIdentifier_1.default(config)({
+                    case 0: return [4 /*yield*/, createIdentifier_1.default(memoryConfig)({
                             ifi: ifi,
                             organisation: organisation,
                         })];
                     case 1:
                         identifier = (_a.sent()).identifier;
-                        return [4 /*yield*/, createPersona_1.default(config)({
+                        return [4 /*yield*/, createPersona_1.default(memoryConfig)({
                                 name: personaName,
                                 organisation: organisation,
                             })];
                     case 2:
                         persona = (_a.sent()).persona;
-                        return [4 /*yield*/, setIdentifierPersona_1.default(config)({
+                        return [4 /*yield*/, setIdentifierPersona_1.default(memoryConfig)({
                                 id: identifier.id,
                                 organisation: organisation,
                                 persona: persona.id,
@@ -113,7 +113,7 @@ var createUpdateIdentifierPersona = function (config) {
                         err_1 = _a.sent();
                         /* istanbul ignore else */
                         if (err_1 instanceof NoModel_1.default) {
-                            return [2 /*return*/, create(config)({
+                            return [2 /*return*/, createIdentifierPersona(config)({
                                     ifi: ifi,
                                     organisation: organisation,
                                     personaName: personaName,

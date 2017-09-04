@@ -3,31 +3,31 @@ import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacin
   from '../repoFactory/options/CreateUpdateIdentifierPersonaOptions';
 import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
   from '../repoFactory/results/CreateUpdateIdentifierPersonaResult';
-import Config from './Config';
+import MemoryConfig from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import getIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import setIdentifierPersona from './setIdentifierPersona';
 
-const create = (config: Config) =>
+const createIdentifierPersona = (memoryConfig: MemoryConfig) =>
   async ({
     organisation,
     ifi,
     personaName,
   }: CreateUpdateIdentifierPersonaOptions):
   Promise<CreateUpdateIdentifierPersonaResult> => {
-    const { identifier } = await createIdentifier(config)({
+    const { identifier } = await createIdentifier(memoryConfig)({
       ifi,
       organisation,
     });
 
-    const { persona } = await createPersona(config)({
+    const { persona } = await createPersona(memoryConfig)({
       name: personaName,
       organisation,
     });
 
-    await setIdentifierPersona(config)({
+    await setIdentifierPersona(memoryConfig)({
       id: identifier.id,
       organisation,
       persona: persona.id,
@@ -39,7 +39,7 @@ const create = (config: Config) =>
     };
   };
 
-const createUpdateIdentifierPersona = (config: Config) =>
+const createUpdateIdentifierPersona = (config: MemoryConfig) =>
   async ({
     organisation,
     ifi,
@@ -74,7 +74,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
     } catch (err) {
       /* istanbul ignore else */
       if (err instanceof NoModel) {
-        return create(config)({
+        return createIdentifierPersona(config)({
           ifi,
           organisation,
           personaName,
