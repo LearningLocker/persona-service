@@ -86,4 +86,4 @@ const createUpdateIdentifierPersona = (config: MemoryConfig) =>
 
   };
 
-export default createUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count
+export default createUpdateIdentifierPersona;

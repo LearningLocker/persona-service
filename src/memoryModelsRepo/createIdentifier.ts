@@ -28,9 +28,7 @@ export default (config: Config) => {
       };
       config.state.personaIdentifiers = [
         ...config.state.personaIdentifiers,
-        {
-          ...identifier,
-        },
+        identifier,
       ];
       return { identifier, wasCreated: true };
     }

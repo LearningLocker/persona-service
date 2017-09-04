@@ -127,5 +127,5 @@ var createUpdateIdentifierPersona = function (config) {
         });
     };
 };
-exports.default = createUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count
+exports.default = createUpdateIdentifierPersona;
 //# sourceMappingURL=createUpdateIdentifierPersona.js.map

@@ -70,7 +70,7 @@ exports.default = function (config) {
                     if (!isMatch) {
                         return identifier;
                     }
-                    return __assign({}, identifier, { persona: persona, locked: false });
+                    return __assign({}, identifier, { persona: persona });
                 });
                 config.state.personaIdentifiers = updatedIdentifiers;
                 return [2 /*return*/, {

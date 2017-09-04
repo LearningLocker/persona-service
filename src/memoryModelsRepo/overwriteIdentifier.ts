@@ -35,7 +35,7 @@ export default (config: Config) => {
         return identifier;
       }
 
-      return { ...identifier, persona, locked: false };
+      return { ...identifier, persona };
     });
 
     config.state.personaIdentifiers = updatedIdentifiers;
