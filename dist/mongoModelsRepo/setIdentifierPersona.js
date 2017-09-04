@@ -52,6 +52,7 @@ exports.default = function (config) {
                         };
                         update = {
                             $set: {
+                                locked: false,
                                 persona: new mongodb_1.ObjectID(persona),
                             },
                         };

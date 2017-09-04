@@ -41,7 +41,7 @@ export default (config: Config) => {
     config.state.personaIdentifiers = updatedIdentifiers;
 
     return {
-      identifier: { ...matchingIdentifiers[0], persona },
+      identifier: { ...matchingIdentifiers[0] as Identifier, persona },
       wasCreated: false,
     };
   };

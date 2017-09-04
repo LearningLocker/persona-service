@@ -18,6 +18,7 @@ export default (config: Config) => {
 
     const update = {
       $set: {
+        locked: false,
         persona: new ObjectID(persona),
       },
     };

@@ -34,39 +34,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) if (e.indexOf(p[i]) < 0)
-            t[p[i]] = s[p[i]];
-    return t;
-};
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var mongodb_1 = require("mongodb");
+var PersonaNotSetAndUnlocked_1 = require("../errors/PersonaNotSetAndUnlocked");
 var createOrUpdateIdentifier_1 = require("./utils/createOrUpdateIdentifier");
 var getIdentifierIfiFilter_1 = require("./utils/getIdentifierIfiFilter");
 exports.default = function (config) {
-    return function (_a) { return __awaiter(_this, void 0, void 0, function () {
-        var persona = _a.persona, opts = __rest(_a, ["persona"]);
-        var filter, update;
-        return __generator(this, function (_a) {
-            filter = getIdentifierIfiFilter_1.default(opts.ifi, opts.organisation);
-            update = {
-                $setOnInsert: {
-                    ifi: opts.ifi,
-                    organisation: new mongodb_1.ObjectID(opts.organisation),
-                    persona: new mongodb_1.ObjectID(persona),
-                },
-            };
-            return [2 /*return*/, createOrUpdateIdentifier_1.default(config)({
-                    filter: filter,
-                    update: update,
-                    upsert: true,
-                })];
+    return function (_a) {
+        var persona = _a.persona, _b = _a.locked, locked = _b === void 0 ? ((persona === undefined) ? true : false) : _b, organisation = _a.organisation, ifi = _a.ifi;
+        return __awaiter(_this, void 0, void 0, function () {
+            var filter, update;
+            return __generator(this, function (_a) {
+                if (!locked && persona === undefined) {
+                    throw new PersonaNotSetAndUnlocked_1.default();
+                }
+                filter = getIdentifierIfiFilter_1.default(ifi, organisation);
+                update = {
+                    $setOnInsert: {
+                        ifi: ifi,
+                        locked: locked,
+                        organisation: new mongodb_1.ObjectID(organisation),
+                        persona: persona === undefined ? undefined : new mongodb_1.ObjectID(persona),
+                    },
+                };
+                return [2 /*return*/, createOrUpdateIdentifier_1.default(config)({
+                        filter: filter,
+                        update: update,
+                        upsert: true,
+                    })];
+            });
         });
-    }); };
+    };
 };
 //# sourceMappingURL=createIdentifier.js.map

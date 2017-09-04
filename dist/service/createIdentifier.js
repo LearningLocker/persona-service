@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
+// Deprecated: use createUpdateIdentifierPersona
 exports.default = function (config) {
     return function (opts) { return __awaiter(_this, void 0, void 0, function () {
         return __generator(this, function (_a) {

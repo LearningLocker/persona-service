@@ -19,7 +19,7 @@ export default (config: Config) => {
     }
 
     const identifierId = document._id.toString();
-    const personaId = document.persona.toString();
+    const personaId = document.persona === null ? undefined : document.persona.toString();
     return { identifierId, personaId };
   };
 };

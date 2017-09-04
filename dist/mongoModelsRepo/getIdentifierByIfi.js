@@ -54,7 +54,7 @@ exports.default = function (config) {
                         throw new NoModel_1.default('Persona Identifier');
                     }
                     identifierId = document._id.toString();
-                    personaId = document.persona.toString();
+                    personaId = document.persona === null ? undefined : document.persona.toString();
                     return [2 /*return*/, { identifierId: identifierId, personaId: personaId }];
             }
         });

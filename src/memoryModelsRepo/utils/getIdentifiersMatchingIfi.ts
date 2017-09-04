@@ -1,6 +1,8 @@
 // tslint:disable-next-line:no-unused
 import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
+// tslint:disable-next-line:no-unused
+import Lockable from '../../repoFactory/utils/Lockable';
 import Config from '../Config';
 import matchIdentifierIfi from './matchIdentifierIfi';
 

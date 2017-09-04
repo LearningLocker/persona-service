@@ -11,6 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var mongoRepo_1 = require("jscommons/dist/mongoRepo");
 var createIdentifier_1 = require("./createIdentifier");
 var createPersona_1 = require("./createPersona");
+var createUpdateIdentifierPersona_1 = require("./createUpdateIdentifierPersona");
 var deletePersona_1 = require("./deletePersona");
 var getIdentifier_1 = require("./getIdentifier");
 var getIdentifierByIfi_1 = require("./getIdentifierByIfi");
@@ -22,6 +23,6 @@ var mergePersona_1 = require("./mergePersona");
 var overwriteIdentifier_1 = require("./overwriteIdentifier");
 var setIdentifierPersona_1 = require("./setIdentifierPersona");
 exports.default = function (config) {
-    return __assign({ createIdentifier: createIdentifier_1.default(config), createPersona: createPersona_1.default(config), deletePersona: deletePersona_1.default(config), getIdentifier: getIdentifier_1.default(config), getIdentifierByIfi: getIdentifierByIfi_1.default(config), getIdentifiers: getIdentifiers_1.default(config), getIfisByPersona: getIfisByPersona_1.default(config), getPersona: getPersona_1.default(config), getPersonas: getPersonas_1.default(config), mergePersona: mergePersona_1.default(config), overwriteIdentifier: overwriteIdentifier_1.default(config), setIdentifierPersona: setIdentifierPersona_1.default(config) }, mongoRepo_1.default(config));
+    return __assign({ createIdentifier: createIdentifier_1.default(config), createPersona: createPersona_1.default(config), createUpdateIdentifierPersona: createUpdateIdentifierPersona_1.default(config), deletePersona: deletePersona_1.default(config), getIdentifier: getIdentifier_1.default(config), getIdentifierByIfi: getIdentifierByIfi_1.default(config), getIdentifiers: getIdentifiers_1.default(config), getIfisByPersona: getIfisByPersona_1.default(config), getPersona: getPersona_1.default(config), getPersonas: getPersonas_1.default(config), mergePersona: mergePersona_1.default(config), overwriteIdentifier: overwriteIdentifier_1.default(config), setIdentifierPersona: setIdentifierPersona_1.default(config) }, mongoRepo_1.default(config));
 };
 //# sourceMappingURL=index.js.map

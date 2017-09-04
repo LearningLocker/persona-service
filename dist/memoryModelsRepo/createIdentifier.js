@@ -39,32 +39,35 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var uuid_1 = require("uuid");
 var getIdentifiersMatchingIfi_1 = require("./utils/getIdentifiersMatchingIfi");
 exports.default = function (config) {
-    return function (opts) { return __awaiter(_this, void 0, void 0, function () {
-        var matchingIdentifiers, isExistingIfi, identifier;
-        return __generator(this, function (_a) {
-            matchingIdentifiers = getIdentifiersMatchingIfi_1.default({
-                config: config,
-                ifi: opts.ifi,
-                organisation: opts.organisation,
+    return function (_a) {
+        var organisation = _a.organisation, persona = _a.persona, ifi = _a.ifi;
+        return __awaiter(_this, void 0, void 0, function () {
+            var matchingIdentifiers, isExistingIfi, identifier;
+            return __generator(this, function (_a) {
+                matchingIdentifiers = getIdentifiersMatchingIfi_1.default({
+                    config: config,
+                    ifi: ifi,
+                    organisation: organisation,
+                });
+                isExistingIfi = matchingIdentifiers.length !== 0;
+                if (!isExistingIfi) {
+                    identifier = {
+                        id: uuid_1.v4(),
+                        ifi: ifi,
+                        organisation: organisation,
+                        persona: persona,
+                    };
+                    config.state.personaIdentifiers = config.state.personaIdentifiers.concat([
+                        identifier,
+                    ]);
+                    return [2 /*return*/, { identifier: identifier, wasCreated: true }];
+                }
+                return [2 /*return*/, {
+                        identifier: matchingIdentifiers[0],
+                        wasCreated: false,
+                    }];
             });
-            isExistingIfi = matchingIdentifiers.length !== 0;
-            if (!isExistingIfi) {
-                identifier = {
-                    id: uuid_1.v4(),
-                    ifi: opts.ifi,
-                    organisation: opts.organisation,
-                    persona: opts.persona,
-                };
-                config.state.personaIdentifiers = config.state.personaIdentifiers.concat([
-                    identifier,
-                ]);
-                return [2 /*return*/, { identifier: identifier, wasCreated: true }];
-            }
-            return [2 /*return*/, {
-                    identifier: matchingIdentifiers[0],
-                    wasCreated: false,
-                }];
         });
-    }); };
+    };
 };
 //# sourceMappingURL=createIdentifier.js.map

@@ -2,10 +2,11 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectID } from 'mongodb';
 import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
+import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
 
 export default (config: Config) => {
-  return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult> => {
+  return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
     const collection = (await config.db).collection('personaIdentifiers');
 
     const filter = {
@@ -24,8 +25,8 @@ export default (config: Config) => {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
-      persona: document.persona.toString(),
+      persona: document.persona === null ? undefined : document.persona.toString(),
     };
-    return { identifier };
+    return { identifier, locked: document.locked };
   };
 };

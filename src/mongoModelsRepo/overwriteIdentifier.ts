@@ -8,21 +8,23 @@ import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 export default (config: Config) => {
   return async ({
     persona,
-    ...opts,
+    organisation,
+    ifi,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
 
     // Filters on the IFI and organisation.
-    const filter = getIdentifierIfiFilter(opts.ifi, opts.organisation);
+    const filter = getIdentifierIfiFilter(ifi, organisation);
 
     // Sets properties when the Identifier is created (not found).
     // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
     const update = {
       $set: {
+        locked: false,
         persona: new ObjectID(persona),
       },
       $setOnInsert: {
-        ifi: opts.ifi,
-        organisation: new ObjectID(opts.organisation),
+        ifi,
+        organisation: new ObjectID(organisation),
       },
     };
 
