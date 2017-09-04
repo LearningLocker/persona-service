@@ -22,10 +22,15 @@ const create = (config: Config) =>
     personaName,
   }: CreateUpdateIdentifierPersonaOptions):
   Promise<CreateUpdateIdentifierPersonaResult> => {
-    const { identifier } = await createIdentifier(config)({
+    const { identifier, wasCreated } = await createIdentifier(config)({
       ifi,
       organisation,
     });
+
+    if (!wasCreated) {
+      // something else has created this identifier.
+      throw new Locked();
+    }
 
     const { persona } = await createPersona(config)({
       name: personaName,

@@ -48,28 +48,32 @@ var create = function (config) {
     return function (_a) {
         var organisation = _a.organisation, ifi = _a.ifi, personaName = _a.personaName;
         return __awaiter(_this, void 0, void 0, function () {
-            var identifier, persona;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var _a, identifier, wasCreated, persona;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, createIdentifier_1.default(config)({
                             ifi: ifi,
                             organisation: organisation,
                         })];
                     case 1:
-                        identifier = (_a.sent()).identifier;
+                        _a = _b.sent(), identifier = _a.identifier, wasCreated = _a.wasCreated;
+                        if (!wasCreated) {
+                            // something else has created this identifier.
+                            throw new Locked_1.default();
+                        }
                         return [4 /*yield*/, createPersona_1.default(config)({
                                 name: personaName,
                                 organisation: organisation,
                             })];
                     case 2:
-                        persona = (_a.sent()).persona;
+                        persona = (_b.sent()).persona;
                         return [4 /*yield*/, setIdentifierPersona_1.default(config)({
                                 id: identifier.id,
                                 organisation: organisation,
                                 persona: persona.id,
                             })];
                     case 3:
-                        _a.sent();
+                        _b.sent();
                         return [2 /*return*/, {
                                 identifierId: identifier.id,
                                 personaId: persona.id,

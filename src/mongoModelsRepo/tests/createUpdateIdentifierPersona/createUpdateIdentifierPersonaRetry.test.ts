@@ -11,7 +11,6 @@ import Lockable from '../../../repoFactory/utils/Lockable';
 import service from '../../../service';
 import ServiceConfig from '../../../service/Config';
 import Service from '../../../serviceFactory/Service';
-import createTestPersona from '../../../tests/utils/createTestPersona';
 import {
   TEST_IFI,
   TEST_ORGANISATION,
