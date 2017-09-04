@@ -1,5 +1,4 @@
 import { v4 as uuid } from 'uuid';
-import PersonaNotSetAndUnlocked from '../errors/PersonaNotSetAndUnlocked';
 import Identifier from '../models/Identifier';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
