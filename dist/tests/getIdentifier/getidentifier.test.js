@@ -70,4 +70,4 @@ describe('getIdentifier', function () {
         });
     }); });
 });
-//# sourceMappingURL=getIdentifier.test.js.map
+//# sourceMappingURL=getidentifier.test.js.map
