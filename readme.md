@@ -1,5 +1,5 @@
 # Persona Service
-[![NPM Package Version](https://badge.fury.io/js/persona-service.svg)](https://www.npmjs.com/package/persona-service)
+[![NPM Package Version](https://badge.fury.io/js/personas.svg)](https://www.npmjs.com/package/personas)
 [![Build Status](https://travis-ci.org/LearningLocker/persona-service.svg?branch=master)](https://travis-ci.org/LearningLocker/persona-service)
 [![Greenkeeper badge](https://badges.greenkeeper.io/LearningLocker/persona-service.svg)](https://greenkeeper.io/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
