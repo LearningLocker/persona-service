@@ -14,7 +14,7 @@
 To install all of Learning Locker, see the [installation documentation](http://docs.learninglocker.net/guides-installing/). To install just the persona service, you can follow the instructions below.
 
 ```
-npm i persona-service
+npm i personas
 ```
 
 ### Development
