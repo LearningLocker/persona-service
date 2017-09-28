@@ -16,9 +16,8 @@ before_script:
   - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --dbpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/data --logpath ${PWD}/mongodb-linux-x86_64-${MONGODB}/mongodb.log --fork
 
 script:
-  - npm run cover-memory
-  - npm run cover-mongo
   - npm run build
+  - npm run cover-ci
   - npm run lint -- -c tslint.travis.json
   - npm run duplication -- --limit=0.01
 
