@@ -1,1 +1,0 @@
-DELETE http://localhost:1338/xAPI/agents/profile?profileId=helloworld&agent={"mbox":"mailto:dummy1@example.org"} HTTP/1.1

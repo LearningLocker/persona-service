@@ -1,1 +1,0 @@
-{"version":3,"file":"getIdentifierByIfi.js","sourceRoot":"","sources":["../../src/service/getIdentifierByIfi.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,iBASA;;AALA,kBAAe,UAAC,MAAc;IAE5B,MAAM,CAAC,UAAO,IAA+B;QAC3C,sBAAA,MAAM,CAAC,IAAI,CAAC,kBAAkB,CAAC,IAAI,CAAC,EAAA;aAAA,CAAC;AACzC,CAAC,CAAC"}

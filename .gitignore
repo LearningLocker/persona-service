@@ -5,3 +5,5 @@ notes.md
 .env
 storage
 .nyc_output
+coverage
+dist
