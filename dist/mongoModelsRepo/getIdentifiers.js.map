@@ -1,1 +1,0 @@
-{"version":3,"file":"getIdentifiers.js","sourceRoot":"","sources":["../../src/mongoModelsRepo/getIdentifiers.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,iBAcA;;AANA,iDAA4C;AAE5C,kBAAe,UAAC,MAAc;IAC5B,MAAM,CAAC,UAAO,IAA2B;QACvC,sBAAA,oBAAU,CAAC,MAAM,EAAE,oBAAoB,CAAC,CAAa,IAAI,CAAC,EAAA;aAAA,CAAC;AAC/D,CAAC,CAAC"}

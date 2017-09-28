@@ -1,1 +1,0 @@
-{"version":3,"file":"getPersonas.js","sourceRoot":"","sources":["../../src/mongoModelsRepo/getPersonas.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,iBAcA;;AANA,iDAA4C;AAE5C,kBAAe,UAAC,MAAc;IAC5B,MAAM,CAAC,UAAO,IAAwB;QACpC,sBAAA,oBAAU,CAAC,MAAM,EAAE,UAAU,CAAC,CAAU,IAAI,CAAC,EAAA;aAAA,CAAC;AAClD,CAAC,CAAC"}

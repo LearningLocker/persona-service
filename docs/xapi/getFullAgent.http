@@ -1,1 +1,0 @@
-GET http://localhost:1338/xAPI/agents?agent={"mbox":"mailto:dummy1@example.org"} HTTP/1.1
