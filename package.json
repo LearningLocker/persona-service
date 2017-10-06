@@ -21,7 +21,7 @@
     "clean": "rimraf dist",
     "lint": "tslint -p ./tsconfig.json",
     "duplication": "jscpd",
-    "test": "mocha $(find dist -name '*.test.js') --timeout 6000",
+    "test": "mocha $(find dist -name '*.test.js') --timeout 6000 --exit",
     "test-s3": "AUTH_REPO=test MODELS_REPO=memory STORAGE_REPO=s3 npm run test",
     "test-mongo": "AUTH_REPO=test MODELS_REPO=mongo STORAGE_REPO=local npm run test",
     "test-memory": "AUTH_REPO=test MODELS_REPO=memory STORAGE_REPO=local npm run test",
