@@ -1,5 +1,6 @@
 import CommonRepo from 'jscommons/dist/repoFactory/Repo';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
+import CreateInfoOptions from './options/CreateInfoOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import CreateUpdateIdentifierPersonaOptions from './options/CreateUpdateIdentifierPersonaOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
@@ -7,12 +8,15 @@ import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetIdentifierOptions from './options/GetIdentifierOptions';
 import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
+import GetInfoByPersonaOptions from './options/GetInfoByPersonaOptions';
+import GetInfoByPersonaResult from './options/GetInfoByPersonaOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import GetPersonasOptions from './options/GetPersonasOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
+import CreateInfoResult from './results/CreateInfoResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import CreateUpdateIdentifierPersonaResult from './results/CreateUpdateIdentifierPersonaResult';
 import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
@@ -43,4 +47,8 @@ export default interface Repo extends CommonRepo {
   readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
   readonly createUpdateIdentifierPersona: (opts: CreateUpdateIdentifierPersonaOptions) =>
     Promise<CreateUpdateIdentifierPersonaResult>;
+  readonly createInfo: (opts: CreateInfoOptions) =>
+    Promise<CreateInfoResult>;
+  readonly getInfoByPersona: (opts: GetInfoByPersonaOptions) =>
+    Promise<GetInfoByPersonaResult>;
 }
