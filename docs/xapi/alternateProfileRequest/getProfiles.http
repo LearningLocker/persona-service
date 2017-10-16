@@ -1,4 +1,0 @@
-POST http://localhost:1338/xAPI/agents/profile?method=GET HTTP/1.1
-Content-Type: application/x-www-form-urlencoded
-
-agent={"mbox":"mailto:dummy1@example.org"}
