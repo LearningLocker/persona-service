@@ -32,9 +32,13 @@ describe('getPersonaAttributes', () => {
       personaId,
     });
 
-    const expectedLength = 2;
-    assert.equal(result.attributes.length, expectedLength);
-    assert.equal(result.attributes[0].value, 'theValue');
-    assert.equal(result.attributes[1].value, true);
+    assert.deepEqual(result.attributes[0], {
+      ...attribute1,
+      id: result.attributes[0].id,
+    });
+    assert.deepEqual(result.attributes[1], {
+      ...attribute2,
+      id: result.attributes[1].id,
+    });
   });
 });

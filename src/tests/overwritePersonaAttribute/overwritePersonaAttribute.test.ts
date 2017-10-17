@@ -9,16 +9,19 @@ describe('overwritePersonaAttribute', () => {
   const service = setup();
 
   it('should create attribute', async () => {
-    // Setup
-    const result = await service.overwritePersonaAttribute({
+    const attribute1 = {
       key: 'theKey',
       organisation: TEST_ORGANISATION,
       personaId,
       value: 'theValue',
-    });
+    };
 
-    assert.equal(result.attribute.key, 'theKey');
-    assert.equal(result.attribute.value, 'theValue');
+    const result = await service.overwritePersonaAttribute(attribute1);
+
+    assert.deepEqual(result.attribute, {
+      ...attribute1,
+      id: result.attribute.id,
+    });
   });
 
   it('should overwrite existing attribute', async () => {
@@ -36,20 +39,23 @@ describe('overwritePersonaAttribute', () => {
     };
 
     const result = await service.overwritePersonaAttribute(attribute1);
-    assert.equal(result.attribute.key, 'theKey');
-    assert.equal(result.attribute.value, 'theValue1');
+    assert.deepEqual(result.attribute, {
+      ...attribute1,
+      id: result.attribute.id,
+    });
 
     const result2 = await service.overwritePersonaAttribute(attribute2);
-    assert.equal(result2.attribute.key, 'theKey');
-    assert.equal(result2.attribute.value, attribute2.value);
+
+    assert.deepEqual(result2.attribute, {...attribute2, id: result2.attribute.id});
 
     const result3 = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
       personaId,
     });
 
-    assert.equal(result3.attributes.length, 1);
-    assert.equal(result3.attributes[0].key, 'theKey');
-    assert.equal(result3.attributes[0].value, attribute2.value);
+    assert.deepEqual(result3.attributes[0], {
+      ...attribute2,
+      id: result3.attributes[0].id,
+    });
   });
 });
