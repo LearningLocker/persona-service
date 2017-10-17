@@ -40,9 +40,8 @@ describe('overwritePersonaAttribute', () => {
     assert.equal(result.attribute.value, 'theValue1');
 
     const result2 = await service.overwritePersonaAttribute(attribute2);
-    const expectedResult = 222;
     assert.equal(result2.attribute.key, 'theKey');
-    assert.equal(result2.attribute.value, expectedResult);
+    assert.equal(result2.attribute.value, attribute2.value);
 
     const result3 = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
@@ -51,6 +50,6 @@ describe('overwritePersonaAttribute', () => {
 
     assert.equal(result3.attributes.length, 1);
     assert.equal(result3.attributes[0].key, 'theKey');
-    assert.equal(result3.attributes[0].value, expectedResult);
+    assert.equal(result3.attributes[0].value, attribute2.value);
   });
 });
