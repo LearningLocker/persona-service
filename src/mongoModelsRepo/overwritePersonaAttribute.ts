@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { ObjectID } from 'mongodb';
 import OverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
   '../repoFactory/options/OverwritePersonaAttributeOptions';
 import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
@@ -23,14 +23,14 @@ export default (config: Config) => {
     const updateAttribute = {
       key,
       organisation,
-      personaId: new ObjectId(personaId),
+      personaId: new ObjectID(personaId),
       value,
     };
 
     const result = await collection.findOneAndUpdate({
       key,
       organisation,
-      personaId: new ObjectId(personaId),
+      personaId: new ObjectID(personaId),
     },
       updateAttribute
     , {

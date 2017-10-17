@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { ObjectID } from 'mongodb';
 import GetPersonaAttributesOptions from '../repoFactory/options/GetPersonaAttributesOptions';
 import GetPersonaAttributesResult from '../repoFactory/results/GetPersonaAttributesResult';
 // tslint:disable-next-line:no-unused
@@ -17,7 +17,7 @@ export default (config: Config) => {
     const attributes =
       await collection.find({ // tslint:disable-line:deprecation max-line-length - this find signature isn't deprecated
         organisation,
-        personaId: new ObjectId(personaId),
+        personaId: new ObjectID(personaId),
       }).toArray();
 
     return {
