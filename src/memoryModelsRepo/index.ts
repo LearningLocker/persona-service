@@ -10,9 +10,11 @@ import getIdentifierByIfi from './getIdentifierByIfi';
 import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
+import getPersonaAttributes from './getPersonaAttributes';
 import getPersonas from './getPersonas';
 import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
+import overwritePersonaAttribute from './overwritePersonaAttribute';
 import setIdentifierPersona from './setIdentifierPersona';
 
 export default (config: Config): Repo => {
@@ -26,9 +28,11 @@ export default (config: Config): Repo => {
     getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
+    getPersonaAttributes: getPersonaAttributes(config),
     getPersonas: getPersonas(config),
     mergePersona: mergePersona(config),
     overwriteIdentifier: overwriteIdentifier(config),
+    overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
     ...commonMemoryRepo(config),
   };

@@ -8,7 +8,7 @@ describe('overwritePersonaAttribute', () => {
   const personaId = '58fe13e34eabd3c26a7fc4c7';
   const service = setup();
 
-  it('should create info', async () => {
+  it('should create attribute', async () => {
     // Setup
     const result = await service.overwritePersonaAttribute({
       key: 'theKey',
