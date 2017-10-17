@@ -13,13 +13,11 @@ export default (config: Config) => {
   }: GetPersonaAttributesOptions): Promise<GetPersonaAttributesResult> => {
     const collection = (await config.db).collection('personaAttributes');
 
-    const result =
-      await collection.find({
+    const attributes =
+      await collection.find({ // tslint:disable-line:deprecation max-line-length - this find signature isn't deprecated
         organisation,
         personaId,
-      });
-
-    const attributes = await result.toArray();
+      }).toArray();
 
     return {
       attributes,
