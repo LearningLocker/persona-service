@@ -25,9 +25,11 @@ export default (config: Config) => {
       attributes: map(attributes, ({
         organisation: organisationObjectId,
         personaId: personaObjectId,
+        _id: id,
         ...attribute,
       }) => ({
         ...attribute,
+        id: id.toString(),
         organisation: organisationObjectId.toString(),
         personaId: personaObjectId.toString(),
       })),
