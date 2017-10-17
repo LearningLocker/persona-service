@@ -22,14 +22,14 @@ export default (config: Config) => {
 
     const updateAttribute = {
       key,
-      organisation,
+      organisation: new ObjectID(organisation),
       personaId: new ObjectID(personaId),
       value,
     };
 
     const result = await collection.findOneAndUpdate({
       key,
-      organisation,
+      organisation: new ObjectID(organisation),
       personaId: new ObjectID(personaId),
     },
       updateAttribute
@@ -41,6 +41,7 @@ export default (config: Config) => {
     const attribute = {
       ...updateAttribute,
       id: result.value._id.toString(),
+      organisation,
       personaId,
     };
 

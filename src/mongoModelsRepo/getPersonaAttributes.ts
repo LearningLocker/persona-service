@@ -1,3 +1,4 @@
+import { map } from 'lodash';
 import { ObjectID } from 'mongodb';
 import GetPersonaAttributesOptions from '../repoFactory/options/GetPersonaAttributesOptions';
 import GetPersonaAttributesResult from '../repoFactory/results/GetPersonaAttributesResult';
@@ -16,12 +17,20 @@ export default (config: Config) => {
 
     const attributes =
       await collection.find({ // tslint:disable-line:deprecation max-line-length - this find signature isn't deprecated
-        organisation,
+        organisation: new ObjectID(organisation),
         personaId: new ObjectID(personaId),
       }).toArray();
 
     return {
-      attributes,
+      attributes: map(attributes, ({
+        organisation: organisationObjectId,
+        personaId: personaObjectId,
+        ...attribute,
+      }) => ({
+        ...attribute,
+        organisation: organisationObjectId.toString(),
+        personaId: personaObjectId.toString(),
+      })),
     };
   };
 };
