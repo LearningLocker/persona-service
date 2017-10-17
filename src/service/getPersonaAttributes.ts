@@ -1,8 +1,7 @@
-import GetPersonaAttributesOptions from '../serviceFactory/options/GetPersonaAttributesOptions';
-import GetPersonaAttributesResult from '../serviceFactory/results/GetPersonaAttributesResult';
+// tslint:disable-next-line:no-unused
+import _GetPersonaAttributesOptions from '../serviceFactory/options/GetPersonaAttributesOptions';
+// tslint:disable-next-line:no-unused
+import _GetPersonaAttributesResult from '../serviceFactory/results/GetPersonaAttributesResult';
 import Config from './Config';
 
-export default (config: Config) =>
-  async (opts: GetPersonaAttributesOptions): Promise<GetPersonaAttributesResult> => {
-    return config.repo.getPersonaAttributes(opts);
-  };
+export default (config: Config) => config.repo.getPersonaAttributes;
