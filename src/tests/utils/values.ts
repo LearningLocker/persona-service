@@ -4,6 +4,8 @@ export const TEST_ORGANISATION = '58fe13e34effd3c26a7fc4b8';
 
 export const TEST_PROFILE_ID = 'dummy_profile_id';
 
+export const TEST_PERSONA_ID = '58f113e34eabd3c26a7fc4c7';
+
 export const TEST_CONTENT = 'dummy_content';
 export const TEST_JSON_CONTENT = '[]';
 export const TEST_OBJECT_CONTENT = '{"foo":1}';

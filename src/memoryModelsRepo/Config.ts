@@ -1,4 +1,5 @@
 /* tslint:disable:readonly-keyword */
+import Attribute from '../models/Attribute';
 import BaseModel from '../models/BaseModel';
 import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
@@ -11,6 +12,7 @@ export interface BaseState {
 export interface State extends BaseState {
   personaIdentifiers: (Identifier & Lockable)[];
   personas: Persona[];
+  personaAttributes: Attribute[];
 }
 
 interface Config {
