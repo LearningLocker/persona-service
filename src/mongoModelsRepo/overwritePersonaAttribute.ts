@@ -30,7 +30,7 @@ export default (config: Config) => {
     const result = await collection.findOneAndUpdate({
       key,
       organisation,
-      personaId,
+      personaId: new ObjectId(personaId),
     },
       updateAttribute
     , {

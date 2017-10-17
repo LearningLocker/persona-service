@@ -32,7 +32,9 @@ describe('getPersonaAttributes', () => {
       personaId,
     });
 
-    assert.deepEqual(result.attributes[0], attribute1);
-    assert.deepEqual(result.attributes[1], attribute2);
+    const expectedLength = 2;
+    assert.equal(result.attributes.length, expectedLength);
+    assert.equal(result.attributes[0].value, 'theValue');
+    assert.equal(result.attributes[1].value, true);
   });
 });

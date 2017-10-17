@@ -36,15 +36,21 @@ describe('overwritePersonaAttribute', () => {
     };
 
     const result = await service.overwritePersonaAttribute(attribute1);
-    assert.deepEqual(result.attribute, attribute1);
+    assert.equal(result.attribute.key, 'theKey');
+    assert.equal(result.attribute.value, 'theValue1');
 
     const result2 = await service.overwritePersonaAttribute(attribute2);
-    assert.deepEqual(result2.attribute, attribute2);
+    const expectedResult = 222;
+    assert.equal(result2.attribute.key, 'theKey');
+    assert.equal(result2.attribute.value, expectedResult);
 
     const result3 = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
       personaId,
     });
-    assert.deepEqual(result3.attributes[0], attribute2);
+
+    assert.equal(result3.attributes.length, 1);
+    assert.equal(result3.attributes[0].key, 'theKey');
+    assert.equal(result3.attributes[0].value, expectedResult);
   });
 });
