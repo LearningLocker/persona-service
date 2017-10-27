@@ -151,7 +151,7 @@ describe('getIdentifiers', () => {
   it('Should throw error when direction is BACKWARDS and cursor is undefined', async () => {
     // Add 12 Identifiers
     const identifiers = await addTestIdentifiers(); // tslint:disable-line
-    
+
     // Get the first 10 identifiers
     const identifiersPromise = service.getIdentifiers(
       assign({}, getIdentifiersOptions, {
@@ -192,7 +192,7 @@ describe('getIdentifiers', () => {
 
   it('Should return the previous 1 cursors when limit 1', async () => {
     const identifiers = await addTestIdentifiers(); // tslint:disable-line
-    
+
     // Get the first identifier
     const identifiersResult = await service.getIdentifiers(
       assign({}, getIdentifiersOptions, {

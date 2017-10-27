@@ -48,20 +48,20 @@ export const doesMatch = <T>(
             if (filter instanceof Object) {
               throw new Error('Unexpected object');
             }
-            return result<T, any>(theItem, path.join('.')) === filter;
+            return result<T>(theItem, path.join('.')) === filter;
           case '$lt':
             /* istanbul ignore next */
             if (filter instanceof Object) {
               throw new Error('Unexpected object');
             }
-            return result<T, any>(theItem, path.join('.')) < filter;
+            return result<T>(theItem, path.join('.')) < filter;
           case '$gt':
             /* istanbul ignore next */
             if (filter instanceof Object) {
               throw new Error('Unexpected object');
             }
 
-            return result<T, any>(theItem, path.join('.')) > filter;
+            return result<T>(theItem, path.join('.')) > filter;
           case '$or':
             const out = doesMatch(theItem, filter, '$or', path);
             return out;
@@ -78,7 +78,7 @@ export const doesMatch = <T>(
       if (result(filter, newPath.join('.'), filter) instanceof Object) {
         return doesMatch(theItem, result(filter, newPath.join('.'), filter), '$and', newPath);
       }
-      return result<T, any>(theItem, newPath.join('.')) === filter;
+      return result<T>(theItem, newPath.join('.')) === filter;
     },
   );
 

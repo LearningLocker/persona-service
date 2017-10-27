@@ -89,7 +89,7 @@ export const cursorToFilter = ({
         sortKey,
         parsedCursor,
       )}};
-      const oldConditions = zipObject<string[], object>(
+      const oldConditions = zipObject<string[]>(
         oldKeys,
         map(oldKeys, (oldKey) => result(parsedCursor, oldKey)),
       );
@@ -115,7 +115,7 @@ export const modelToCursor = ({
   readonly model: object;
   readonly sort: object;
 }): string => {
-  const data = pick<object, object>(model, keys(sort));
+  const data = pick<object>(model, keys(sort));
   const cursor = toCursor(data);
   return cursor;
 }; // tslint:disable-line: max-file-line-count
