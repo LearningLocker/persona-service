@@ -14,6 +14,7 @@ import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import OverwritePersonaAttributeOptions from './options/OverwritePersonaAttributeOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
+import UpdatePersonaOptions from './options/UpdatePersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
 import CreateUpdateIdentifierPersonaResult from './results/CreateUpdateIdentifierPersonaResult';
@@ -28,6 +29,7 @@ import MergePersonaResult from './results/MergePersonaResult';
 import OverwriteIdentifierResult from './results/OverwriteIdentifierResult';
 import OverwritePersonaAttributeResult from './results/OverwritePersonaAttributeResult';
 import SetIdentifierPersonaResult from './results/SetIdentifierPersonaResult';
+import UpdatePersonaResult from './results/UpdatePersonaResult';
 
 interface Service extends CommonService {
   readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
@@ -51,6 +53,8 @@ interface Service extends CommonService {
     Promise<OverwritePersonaAttributeResult>;
   readonly getPersonaAttributes: (opts: GetPersonaAttributesOptions) =>
     Promise<GetPersonaAttributesResult>;
+  readonly updatePersona: (opts: UpdatePersonaOptions) =>
+    Promise<UpdatePersonaResult>;
 }
 
 export default Service;

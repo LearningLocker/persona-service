@@ -16,6 +16,7 @@ import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
 import overwritePersonaAttribute from './overwritePersonaAttribute';
 import setIdentifierPersona from './setIdentifierPersona';
+import updatePersona from './updatePersona';
 
 export default (config: Config): Repo => {
   return {
@@ -34,6 +35,7 @@ export default (config: Config): Repo => {
     overwriteIdentifier: overwriteIdentifier(config),
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
+    updatePersona: updatePersona(config),
     ...commonMemoryRepo(config),
   };
 };
