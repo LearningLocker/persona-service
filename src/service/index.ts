@@ -11,6 +11,7 @@ import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
 import getPersonaAttributes from './getPersonaAttributes';
+import getPersonaCount from './getPersonaCount';
 import getPersonas from './getPersonas';
 import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
@@ -36,6 +37,7 @@ export default (config: Config): Service => {
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
     updatePersona: updatePersona(config),
+    getPersonaCount: getPersonaCount(config),
 
     ...commonService(config),
   };

@@ -8,6 +8,7 @@ import GetIdentifierOptions from './options/GetIdentifierOptions';
 import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
 import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
+import GetPersonaCountOptions from './options/GetPersonaCountOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import GetPersonasOptions from './options/GetPersonasOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
@@ -23,6 +24,7 @@ import GetIdentifierResult from './results/GetIdentifierResult';
 import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
 import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
+import GetPersonaCountResult from './results/GetPersonaCountResult';
 import GetPersonaResult from './results/GetPersonaResult';
 import GetPersonasResult from './results/GetPersonasResult';
 import MergePersonaResult from './results/MergePersonaResult';
@@ -55,4 +57,5 @@ export default interface Repo extends CommonRepo {
     Promise<GetPersonaAttributesResult>;
   readonly updatePersona: (opts: UpdatePersonaOptions) =>
     Promise<UpdatePersonaResult>;
+  readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;
 }
