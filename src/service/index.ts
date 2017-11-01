@@ -1,5 +1,6 @@
 import commonService from 'jscommons/dist/service';
 import Service from '../serviceFactory/Service';
+import clearService from './clearService';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
@@ -21,6 +22,8 @@ import updatePersona from './updatePersona';
 
 export default (config: Config): Service => {
   return {
+    ...commonService(config),
+    clearService: clearService(config),
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
     createUpdateIdentifierPersona: createUpdateIdentifierPersona(config),
@@ -38,7 +41,5 @@ export default (config: Config): Service => {
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
     updatePersona: updatePersona(config),
-
-    ...commonService(config),
   };
 };
