@@ -31,13 +31,13 @@ export default (config: Config): Service => {
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
     getPersonaAttributes: getPersonaAttributes(config),
+    getPersonaCount: getPersonaCount(config),
     getPersonas: getPersonas(config),
     mergePersona: mergePersona(config),
     overwriteIdentifier: overwriteIdentifier(config),
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
     updatePersona: updatePersona(config),
-    getPersonaCount: getPersonaCount(config),
 
     ...commonService(config),
   };
