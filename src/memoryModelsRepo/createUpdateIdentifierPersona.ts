@@ -36,6 +36,7 @@ const createIdentifierPersona = (memoryConfig: MemoryConfig) =>
     return {
       identifierId: identifier.id,
       personaId: persona.id,
+      wasCreated: true,
     };
   };
 
@@ -69,6 +70,7 @@ const createUpdateIdentifierPersona = (config: MemoryConfig) =>
       return {
         identifierId,
         personaId: foundIdentifier.persona,
+        wasCreated: false,
       };
 
     } catch (err) {
@@ -83,7 +85,6 @@ const createUpdateIdentifierPersona = (config: MemoryConfig) =>
       /* istanbul ignore next */
       throw err;
     }
-
   };
 
 export default createUpdateIdentifierPersona;
