@@ -1,5 +1,5 @@
-import ServiceGetIdentifiersResults from '../../serviceFactory/results/GetIdentifiersResult';
+import ServiceGetIdentifiersResult from '../../serviceFactory/results/GetIdentifiersResult';
 
-type GetIdentifiersResult = ServiceGetIdentifiersResults;
+type GetIdentifiersResult = ServiceGetIdentifiersResult;
 
 export default GetIdentifiersResult;

@@ -46,6 +46,7 @@ const create = (config: Config) =>
     return {
       identifierId: identifier.id,
       personaId: persona.id,
+      wasCreated,
     };
   };
 
@@ -85,6 +86,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
       return {
         identifierId,
         personaId: foundIdentifier.persona,
+        wasCreated: false,
       };
 
     } catch (err) {

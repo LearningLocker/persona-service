@@ -15,6 +15,7 @@ export default (config: Config) => {
       ...config.state.personas,
       persona,
     ];
+
     return { persona };
   };
 };
