@@ -1,5 +1,6 @@
 import commonMongoRepo from 'jscommons/dist/mongoRepo';
 import Repo from '../repoFactory/Repo';
+import clearRepo from './clearRepo';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
@@ -21,6 +22,8 @@ import updatePersona from './updatePersona';
 
 export default (config: Config): Repo => {
   return {
+    ...commonMongoRepo(config),
+    clearRepo: clearRepo(config),
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
     createUpdateIdentifierPersona: createUpdateIdentifierPersona(config),
@@ -39,6 +42,5 @@ export default (config: Config): Repo => {
     setIdentifierPersona: setIdentifierPersona(config),
     updatePersona: updatePersona(config),
 
-    ...commonMongoRepo(config),
   };
 };
