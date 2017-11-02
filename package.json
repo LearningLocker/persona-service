@@ -40,8 +40,8 @@
     }
   },
   "engines": {
-    "node": ">6.0.0",
-    "npm": "^5.0.0"
+    "node": "6 - 8",
+    "npm": "3 - 5"
   },
   "dependencies": {
     "aws-sdk": "^2.74.0",
