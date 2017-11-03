@@ -6,12 +6,19 @@ notifications:
   email: false
 
 env:
-  - MONGODB=3.2.13
+  global:
+    - MONGODB=3.2.13
+  matrix:
+    - PACKAGE_MANAGER=yarn
+    - PACKAGE_MANAGER=npm
 
 before_install:
   - wget http://fastdl.mongodb.org/linux/mongodb-linux-x86_64-${MONGODB}.tgz
   - tar xzf mongodb-linux-x86_64-${MONGODB}.tgz
   - ${PWD}/mongodb-linux-x86_64-${MONGODB}/bin/mongod --version
+
+install:
+  - if [ "$PACKAGE_MANAGER" == "npm" ]; then npm install; else yarn; fi
 
 before_script:
   - mkdir ${PWD}/mongodb-linux-x86_64-${MONGODB}/data
