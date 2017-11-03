@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import { assign, map, times } from 'lodash';
+import { map, times } from 'lodash';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import Attribute from '../../models/Attribute';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
@@ -128,11 +128,10 @@ describe('getAttributes', () => {
       },
     });
 
-    const attributesResults = await service.getAttributes(
-      assign({}, getAttributesOptions, {
-        cursor: fromCursor,
-      }),
-    );
+    const attributesResults = await service.getAttributes({
+      ...getAttributesOptions,
+      cursor: fromCursor,
+    });
 
     const TWO = 2;
     assert.equal(attributesResults.edges.length, TWO);
@@ -145,11 +144,10 @@ describe('getAttributes', () => {
     const attributes = await addTestAttributes(); // tslint:disable-line
     
     // Get the first 10 attributes
-    const attributesPromise = service.getAttributes(
-      assign({}, getAttributesOptions, {
-        direction: CursorDirection.BACKWARDS,
-      }),
-    );
+    const attributesPromise = service.getAttributes({
+      ...getAttributesOptions,
+      direction: CursorDirection.BACKWARDS,
+    });
 
     return assertError(NoCursorBackwardsDirection, attributesPromise);
   });
@@ -159,12 +157,11 @@ describe('getAttributes', () => {
     const attributes = await addTestAttributes(); // tslint:disable-line
 
     // Get the first 10 attributes
-    const attributesResult = await service.getAttributes(
-      assign({}, getAttributesOptions, {
-        cursor: fromFirstCursor,
-        direction: CursorDirection.BACKWARDS,
-      }),
-    );
+    const attributesResult = await service.getAttributes({
+      ...getAttributesOptions,
+      cursor: fromFirstCursor,
+      direction: CursorDirection.BACKWARDS,
+    });
 
     const THREE = 3;
     assert.equal(attributesResult.edges.length, THREE);
@@ -173,26 +170,24 @@ describe('getAttributes', () => {
   });
 
   it('should return undefiend cursor, if no attributes', async () => {
-    const attributesResult = await service.getAttributes(
-      assign({}, getAttributesOptions, {
-        limit: 1,
-      }),
-    );
+    const attributesResult = await service.getAttributes({
+      ...getAttributesOptions,
+      limit: 1,
+    });
     assert.equal(attributesResult.pageInfo.endCursor, undefined);
     assert.equal(attributesResult.pageInfo.startCursor, undefined);
   });
 
   it('Should return the previous 1 cursors when limit 1', async () => {
-    const attributes = await addTestAttributes(); // tslint:disable-line
-    
+    await addTestAttributes();
+
     // Get the first attribute
-    const attributesResult = await service.getAttributes(
-      assign({}, getAttributesOptions, {
-        cursor: fromFirstCursor,
-        direction: CursorDirection.BACKWARDS,
-        limit: 1,
-      }),
-    );
+    const attributesResult = await service.getAttributes({
+      ...getAttributesOptions,
+      cursor: fromFirstCursor,
+      direction: CursorDirection.BACKWARDS,
+      limit: 1,
+    });
 
     assert.equal(attributesResult.edges.length, 1);
     assert.equal(attributesResult.pageInfo.hasNextPage, true);
@@ -202,19 +197,18 @@ describe('getAttributes', () => {
   it('should test $and clause', async () => {
     await addTestAttributes();
 
-    const attributesResult = await service.getAttributes(
-      assign({}, getAttributesOptions, {
-        filter: {
-          $and: [{
-            value: {$eq: 'brown9'},
-          }],
-        },
-        limit: 6,
-        sort: {
-          value: -1,
-        },
-      }),
-    );
+    const attributesResult = await service.getAttributes({
+      ...getAttributesOptions,
+      filter: {
+        $and: [{
+          value: {$eq: 'brown9'},
+        }],
+      },
+      limit: 6,
+      sort: {
+        value: -1,
+      },
+    });
 
     assert.equal(attributesResult.edges.length, 1);
     assert.equal(attributesResult.edges[0].node.value, 'brown9');

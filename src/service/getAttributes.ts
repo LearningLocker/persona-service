@@ -11,6 +11,6 @@ import Config from './Config';
 export default (config: Config) => {
   return async (opts: GetAttributesOptions): Promise<GetAttributesResult> => {
 
-    return config.repo.getAttributes({...opts});
+    return config.repo.getAttributes(opts);
   };
 };
