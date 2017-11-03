@@ -5,6 +5,7 @@ import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';
 import deletePersona from './deletePersona';
+import getAttributes from './getAttributes';
 import getIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import getIdentifiers from './getIdentifiers';
@@ -21,10 +22,12 @@ import updatePersona from './updatePersona';
 
 export default (config: Config): Repo => {
   return {
+    ...commonMemoryRepo(config),
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
     createUpdateIdentifierPersona: createUpdateIdentifierPersona(config),
     deletePersona: deletePersona(config),
+    getAttributes: getAttributes(config),
     getIdentifier: getIdentifier(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
     getIdentifiers: getIdentifiers(config),
@@ -38,7 +41,5 @@ export default (config: Config): Repo => {
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),
     updatePersona: updatePersona(config),
-
-    ...commonMemoryRepo(config),
   };
 };
