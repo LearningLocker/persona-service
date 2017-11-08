@@ -10,7 +10,6 @@ import Config from './Config';
 
 export default (config: Config) => {
   return async (opts: GetPersonasOptions): Promise<GetPersonasResult> => {
-
-    return config.repo.getPersonas({...opts});
+    return config.repo.getPersonasConnection({...opts});
   };
 };
