@@ -7,7 +7,7 @@ import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptio
 import setup from '../utils/setup';
 import { TEST_ORGANISATION } from '../utils/values';
 
-describe('getPersonas', () => {
+describe('getPersonasConnection', () => {
 
   const service = setup();
 
@@ -52,7 +52,7 @@ describe('getPersonas', () => {
   it('Should get the 2 personas', async () => {
     await addTestPersonas();
 
-    const result = await service.getPersonas(
+    const result = await service.getPersonasConnection(
       assign({}, getPersonaOptions, {
         cursor: fromFirstCursor,
       }),
