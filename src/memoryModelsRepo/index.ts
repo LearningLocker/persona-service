@@ -13,6 +13,7 @@ import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
 import getPersonaAttributes from './getPersonaAttributes';
 import getPersonaCount from './getPersonaCount';
+import getPersonas from './getPersonas';
 import getPersonasConnection from './getPersonasConnection';
 import mergePersona from './mergePersona';
 import overwriteIdentifier from './overwriteIdentifier';
@@ -33,6 +34,7 @@ export default (config: Config): Repo => {
     getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
+    getPersonas: getPersonas(config),
     getPersonaAttributes: getPersonaAttributes(config),
     getPersonaCount: getPersonaCount(config),
     getPersonasConnection: getPersonasConnection(config),
