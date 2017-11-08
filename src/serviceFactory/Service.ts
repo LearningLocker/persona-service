@@ -12,6 +12,7 @@ import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
 import GetPersonaCountOptions from './options/GetPersonaCountOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import GetPersonasConnectionOptions from './options/GetPersonasConnectionOptions';
+import GetPersonasOptions from './options/GetPersonasOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import OverwritePersonaAttributeOptions from './options/OverwritePersonaAttributeOptions';
@@ -29,6 +30,7 @@ import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
 import GetPersonaCountResult from './results/GetPersonaCountResult';
 import GetPersonaResult from './results/GetPersonaResult';
 import GetPersonasConnectionResult from './results/GetPersonasConnectionResult';
+import GetPersonasResult from './results/GetPersonasResult';
 import MergePersonaResult from './results/MergePersonaResult';
 import OverwriteIdentifierResult from './results/OverwriteIdentifierResult';
 import OverwritePersonaAttributeResult from './results/OverwritePersonaAttributeResult';
@@ -41,6 +43,7 @@ interface Service extends CommonService {
   readonly deletePersona: (opts: DeletePersonaOptions) => Promise<void>;
   readonly getIdentifier: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult>;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
+  readonly getPersonas: (opts: GetPersonasOptions) => Promise<GetPersonasResult>;
   readonly mergePersona: (opts: MergePersonaOptions) => Promise<MergePersonaResult>;
   readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
   readonly getIdentifierByIfi: (opts: GetIdentifierByIfiOptions) =>
