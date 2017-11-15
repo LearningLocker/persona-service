@@ -30,7 +30,7 @@ describe('getPersonas', () => {
     return map<CreatePersonaResult, Persona>(results, ({persona}) => persona );
   };
 
-  it('Should get the 2 personas', async () => {
+  it('Should get the 4 personas', async () => {
     await addTestPersonas();
 
     const result = await service.getPersonas({
@@ -42,5 +42,19 @@ describe('getPersonas', () => {
     });
 
     assert.equal(result.personas.length, 4); // tslint:disable-line:no-magic-numbers
+  });
+
+  it('Should get the 2 matching personas', async () => {
+    await addTestPersonas();
+
+    const result = await service.getPersonas({
+      filter: { name: { $in: ['Dave 1', 'Dave 2']} },
+      limit: 10,
+      organisation: TEST_ORGANISATION,
+      skip: 0,
+      sort: {},
+    });
+
+    assert.equal(result.personas.length, 2); // tslint:disable-line:no-magic-numbers
   });
 });
