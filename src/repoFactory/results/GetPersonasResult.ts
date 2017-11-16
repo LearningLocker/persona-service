@@ -1,9 +1,6 @@
-export interface SingleResult {
-  readonly organisation: string;
-  readonly id: string;
-  readonly name?: string;
-}
+import ServiceGetPersonasResult from // tslint:disable-line:import-spacing
+'../../serviceFactory/results/GetPersonasResult';
 
-type Result = SingleResult[];
+type GetPersonasResult = ServiceGetPersonasResult;
 
-export default Result;
+export default GetPersonasResult;

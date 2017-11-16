@@ -48,7 +48,8 @@ interface Service extends CommonService {
   readonly getIdentifiers: (opts: GetIdentifiersOptions) => Promise<GetIdentifiersResult>;
   readonly getIdentifierByIfi: (opts: GetIdentifierByIfiOptions) =>
     Promise<GetIdentifierByIfiResult>;
-  readonly getPersonasConnection: (opts: GetPersonasConnectionOptions) => Promise<GetPersonasConnectionResult>;
+  readonly getPersonasConnection: (opts: GetPersonasConnectionOptions) =>
+    Promise<GetPersonasConnectionResult>;
   readonly getIfisByPersona: (opts: GetIfisByPersonaOptions) => Promise<GetIfisByPersonaResult>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) =>
     Promise<SetIdentifierPersonaResult>;

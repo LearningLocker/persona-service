@@ -1,5 +1,5 @@
 
-interface Options {
+interface GetPersonasOptions {
   readonly organisation: string;
   readonly filter: object;
   readonly sort: object;
@@ -7,4 +7,4 @@ interface Options {
   readonly skip: number;
 }
 
-export default Options;
+export default GetPersonasOptions;
