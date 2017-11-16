@@ -1,4 +1,3 @@
-import { map } from 'lodash';
 import { ObjectID } from 'mongodb';
 import GetPersonaAttributesOptions from '../repoFactory/options/GetPersonaAttributesOptions';
 import GetPersonaAttributesResult from '../repoFactory/results/GetPersonaAttributesResult';
@@ -12,27 +11,37 @@ export default (config: Config) => {
   return async ({
     organisation,
     personaId,
+    sort = {},
+    skip = 0,
+    limit = 0,
+    filter = {},
   }: GetPersonaAttributesOptions): Promise<GetPersonaAttributesResult> => {
-    const collection = (await config.db).collection('personaAttributes');
+    const db = await config.db;
+    const collection = db.collection('personaAttributes');
 
-    const attributes =
-      await collection.find({ // tslint:disable-line:deprecation max-line-length - this find signature isn't deprecated
-        organisation: new ObjectID(organisation),
-        personaId: new ObjectID(personaId),
-      }).toArray();
+    const personaFilter = personaId ? { personaId: new ObjectID(personaId) } : {};
+
+    const documents = await collection.find({
+      ...filter,
+      ...personaFilter,
+      organisation: new ObjectID(organisation),
+    })
+    .sort(sort)
+    .skip(skip)
+    .limit(limit);
+
+    const formattedDocuments = documents.map((document: any) => ({
+      id: document._id.toString(),
+      key: document.key,
+      organisation: document.organisation.toString(),
+      personaId: document.personaId.toString(),
+      value: document.value,
+    }));
+
+    const attributes = await formattedDocuments.toArray();
 
     return {
-      attributes: map(attributes, ({
-        organisation: organisationObjectId,
-        personaId: personaObjectId,
-        _id: id,
-        ...attribute,
-      }) => ({
-        ...attribute,
-        id: id.toString(),
-        organisation: organisationObjectId.toString(),
-        personaId: personaObjectId.toString(),
-      })),
+      attributes,
     };
   };
 };

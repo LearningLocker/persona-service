@@ -1,66 +1,108 @@
+// tslint:disable:no-magic-numbers
+// tslint:disable:max-file-line-count
 import * as assert from 'assert';
-import { assign, map, times } from 'lodash';
-import Persona from '../../models/Persona';
-import { modelToCursor } from '../../repoFactory/utils/cursor';
-import CreatePersonaResult from '../../serviceFactory/results/CreatePersonaResult';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import setup from '../utils/setup';
-import { TEST_ORGANISATION } from '../utils/values';
+import { TEST_ORGANISATION, TEST_ORGANISATION_2 } from '../utils/values';
 
 describe('getPersonas', () => {
-
   const service = setup();
-
-  const addTestPersonas = async () => {
-
-    const NUM_PERSONAS = 4;
-
-    const resultsPromise: Promise<CreatePersonaResult>[] = times(NUM_PERSONAS, (i) => {
-      return service.createPersona({
-        name: `Dave ${i}`,
-        organisation: TEST_ORGANISATION,
-      });
-    });
-
-    const results: ArrayLike<CreatePersonaResult> = await Promise.all(resultsPromise);
-
-    return map<CreatePersonaResult, Persona>(results, ({persona}) => persona );
+  const personaData1 = {
+    name: 'Dave 1',
+    organisation: TEST_ORGANISATION,
+  };
+  const personaData2 = {
+    name: 'Dave 2',
+    organisation: TEST_ORGANISATION,
+  };
+  const personaData3 = {
+    name: 'Dave 3',
+    organisation: TEST_ORGANISATION_2,
+  };
+  const personaData4 = {
+    name: 'Dave 4',
+    organisation: TEST_ORGANISATION_2,
   };
 
-  const fromFirstCursor = modelToCursor({
-    model: {
-      name: 'Dave 0',
-    },
-    sort: {
-      name: 1,
-    },
+  beforeEach(async () => {
+    await service.clearService();
   });
 
-  const getPersonaOptions = {
-    direction: CursorDirection.FORWARDS,
-    filter: {},
-    limit: 2,
-    maxScan: 0,
-    maxTimeMS: 0,
-    organisation: TEST_ORGANISATION,
-    project: {},
-    sort: {
-      name: 1,
-    },
-  } as GetOptions;
+  after(async () => {
+    await service.clearService();
+  });
 
-  it('Should get the 2 personas', async () => {
-    await addTestPersonas();
+  it('should get all personas with default options', async () => {
+    const { persona: persona1 } = await service.createPersona(personaData1);
+    const { persona: persona2 } = await service.createPersona(personaData2);
+    await service.createPersona(personaData3);
+    await service.createPersona(personaData4);
 
-    const result = await service.getPersonas(
-      assign({}, getPersonaOptions, {
-        cursor: fromFirstCursor,
-      }),
-    );
+    const result = await service.getPersonas({
+      organisation: TEST_ORGANISATION,
+    });
 
-    const TWO = 2;
-    assert.equal(result.edges.length, TWO);
-    assert.equal(result.edges[0].node.name, 'Dave 1');
-    assert.equal(result.edges[1].node.name, 'Dave 2');
+    assert.equal(result.personas.length, 2); // tslint:disable-line:no-magic-numbers
+
+    assert.deepEqual(result.personas[0], persona1);
+    assert.deepEqual(result.personas[1], persona2);
+  });
+
+  it('should get all personas matching a filter', async () => {
+    const { persona: persona1 } = await service.createPersona(personaData1);
+    await service.createPersona(personaData2);
+    await service.createPersona(personaData3);
+    await service.createPersona(personaData4);
+
+    const result = await service.getPersonas({
+      filter: { name: 'Dave 1' },
+      organisation: TEST_ORGANISATION,
+    });
+
+    assert.equal(result.personas.length, 1);
+    assert.deepEqual(result.personas[0], persona1);
+  });
+
+  it('should get all personas following the sort order', async () => {
+    const { persona: persona1 } = await service.createPersona(personaData1);
+    await service.createPersona(personaData2);
+    await service.createPersona(personaData3);
+    await service.createPersona(personaData4);
+
+    const result = await service.getPersonas({
+      organisation: TEST_ORGANISATION,
+      sort: { name: -1 },
+    });
+
+    assert.equal(result.personas.length, 2);
+    assert.deepEqual(result.personas[1], persona1);
+  });
+
+  it('should get all personas with a limit', async () => {
+    await service.createPersona(personaData1);
+    await service.createPersona(personaData2);
+    await service.createPersona(personaData3);
+    await service.createPersona(personaData4);
+
+    const result = await service.getPersonas({
+      limit: 1,
+      organisation: TEST_ORGANISATION,
+    });
+
+    assert.equal(result.personas.length, 1);
+  });
+
+  it('should get all personas with a skip', async () => {
+    await service.createPersona(personaData1);
+    const { persona: persona2 } = await service.createPersona(personaData2);
+    await service.createPersona(personaData3);
+    await service.createPersona(personaData4);
+
+    const result = await service.getPersonas({
+      organisation: TEST_ORGANISATION,
+      skip: 1,
+    });
+
+    assert.equal(result.personas.length, 1);
+    assert.deepEqual(result.personas[0], persona2);
   });
 });

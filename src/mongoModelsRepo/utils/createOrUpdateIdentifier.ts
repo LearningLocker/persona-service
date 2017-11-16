@@ -36,7 +36,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     id: document._id.toString(),
     ifi: document.ifi,
     organisation: document.organisation.toString(),
-    persona: document.persona,
+    persona: document.persona.toString(),
   };
 
   // Determines if the identifier was created or found.

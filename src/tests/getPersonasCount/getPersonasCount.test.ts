@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION } from '../utils/values';
 
-describe('getPersonasCount', () => {
+describe('getPersonasConnectionCount', () => {
   const service = setup();
   it('should get personas count 0', async () => {
     const result = await service.getPersonaCount({
