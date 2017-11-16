@@ -18,8 +18,8 @@ export default (config: Config) => {
     const collection = db.collection('personas');
 
     const documents = await collection.find({
-      organisation: new ObjectID(organisation),
       ...filter,
+      organisation: new ObjectID(organisation),
     })
     .sort(sort)
     .skip(skip)

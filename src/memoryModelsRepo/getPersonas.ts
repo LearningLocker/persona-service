@@ -7,13 +7,14 @@ import Config from './Config';
 import mongoFilteringInMemory from './utils/mongoFilteringInMemory';
 
 export default (config: Config) => {
-  return async (opts: GetPersonasOptions): Promise<GetPersonasResult> => {
-    const filter = {
-      ...opts.filter,
-      organisation: opts.organisation,
-    };
-
-    const personas = mongoFilteringInMemory(filter)(config.state.personas);
+  return async ({
+    organisation,
+    filter = {},
+  }: GetPersonasOptions): Promise<GetPersonasResult> => {
+    const personas = mongoFilteringInMemory({
+      ...filter,
+      organisation,
+    })(config.state.personas);
 
     return {
       personas,
