@@ -23,14 +23,6 @@ describe('getPersonas', () => {
     organisation: TEST_ORGANISATION_2,
   };
 
-  beforeEach(async () => {
-    await service.clearService();
-  });
-
-  after(async () => {
-    await service.clearService();
-  });
-
   it('should get all personas with default options', async () => {
     const { persona: persona1 } = await service.createPersona(personaData1);
     const { persona: persona2 } = await service.createPersona(personaData2);

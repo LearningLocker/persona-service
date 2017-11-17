@@ -36,14 +36,6 @@ describe('getPersonaIdentifiers', () => {
     persona,
   };
 
-  beforeEach(async () => {
-    await service.clearService();
-  });
-
-  after(async () => {
-    await service.clearService();
-  });
-
   it('should get all persona identifiers with default options', async () => {
     const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
     const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
