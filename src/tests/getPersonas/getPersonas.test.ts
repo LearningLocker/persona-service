@@ -56,7 +56,7 @@ describe('getPersonas', () => {
 
   it('should get all personas following the sort order', async () => {
     const { persona: persona1 } = await service.createPersona(personaData1);
-    await service.createPersona(personaData2);
+    const { persona: persona2 } = await service.createPersona(personaData2);
     await service.createPersona(personaData3);
     await service.createPersona(personaData4);
 
@@ -66,6 +66,7 @@ describe('getPersonas', () => {
     });
 
     assert.equal(result.personas.length, 2);
+    assert.deepEqual(result.personas[0], persona2);
     assert.deepEqual(result.personas[1], persona1);
   });
 

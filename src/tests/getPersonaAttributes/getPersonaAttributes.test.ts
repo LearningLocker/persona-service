@@ -62,9 +62,9 @@ describe('getPersonaAttributes', () => {
   });
 
   it('should get all persona attributes following the sort order', async () => {
-    await service.overwritePersonaAttribute(attributeData1);
+    const { attribute: attribute1 } = await service.overwritePersonaAttribute(attributeData1);
     const { attribute: attribute2 } = await service.overwritePersonaAttribute(attributeData2);
-    await service.overwritePersonaAttribute(attributeData3);
+    const { attribute: attribute3 } = await service.overwritePersonaAttribute(attributeData3);
 
     const result = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
@@ -73,7 +73,9 @@ describe('getPersonaAttributes', () => {
 
     assert.equal(result.attributes.length, 3);
 
-    assert.deepEqual(result.attributes[2], attribute2);
+    assert.deepEqual(result.attributes[0], attribute3);
+    assert.deepEqual(result.attributes[1], attribute2);
+    assert.deepEqual(result.attributes[2], attribute1);
   });
 
   it('should get all persona attributes with a limit', async () => {
@@ -92,7 +94,7 @@ describe('getPersonaAttributes', () => {
   it('should get all persona attributes with a skip', async () => {
     await service.overwritePersonaAttribute(attributeData1);
     const { attribute: attribute2 } = await service.overwritePersonaAttribute(attributeData2);
-    await service.overwritePersonaAttribute(attributeData3);
+    const { attribute: attribute3 } = await service.overwritePersonaAttribute(attributeData3);
 
     const result = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
@@ -101,5 +103,6 @@ describe('getPersonaAttributes', () => {
 
     assert.equal(result.attributes.length, 2);
     assert.deepEqual(result.attributes[0], attribute2);
+    assert.deepEqual(result.attributes[1], attribute3);
   });
 });

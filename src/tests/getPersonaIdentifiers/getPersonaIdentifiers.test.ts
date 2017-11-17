@@ -39,7 +39,7 @@ describe('getPersonaIdentifiers', () => {
   it('should get all persona identifiers with default options', async () => {
     const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
     const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
-    await service.createIdentifier(identifierData3);
+    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,
@@ -49,6 +49,7 @@ describe('getPersonaIdentifiers', () => {
     assert.equal(result.identifiers.length, 3); // tslint:disable-line:no-magic-numbers
     assert.deepEqual(result.identifiers[0], identifier1);
     assert.deepEqual(result.identifiers[1], identifier2);
+    assert.deepEqual(result.identifiers[2], identifier3);
   });
 
   it('should get all persona identifiers matching a filter', async () => {
@@ -71,8 +72,8 @@ describe('getPersonaIdentifiers', () => {
 
   it('should get all persona identifiers following the sort order', async () => {
     const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
-    await service.createIdentifier(identifierData2);
-    await service.createIdentifier(identifierData3);
+    const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
+    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,
@@ -80,6 +81,8 @@ describe('getPersonaIdentifiers', () => {
     });
 
     assert.equal(result.identifiers.length, 3);
+    assert.deepEqual(result.identifiers[0], identifier3);
+    assert.deepEqual(result.identifiers[1], identifier2);
     assert.deepEqual(result.identifiers[2], identifier1);
   });
 
@@ -99,7 +102,7 @@ describe('getPersonaIdentifiers', () => {
   it('should get all persona identifiers with a skip', async () => {
     await service.createIdentifier(identifierData1);
     const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
-    await service.createIdentifier(identifierData3);
+    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,
@@ -108,5 +111,6 @@ describe('getPersonaIdentifiers', () => {
 
     assert.equal(result.identifiers.length, 2);
     assert.deepEqual(result.identifiers[0], identifier2);
+    assert.deepEqual(result.identifiers[1], identifier3);
   });
 });
