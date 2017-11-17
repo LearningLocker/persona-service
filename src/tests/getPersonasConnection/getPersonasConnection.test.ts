@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { assign, map, times } from 'lodash';
+import { map, times } from 'lodash';
 import Persona from '../../models/Persona';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import CreatePersonaResult from '../../serviceFactory/results/CreatePersonaResult';
@@ -52,11 +52,10 @@ describe('getPersonasConnection', () => {
   it('Should get the 2 personas', async () => {
     await addTestPersonas();
 
-    const result = await service.getPersonasConnection(
-      assign({}, getPersonaOptions, {
-        cursor: fromFirstCursor,
-      }),
-    );
+    const result = await service.getPersonasConnection({
+      ...getPersonaOptions,
+      cursor: fromFirstCursor,
+    });
 
     const TWO = 2;
     assert.equal(result.edges.length, TWO);
