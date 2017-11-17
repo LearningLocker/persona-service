@@ -17,6 +17,7 @@ export default (config: Config) => {
     personaId,
     filter = {},
   }: GetPersonaAttributesOptions): Promise<GetPersonaAttributesResult> => {
+    // tslint:disable-next-line:strict-boolean-expressions
     const personaFilter = personaId ? { personaId } : {};
 
     const attributes = mongoFilteringInMemory({

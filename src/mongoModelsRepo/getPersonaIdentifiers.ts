@@ -19,9 +19,10 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection('personaIdentifiers');
 
+    // tslint:disable-next-line:strict-boolean-expressions
     const personaFilter = persona ? { persona: new ObjectID(persona) } : {};
 
-    const documents = await collection.find({
+    const documents = collection.find({
       ...filter,
       ...personaFilter,
       organisation: new ObjectID(organisation),

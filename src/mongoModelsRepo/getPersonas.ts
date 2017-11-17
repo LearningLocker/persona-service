@@ -20,7 +20,7 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection('personas');
 
-    const documents = await collection.find({
+    const documents = collection.find({
       ...filter,
       organisation: new ObjectID(organisation),
     })
