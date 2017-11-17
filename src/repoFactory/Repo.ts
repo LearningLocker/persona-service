@@ -10,7 +10,9 @@ import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
 import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
 import GetPersonaCountOptions from './options/GetPersonaCountOptions';
+import GetPersonaIdentifiersOptions from './options/GetPersonaIdentifiersOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
+import GetPersonasConnectionOptions from './options/GetPersonasConnectionOptions';
 import GetPersonasOptions from './options/GetPersonasOptions';
 import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
@@ -27,7 +29,9 @@ import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
 import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
 import GetPersonaCountResult from './results/GetPersonaCountResult';
+import GetPersonaIdentifiersResult from './results/GetPersonaIdentifiersResult';
 import GetPersonaResult from './results/GetPersonaResult';
+import GetPersonasConnectionResult from './results/GetPersonasConnectionResult';
 import GetPersonasResult from './results/GetPersonasResult';
 import MergePersonaResult from './results/MergePersonaResult';
 import OverwriteIdentifierResult from './results/OverwriteIdentifierResult';
@@ -45,6 +49,8 @@ export default interface Repo extends CommonRepo {
   readonly getIfisByPersona: (opts: GetIfisByPersonaOptions) => Promise<GetIfisByPersonaResult>;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
   readonly getPersonas: (opts: GetPersonasOptions) => Promise<GetPersonasResult>;
+  readonly getPersonasConnection:
+  (opts: GetPersonasConnectionOptions) => Promise<GetPersonasConnectionResult>;
   readonly overwriteIdentifier:
     (opts: OverwriteIdentifierOptions) => Promise<OverwriteIdentifierResult>;
   readonly setIdentifierPersona: (opts: SetIdentifierPersonaOptions) =>
@@ -57,6 +63,8 @@ export default interface Repo extends CommonRepo {
     Promise<OverwritePersonaAttributeResult>;
   readonly getPersonaAttributes: (opts: GetPersonaAttributesOptions) =>
     Promise<GetPersonaAttributesResult>;
+  readonly getPersonaIdentifiers: (opts: GetPersonaIdentifiersOptions) =>
+    Promise<GetPersonaIdentifiersResult>;
   readonly updatePersona: (opts: UpdatePersonaOptions) =>
     Promise<UpdatePersonaResult>;
   readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;

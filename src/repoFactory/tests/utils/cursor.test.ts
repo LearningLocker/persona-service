@@ -59,7 +59,7 @@ describe('cursor', () => {
       });
       /* istanbul ignore next */
       assert.equal(true, false, 'Should not happen');
-    }catch (err) {
+    } catch (err) {
       assert.equal(!!err, true);
     }
   });
