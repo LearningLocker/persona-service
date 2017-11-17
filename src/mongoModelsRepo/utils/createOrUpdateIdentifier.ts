@@ -32,11 +32,12 @@ const createOrUpdateIdentifier = (config: Config) => async ({
 
   // Formats the document into an identifier to be returned.
   const document = opResult.value;
+  const personaString = document.persona ? document.persona.toString() : null;
   const identifier: Identifier = {
     id: document._id.toString(),
     ifi: document.ifi,
     organisation: document.organisation.toString(),
-    persona: document.persona.toString(),
+    persona: personaString,
   };
 
   // Determines if the identifier was created or found.

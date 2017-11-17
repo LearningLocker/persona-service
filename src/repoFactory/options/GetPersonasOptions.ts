@@ -1,10 +1,6 @@
+import ServiceGetPersonasOptions from // tslint:disable-line:import-spacing
+'../../serviceFactory/options/GetPersonasOptions';
 
-interface GetPersonasOptions {
-  readonly organisation: string;
-  readonly filter: object;
-  readonly sort: object;
-  readonly limit: number;
-  readonly skip: number;
-}
+type GetPersonasOptions = ServiceGetPersonasOptions;
 
 export default GetPersonasOptions;

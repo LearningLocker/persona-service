@@ -1,5 +1,5 @@
 // tslint:disable-next-line:no-unused
-import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
+import GetPersonasOptions from '../serviceFactory/options/GetPersonasOptions';
 // tslint:disable-next-line:no-unused
 import GetPersonasResult from '../serviceFactory/results/GetPersonasResult';
 import Config from './Config';

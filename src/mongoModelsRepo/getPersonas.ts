@@ -1,8 +1,11 @@
+// tslint:disable-next-line:no-unused
+import ServiceGetPersonasOptions from '../serviceFactory/options/GetPersonasOptions';
+// tslint:disable-next-line:no-unused
+import ServiceGetPersonasResult from '../serviceFactory/results/GetPersonasResult';
+
 import { ObjectID } from 'mongodb';
 import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
 import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
-// tslint:disable-next-line:no-unused
-import ServiceGetPersonasResult from '../serviceFactory/results/GetPersonasResult';
 
 import Config from './Config';
 

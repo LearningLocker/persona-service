@@ -31,7 +31,7 @@ describe('createUpdateIdentifierPersona mongo', () => {
     await serviceConfig.repo.clearRepo();
   });
 
-  it('Should be throw locked if was not created', async () => {
+  it('Should throw locked if was not created', async () => {
 
     const generateMockDb = async (): Promise<Db> => {
       const client: Db = await MongoClient.connect(
