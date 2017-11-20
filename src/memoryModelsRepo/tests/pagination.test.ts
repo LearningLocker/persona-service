@@ -1,22 +1,7 @@
 import * as assert from 'assert';
-import { doesMatch, doSort } from '../utils/pagination';
+import { doSort } from '../utils/pagination';
 
 describe('memory pagination', () => {
-
-  it('should match the filter', () => {
-    const theFilter = {
-      $or: [
-        { test1: 5 },
-      ],
-    };
-
-    const theItem = {
-      test1: 5,
-    };
-
-    assert.equal(doesMatch(theItem, theFilter), true);
-  });
-
   it('should sort stuff', () => {
     const collection = [
       {

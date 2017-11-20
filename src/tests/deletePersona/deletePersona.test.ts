@@ -39,4 +39,28 @@ describe('deletePersona', () => {
     });
     await assertError(NoModelWithId, promise);
   });
+
+  it('should delete persona identifiers', async () => {
+    const persona = await createTestPersona();
+    const { identifier } = await service.createIdentifier({
+      ifi: {
+        key: 'mbox',
+        value: 'test@test.com',
+      },
+      organisation: TEST_ORGANISATION,
+      persona: persona.id,
+    });
+
+    await service.deletePersona({
+      organisation: TEST_ORGANISATION,
+      personaId: persona.id,
+    });
+
+    const resultPromise = service.getIdentifier({
+      id: identifier.id,
+      organisation: TEST_ORGANISATION,
+    });
+
+    await assertError(NoModel, resultPromise);
+  });
 });

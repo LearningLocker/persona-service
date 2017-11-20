@@ -11,11 +11,13 @@ describe('createUpdateIdentifierPersona', () => {
 
   it('Should create a new identifier and persona', async () => {
 
-    const {identifierId, personaId} = await service.createUpdateIdentifierPersona({
+    const {identifierId, personaId, wasCreated} = await service.createUpdateIdentifierPersona({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       personaName: 'Dave',
     });
+
+    assert.equal(wasCreated, true);
 
     const {identifier} = await service.getIdentifier({
       id: identifierId,
@@ -44,12 +46,14 @@ describe('createUpdateIdentifierPersona', () => {
     const {
       identifierId: actualIdentifierId,
       personaId: actualPersonaId,
+      wasCreated,
     } = await service.createUpdateIdentifierPersona({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       personaName: 'Dave 8',
     });
 
+    assert.equal(wasCreated, false);
     assert.equal(actualIdentifierId, identifier.id);
     assert.equal(actualPersonaId, personaId);
   });

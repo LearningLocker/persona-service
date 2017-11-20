@@ -1,16 +1,25 @@
-import Persona from '../models/Persona';
+// tslint:disable-next-line:no-unused
+import ServiceGetPersonasOptions from '../serviceFactory/options/GetPersonasOptions';
+// tslint:disable-next-line:no-unused
+import ServiceGetPersonasResult from '../serviceFactory/results/GetPersonasResult';
+
 import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
 import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
-// tslint:disable-next-line:no-unused
-import GetOptions from '../serviceFactory/utils/GetOptions';
-// tslint:disable-next-line:no-unused
-import PaginationResult from '../serviceFactory/utils/PaginationResult';
 import Config from './Config';
-import pagination from './utils/pagination';
+import mongoFilteringInMemory from './utils/mongoFilteringInMemory';
 
-export default (
-  config: Config,
-) => {
-  return async (opts: GetPersonasOptions): Promise<GetPersonasResult> =>
-    pagination(config, 'personas')<Persona>(opts);
+export default (config: Config) => {
+  return async ({
+    organisation,
+    filter = {},
+  }: GetPersonasOptions): Promise<GetPersonasResult> => {
+    const personas = mongoFilteringInMemory({
+      ...filter,
+      organisation,
+    })(config.state.personas);
+
+    return {
+      personas,
+    };
+  };
 };
