@@ -1,4 +1,3 @@
-// import Persona from '../models/Persona';
 import { findIndex } from 'lodash';
 import NoModelWithId from '../errors/NoModelWithId';
 import UpdatePersonaOptions from // tslint:disable-line:import-spacing

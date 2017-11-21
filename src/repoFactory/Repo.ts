@@ -1,4 +1,5 @@
 import CommonRepo from 'jscommons/dist/repoFactory/Repo';
+import UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import CreateUpdateIdentifierPersonaOptions from './options/CreateUpdateIdentifierPersonaOptions';
@@ -18,6 +19,7 @@ import MergePersonaOptions from './options/MergePersonaOptions';
 import OverwriteIdentifierOptions from './options/OverwriteIdentifierOptions';
 import OverwritePersonaAttributeOptions from './options/OverwritePersonaAttributeOptions';
 import SetIdentifierPersonaOptions from './options/SetIdentifierPersonaOptions';
+import UpdateIdentifierOptions from './options/UpdateIdentifierOptions';
 import UpdatePersonaOptions from './options/UpdatePersonaOptions';
 import CreateIdentifierResult from './results/CreateIdentifierResult';
 import CreatePersonaResult from './results/CreatePersonaResult';
@@ -69,4 +71,5 @@ export default interface Repo extends CommonRepo {
     Promise<UpdatePersonaResult>;
   readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;
   readonly getAttributes: (opts: GetAttributesOptions) => Promise<GetAttributesResult>;
+  readonly updateIdentifier: (opts: UpdateIdentifierOptions) => Promise<UpdateIdentifierResult>;
 }
