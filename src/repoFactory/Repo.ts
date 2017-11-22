@@ -10,6 +10,7 @@ import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetIdentifierOptions from './options/GetIdentifierOptions';
 import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
+import GetPersonaAttributeCountOptions from './options/GetPersonaAttributeCountOptions';
 import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
 import GetPersonaCountOptions from './options/GetPersonaCountOptions';
 import GetPersonaIdentifierCountOptions from './options/GetPersonaIdentifierCountOptions';
@@ -31,6 +32,7 @@ import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
 import GetIdentifierResult from './results/GetIdentifierResult';
 import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
+import GetPersonaAttributeCountResult from './results/GetPersonaAttributeCountResult';
 import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
 import GetPersonaCountResult from './results/GetPersonaCountResult';
 import GetPersonaIdentifierCountResult from './results/GetPersonaIdentifierCountResult';
@@ -76,6 +78,8 @@ export default interface Repo extends CommonRepo {
   readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;
   readonly getPersonaIdentifierCount: (opts: GetPersonaIdentifierCountOptions) =>
     Promise<GetPersonaIdentifierCountResult>;
+  readonly getPersonaAttributeCount: (opts: GetPersonaAttributeCountOptions) =>
+    Promise<GetPersonaAttributeCountResult>;
   readonly getAttributes: (opts: GetAttributesOptions) => Promise<GetAttributesResult>;
   readonly updateIdentifier: (opts: UpdateIdentifierOptions) => Promise<UpdateIdentifierResult>;
 }

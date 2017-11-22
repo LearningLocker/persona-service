@@ -9,6 +9,7 @@ import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
 import GetIdentifierOptions from './options/GetIdentifierOptions';
 import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
+import GetPersonaAttributeCountOptions from './options/GetPersonaAttributeCountOptions';
 import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
 import GetPersonaCountOptions from './options/GetPersonaCountOptions';
 import GetPersonaIdentifierCountOptions from './options/GetPersonaIdentifierCountOptions';
@@ -30,6 +31,7 @@ import GetIdentifierByIfiResult from './results/GetIdentifierByIfiResult';
 import GetIdentifierResult from './results/GetIdentifierResult';
 import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
+import GetPersonaAttributeCountResult from './results/GetPersonaAttributeCountResult';
 import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
 import GetPersonaCountResult from './results/GetPersonaCountResult';
 import GetPersonaIdentifierCountResult from './results/GetPersonaIdentifierCountResult';
@@ -74,6 +76,8 @@ interface Service extends CommonService {
   readonly updatePersona: (opts: UpdatePersonaOptions) =>
     Promise<UpdatePersonaResult>;
   readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;
+  readonly getPersonaAttributeCount: (opts: GetPersonaAttributeCountOptions) =>
+  Promise<GetPersonaAttributeCountResult>;
   readonly getPersonaIdentifierCount: (opts: GetPersonaIdentifierCountOptions) =>
     Promise<GetPersonaIdentifierCountResult>;
   readonly getAttributes: (opts: GetAttributesOptions) => Promise<GetAttributesResult>;

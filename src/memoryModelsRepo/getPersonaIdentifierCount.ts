@@ -1,9 +1,13 @@
-import GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
-import GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
-// tslint:disable-next-line:no-unused
-import _GetPersonaCountOptions from '../serviceFactory/options/GetPersonaCountOptions';
-// tslint:disable-next-line:no-unused
-import _GetPersonaCountResult from '../serviceFactory/results/GetPersonaCountResult';
+import GetPersonaIdentifierCountOptions from // tslint:disable-line:import-spacing
+  '../repoFactory/options/GetPersonaIdentifierCountOptions';
+import GetPersonaIdentifierCountResult from // tslint:disable-line:import-spacing
+  '../repoFactory/results/GetPersonaIdentifierCountResult';
+// tslint:disable-next-line:no-unused import-spacing
+import _GetPersonaIdentifierCountOptions from
+  '../serviceFactory/options/GetPersonaIdentifierCountOptions';
+// tslint:disable-next-line:no-unused import-spacing
+import _GetPersonaIdentifierCountResult from
+  '../serviceFactory/results/GetPersonaIdentifierCountResult';
 import Config from './Config';
 import mongoFilteringInMemory from './utils/mongoFilteringInMemory';
 
@@ -13,7 +17,7 @@ export default (
   return async ({
     filter,
     organisation,
-  }: GetPersonaCountOptions): Promise<GetPersonaCountResult> => {
+  }: GetPersonaIdentifierCountOptions): Promise<GetPersonaIdentifierCountResult> => {
 
     const count = mongoFilteringInMemory({
       ...filter,

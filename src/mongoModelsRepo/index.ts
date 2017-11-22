@@ -13,6 +13,7 @@ import getIdentifierByIfi from './getIdentifierByIfi';
 import getIdentifiers from './getIdentifiers';
 import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
+import getPersonaAttributeCount from './getPersonaAttributeCount';
 import getPersonaAttributes from './getPersonaAttributes';
 import getPersonaCount from './getPersonaCount';
 import getPersonaIdentifierCount from './getPersonaIdentifierCount';
@@ -41,6 +42,7 @@ export default (config: Config): Repo => {
     getIdentifiers: getIdentifiers(config),
     getIfisByPersona: getIfisByPersona(config),
     getPersona: getPersona(config),
+    getPersonaAttributeCount: getPersonaAttributeCount(config),
     getPersonaAttributes: getPersonaAttributes(config),
     getPersonaCount: getPersonaCount(config),
     getPersonaIdentifierCount: getPersonaIdentifierCount(config),

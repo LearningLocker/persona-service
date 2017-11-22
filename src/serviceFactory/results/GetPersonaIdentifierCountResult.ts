@@ -1,6 +1,6 @@
 
-interface GetPersonaCountResult {
+interface GetPersonaIdentifierCountResult {
   readonly count: number;
 }
 
-export default GetPersonaCountResult;
+export default GetPersonaIdentifierCountResult;
