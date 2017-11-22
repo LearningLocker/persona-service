@@ -2,6 +2,7 @@ import CommonService from 'jscommons/dist/serviceFactory/Service';
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import CreateUpdateIdentifierPersonaOptions from './options/CreateUpdateIdentifierPersonaOptions';
+import DeletePersonaIdentifierOptions from './options/DeletePersonaIdentifierOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import GetAttributesOptions from './options/GetAttributesOptions';
 import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
@@ -45,6 +46,7 @@ interface Service extends CommonService {
   readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
   readonly createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
   readonly deletePersona: (opts: DeletePersonaOptions) => Promise<void>;
+  readonly deletePersonaIdentifier: (opts: DeletePersonaIdentifierOptions) => Promise<void>;
   readonly getIdentifier: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult>;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
   readonly getPersonas: (opts: GetPersonasOptions) => Promise<GetPersonasResult>;

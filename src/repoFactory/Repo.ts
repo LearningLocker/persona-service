@@ -3,6 +3,7 @@ import UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierRe
 import CreateIdentifierOptions from './options/CreateIdentifierOptions';
 import CreatePersonaOptions from './options/CreatePersonaOptions';
 import CreateUpdateIdentifierPersonaOptions from './options/CreateUpdateIdentifierPersonaOptions';
+import DeletePersonaIdentifierOptions from './options/DeletePersonaIdentifierOptions';
 import DeletePersonaOptions from './options/DeletePersonaOptions';
 import GetAttributesOptions from './options/GetAttributesOptions';
 import GetIdentifierByIfiOptions from './options/GetIdentifierByIfiOptions';
@@ -44,6 +45,7 @@ import UpdatePersonaResult from './results/UpdatePersonaResult';
 export default interface Repo extends CommonRepo {
   readonly createIdentifier: (opts: CreateIdentifierOptions) => Promise<CreateIdentifierResult>;
   readonly createPersona: (opts: CreatePersonaOptions) => Promise<CreatePersonaResult>;
+  readonly deletePersonaIdentifier: (opts: DeletePersonaIdentifierOptions) => Promise<void>;
   readonly deletePersona: (opts: DeletePersonaOptions) => Promise<void>;
   readonly getIdentifierByIfi:
     (opts: GetIdentifierByIfiOptions) => Promise<GetIdentifierByIfiResult>;
