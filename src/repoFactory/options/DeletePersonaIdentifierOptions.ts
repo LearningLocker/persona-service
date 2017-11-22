@@ -1,6 +1,6 @@
 import ServiceDeletePersonaIdentifierOptions from // tslint:disable-line:import-spacing
   '../../serviceFactory/options/DeletePersonaIdentifierOptions';
 
-export type DeletePersonaidentifierOptions = ServiceDeletePersonaIdentifierOptions;
+export type DeletePersonaIdentifierOptions = ServiceDeletePersonaIdentifierOptions;
 
-export default DeletePersonaidentifierOptions;
+export default DeletePersonaIdentifierOptions;
