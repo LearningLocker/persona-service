@@ -15,6 +15,7 @@ import getIfisByPersona from './getIfisByPersona';
 import getPersona from './getPersona';
 import getPersonaAttributes from './getPersonaAttributes';
 import getPersonaCount from './getPersonaCount';
+import getPersonaIdentifierCount from './getPersonaIdentifierCount';
 import getPersonaIdentifiers from './getPersonaIdentifiers';
 import getPersonas from './getPersonas';
 import getPersonasConnection from './getPersonasConnection';
@@ -42,6 +43,7 @@ export default (config: Config): Service => {
     getPersona: getPersona(config),
     getPersonaAttributes: getPersonaAttributes(config),
     getPersonaCount: getPersonaCount(config),
+    getPersonaIdentifierCount: getPersonaIdentifierCount(config),
     getPersonaIdentifiers: getPersonaIdentifiers(config),
     getPersonas: getPersonas(config),
     getPersonasConnection: getPersonasConnection(config),

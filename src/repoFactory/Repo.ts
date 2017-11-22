@@ -12,6 +12,7 @@ import GetIdentifiersOptions from './options/GetIdentifiersOptions';
 import GetIfisByPersonaOptions from './options/GetIfisByPersonaOptions';
 import GetPersonaAttributesOptions from './options/GetPersonaAttributesOptions';
 import GetPersonaCountOptions from './options/GetPersonaCountOptions';
+import GetPersonaIdentifierCountOptions from './options/GetPersonaIdentifierCountOptions';
 import GetPersonaIdentifiersOptions from './options/GetPersonaIdentifiersOptions';
 import GetPersonaOptions from './options/GetPersonaOptions';
 import GetPersonasConnectionOptions from './options/GetPersonasConnectionOptions';
@@ -32,6 +33,7 @@ import GetIdentifiersResult from './results/GetIdentifiersResult';
 import GetIfisByPersonaResult from './results/GetIfisByPersonaResult';
 import GetPersonaAttributesResult from './results/GetPersonaAttributesResult';
 import GetPersonaCountResult from './results/GetPersonaCountResult';
+import GetPersonaIdentifierCountResult from './results/GetPersonaIdentifierCountResult';
 import GetPersonaIdentifiersResult from './results/GetPersonaIdentifiersResult';
 import GetPersonaResult from './results/GetPersonaResult';
 import GetPersonasConnectionResult from './results/GetPersonasConnectionResult';
@@ -72,6 +74,8 @@ export default interface Repo extends CommonRepo {
   readonly updatePersona: (opts: UpdatePersonaOptions) =>
     Promise<UpdatePersonaResult>;
   readonly getPersonaCount: (opts: GetPersonaCountOptions) => Promise<GetPersonaCountResult>;
+  readonly getPersonaIdentifierCount: (opts: GetPersonaIdentifierCountOptions) =>
+    Promise<GetPersonaIdentifierCountResult>;
   readonly getAttributes: (opts: GetAttributesOptions) => Promise<GetAttributesResult>;
   readonly updateIdentifier: (opts: UpdateIdentifierOptions) => Promise<UpdateIdentifierResult>;
 }
