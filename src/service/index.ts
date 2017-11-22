@@ -4,6 +4,7 @@ import clearService from './clearService';
 import Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
+import createUpdateAttributePersona from './createUpdateAttributePersona';
 import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';
 import deletePersona from './deletePersona';
 import getAttributes from './getAttributes';
@@ -29,6 +30,7 @@ export default (config: Config): Service => {
     clearService: clearService(config),
     createIdentifier: createIdentifier(config),
     createPersona: createPersona(config),
+    createUpdateAttributePersona: createUpdateAttributePersona(config),
     createUpdateIdentifierPersona: createUpdateIdentifierPersona(config),
     deletePersona: deletePersona(config),
     getAttributes: getAttributes(config),
