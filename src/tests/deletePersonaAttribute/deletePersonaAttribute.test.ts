@@ -24,8 +24,8 @@ describe('deletePersonaAttribute', () => {
     assert.equal(attributes.length, 0);
   });
 
-  it('should fail delete if persona does not exist', () => {
-    const result = service.deletePersonaAttribute({
+  it('should fail delete if persona does not exist', async () => {
+    const result = await service.deletePersonaAttribute({
       id: new ObjectID().toString(),
       organisation: TEST_ORGANISATION,
     });
