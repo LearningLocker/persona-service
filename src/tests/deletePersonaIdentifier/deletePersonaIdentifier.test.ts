@@ -24,12 +24,12 @@ describe('deletePersonaIdentifier', () => {
     assert.equal(identifiers.length, 0);
   });
 
-  it('should fail delete if persona does not exist', () => {
+  it('should fail delete if persona does not exist', async () => {
     const result = service.deletePersonaIdentifier({
       id: new ObjectID().toString(),
       organisation: TEST_ORGANISATION,
     });
 
-    assertError(NoModelWithId, result);
+    await assertError(NoModelWithId, result);
   });
 });
