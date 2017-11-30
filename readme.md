@@ -8,7 +8,7 @@
 
 > A package for managing Personas in Learning Locker.
 
-*Learning Locker is a trademark of [HT2 Inc.](http://ht2.co.uk)*
+*Learning Locker is a trademark of [HT2 Labs.](https://ht2labs.com)*
 
 ### Installation
 To install all of Learning Locker, see the [installation documentation](http://docs.learninglocker.net/guides-installing/). To install just the persona service, you can follow the instructions below.
