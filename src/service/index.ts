@@ -8,6 +8,7 @@ import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';
 import deletePersona from './deletePersona';
 import deletePersonaAttribute from './deletePersonaAttribute';
 import deletePersonaIdentifier from './deletePersonaIdentifier';
+import getAttribute from './getAttribute';
 import getAttributes from './getAttributes';
 import getIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
@@ -38,6 +39,7 @@ export default (config: Config): Service => {
     deletePersona: deletePersona(config),
     deletePersonaAttribute: deletePersonaAttribute(config),
     deletePersonaIdentifier: deletePersonaIdentifier(config),
+    getAttribute: getAttribute(config),
     getAttributes: getAttributes(config),
     getIdentifier: getIdentifier(config),
     getIdentifierByIfi: getIdentifierByIfi(config),
