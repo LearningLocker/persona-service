@@ -1,7 +1,6 @@
 // tslint:disable:no-magic-numbers
-// tslint:disable:max-file-line-count
 import * as assert from 'assert';
-import { map as bluebirdMap } from 'bluebird';
+import { map } from 'lodash';
 import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION } from '../utils/values';
@@ -12,12 +11,12 @@ describe('getPersonas', () => {
   it('should get default 10 personas', async () => {
 
     const indexArray = Array.from(Array(11).keys());
-    await bluebirdMap(indexArray, (i) => {
+    await Promise.all(map(indexArray, (i) => {
       return service.createPersona({
         name: `Dave ${i}`,
         organisation: TEST_ORGANISATION,
       });
-    });
+    }));
 
     const result = await service.getPersonasConnection({
       direction: CursorDirection.FORWARDS,
