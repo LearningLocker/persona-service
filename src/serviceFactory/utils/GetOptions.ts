@@ -30,4 +30,6 @@ export interface RepoOptions {
   readonly hint?: Hint;
 }
 
+export const DEFAULT_LIMIT = 10;
+
 export default interface GetOptions extends PaginationOptions, FilterOptions, RepoOptions {}
