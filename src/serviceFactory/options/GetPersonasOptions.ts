@@ -1,4 +1,3 @@
-
 interface GetPersonasOptions {
   readonly organisation: string;
   readonly filter?: object;
