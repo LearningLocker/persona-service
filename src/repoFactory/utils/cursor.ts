@@ -1,4 +1,5 @@
-import { Dictionary, get, keys, map, pick, reduce, zipObject } from 'lodash';
+import { Dictionary, get, keys, map, mapValues, pick, reduce, zipObject } from 'lodash';
+import { ObjectID } from 'mongodb';
 import InvalidCursor from '../../errors/InvalidCursor';
 import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 
@@ -20,7 +21,14 @@ export const fromCursor = (cursor: string): object | null => {
     if (parsedCursor === false) {
       return null;
     }
-    return parsedCursor;
+    const parsedCursorWithOid = mapValues(parsedCursor, (value) => {
+      if (value instanceof Object && get(value, '$oid')) {
+        return new ObjectID(get(value, '$oid'));
+      }
+      return value;
+    });
+
+    return parsedCursorWithOid;
   } catch (err) {
     return null;
   }
@@ -125,10 +133,19 @@ export const modelToCursor = ({
   model,
   sort,
 }: {
-  readonly model: object;
+  readonly model: object; // a mongo model
   readonly sort: object;
 }): string => {
-  const data = pick(model, keys(sort));
-  const cursor = toCursor(data);
+  const data: object = pick(model, keys(sort));
+
+  const dataWithOid = mapValues(data, (value) => {
+    if (value instanceof ObjectID) {
+      return {
+        $oid: value.toHexString(),
+      };
+    }
+    return value;
+  });
+  const cursor = toCursor(dataWithOid);
   return cursor;
 }; // tslint:disable-line: max-file-line-count

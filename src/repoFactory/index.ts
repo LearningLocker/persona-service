@@ -1,4 +1,3 @@
-import { MongoClient } from 'mongodb';
 import config from '../config';
 import memoryModelsRepo from '../memoryModelsRepo';
 import Attributes from '../models/Attribute';
@@ -6,15 +5,16 @@ import Identifier from '../models/Identifier';
 import Persona from '../models/Persona';
 import mongoModelsRepo from '../mongoModelsRepo';
 import Repo from './Repo';
+import createMongoClient from './utils/createMongoClient';
 
 export default (): Repo => {
   switch (config.repoFactory.modelsRepoName) {
     case 'mongo':
       return mongoModelsRepo({
-        db: MongoClient.connect(
-          config.mongoModelsRepo.url,
-          config.mongoModelsRepo.options,
-        ),
+        db: createMongoClient({
+          options: config.mongoModelsRepo.options,
+          url: config.mongoModelsRepo.url,
+        }),
       });
     default: case 'memory':
       return memoryModelsRepo({
