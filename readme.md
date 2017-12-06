@@ -23,7 +23,7 @@ npm i personas
     - [Forking the repository](https://help.github.com/articles/fork-a-repo/) and cloning the fork.
 1. Change to the directory of the cloned code `cd persona-service`.
 1. Install dependencies `npm install`.
-1. Make your changes to the "src" directory.
+1. Make your changes to the `src` directory.
 1. Build the code `npm run build`.
 1. Test the code `npm test`.
 1. Commit and push your changes `npm run acp`.
