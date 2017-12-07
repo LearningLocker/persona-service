@@ -1,7 +1,7 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectID } from 'mongodb';
-import DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
 import PersonaHasIdentsError from '../errors/PersonaHasIdentsError';
+import DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
 import Config from './Config';
 
 export default (config: Config) => {
@@ -14,16 +14,15 @@ export default (config: Config) => {
       organisation: new ObjectID(organisation),
       persona: new ObjectID(personaId),
     }, { fields: {_id: 1}});
-    
+
     if (existingIdent) {
       throw new PersonaHasIdentsError();
     }
-    
+
     const result = await collection.deleteOne({
       _id: new ObjectID(personaId),
       organisation: new ObjectID(organisation),
     });
-
 
     if (result.deletedCount === 0) {
       throw new NoModel('Persona');

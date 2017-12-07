@@ -6,22 +6,39 @@ import Config from './Config';
 export default (config: Config) => {
   return async (opts: MergePersonaOptions): Promise<MergePersonaResult> => {
     const personaIdentifiersCollection = (await config.db).collection('personaIdentifiers');
+    const personaAttributesCollection = (await config.db).collection('personaAttributes');
 
-    const filter = {
+    const identFilter = {
       organisation: new ObjectID(opts.organisation),
       persona: new ObjectID(opts.fromPersonaId),
     };
 
     /* tslint:disable-next-line:deprecation - this find signature isn't deprecated */
-    const toMaybeUpdateIdentifierIds = (await personaIdentifiersCollection.find(filter).toArray())
-      .map(({_id}) => _id.toString());
+    const toMaybeUpdateIdentifierIds = (
+      await personaIdentifiersCollection.find(identFilter).toArray()
+    ).map(({_id}) => _id.toString());
 
-    const update = {
+    const identUpdate = {
       $set: {persona: new ObjectID(opts.toPersonaId)},
     };
 
-    await personaIdentifiersCollection.updateMany(filter, update);
+    const attributeFilter = {
+      organisation: new ObjectID(opts.organisation),
+      personaId: new ObjectID(opts.fromPersonaId),
+    };
 
-    return {identifierIds: toMaybeUpdateIdentifierIds};
+    /* tslint:disable-next-line:deprecation - this find signature isn't deprecated */
+    const toMaybeUpdateAttributeIds = (
+      await personaAttributesCollection.find(attributeFilter).toArray()
+    ).map(({_id}) => _id.toString());
+
+    const attributeUpdate = {
+      $set: {personaId: new ObjectID(opts.toPersonaId)},
+    };
+
+    await personaIdentifiersCollection.updateMany(identFilter, identUpdate);
+    await personaAttributesCollection.updateMany(attributeFilter, attributeUpdate);
+
+    return {identifierIds: toMaybeUpdateIdentifierIds, attributeIds: toMaybeUpdateAttributeIds};
   };
 };

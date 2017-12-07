@@ -23,6 +23,24 @@ export default (config: Config) => {
 
     config.state.personaIdentifiers = newPersonaIdentifiers;
 
-    return {identifierIds: toUpdateIdentifierIds};
+    const toUpdateAttributes = config.state.personaAttributes.filter(
+      (attribute) => attribute.personaId === opts.fromPersonaId,
+    );
+
+    const toUpdateAttributeIds = toUpdateAttributes.map(({id}) => id);
+
+    const newPersonaAttributes = config.state.personaAttributes.map((attribute) => {
+      if (attribute.personaId === opts.fromPersonaId) {
+        return {
+          ...attribute,
+          personaId: opts.toPersonaId,
+        };
+      }
+      return attribute;
+    });
+
+    config.state.personaAttributes = newPersonaAttributes;
+
+    return {identifierIds: toUpdateIdentifierIds, attributeIds: toUpdateAttributeIds};
   };
 };
