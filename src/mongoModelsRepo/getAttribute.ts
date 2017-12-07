@@ -7,10 +7,11 @@ import _GetAttributeOptions from // tslint:disable-line:import-spacing no-unused
 import _GetAttributeResult from // tslint:disable-line:import-spacing no-unused
   '../serviceFactory/results/GetAttributeResult';
 import Config from './Config';
+import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async (opts: GetAttributeOptions): Promise<GetAttributeResult> => {
-    const collection = (await config.db).collection('personaAttributes');
+    const collection = (await config.db).collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const filter = {
       _id: new ObjectID(opts.id),

@@ -2,11 +2,17 @@ import { ObjectID } from 'mongodb';
 import MergePersonaOptions from '../repoFactory/options/MergePersonaOptions';
 import MergePersonaResult from '../repoFactory/results/MergePersonaResult';
 import Config from './Config';
+import {
+  PERSONA_ATTRIBUTES_COLLECTION,
+  PERSONA_IDENTIFIERS_COLLECTION,
+} from './utils/constants/collections';
 
 export default (config: Config) => {
   return async (opts: MergePersonaOptions): Promise<MergePersonaResult> => {
-    const personaIdentifiersCollection = (await config.db).collection('personaIdentifiers');
-    const personaAttributesCollection = (await config.db).collection('personaAttributes');
+    const personaIdentifiersCollection = (await config.db)
+    .collection(PERSONA_IDENTIFIERS_COLLECTION);
+    const personaAttributesCollection = (await config.db)
+    .collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const identFilter = {
       organisation: new ObjectID(opts.organisation),

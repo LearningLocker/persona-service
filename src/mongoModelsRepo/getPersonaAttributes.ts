@@ -6,6 +6,7 @@ import _GetPersonaAttributesOptions from '../serviceFactory/options/GetPersonaAt
 // tslint:disable-next-line:no-unused
 import _GetPersonaAttributesResult from '../serviceFactory/results/GetPersonaAttributesResult';
 import Config from './Config';
+import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
@@ -17,7 +18,7 @@ export default (config: Config) => {
     filter = {},
   }: GetPersonaAttributesOptions): Promise<GetPersonaAttributesResult> => {
     const db = await config.db;
-    const collection = db.collection('personaAttributes');
+    const collection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     // tslint:disable-next-line:strict-boolean-expressions
     const personaFilter = personaId ? { personaId: new ObjectID(personaId) } : {};

@@ -9,6 +9,7 @@ import _UpdatePersonaOptions from // tslint:disable-line:import-spacing
 import _UpdatePersonaResult from // tslint:disable-line:import-spacing
   '../serviceFactory/results/UpdatePersonaResult';
 import Config from './Config';
+import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
@@ -16,7 +17,7 @@ export default (config: Config) => {
     organisation,
     name,
   }: UpdatePersonaOptions): Promise<UpdatePersonaResult> => {
-    const collection = (await config.db).collection('personas');
+    const collection = (await config.db).collection(PERSONAS_COLLECTION);
 
     const result = await collection.findOneAndUpdate({
       _id: new ObjectID(personaId),

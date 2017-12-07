@@ -4,10 +4,11 @@ import DeletePersonaIdentifierOptions from '../repoFactory/options/DeletePersona
 import _DeletePersonaIdentifierOptions from // tslint:disable-line:no-unused import-spacing
   '../serviceFactory/options/DeletePersonaIdentifierOptions';
 import Config from './Config';
+import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({id, organisation}: DeletePersonaIdentifierOptions): Promise<void> => {
-    const collection = (await config.db).collection('personaIdentifiers');
+    const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const result = await collection.deleteOne({
       _id: new ObjectID(id),

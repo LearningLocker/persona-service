@@ -10,6 +10,7 @@ import _OverwritePersonaAttributeOptions from // tslint:disable-line:import-spac
 import _OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
   '../serviceFactory/results/OverwritePersonaAttributeResult';
 import Config from './Config';
+import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
@@ -18,7 +19,7 @@ export default (config: Config) => {
     key,
     value,
   }: OverwritePersonaAttributeOptions): Promise<OverwritePersonaAttributeResult> => {
-    const collection = (await config.db).collection('personaAttributes');
+    const collection = (await config.db).collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const updateAttribute = {
       key,
