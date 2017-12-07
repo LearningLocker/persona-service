@@ -43,7 +43,7 @@ describe('deletePersona', () => {
 
   it('should throw an error when deleting a persona with identifiers', async () => {
     const persona = await createTestPersona();
-    const { identifier } = await service.createIdentifier({
+    await service.createIdentifier({
       ifi: {
         key: 'mbox',
         value: 'test@test.com',
