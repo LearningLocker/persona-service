@@ -1,6 +1,7 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
+import PersonaHasIdentsError from '../../errors/PersonaHasIdentsError';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION, TEST_ORGANISATION_OUTSIDE_STORE } from '../utils/values';
@@ -40,7 +41,7 @@ describe('deletePersona', () => {
     await assertError(NoModelWithId, promise);
   });
 
-  it('should delete persona identifiers', async () => {
+  it('should throw an error when deleting a persona with identifiers', async () => {
     const persona = await createTestPersona();
     const { identifier } = await service.createIdentifier({
       ifi: {
@@ -51,16 +52,11 @@ describe('deletePersona', () => {
       persona: persona.id,
     });
 
-    await service.deletePersona({
+    const deletePromise = service.deletePersona({
       organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });
 
-    const resultPromise = service.getIdentifier({
-      id: identifier.id,
-      organisation: TEST_ORGANISATION,
-    });
-
-    await assertError(NoModel, resultPromise);
+    await assertError(PersonaHasIdentsError, deletePromise);
   });
 });
