@@ -2,6 +2,7 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
 import PersonaHasIdentsError from '../../errors/PersonaHasIdentsError';
+import createTestAttribute from '../utils/createTestAttribute';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION, TEST_ORGANISATION_OUTSIDE_STORE } from '../utils/values';
@@ -58,5 +59,21 @@ describe('deletePersona', () => {
     });
 
     await assertError(PersonaHasIdentsError, deletePromise);
+  });
+
+  it('should delete attributes when deleting a persona', async () => {
+    const { attribute, personaId } = await createTestAttribute();
+
+    await service.deletePersona({
+      organisation: attribute.organisation,
+      personaId,
+    });
+
+    const getAttributePromise = service.getAttribute({
+      id: attribute.id,
+      organisation: attribute.organisation,
+    });
+
+    await assertError(NoModel, getAttributePromise);
   });
 });
