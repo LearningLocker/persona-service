@@ -31,14 +31,11 @@ export default (config: Config) => {
     if (existingIdent) {
       throw new PersonaHasIdentsError();
     }
-    const attributesResult = await personaAttributesCollection.find({
+
+    // remove all attributes
+    await personaAttributesCollection.deleteMany({
       ...orgFilter,
       personaId: personaObjectID,
-    }, { fields: {_id: 1}}).toArray();
-
-    const attributeIds = attributesResult.map((doc) => doc._id);
-    await personaAttributesCollection.deleteMany({
-      _id: { $in: attributeIds },
     });
 
     const result = await collection.deleteOne({
