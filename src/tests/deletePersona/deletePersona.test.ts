@@ -1,6 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoModelWithId from '../../errors/NoModelWithId';
+import PersonaHasIdentsError from '../../errors/PersonaHasIdentsError';
+import createTestAttribute from '../utils/createTestAttribute';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION, TEST_ORGANISATION_OUTSIDE_STORE } from '../utils/values';
@@ -40,9 +42,9 @@ describe('deletePersona', () => {
     await assertError(NoModelWithId, promise);
   });
 
-  it('should delete persona identifiers', async () => {
+  it('should throw an error when deleting a persona with identifiers', async () => {
     const persona = await createTestPersona();
-    const { identifier } = await service.createIdentifier({
+    await service.createIdentifier({
       ifi: {
         key: 'mbox',
         value: 'test@test.com',
@@ -51,16 +53,27 @@ describe('deletePersona', () => {
       persona: persona.id,
     });
 
-    await service.deletePersona({
+    const deletePromise = service.deletePersona({
       organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });
 
-    const resultPromise = service.getIdentifier({
-      id: identifier.id,
-      organisation: TEST_ORGANISATION,
+    await assertError(PersonaHasIdentsError, deletePromise);
+  });
+
+  it('should delete attributes when deleting a persona', async () => {
+    const { attribute, personaId } = await createTestAttribute();
+
+    await service.deletePersona({
+      organisation: attribute.organisation,
+      personaId,
     });
 
-    await assertError(NoModel, resultPromise);
+    const getAttributePromise = service.getAttribute({
+      id: attribute.id,
+      organisation: attribute.organisation,
+    });
+
+    await assertError(NoModel, getAttributePromise);
   });
 });

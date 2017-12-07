@@ -4,10 +4,11 @@ import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
+import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
-    const collection = (await config.db).collection('personaIdentifiers');
+    const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const filter = {
       _id: new ObjectID(opts.id),

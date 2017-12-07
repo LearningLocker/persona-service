@@ -8,6 +8,7 @@ import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
 import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
 
 import Config from './Config';
+import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
@@ -18,7 +19,7 @@ export default (config: Config) => {
     limit = 0,
   }: GetPersonasOptions): Promise<GetPersonasResult> => {
     const db = await config.db;
-    const collection = db.collection('personas');
+    const collection = db.collection(PERSONAS_COLLECTION);
 
     const documents = collection.find({
       ...filter,

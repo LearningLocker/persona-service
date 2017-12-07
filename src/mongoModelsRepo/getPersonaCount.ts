@@ -6,13 +6,14 @@ import _GetPersonaCountOptions from '../serviceFactory/options/GetPersonaCountOp
 // tslint:disable-next-line:no-unused
 import _GetPersonaCountResult from '../serviceFactory/results/GetPersonaCountResult';
 import Config from './Config';
+import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
     filter,
     organisation,
   }: GetPersonaCountOptions): Promise<GetPersonaCountResult> => {
-    const collection = (await config.db).collection('personas');
+    const collection = (await config.db).collection(PERSONAS_COLLECTION);
 
     const result = await collection.count({
       ...filter,

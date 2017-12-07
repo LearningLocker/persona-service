@@ -2,6 +2,7 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import Identifier from '../../models/Identifier';
 import OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
 import Config from '../Config';
+import { PERSONA_IDENTIFIERS_COLLECTION } from './constants/collections';
 
 export interface CreateOrUpdateIdentifierOptions {
   readonly filter: object;
@@ -15,7 +16,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
   upsert,
 }: CreateOrUpdateIdentifierOptions): Promise<OverwriteIdentifierResult> => {
 
-  const collection = (await config.db).collection('personaIdentifiers');
+  const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
   // Uses findOneAndUpdate as a findOneOrCreate to avoid concurrency issues.
   // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#findOneAndUpdate

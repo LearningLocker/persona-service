@@ -3,10 +3,11 @@ import Persona from '../models/Persona';
 import CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
 import CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
 import Config from './Config';
+import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async (opts: CreatePersonaOptions): Promise<CreatePersonaResult> => {
-    const collection = (await config.db).collection('personas');
+    const collection = (await config.db).collection(PERSONAS_COLLECTION);
 
     const docToInsert = {
       name: opts.name,

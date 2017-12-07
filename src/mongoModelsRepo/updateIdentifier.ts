@@ -3,6 +3,7 @@ import NoModelWithId from '../errors/NoModelWithId';
 import UpdateIdentifierOptions from '../serviceFactory/options/UpdateIdentifierOptions';
 import UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
 import Config from './Config';
+import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
   return async ({
@@ -11,7 +12,7 @@ export default (config: Config) => {
     organisation,
     ifi,
   }: UpdateIdentifierOptions): Promise<UpdateIdentifierResult> => {
-    const collection = (await config.db).collection('personaIdentifiers');
+    const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const result = await collection.findOneAndUpdate({
       _id: new ObjectID(id),

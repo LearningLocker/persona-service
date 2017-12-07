@@ -46,6 +46,15 @@ describe('mergePersona with existing personas', () => {
       persona: fromPersona.id,
     });
 
+    const attribute1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: fromPersona.id,
+      value: 'theValue1',
+    };
+
+    const { attribute: fromAttribute } = await service.overwritePersonaAttribute(attribute1);
+
     const toPersona = await createTestPersona();
 
     const {identifierIds} = await service.mergePersona({
@@ -60,6 +69,13 @@ describe('mergePersona with existing personas', () => {
       organisation: TEST_ORGANISATION,
     });
     assert.equal(resultIdentifier.persona, toPersona.id);
+
+    // Assert identifiers points to the toPersona
+    const {attribute: resultAttribute} = await service.getAttribute({
+      id: fromAttribute.id,
+      organisation: TEST_ORGANISATION,
+    });
+    assert.equal(resultAttribute.personaId, toPersona.id);
 
     assert.deepEqual(identifierIds, [resultIdentifier.id]);
   });
@@ -84,4 +100,4 @@ describe('mergePersona with existing personas', () => {
     assert.equal(resultIdentifier.persona, targetPersona.id);
     assert.deepEqual(identifierIds, []);
   });
-});
+}); // tslint:disable-line:max-file-line-count
