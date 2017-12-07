@@ -1,45 +1,43 @@
-import { ObjectID } from 'mongodb';
-import PersonaNotSetAndUnlocked from '../errors/PersonaNotSetAndUnlocked';
+import { MongoError, ObjectID } from 'mongodb';
+import Conflict from '../errors/Conflict';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
-import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
-import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
-import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
+import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
+import { DUPLICATE_KEY } from './utils/constants/errorcodes';
+import getPersonaById from './utils/getPersonaById';
 
 export default (config: Config) => {
   return async ({
     persona,
-    locked = ((persona === undefined) ? true : false),
     organisation,
     ifi,
-  }: CreateIdentifierOptions & Lockable): Promise<CreateIdentifierResult> => {
+  }: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
+    const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
-    if (!locked && persona === undefined) {
-      throw new PersonaNotSetAndUnlocked();
-    }
+    // check persona exists
+    await getPersonaById(config)({ organisation, personaId: persona });
 
-    // Filters on the IFI and organisation.
-    const filter = getIdentifierIfiFilter(
-      ifi,
-      organisation,
-    );
-
-    // Sets properties when the Identifier is created (not found).
-    // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
-    const update = {
-      $setOnInsert: {
+    try {
+      const result = await collection.insertOne({
         ifi,
-        locked,
         organisation: new ObjectID(organisation),
-        persona: persona === undefined ? undefined : new ObjectID(persona),
-      },
-    };
+        persona: new ObjectID(persona),
+      });
+      const identifierId = result.insertedId.toString();
+      const identifier = {
+        id: identifierId,
+        ifi,
+        organisation,
+        persona,
+      };
 
-    return createOrUpdateIdentifier(config)({
-      filter,
-      update,
-      upsert: true,
-    });
+      return { identifier };
+    } catch (err) {
+      if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
+        throw new Conflict();
+      }
+      throw err;
+    }
   };
 };

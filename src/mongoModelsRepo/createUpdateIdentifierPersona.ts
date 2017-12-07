@@ -9,11 +9,11 @@ import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
-import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import setIdentifierPersona from './setIdentifierPersona';
+import createIdentifier from './utils/createIdentifier';
 
 const create = (config: Config) =>
   async ({
@@ -29,7 +29,7 @@ const create = (config: Config) =>
 
     if (!wasCreated) {
       // something else has created this identifier.
-      throw new Locked();
+      throw new Locked(identifier);
     }
 
     const { persona } = await createPersona(config)({
@@ -44,6 +44,7 @@ const create = (config: Config) =>
     });
 
     return {
+      identifier,
       identifierId: identifier.id,
       personaId: persona.id,
       wasCreated,
@@ -71,7 +72,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
 
       if ( locked === true ) {
         // We are locked, wait for unlock
-        throw new Locked();
+        throw new Locked(foundIdentifier);
       }
 
       // Shouldn't happen, as persona should always be set if unlocked.
@@ -84,6 +85,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
       // currently it doesn't get updated
 
       return {
+        identifier: foundIdentifier,
         identifierId,
         personaId: foundIdentifier.persona,
         wasCreated: false,

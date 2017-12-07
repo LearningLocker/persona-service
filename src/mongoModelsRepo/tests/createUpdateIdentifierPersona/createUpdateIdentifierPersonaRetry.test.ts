@@ -15,8 +15,8 @@ import {
   TEST_IFI,
   TEST_ORGANISATION,
 } from '../../../tests/utils/values';
-import createIdentifier from '../../createIdentifier';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
+import createIdentifier from '../../utils/createIdentifier';
 
 describe('createUpdateIdentifierPersona mongo retry', () => {
 
@@ -36,8 +36,15 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
   });
 
   it('Should error aftery trying 3 times and the identifier is locked', async () => {
+    const repoConfig = {
+      db: MongoClient.connect(
+        config.mongoModelsRepo.url,
+        config.mongoModelsRepo.options,
+      ),
+    };
+
     // Create mock
-    await serviceConfig.repo.createIdentifier({
+    await createIdentifier(repoConfig)({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: undefined,

@@ -29,23 +29,4 @@ describe('getIdentifierByIfi', () => {
 
     return assertError(NoModel, resultPromise);
   });
-
-  it('get identifier with no persona', async () => {
-    const repoFacade = repoFactory();
-    const config = {repo: repoFacade};
-    await config.repo.clearRepo();
-    const theService = serviceFn(config);
-
-    await config.repo.createIdentifier({
-      ifi: TEST_IFI,
-      organisation: TEST_ORGANISATION,
-    });
-
-    const {personaId} = await theService.getIdentifierByIfi({
-      ifi: TEST_IFI,
-      organisation: TEST_ORGANISATION,
-    });
-
-    assert.equal(personaId, undefined);
-  });
 });

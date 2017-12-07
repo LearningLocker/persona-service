@@ -13,7 +13,7 @@ describe('createIdentifier', () => {
 
   it('Should create identifier', async () => {
     const persona = await createTestPersona();
-    const {identifier, wasCreated} = await service.createIdentifier({
+    const {identifier} = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
@@ -23,7 +23,6 @@ describe('createIdentifier', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    assert.equal(wasCreated, true);
     assert.equal(actualIdentifier.id, identifier.id);
     assert.deepEqual(actualIdentifier.ifi, TEST_IFI);
     assert.equal(actualIdentifier.organisation, TEST_ORGANISATION);
@@ -39,13 +38,11 @@ describe('createIdentifier', () => {
       persona: persona.id,
     });
 
-    const {wasCreated} = await service.createIdentifier({
+    await service.createIdentifier({
       ifi: TEST_ACCOUNT_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
-
-    assert.equal(wasCreated, false);
   });
 
   it('Should create identifiers in different organisations', async () => {
@@ -57,12 +54,10 @@ describe('createIdentifier', () => {
         persona: persona.id,
       });
 
-      const {wasCreated} = await service.createIdentifier({
+      await service.createIdentifier({
         ifi: TEST_IFI,
         organisation: TEST_ORGANISATION_OUTSIDE_STORE,
         persona: persona.id,
       });
-
-      assert.equal(wasCreated, true);
   });
 });
