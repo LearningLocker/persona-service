@@ -23,6 +23,7 @@ import getPersonaIdentifiers from './getPersonaIdentifiers';
 import getPersonas from './getPersonas';
 import getPersonasConnection from './getPersonasConnection';
 import mergePersona from './mergePersona';
+import migrate from './migrate';
 import overwriteIdentifier from './overwriteIdentifier';
 import overwritePersonaAttribute from './overwritePersonaAttribute';
 import setIdentifierPersona from './setIdentifierPersona';
@@ -54,6 +55,7 @@ export default (config: Config): Service => {
     getPersonas: getPersonas(config),
     getPersonasConnection: getPersonasConnection(config),
     mergePersona: mergePersona(config),
+    migrate: migrate(config),
     overwriteIdentifier: overwriteIdentifier(config),
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),

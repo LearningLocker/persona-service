@@ -4,6 +4,7 @@ import OverwriteIdentifierResult from '../repoFactory/results/OverwriteIdentifie
 import Config from './Config';
 import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
+import getPersonaById from './utils/getPersonaById';
 
 export default (config: Config) => {
   return async ({
@@ -11,6 +12,9 @@ export default (config: Config) => {
     organisation,
     ifi,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
+
+    // check persona exists
+    await getPersonaById(config)({ organisation, personaId: persona });
 
     // Filters on the IFI and organisation.
     const filter = getIdentifierIfiFilter(ifi, organisation);

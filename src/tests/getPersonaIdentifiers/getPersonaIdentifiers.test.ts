@@ -1,6 +1,9 @@
 // tslint:disable:no-magic-numbers
 // tslint:disable:max-file-line-count
 import * as assert from 'assert';
+import config from '../../config';
+import createIdentifier from '../../mongoModelsRepo/utils/createIdentifier';
+import createMongoClient from '../../repoFactory/utils/createMongoClient';
 import CreateIdentifierOptions from '../../serviceFactory/options/CreateIdentifierOptions';
 import setup from '../utils/setup';
 import {
@@ -8,9 +11,18 @@ import {
   TEST_PERSONA_ID,
 } from '../utils/values';
 
-describe('getPersonaIdentifiers', () => {
+describe('getPersonaIdentifiers', async () => {
   const persona = TEST_PERSONA_ID;
   const service = setup();
+  const repoConfig = {
+    db: createMongoClient({
+      options: config.mongoModelsRepo.options,
+      url: config.mongoModelsRepo.url,
+    }),
+  };
+
+  const createIdentifierUtil = createIdentifier(repoConfig);
+
   const identifierData1: CreateIdentifierOptions = {
     ifi: {
       key: 'mbox',
@@ -37,9 +49,9 @@ describe('getPersonaIdentifiers', () => {
   };
 
   it('should get all persona identifiers with default options', async () => {
-    const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
-    const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
-    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
+    const { identifier: identifier1 } = await createIdentifierUtil(identifierData1);
+    const { identifier: identifier2 } = await createIdentifierUtil(identifierData2);
+    const { identifier: identifier3 } = await createIdentifierUtil(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,
@@ -53,9 +65,9 @@ describe('getPersonaIdentifiers', () => {
   });
 
   it('should get all persona identifiers matching a filter', async () => {
-    const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
-    await service.createIdentifier(identifierData2);
-    await service.createIdentifier(identifierData3);
+    const { identifier: identifier1 } = await createIdentifierUtil(identifierData1);
+    await createIdentifierUtil(identifierData2);
+    await createIdentifierUtil(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       filter: {
@@ -71,9 +83,9 @@ describe('getPersonaIdentifiers', () => {
   });
 
   it('should get all persona identifiers following the sort order', async () => {
-    const { identifier: identifier1 } = await service.createIdentifier(identifierData1);
-    const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
-    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
+    const { identifier: identifier1 } = await createIdentifierUtil(identifierData1);
+    const { identifier: identifier2 } = await createIdentifierUtil(identifierData2);
+    const { identifier: identifier3 } = await createIdentifierUtil(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,
@@ -87,9 +99,9 @@ describe('getPersonaIdentifiers', () => {
   });
 
   it('should get all persona identifiers with a limit', async () => {
-    await service.createIdentifier(identifierData1);
-    await service.createIdentifier(identifierData2);
-    await service.createIdentifier(identifierData3);
+    await createIdentifierUtil(identifierData1);
+    await createIdentifierUtil(identifierData2);
+    await createIdentifierUtil(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       limit: 1,
@@ -100,9 +112,9 @@ describe('getPersonaIdentifiers', () => {
   });
 
   it('should get all persona identifiers with a skip', async () => {
-    await service.createIdentifier(identifierData1);
-    const { identifier: identifier2 } = await service.createIdentifier(identifierData2);
-    const { identifier: identifier3 } = await service.createIdentifier(identifierData3);
+    await createIdentifierUtil(identifierData1);
+    const { identifier: identifier2 } = await createIdentifierUtil(identifierData2);
+    const { identifier: identifier3 } = await createIdentifierUtil(identifierData3);
 
     const result = await service.getPersonaIdentifiers({
       organisation: TEST_ORGANISATION,

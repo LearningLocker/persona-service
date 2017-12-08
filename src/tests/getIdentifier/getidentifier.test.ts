@@ -8,15 +8,16 @@ import {
 
 describe('getIdentifier', () => {
 
-  it('getIdentifier with no persona', async () => {
+  it('getIdentifier', async () => {
     const repoFacade = repoFactory();
     const config = {repo: repoFacade};
     await config.repo.clearRepo();
     const theService = service(config);
 
-    const {identifier} = await config.repo.createIdentifier({
+    const {identifier} = await config.repo.createUpdateIdentifierPersona({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
+      personaName: 'Test',
     });
 
     const {identifier: identifierResult} = await theService.getIdentifier({
@@ -24,6 +25,6 @@ describe('getIdentifier', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    assert.equal(identifierResult.persona, undefined);
+    assert.notEqual(identifierResult.ifi, TEST_IFI);
   });
 });

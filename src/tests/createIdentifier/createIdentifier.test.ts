@@ -1,4 +1,6 @@
 import * as assert from 'assert';
+import assertError from 'jscommons/dist/tests/utils/assertError';
+import Conflict from '../../errors/Conflict';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -13,7 +15,7 @@ describe('createIdentifier', () => {
 
   it('Should create identifier', async () => {
     const persona = await createTestPersona();
-    const {identifier, wasCreated} = await service.createIdentifier({
+    const {identifier} = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
@@ -23,14 +25,13 @@ describe('createIdentifier', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    assert.equal(wasCreated, true);
     assert.equal(actualIdentifier.id, identifier.id);
     assert.deepEqual(actualIdentifier.ifi, TEST_IFI);
     assert.equal(actualIdentifier.organisation, TEST_ORGANISATION);
     assert.equal(actualIdentifier.persona, persona.id);
   });
 
-  it('Should update an identidier', async () => {
+  it('should throw a Conflict inserting an ifi that exists in an organisation', async () => {
     const persona = await createTestPersona();
 
     await service.createIdentifier({
@@ -39,17 +40,21 @@ describe('createIdentifier', () => {
       persona: persona.id,
     });
 
-    const {wasCreated} = await service.createIdentifier({
+    const createPromise = service.createIdentifier({
       ifi: TEST_ACCOUNT_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
 
-    assert.equal(wasCreated, false);
+    await assertError(Conflict, createPromise);
   });
 
   it('Should create identifiers in different organisations', async () => {
     const persona = await createTestPersona();
+    const otherOrgPersona = await createTestPersona(
+      'otherorg person',
+      TEST_ORGANISATION_OUTSIDE_STORE,
+    );
 
       await service.createIdentifier({
         ifi: TEST_IFI,
@@ -57,12 +62,10 @@ describe('createIdentifier', () => {
         persona: persona.id,
       });
 
-      const {wasCreated} = await service.createIdentifier({
+      await service.createIdentifier({
         ifi: TEST_IFI,
         organisation: TEST_ORGANISATION_OUTSIDE_STORE,
-        persona: persona.id,
+        persona: otherOrgPersona.id,
       });
-
-      assert.equal(wasCreated, true);
   });
 });
