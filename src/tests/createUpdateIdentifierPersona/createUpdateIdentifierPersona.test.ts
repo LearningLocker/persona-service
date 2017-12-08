@@ -2,6 +2,7 @@ import * as assert from 'assert';
 import createTestIdentifier from '../utils/createTestIdentifier';
 import setup from '../utils/setup';
 import {
+  TEST_ACCOUNT_IFI,
   TEST_IFI,
   TEST_ORGANISATION,
 } from '../utils/values';
@@ -38,6 +39,25 @@ describe('createUpdateIdentifierPersona', () => {
     });
 
     assert.equal(personaResult.name, 'Dave');
+  });
+
+  it('Should create a new account identifier with the correct ifi', async () => {
+
+    const {identifierId, wasCreated} = await service.createUpdateIdentifierPersona({
+      ifi: TEST_ACCOUNT_IFI,
+      organisation: TEST_ORGANISATION,
+      personaName: 'Dave',
+    });
+
+    assert.equal(wasCreated, true);
+
+    const {identifier} = await service.getIdentifier({
+      id: identifierId,
+      organisation: TEST_ORGANISATION,
+    });
+
+    assert.equal(TEST_ACCOUNT_IFI.key, identifier.ifi.key);
+    assert.equal(TEST_ACCOUNT_IFI.value, identifier.ifi.value);
   });
 
   it('Should return the current persona if it already exist', async () => {

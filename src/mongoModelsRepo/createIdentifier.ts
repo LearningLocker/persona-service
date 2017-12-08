@@ -37,6 +37,7 @@ export default (config: Config) => {
       if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
         throw new Conflict();
       }
+      /* istanbul ignore next */
       throw err;
     }
   };

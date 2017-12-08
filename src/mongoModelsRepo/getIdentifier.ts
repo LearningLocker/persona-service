@@ -26,6 +26,7 @@ export default (config: Config) => {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
+      /* istanbul ignore next */ // shouldnt be null..
       persona: document.persona === null ? undefined : document.persona.toString(),
     };
     return { identifier, locked: document.locked };
