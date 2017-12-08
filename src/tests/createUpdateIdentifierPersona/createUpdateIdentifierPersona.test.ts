@@ -57,7 +57,7 @@ describe('createUpdateIdentifierPersona', () => {
     });
 
     assert.equal(TEST_ACCOUNT_IFI.key, identifier.ifi.key);
-    assert.equal(TEST_ACCOUNT_IFI.value, identifier.ifi.value);
+    assert.deepEqual(TEST_ACCOUNT_IFI.value, identifier.ifi.value);
   });
 
   it('Should return the current persona if it already exist', async () => {

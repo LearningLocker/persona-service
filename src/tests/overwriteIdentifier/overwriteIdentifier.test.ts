@@ -49,7 +49,7 @@ describe('overwriteIdentifier', () => {
   });
 
   it('Should create on identifier if it does not exist', async () => {
-    const persona = await createTestPersona();
+    const persona = await createTestPersona('Dave', TEST_ORGANISATION_OUTSIDE_STORE);
 
     const {identifier, wasCreated} = await service.overwriteIdentifier({
       ifi: TEST_IFI,
