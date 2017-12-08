@@ -5,5 +5,7 @@ import service from '../../tester';
 const setup = setupService(service);
 
 export default (): Service => {
-  return setup();
+  const theService = setup();
+  theService.ensureIndexes();
+  return theService;
 };

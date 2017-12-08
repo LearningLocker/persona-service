@@ -55,6 +55,7 @@ interface Service extends CommonService {
   readonly deletePersona: (opts: DeletePersonaOptions) => Promise<void>;
   readonly deletePersonaAttribute: (opts: DeletePersonaAttributeOptions) => Promise<void>;
   readonly deletePersonaIdentifier: (opts: DeletePersonaIdentifierOptions) => Promise<void>;
+  readonly ensureIndexes: () => void;
   readonly getIdentifier: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult>;
   readonly getAttribute: (opts: GetAttributeOptions) => Promise<GetAttributeResult>;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;

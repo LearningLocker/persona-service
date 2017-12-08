@@ -1,4 +1,6 @@
 import * as assert from 'assert';
+import assertError from 'jscommons/dist/tests/utils/assertError';
+import Conflict from '../../errors/Conflict';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -29,7 +31,7 @@ describe('createIdentifier', () => {
     assert.equal(actualIdentifier.persona, persona.id);
   });
 
-  it('Should update an identidier', async () => {
+  it('should throw a Conflict inserting an ifi that exists in an organisation', async () => {
     const persona = await createTestPersona();
 
     await service.createIdentifier({
@@ -38,15 +40,21 @@ describe('createIdentifier', () => {
       persona: persona.id,
     });
 
-    await service.createIdentifier({
+    const createPromise = service.createIdentifier({
       ifi: TEST_ACCOUNT_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
+
+    assertError(Conflict, createPromise);
   });
 
   it('Should create identifiers in different organisations', async () => {
     const persona = await createTestPersona();
+    const otherOrgPersona = await createTestPersona(
+      'otherorg person',
+      TEST_ORGANISATION_OUTSIDE_STORE,
+    );
 
       await service.createIdentifier({
         ifi: TEST_IFI,
@@ -57,7 +65,7 @@ describe('createIdentifier', () => {
       await service.createIdentifier({
         ifi: TEST_IFI,
         organisation: TEST_ORGANISATION_OUTSIDE_STORE,
-        persona: persona.id,
+        persona: otherOrgPersona.id,
       });
   });
 });
