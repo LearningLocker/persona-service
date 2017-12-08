@@ -8,7 +8,6 @@ import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';
 import deletePersona from './deletePersona';
 import deletePersonaAttribute from './deletePersonaAttribute';
 import deletePersonaIdentifier from './deletePersonaIdentifier';
-import ensureIndexes from './ensureIndexes';
 import getAttribute from './getAttribute';
 import getAttributes from './getAttributes';
 import getIdentifier from './getIdentifier';
@@ -24,6 +23,7 @@ import getPersonaIdentifiers from './getPersonaIdentifiers';
 import getPersonas from './getPersonas';
 import getPersonasConnection from './getPersonasConnection';
 import mergePersona from './mergePersona';
+import migrate from './migrate';
 import overwriteIdentifier from './overwriteIdentifier';
 import overwritePersonaAttribute from './overwritePersonaAttribute';
 import setIdentifierPersona from './setIdentifierPersona';
@@ -40,7 +40,6 @@ export default (config: Config): Service => {
     deletePersona: deletePersona(config),
     deletePersonaAttribute: deletePersonaAttribute(config),
     deletePersonaIdentifier: deletePersonaIdentifier(config),
-    ensureIndexes: ensureIndexes(config),
     getAttribute: getAttribute(config),
     getAttributes: getAttributes(config),
     getIdentifier: getIdentifier(config),
@@ -56,6 +55,7 @@ export default (config: Config): Service => {
     getPersonas: getPersonas(config),
     getPersonasConnection: getPersonasConnection(config),
     mergePersona: mergePersona(config),
+    migrate: migrate(config),
     overwriteIdentifier: overwriteIdentifier(config),
     overwritePersonaAttribute: overwritePersonaAttribute(config),
     setIdentifierPersona: setIdentifierPersona(config),

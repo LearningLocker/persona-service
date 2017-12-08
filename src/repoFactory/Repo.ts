@@ -59,7 +59,6 @@ export default interface Repo extends CommonRepo {
     (opts: GetIdentifierByIfiOptions) => Promise<GetIdentifierByIfiResult>;
   readonly getIdentifier: (opt: GetIdentifierOptions) => Promise<GetIdentifierResult>;
   readonly getIfisByPersona: (opts: GetIfisByPersonaOptions) => Promise<GetIfisByPersonaResult>;
-  readonly ensureIndexes: () => void;
   readonly getPersona: (opts: GetPersonaOptions) => Promise<GetPersonaResult>;
   readonly getPersonas: (opts: GetPersonasOptions) => Promise<GetPersonasResult>;
   readonly getPersonasConnection:

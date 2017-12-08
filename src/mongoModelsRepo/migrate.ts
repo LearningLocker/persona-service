@@ -9,7 +9,7 @@ export default (config: Config) => {
     identCollection.createIndex({
       organisation: 1,
       ifi: 1,
-    }, { unique: true});
+    }, { unique: true, background: true});
     /* tslint:enable:object-literal-sort-keys */
 
   };
