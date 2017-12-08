@@ -1,6 +1,3 @@
-import { defaultTo } from 'lodash';
-import { ObjectID } from 'mongodb';
-import NoModelWithId from '../errors/NoModelWithId';
 import GetPersonaOptions from '../repoFactory/options/GetPersonaOptions';
 import GetPersonaResult from '../repoFactory/results/GetPersonaResult';
 import Config from './Config';

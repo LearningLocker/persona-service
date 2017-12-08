@@ -46,7 +46,7 @@ describe('createIdentifier', () => {
       persona: persona.id,
     });
 
-    assertError(Conflict, createPromise);
+    await assertError(Conflict, createPromise);
   });
 
   it('Should create identifiers in different organisations', async () => {

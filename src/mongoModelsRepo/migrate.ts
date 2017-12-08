@@ -6,7 +6,7 @@ export default (config: Config) => {
     const identCollection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     /* tslint:disable:object-literal-sort-keys */
-    identCollection.createIndex({
+    await identCollection.createIndex({
       organisation: 1,
       ifi: 1,
     }, { unique: true, background: true});
