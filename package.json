@@ -80,7 +80,7 @@
     "jscpd": "git://github.com/ryansmith94/jscpd.git#prepublish",
     "mocha": "4.0.1",
     "mocha-lcov-reporter": "1.3.0",
-    "nyc": "11.3.0",
+    "nyc": "11.4.1",
     "rimraf": "2.6.2",
     "semantic-release": "11.0.2",
     "supertest": "3.0.0",
