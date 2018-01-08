@@ -22,7 +22,7 @@ script:
   - npm run build
   - npm run cover-ci
   - npm run lint -- -c tslint.travis.json
-  - npm run duplication -- --limit=0.01
+  - npm run duplication -- --limit=5
 
 after_script:
   - pkill mongod
