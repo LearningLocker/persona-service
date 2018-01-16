@@ -60,7 +60,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "@ht2-labs/semantic-release": "1.0.25",
+    "@ht2-labs/semantic-release": "1.0.26",
     "@types/bluebird": "3.5.19",
     "@types/dotenv": "4.0.2",
     "@types/express": "4.11.0",
