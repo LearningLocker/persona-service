@@ -12,6 +12,13 @@ export default (config: Config) => {
     /* tslint:disable:object-literal-sort-keys */
     await identCollection.createIndex({
       organisation: 1,
+      persona: 1,
+    }, { background: true});
+    /* tslint:enable:object-literal-sort-keys */
+
+    /* tslint:disable:object-literal-sort-keys */
+    await identCollection.createIndex({
+      organisation: 1,
       ifi: 1,
     }, { unique: true, background: true});
     /* tslint:enable:object-literal-sort-keys */
