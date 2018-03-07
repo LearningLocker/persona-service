@@ -33,7 +33,8 @@ export default (config: Config) => {
       id: result.value._id.toString(),
       ifi: result.value.ifi,
       organisation: result.value.organisation.toString(),
-      persona: result.value.persona.toString(),
+      /* istanbul ignore next */ // shouldnt be null..
+      persona: result.value.persona === null ? null : result.value.persona.toString(),
     };
 
     return {
