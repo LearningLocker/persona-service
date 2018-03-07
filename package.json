@@ -46,7 +46,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "fs-extra": "^5.0.0",
-    "jscommons": "^2.1.0",
+    "jscommons": "^2.3.0",
     "lodash": "^4.17.4",
     "mongodb": "^2.2.26",
     "node-fetch": "^1.6.3",
@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.0.28",
+    "@ht2-labs/typescript-project": "1.0.9",
     "@types/bluebird": "3.5.20",
     "@types/dotenv": "4.0.2",
     "@types/express": "4.11.1",
