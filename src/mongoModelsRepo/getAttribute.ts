@@ -29,7 +29,8 @@ export default (config: Config) => {
       id: document._id.toString(),
       key: document.key,
       organisation: document.organisation.toString(),
-      personaId: document.personaId.toString(),
+      /* istanbul ignore next */ // shouldnt be null..
+      personaId: document.personaId === null ? null : document.personaId.toString(),
       value: document.value,
     };
     return { attribute };
