@@ -1,5 +1,5 @@
+import { has, isPlainObject } from 'lodash';
 import { MongoError, ObjectID } from 'mongodb';
-import { isPlainObject, has } from 'lodash';
 import Conflict from '../errors/Conflict';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
@@ -20,9 +20,9 @@ export default (config: Config) => {
     await getPersonaById(config)({ organisation, personaId: persona });
 
     try {
-      var orderedIfi: any = {
+      const orderedIfi: any = {
         key: ifi.key,
-        value: null
+        value: null,
       };
       const ifiValue: any = ifi.value;
       if (isPlainObject(ifiValue) && has(ifiValue, 'homePage') && has(ifiValue, 'name')) {

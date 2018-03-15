@@ -1,3 +1,4 @@
+/* tslint:disable:max-file-line-count */
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import Conflict from '../../errors/Conflict';
@@ -49,7 +50,7 @@ describe('createIdentifier', () => {
     await assertError(Conflict, createPromise);
   });
 
-  it('should throw a Conflict inserting an ifi with differently ordered ifi value keys', async () => {
+  it('should throw a Conflict inserting an ifi with differently ordered ifi', async () => {
     const persona = await createTestPersona();
 
     const homePage = 'http://test.com';
@@ -60,25 +61,27 @@ describe('createIdentifier', () => {
         value: {
           homePage,
           name,
-        }
+        },
       },
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
 
+    /* tslint:disable:object-literal-sort-keys */
     const createPromise = service.createIdentifier({
       ifi: {
         key: 'account',
         value: {
           name,
           homePage,
-        }
+        },
       },
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
-   
-    
+    /* tslint:enable:object-literal-sort-keys */
+
+    /* tslint:disable:object-literal-sort-keys */
     const createPromise2 = service.createIdentifier({
       ifi: {
         value: {
@@ -93,7 +96,8 @@ describe('createIdentifier', () => {
     await assertError(Conflict, createPromise);
     await assertError(Conflict, createPromise2);
   });
-  
+  /* tslint:enable:object-literal-sort-keys */
+
   it('Should create identifiers in different organisations', async () => {
     const persona = await createTestPersona();
     const otherOrgPersona = await createTestPersona(
