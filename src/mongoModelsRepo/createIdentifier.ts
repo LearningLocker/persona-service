@@ -1,3 +1,4 @@
+import { has, isPlainObject } from 'lodash';
 import { MongoError, ObjectID } from 'mongodb';
 import Conflict from '../errors/Conflict';
 import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
@@ -19,8 +20,22 @@ export default (config: Config) => {
     await getPersonaById(config)({ organisation, personaId: persona });
 
     try {
+      const orderedIfi: any = {
+        key: ifi.key,
+        value: null,
+      };
+      const ifiValue: any = ifi.value;
+      if (isPlainObject(ifiValue) && has(ifiValue, 'homePage') && has(ifiValue, 'name')) {
+        orderedIfi.value = {
+          homePage: ifiValue.homePage,
+          name: ifiValue.name,
+        };
+      } else {
+        orderedIfi.value = ifi.value;
+      }
+
       const result = await collection.insertOne({
-        ifi,
+        ifi: orderedIfi,
         organisation: new ObjectID(organisation),
         persona: new ObjectID(persona),
       });
