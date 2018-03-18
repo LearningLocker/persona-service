@@ -86,7 +86,7 @@
     "supertest": "3.0.0",
     "travis-cov": "0.2.5",
     "tslint": "5.9.1",
-    "tslint-consistent-codestyle": "1.12.0",
+    "tslint-consistent-codestyle": "1.12.1",
     "tslint-immutable": "4.5.2",
     "typescript": "2.7.2"
   },
