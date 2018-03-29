@@ -37,14 +37,14 @@ const create = (config: Config) =>
       organisation,
     });
 
-    await setIdentifierPersona(config)({
+    const { identifier: updatedIdentifier } = await setIdentifierPersona(config)({
       id: identifier.id,
       organisation,
       persona: persona.id,
     });
 
     return {
-      identifier,
+      identifier: updatedIdentifier,
       identifierId: identifier.id,
       personaId: persona.id,
       wasCreated,
