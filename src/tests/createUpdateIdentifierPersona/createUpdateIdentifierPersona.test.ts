@@ -12,20 +12,27 @@ describe('createUpdateIdentifierPersona', () => {
 
   it('Should create a new identifier and persona', async () => {
 
-    const {identifierId, personaId, wasCreated} = await service.createUpdateIdentifierPersona({
+    const {
+      identifier,
+      identifierId,
+      personaId,
+      wasCreated,
+    } = await service.createUpdateIdentifierPersona({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       personaName: 'Dave',
     });
 
+    assert.equal(identifierId, identifier.id);
+    assert.equal(personaId, identifier.persona);
     assert.equal(wasCreated, true);
 
-    const {identifier} = await service.getIdentifier({
+    const {identifier: fetchIdentifier} = await service.getIdentifier({
       id: identifierId,
       organisation: TEST_ORGANISATION,
     });
 
-    assert.equal(personaId, identifier.persona);
+    assert.equal(personaId, fetchIdentifier.persona);
 
     /* istanbul ignore next */
     if (identifier.persona === undefined) {
