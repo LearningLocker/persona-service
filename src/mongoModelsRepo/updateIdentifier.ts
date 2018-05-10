@@ -10,17 +10,17 @@ export default (config: Config) => {
     id,
     persona,
     organisation,
-    ifi,
   }: UpdateIdentifierOptions): Promise<UpdateIdentifierResult> => {
     const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const result = await collection.findOneAndUpdate({
       _id: new ObjectID(id),
       organisation: new ObjectID(organisation),
-    }, {
-      ifi,
-      organisation: new ObjectID(organisation),
-      persona,
+    },
+    {
+      $set: {
+        persona,
+      },
     }, {
       returnOriginal: false,
       upsert: false,

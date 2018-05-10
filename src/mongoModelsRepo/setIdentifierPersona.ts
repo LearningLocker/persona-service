@@ -3,6 +3,7 @@ import SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPer
 import SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
 import Config from './Config';
 import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
+import getPersonaById from './utils/getPersonaById';
 
 export default (config: Config) => {
   return async ({
@@ -10,6 +11,8 @@ export default (config: Config) => {
     organisation,
     persona,
   }: SetIdentifierPersonaOptions): Promise<SetIdentifierPersonaResult> => {
+    // check persona exists
+    await getPersonaById(config)({ organisation, personaId: persona });
 
     const filter = {
       _id: new ObjectID(id),

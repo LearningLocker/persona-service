@@ -1,43 +1,44 @@
 // tslint:disable:no-magic-numbers
 // tslint:disable:max-file-line-count
 import * as assert from 'assert';
+import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
   TEST_ORGANISATION,
-  TEST_PERSONA_ID,
-  TEST_PERSONA_ID_2,
 } from '../utils/values';
 
 describe('getPersonaAttributes', () => {
-  const personaId = TEST_PERSONA_ID;
   const service = setup();
-  const attributeData1 = {
-    key: 'theKey',
-    organisation: TEST_ORGANISATION,
-    personaId,
-    value: 'theValue',
-  };
-  const attributeData2 = {
-    key: 'theKey2',
-    organisation: TEST_ORGANISATION,
-    personaId,
-    value: true,
-  };
-  const attributeData3 = {
-    key: 'theKey3',
-    organisation: TEST_ORGANISATION,
-    personaId: TEST_PERSONA_ID_2,
-    value: true,
-  };
 
   it('should get all persona attributes with default options', async () => {
+    const newPersona = await createTestPersona('Dave');
+    const newPersona2 = await createTestPersona('Dave 2');
+    const attributeData1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: 'theValue',
+    };
+    const attributeData2 = {
+      key: 'theKey2',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: true,
+    };
+    const attributeData3 = {
+      key: 'theKey3',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona2.id,
+      value: true,
+    };
+
     const { attribute: attribute1 } = await service.overwritePersonaAttribute(attributeData1);
     const { attribute: attribute2 } = await service.overwritePersonaAttribute(attributeData2);
     await service.overwritePersonaAttribute(attributeData3);
 
     const result = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
-      personaId,
+      personaId: newPersona.id,
     });
 
     assert.equal(result.attributes.length, 2); // tslint:disable-line:no-magic-numbers
@@ -47,6 +48,27 @@ describe('getPersonaAttributes', () => {
   });
 
   it('should get all persona attributes matching a filter', async () => {
+    const newPersona = await createTestPersona('Dave');
+    const newPersona2 = await createTestPersona('Dave 2');
+    const attributeData1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: 'theValue',
+    };
+    const attributeData2 = {
+      key: 'theKey2',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: true,
+    };
+    const attributeData3 = {
+      key: 'theKey3',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona2.id,
+      value: true,
+    };
+
     const { attribute: attribute1 } = await service.overwritePersonaAttribute(attributeData1);
     await service.overwritePersonaAttribute(attributeData2);
     await service.overwritePersonaAttribute(attributeData3);
@@ -62,6 +84,27 @@ describe('getPersonaAttributes', () => {
   });
 
   it('should get all persona attributes following the sort order', async () => {
+    const newPersona = await createTestPersona('Dave');
+    const newPersona2 = await createTestPersona('Dave 2');
+    const attributeData1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: 'theValue',
+    };
+    const attributeData2 = {
+      key: 'theKey2',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: true,
+    };
+    const attributeData3 = {
+      key: 'theKey3',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona2.id,
+      value: true,
+    };
+
     const { attribute: attribute1 } = await service.overwritePersonaAttribute(attributeData1);
     const { attribute: attribute2 } = await service.overwritePersonaAttribute(attributeData2);
     const { attribute: attribute3 } = await service.overwritePersonaAttribute(attributeData3);
@@ -79,6 +122,27 @@ describe('getPersonaAttributes', () => {
   });
 
   it('should get all persona attributes with a limit', async () => {
+    const newPersona = await createTestPersona('Dave');
+    const newPersona2 = await createTestPersona('Dave 2');
+    const attributeData1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: 'theValue',
+    };
+    const attributeData2 = {
+      key: 'theKey2',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: true,
+    };
+    const attributeData3 = {
+      key: 'theKey3',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona2.id,
+      value: true,
+    };
+
     await service.overwritePersonaAttribute(attributeData1);
     await service.overwritePersonaAttribute(attributeData2);
     await service.overwritePersonaAttribute(attributeData3);
@@ -92,6 +156,27 @@ describe('getPersonaAttributes', () => {
   });
 
   it('should get all persona attributes with a skip', async () => {
+    const newPersona = await createTestPersona('Dave');
+    const newPersona2 = await createTestPersona('Dave 2');
+    const attributeData1 = {
+      key: 'theKey',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: 'theValue',
+    };
+    const attributeData2 = {
+      key: 'theKey2',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona.id,
+      value: true,
+    };
+    const attributeData3 = {
+      key: 'theKey3',
+      organisation: TEST_ORGANISATION,
+      personaId: newPersona2.id,
+      value: true,
+    };
+
     await service.overwritePersonaAttribute(attributeData1);
     const { attribute: attribute2 } = await service.overwritePersonaAttribute(attributeData2);
     const { attribute: attribute3 } = await service.overwritePersonaAttribute(attributeData3);
