@@ -24,15 +24,9 @@ describe('updateIdentifier', () => {
 
     const {identifier: newIdentifier} = await service.updateIdentifier({
       id: identifier.id,
-      ifi: {
-        key: 'mbox',
-        value: 'test2@test2.com',
-      },
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
-
-    assert.equal(newIdentifier.ifi.value, 'test2@test2.com');
 
     const {identifier: actualIdentifier} = await service.getIdentifier({
       id: identifier.id,
@@ -45,10 +39,6 @@ describe('updateIdentifier', () => {
   it('should throw error if no model found', () => {
     const updatePromise = service.updateIdentifier({
       id: '58fe11e24effd3c35a7fc4b8',
-      ifi: {
-        key: 'mbox',
-        value: 'test@test.com',
-      },
       organisation: TEST_ORGANISATION,
     });
 

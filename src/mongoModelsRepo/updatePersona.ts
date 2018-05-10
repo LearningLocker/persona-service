@@ -22,10 +22,13 @@ export default (config: Config) => {
     const result = await collection.findOneAndUpdate({
       _id: new ObjectID(personaId),
       organisation: new ObjectID(organisation),
-    }, {
-      name,
-      organisation: new ObjectID(organisation),
-    }, {
+    },
+    {
+      $set: {
+        name,
+      },
+    },
+    {
       returnOriginal: false,
       upsert: false,
     });

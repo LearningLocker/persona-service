@@ -9,7 +9,7 @@ import { TEST_ORGANISATION } from '../utils/values';
 describe('deletePersonaAttribute', () => {
   const service = setup();
 
-  it('Should delete persona identifier', async () => {
+  it('Should delete persona attribute', async () => {
     const { attribute } = await createTestAttribute();
 
     await service.deletePersonaAttribute({

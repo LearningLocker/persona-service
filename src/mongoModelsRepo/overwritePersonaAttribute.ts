@@ -11,6 +11,7 @@ import _OverwritePersonaAttributeResult from // tslint:disable-line:import-spaci
   '../serviceFactory/results/OverwritePersonaAttributeResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
+import getPersonaById from './utils/getPersonaById';
 
 export default (config: Config) => {
   return async ({
@@ -21,29 +22,30 @@ export default (config: Config) => {
   }: OverwritePersonaAttributeOptions): Promise<OverwritePersonaAttributeResult> => {
     const collection = (await config.db).collection(PERSONA_ATTRIBUTES_COLLECTION);
 
-    const updateAttribute = {
-      key,
-      organisation: new ObjectID(organisation),
-      personaId: new ObjectID(personaId),
-      value,
-    };
+    // check persona exists
+    await getPersonaById(config)({ organisation, personaId });
 
     const result = await collection.findOneAndUpdate({
       key,
       organisation: new ObjectID(organisation),
       personaId: new ObjectID(personaId),
     },
-      updateAttribute
-    , {
+    {
+      $set: {
+        value,
+      },
+    },
+    {
       returnOriginal: false,
       upsert: true,
     });
 
     const attribute = {
-      ...updateAttribute,
       id: result.value._id.toString(),
+      key: result.value.key,
       organisation,
       personaId,
+      value: result.value.value,
     };
 
     return {

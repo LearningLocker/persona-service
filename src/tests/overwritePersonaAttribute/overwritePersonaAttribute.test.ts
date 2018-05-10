@@ -1,18 +1,19 @@
 import * as assert from 'assert';
+import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
   TEST_ORGANISATION,
 } from '../utils/values';
 
 describe('overwritePersonaAttribute', () => {
-  const personaId = '58fe13e34eabd3c26a7fc4c7';
   const service = setup();
 
   it('should create attribute', async () => {
+    const newPersona = await createTestPersona('Dave');
     const attribute1 = {
       key: 'theKey',
       organisation: TEST_ORGANISATION,
-      personaId,
+      personaId: newPersona.id,
       value: 'theValue',
     };
 
@@ -25,16 +26,17 @@ describe('overwritePersonaAttribute', () => {
   });
 
   it('should overwrite existing attribute', async () => {
+    const newPersona = await createTestPersona('Dave');
     const attribute1 = {
       key: 'theKey',
       organisation: TEST_ORGANISATION,
-      personaId,
+      personaId: newPersona.id,
       value: 'theValue1',
     };
     const attribute2 = {
       key: 'theKey',
       organisation: TEST_ORGANISATION,
-      personaId,
+      personaId: newPersona.id,
       value: 222,
     };
 
@@ -50,7 +52,7 @@ describe('overwritePersonaAttribute', () => {
 
     const result3 = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,
-      personaId,
+      personaId: newPersona.id,
     });
 
     assert.deepEqual(result3.attributes[0], {
