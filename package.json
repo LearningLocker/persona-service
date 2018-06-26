@@ -62,7 +62,7 @@
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.0.47",
     "@ht2-labs/typescript-project": "1.0.20",
-    "@types/bluebird": "3.5.20",
+    "@types/bluebird": "3.5.21",
     "@types/dotenv": "4.0.3",
     "@types/express": "4.16.0",
     "@types/fs-extra": "5.0.3",
