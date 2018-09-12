@@ -1,4 +1,4 @@
-import { ObjectID, MongoError } from 'mongodb';
+import { MongoError, ObjectID } from 'mongodb';
 import OverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
   '../repoFactory/options/OverwritePersonaAttributeOptions';
 import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
@@ -11,8 +11,8 @@ import _OverwritePersonaAttributeResult from // tslint:disable-line:import-spaci
   '../serviceFactory/results/OverwritePersonaAttributeResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
-import getPersonaById from './utils/getPersonaById';
 import { DUPLICATE_KEY } from './utils/constants/errorcodes';
+import getPersonaById from './utils/getPersonaById';
 
 const overwritePersonaAttribute = (config: Config) => {
   return async ({
@@ -55,12 +55,13 @@ const overwritePersonaAttribute = (config: Config) => {
       };
     } catch (err) {
       // if we catch a duplicate error, we can be sure to find it next time round
+      /* istanbul ignore next */
       if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
         /* istanbul ignore next */
         return overwritePersonaAttribute(config)({
+          key,
           organisation,
           personaId,
-          key,
           value,
         });
       }
@@ -70,4 +71,3 @@ const overwritePersonaAttribute = (config: Config) => {
 };
 
 export default overwritePersonaAttribute;
-
