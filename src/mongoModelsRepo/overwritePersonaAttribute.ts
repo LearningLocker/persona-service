@@ -65,6 +65,7 @@ const overwritePersonaAttribute = (config: Config) => {
           value,
         });
       }
+      /* istanbul ignore next */
       throw err;
     }
   };
