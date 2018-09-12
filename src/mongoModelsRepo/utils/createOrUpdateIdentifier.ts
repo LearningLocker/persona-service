@@ -53,6 +53,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // if we catch a duplicate error, we can be sure to find it next time round
     const DUPLICATE_DOCUMENT_CODE = 11000;
     if (err instanceof MongoError && err.code === DUPLICATE_DOCUMENT_CODE) {
+      /* istanbul ignore next */
       return createOrUpdateIdentifier(config)({filter, update, upsert});
     }
     throw err;
