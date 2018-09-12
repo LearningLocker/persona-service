@@ -4,6 +4,7 @@ import Identifier from '../../models/Identifier';
 import OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
 import Config from '../Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './constants/collections';
+import { DUPLICATE_KEY } from './constants/errorcodes';
 
 export interface CreateOrUpdateIdentifierOptions {
   readonly filter: object;
@@ -51,8 +52,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     return { identifier, wasCreated };
   } catch (err) {
     // if we catch a duplicate error, we can be sure to find it next time round
-    const DUPLICATE_DOCUMENT_CODE = 11000;
-    if (err instanceof MongoError && err.code === DUPLICATE_DOCUMENT_CODE) {
+    if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
       /* istanbul ignore next */
       return createOrUpdateIdentifier(config)({filter, update, upsert});
     }
