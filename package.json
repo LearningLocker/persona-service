@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@ht2-labs/semantic-release": "1.1.22",
-    "@ht2-labs/typescript-project": "1.0.27",
+    "@ht2-labs/typescript-project": "1.0.28",
     "@types/bluebird": "3.5.24",
     "@types/dotenv": "4.0.3",
     "@types/express": "4.16.0",
