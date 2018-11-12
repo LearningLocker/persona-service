@@ -38,4 +38,18 @@ describe('updatePersona', () => {
 
     return assertError(NoModelWithId, updatePromise);
   });
+
+  it('should create the persona if upsert is true', async () => {
+    const name = 'Test 4';
+    const personaId = '58fe11e24effd3c35a7fc4b8';
+    const { persona } = await service.updatePersona({
+      name,
+      organisation: TEST_ORGANISATION,
+      personaId,
+      upsert: true,
+    });
+
+    assert.equal(persona.id, personaId);
+    assert.equal(persona.name, name);
+  });
 });
