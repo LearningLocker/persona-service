@@ -29,7 +29,7 @@ describe('updatePersona', () => {
     assert.equal(newPersona2.name, 'Test 2');
   });
 
-  it('should throw error if no model found', () => {
+  it('should throw error if no model found and not upsert', () => {
     const updatePromise = service.updatePersona({
       name: 'Test 3',
       organisation: TEST_ORGANISATION,
