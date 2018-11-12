@@ -1,5 +1,4 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import MissingMergeFromPersona from '../../errors/MissingMergeFromPersona';
 import MissingMergeToPersona from '../../errors/MissingMergeToPersona';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
@@ -20,13 +19,12 @@ describe('mergePersona with non-existing personas', () => {
     await assertError(MissingMergeToPersona, promise);
   });
 
-  it('Should throw error if fromModel does not exist', async () => {
+  it('Should not throw error if fromModel does not exist', async () => {
     const persona = await createTestPersona();
-    const promise = service.mergePersona({
+    await service.mergePersona({
       fromPersonaId: MISSING_ID,
       organisation: TEST_ORGANISATION,
       toPersonaId: persona.id,
     });
-    await assertError(MissingMergeFromPersona, promise);
   });
 });
