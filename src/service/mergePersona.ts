@@ -1,5 +1,5 @@
+import NoModel from 'jscommons/dist/errors/NoModel';
 import DuplicateMergeId from '../errors/DuplicateMergeId';
-import MissingMergeFromPersona from '../errors/MissingMergeFromPersona';
 import MissingMergeToPersona from '../errors/MissingMergeToPersona';
 import NoModelWithId from '../errors/NoModelWithId';
 import MergePersonaOptions from '../serviceFactory/options/MergePersonaOptions';
@@ -15,17 +15,9 @@ export default (config: Config) => async ({
     throw new DuplicateMergeId(fromPersonaId);
   }
   try {
-    await Promise.all([
-      config.repo.getPersona({ personaId: fromPersonaId, organisation }),
-      config.repo.getPersona({ personaId: toPersonaId, organisation }),
-    ]);
+    await config.repo.getPersona({ personaId: toPersonaId, organisation });
   } catch (err) {
-    /* istanbul ignore else */
     if (err instanceof NoModelWithId) {
-      if (err.id === fromPersonaId) {
-        throw new MissingMergeFromPersona(err.modelName, err.id);
-      }
-      /* istanbul ignore else */
       if (err.id === toPersonaId) {
         throw new MissingMergeToPersona(err.modelName, err.id);
       }
@@ -41,10 +33,17 @@ export default (config: Config) => async ({
     toPersonaId,
   });
 
-  await config.repo.deletePersona({
-    organisation,
-    personaId: fromPersonaId,
-  });
+  try {
+    await config.repo.deletePersona({
+      organisation,
+      personaId: fromPersonaId,
+    });
+  } catch (err) {
+    if (err instanceof NoModel) {
+      // potentially expected, if persona was removed by another process during this exchange
+    }
+    throw err;
+  }
 
   return { identifierIds };
 };
