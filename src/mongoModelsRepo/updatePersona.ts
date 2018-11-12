@@ -16,6 +16,7 @@ export default (config: Config) => {
     personaId,
     organisation,
     name,
+    upsert = false,
   }: UpdatePersonaOptions): Promise<UpdatePersonaResult> => {
     const collection = (await config.db).collection(PERSONAS_COLLECTION);
 
@@ -30,7 +31,7 @@ export default (config: Config) => {
     },
     {
       returnOriginal: false,
-      upsert: false,
+      upsert,
     });
 
     if (result.value === null || result.value === undefined) {
