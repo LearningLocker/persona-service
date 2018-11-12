@@ -41,7 +41,9 @@ export default (config: Config) => async ({
   } catch (err) {
     if (err instanceof NoModel) {
       // potentially expected, if persona was removed by another process during this exchange
+      return { identifierIds };
     }
+    /* istanbul ignore next */
     throw err;
   }
 
