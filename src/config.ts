@@ -11,8 +11,8 @@ import * as os from 'os';
 
 const DEFAULT_TIMEOUT_MS = 300000; // 5 minutes.
 
-const getMongoReadPreference = (readPrefMode = 'PRIMARY'): ReadPreference => {
-  const mode = ReadPreference.isValid(readPrefMode) ? readPrefMode : 'PRIMARY';
+const getMongoReadPreference = (readPrefMode = 'primary'): ReadPreference => {
+  const mode = ReadPreference.isValid(readPrefMode) ? readPrefMode : 'primary';
   return new ReadPreference(mode, []);
 };
 
