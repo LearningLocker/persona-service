@@ -28,7 +28,7 @@
     "cover-mongo": "nyc --lines 100 --check-coverage --exclude '(dist/config.js|dist/repoFactory/index.js)' npm run test-mongo",
     "cover-ci": "nyc --lines 100 --check-coverage --exclude '(dist/config.js|dist/repoFactory/index.js)' npm run test-ci",
     "cover-all": "nyc --lines 100 --check-coverage --exclude '(dist/config.js|dist/repoFactory/index.js)' npm run test-all",
-    "semantic-release": "ht2-release-public-travisci-lib"
+    "semantic-release": "ht2-release-public-circleci-lib"
   },
   "config": {
     "commitizen": {
