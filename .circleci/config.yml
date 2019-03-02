@@ -6,7 +6,7 @@ machine:
 jobs:
   build:
     docker:
-      - image: node:8.15.1@sha256:7898114f45abe72c66313af8ee713dd48a6993fbaa71502e3341546117cff170
+      - image: node:8.15.1@sha256:abdac2bc73065470bdd8e765c12d44ae32079d6b1fb98a49b2276ee7a0d1f778
       - image: mongo:3.7.9@sha256:736eec20a17eafaa988d299902fcaab521cb0ca56af4400f782576afc878d6bc
     environment:
       - NPM_CONFIG_LOGLEVEL: warn
