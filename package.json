@@ -42,7 +42,7 @@
   "dependencies": {
     "aws-sdk": "^2.0.1",
     "bluebird": "^3.5.0",
-    "boolean": "^0.2.0",
+    "boolean": "^1.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "fs-extra": "^5.0.0",
