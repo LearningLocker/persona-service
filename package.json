@@ -71,7 +71,7 @@
     "@types/mongodb": "2.2.25",
     "@types/node": "9.6.55",
     "@types/node-fetch": "1.6.9",
-    "@types/source-map-support": "0.5.0",
+    "@types/source-map-support": "0.5.1",
     "@types/supertest": "2.0.7",
     "@types/uuid": "3.4.6",
     "@types/winston": "2.3.9",
