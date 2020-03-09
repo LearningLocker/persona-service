@@ -35,10 +35,6 @@
       "path": "cz-conventional-changelog"
     }
   },
-  "engines": {
-    "node": "6 - 8",
-    "npm": "3 - 5"
-  },
   "dependencies": {
     "aws-sdk": "^2.0.1",
     "bluebird": "^3.5.0",
