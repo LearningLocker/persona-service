@@ -12,6 +12,7 @@ export default (config: Config) => {
     const docToInsert = {
       name: opts.name,
       organisation: new ObjectID(opts.organisation),
+      createdAt: new Date(),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertOne
