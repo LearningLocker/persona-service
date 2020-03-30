@@ -14,14 +14,14 @@ export default (config: Config) => {
     // Docs: http://bit.ly/insertOneWriteOpResult
     const opResult = await collection.insertOne({
       _id: personaId,
-      name: opts.name ? opts.name : personaId.toString(),
+      name: Boolean(opts.name) ? opts.name : personaId.toString(),
       organisation: new ObjectID(opts.organisation),
     }, {});
 
     // Formats the persona to be returned.
     const persona: Persona = {
       id: opResult.insertedId.toString(),
-      name: opts.name ? opts.name : personaId.toString(),
+      name: Boolean(opts.name) ? opts.name : personaId.toString(),
       organisation: opts.organisation,
     };
 
