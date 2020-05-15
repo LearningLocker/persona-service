@@ -56,7 +56,7 @@
     "uuid": "^3.0.1"
   },
   "devDependencies": {
-    "@ht2-labs/semantic-release": "1.1.109",
+    "@ht2-labs/semantic-release": "1.1.110",
     "@ht2-labs/typescript-project": "1.1.0",
     "@types/bluebird": "3.5.30",
     "@types/dotenv": "4.0.3",
