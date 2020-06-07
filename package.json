@@ -65,7 +65,7 @@
     "@types/lodash": "4.14.155",
     "@types/mocha": "5.2.7",
     "@types/mongodb": "2.2.26",
-    "@types/node": "9.6.55",
+    "@types/node": "9.6.56",
     "@types/node-fetch": "1.6.9",
     "@types/source-map-support": "0.5.1",
     "@types/supertest": "2.0.7",
