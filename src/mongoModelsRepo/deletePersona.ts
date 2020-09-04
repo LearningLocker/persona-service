@@ -28,7 +28,7 @@ export default (config: Config) => {
       persona: personaObjectID,
     }, { fields: {_id: 1}});
 
-    if (existingIdent === undefined || existingIdent === null) {
+    if (existingIdent !== undefined && existingIdent !== null) {
       throw new PersonaHasIdentsError();
     }
 
