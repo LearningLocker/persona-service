@@ -11,7 +11,6 @@ import Config from './Config';
 export default (config: Config) => {
   return async (opts: GetPersonasConnectionOptions): Promise<GetPersonasConnectionResult> => {
     return config.repo.getPersonasConnection({
-      limit: DEFAULT_LIMIT,
       ...opts,
     });
   };

@@ -12,7 +12,6 @@ export default (config: Config) => {
   return async (opts: GetIdentifiersOptions): Promise<GetIdentifiersResult> => {
 
     return config.repo.getIdentifiers({
-      limit: DEFAULT_LIMIT,
       ...opts,
     });
   };

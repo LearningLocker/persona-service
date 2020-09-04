@@ -40,7 +40,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
       db: MongoClient.connect(
         config.mongoModelsRepo.url,
         config.mongoModelsRepo.options,
-      ),
+      ).then((client) => client.db()),
     };
 
     // Create mock
@@ -67,7 +67,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
       db: MongoClient.connect(
         config.mongoModelsRepo.url,
         config.mongoModelsRepo.options,
-      ),
+      ).then((client) => client.db()),
     };
 
     const createIdentifierPromise = createIdentifier(repoConfig)({
@@ -125,7 +125,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
       db: MongoClient.connect(
         config.mongoModelsRepo.url,
         config.mongoModelsRepo.options,
-      ),
+      ).then((client) => client.db()),
     };
 
     const result = await createUpdateIdentifierPersona(repoConfig)({

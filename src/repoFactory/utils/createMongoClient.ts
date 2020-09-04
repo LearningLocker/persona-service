@@ -14,7 +14,7 @@ const createMongoClient = ({
   return MongoClient.connect(
     url,
     options,
-  );
+  ).then((client) => client.db());
 };
 
 export default createMongoClient;

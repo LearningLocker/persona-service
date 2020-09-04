@@ -34,10 +34,10 @@ describe('createUpdateIdentifierPersona mongo', () => {
   it('Should throw locked if was not created', async () => {
 
     const generateMockDb = async (): Promise<Db> => {
-      const client: Db = await MongoClient.connect(
+      const client: Db = (await MongoClient.connect(
         config.mongoModelsRepo.url,
         config.mongoModelsRepo.options,
-      );
+      )).db();
 
       const client2: Db = {
         ...client,
@@ -53,8 +53,8 @@ describe('createUpdateIdentifierPersona mongo', () => {
               findOneAndUpdate: async (
               filter: Object,
               update: Object,
-              options: FindOneAndReplaceOption,
-            ): Promise<FindAndModifyWriteOpResultObject> => {
+              options: FindOneAndReplaceOption<any>,
+            ): Promise<FindAndModifyWriteOpResultObject<any>> => {
               const result = await collection2.findOneAndUpdate(filter, update, options);
               return {
                 ...result,

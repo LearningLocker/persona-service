@@ -29,7 +29,7 @@ export const fromCursor = (cursor: string): object | null => {
     });
 
     return parsedCursorWithOid;
-  } catch (err) {
+  } catch {
     return null;
   }
 };
@@ -139,9 +139,9 @@ export const modelToCursor = ({
   const data: object = pick(model, keys(sort));
 
   const dataWithOid = mapValues(data, (value) => {
-    if (value instanceof ObjectID) {
+    if ((value as any) instanceof ObjectID) {
       return {
-        $oid: value.toHexString(),
+        $oid: (value as ObjectID).toHexString(),
       };
     }
     return value;

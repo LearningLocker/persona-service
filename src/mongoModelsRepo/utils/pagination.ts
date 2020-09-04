@@ -11,7 +11,6 @@ export default (config: Config, collectionName: string) => {
   return async <T extends BaseModel>({
     filter,
     limit,
-    maxScan,
     maxTimeMS,
     cursor,
     direction,
@@ -43,7 +42,6 @@ export default (config: Config, collectionName: string) => {
       .project(project)
       .limit(limit + 1)
       .maxTimeMS(maxTimeMS)
-      .maxScan(maxScan)
     ;
 
     const mongoCursor2 = ((hint2, cursor3) => {
