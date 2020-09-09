@@ -12,7 +12,7 @@ export interface Sort {
 }
 
 export interface PaginationOptions {
-  readonly limit: number;
+  readonly limit?: number;
   readonly cursor?: string;
   readonly direction: CursorDirection;
   readonly sort: Sort;

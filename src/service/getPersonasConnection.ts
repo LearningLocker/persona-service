@@ -10,13 +10,8 @@ import Config from './Config';
 
 export default (config: Config) => {
   return async (opts: GetPersonasConnectionOptions): Promise<GetPersonasConnectionResult> => {
-    if (opts.limit === undefined) { // tslint:disable-line:strict-type-predicates
-      opts = {
-        ...opts,
-        limit: DEFAULT_LIMIT,
-      };
-    }
     return config.repo.getPersonasConnection({
+      limit: DEFAULT_LIMIT,
       ...opts,
     });
   };
