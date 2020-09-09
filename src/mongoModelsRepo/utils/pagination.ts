@@ -3,7 +3,7 @@ import { ObjectID } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import BaseModel from '../../models/BaseModel';
 import { cursorToFilter, modelToCursor } from '../../repoFactory/utils/cursor';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import GetOptions, { CursorDirection, DEFAULT_LIMIT } from '../../serviceFactory/utils/GetOptions';
 import PaginationResult from '../../serviceFactory/utils/PaginationResult';
 import Config from '../Config';
 
@@ -40,7 +40,7 @@ export default (config: Config, collectionName: string) => {
       .filter(theFilter)
       .sort(sort)
       .project(project)
-      .limit(limit + 1)
+      .limit((limit ?? DEFAULT_LIMIT) + 1)
       .maxTimeMS(maxTimeMS)
     ;
 
@@ -70,9 +70,9 @@ export default (config: Config, collectionName: string) => {
       pageInfo: {
         endCursor: lastEdge === undefined ? undefined : lastEdge.cursor,
         hasNextPage: (direction === CursorDirection.BACKWARDS && cursor !== undefined) ||
-          direction === CursorDirection.FORWARDS && result.length > limit,
+          direction === CursorDirection.FORWARDS && result.length > (limit ?? DEFAULT_LIMIT),
         hasPreviousPage: (direction === CursorDirection.FORWARDS && cursor !== undefined) ||
-          direction === CursorDirection.BACKWARDS && result.length > limit,
+          direction === CursorDirection.BACKWARDS && result.length > (limit ?? DEFAULT_LIMIT),
         startCursor: firstEdge === undefined ? undefined : firstEdge.cursor,
       },
     };
