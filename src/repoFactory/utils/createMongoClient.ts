@@ -1,20 +1,21 @@
-import { MongoClient } from 'mongodb';
-import { Db } from 'mongodb';
+import { Db, MongoClient } from 'mongodb';
 
 export interface CreateMongoClientOptions {
   readonly options: object;
   readonly url: string;
 }
 
-const createMongoClient = ({
+const createMongoClient = async ({
   options,
   url,
 }: CreateMongoClientOptions): Promise<Db> => {
 
-  return MongoClient.connect(
+  const client = await MongoClient.connect(
     url,
     options,
   );
+
+  return client.db();
 };
 
 export default createMongoClient;
