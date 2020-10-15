@@ -9,10 +9,9 @@ import {
 
 export default (config: Config) => {
   return async (opts: MergePersonaOptions): Promise<MergePersonaResult> => {
-    const personaIdentifiersCollection = (await config.db)
-    .collection(PERSONA_IDENTIFIERS_COLLECTION);
-    const personaAttributesCollection = (await config.db)
-    .collection(PERSONA_ATTRIBUTES_COLLECTION);
+    const db = await config.db;
+    const personaIdentifiersCollection = db.collection(PERSONA_IDENTIFIERS_COLLECTION);
+    const personaAttributesCollection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const identFilter = {
       organisation: new ObjectID(opts.organisation),
