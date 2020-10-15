@@ -3,14 +3,14 @@ import { ObjectID } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import BaseModel from '../../models/BaseModel';
 import { cursorToFilter, modelToCursor } from '../../repoFactory/utils/cursor';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import GetOptions, { CursorDirection, DEFAULT_LIMIT } from '../../serviceFactory/utils/GetOptions';
 import PaginationResult from '../../serviceFactory/utils/PaginationResult';
 import Config from '../Config';
 
 export default (config: Config, collectionName: string) => {
   return async <T extends BaseModel>({
     filter,
-    limit,
+    limit = DEFAULT_LIMIT,
     maxScan,
     maxTimeMS,
     cursor,

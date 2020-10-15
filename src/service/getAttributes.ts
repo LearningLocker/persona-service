@@ -8,12 +8,7 @@ import GetOptions, { DEFAULT_LIMIT, Hint } from '../serviceFactory/utils/GetOpti
 import PaginationResult from '../serviceFactory/utils/PaginationResult';
 import Config from './Config';
 
-export default (config: Config) => {
-  return async (opts: GetAttributesOptions): Promise<GetAttributesResult> => {
-
-    return config.repo.getAttributes({
-      limit: DEFAULT_LIMIT,
-      ...opts,
-    });
-  };
-};
+// FIXME: remove values
+export default (config: Config) =>
+  async (opts: GetAttributesOptions): Promise<GetAttributesResult> =>
+    config.repo.getAttributes(opts);
