@@ -11,7 +11,6 @@ export default (config: Config, collectionName: string) => {
   return async <T extends BaseModel>({
     filter,
     limit = DEFAULT_LIMIT,
-    maxScan,
     maxTimeMS,
     cursor,
     direction,
@@ -37,14 +36,12 @@ export default (config: Config, collectionName: string) => {
       organisation: new ObjectID(organisation),
     };
 
-    const mongoCursor = collection.find() // tslint:disable-line:deprecation
+    const mongoCursor = collection.find()
       .filter(theFilter)
       .sort(sort)
       .project(project)
       .limit(limit + 1)
-      .maxTimeMS(maxTimeMS)
-      .maxScan(maxScan)
-    ;
+      .maxTimeMS(maxTimeMS);
 
     const mongoCursor2 = ((hint2, cursor3) => {
       if (hint2 !== undefined) {
