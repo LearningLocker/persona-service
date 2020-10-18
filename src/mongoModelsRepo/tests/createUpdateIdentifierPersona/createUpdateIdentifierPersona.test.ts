@@ -10,10 +10,7 @@ import config from '../../../config';
 import Locked from '../../../errors/Locked';
 import repoFactory from '../../../repoFactory';
 import ServiceConfig from '../../../service/Config';
-import {
-  TEST_IFI,
-  TEST_ORGANISATION,
-} from '../../../tests/utils/values';
+import { TEST_IFI, TEST_ORGANISATION } from '../../../tests/utils/values';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 
 describe('createUpdateIdentifierPersona mongo', () => {
@@ -33,28 +30,28 @@ describe('createUpdateIdentifierPersona mongo', () => {
 
   it('Should throw locked if was not created', async () => {
 
-    const generateMockDb = async (): Promise<Db> => {
-      const client: Db = await MongoClient.connect(
+    const generateMockDb = async () => {
+      const db = (await MongoClient.connect(
         config.mongoModelsRepo.url,
         config.mongoModelsRepo.options,
-      );
+      )).db();
 
-      const client2: Db = {
-        ...client,
+      return {
+        ...db,
         collection: (name: string): Collection => {
-          /* istanbul ignore next */
-          if ( name !== 'personaIdentifiers') {
-            return client.collection(name);
+          if (name !== 'personaIdentifiers') {
+            return db.collection(name);
           }
-          const collection2: Collection = client.collection(name);
+
+          const collection2 = db.collection(name);
 
           return Object.setPrototypeOf({
             ...collection2,
-              findOneAndUpdate: async (
+            findOneAndUpdate: async (
               filter: Object,
               update: Object,
-              options: FindOneAndReplaceOption,
-            ): Promise<FindAndModifyWriteOpResultObject> => {
+              options: FindOneAndReplaceOption<any>,
+            ): Promise<FindAndModifyWriteOpResultObject<any>> => {
               const result = await collection2.findOneAndUpdate(filter, update, options);
               return {
                 ...result,
@@ -66,17 +63,9 @@ describe('createUpdateIdentifierPersona mongo', () => {
           }, Object.getPrototypeOf(collection2));
         },
       } as Db;
-
-      return client2;
     };
 
-    const db = generateMockDb();
-
-    const repoConfig = {
-      db,
-    };
-
-    const resultPromise = createUpdateIdentifierPersona(repoConfig)({
+    const resultPromise = createUpdateIdentifierPersona({ db: generateMockDb() })({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       personaName: 'Dave 6',
