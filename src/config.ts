@@ -6,13 +6,20 @@ import getBooleanOption from 'jscommons/dist/config/getBooleanOption';
 import getNumberOption from 'jscommons/dist/config/getNumberOption';
 import getStringOption from 'jscommons/dist/config/getStringOption';
 import { defaultTo } from 'lodash';
-import { MongoClientOptions, ReadPreference } from 'mongodb';
+import {
+  MongoClientOptions,
+  ReadPreference,
+  ReadPreferenceMode,
+} from 'mongodb';
 import * as os from 'os';
 
 const DEFAULT_TIMEOUT_MS = 300000; // 5 minutes.
 
 const getMongoReadPreference = (readPrefMode = 'primary'): ReadPreference => {
-  const mode = ReadPreference.isValid(readPrefMode) ? readPrefMode : 'primary';
+  const mode = (
+    ReadPreference.isValid(readPrefMode) ? readPrefMode : 'primary'
+  ) as ReadPreferenceMode;
+
   return new ReadPreference(mode, []);
 };
 
