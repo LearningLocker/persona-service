@@ -1,5 +1,3 @@
-// tslint:disable-next-line:no-unused
-import Identifier from '../../models/Identifier';
 import service from '../../tester';
 import { TEST_IFI, TEST_ORGANISATION } from '../utils/values';
 import createTestPersona from './createTestPersona';

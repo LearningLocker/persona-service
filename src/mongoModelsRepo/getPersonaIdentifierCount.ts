@@ -3,12 +3,6 @@ import GetPersonaIdentifierCountOptions from // tslint:disable-line:import-spaci
   '../repoFactory/options/GetPersonaIdentifierCountOptions';
 import GetPersonaIdentifierCountResult from // tslint:disable-line:import-spacing
   '../repoFactory/results/GetPersonaIdentifierCountResult';
-// tslint:disable-next-line:no-unused import-spacing
-import _GetPersonaIdentifierCountOptions from
-  '../serviceFactory/options/GetPersonaIdentifierCountOptions';
-// tslint:disable-next-line:no-unused import-spacing
-import _GetPersonaIdentifierCountResult from
-  '../serviceFactory/results/GetPersonaIdentifierCountResult';
 import Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 

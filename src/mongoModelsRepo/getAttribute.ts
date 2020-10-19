@@ -2,10 +2,6 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectID } from 'mongodb';
 import GetAttributeOptions from '../repoFactory/options/GetAttributeOptions';
 import GetAttributeResult from '../repoFactory/results/GetAttributeResult';
-import _GetAttributeOptions from // tslint:disable-line:import-spacing no-unused
-  '../serviceFactory/options/GetAttributeOptions';
-import _GetAttributeResult from // tslint:disable-line:import-spacing no-unused
-  '../serviceFactory/results/GetAttributeResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 

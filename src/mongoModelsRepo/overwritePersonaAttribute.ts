@@ -3,12 +3,6 @@ import OverwritePersonaAttributeOptions from // tslint:disable-line:import-spaci
   '../repoFactory/options/OverwritePersonaAttributeOptions';
 import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
   '../repoFactory/results/OverwritePersonaAttributeResult';
-// tslint:disable-next-line:no-unused
-import _OverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
-  '../serviceFactory/options/OverwritePersonaAttributeOptions';
-// tslint:disable-next-line:no-unused
-import _OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
-  '../serviceFactory/results/OverwritePersonaAttributeResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 import { DUPLICATE_KEY } from './utils/constants/errorcodes';

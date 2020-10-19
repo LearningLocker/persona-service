@@ -2,12 +2,6 @@ import { ObjectID } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import UpdatePersonaOptions from '../repoFactory/options/UpdatePersonaOptions';
 import UpdatePersonaResult from '../repoFactory/results/UpdatePersonaResult';
-// tslint:disable-next-line:no-unused
-import _UpdatePersonaOptions from // tslint:disable-line:import-spacing
-  '../serviceFactory/options/UpdatePersonaOptions';
-// tslint:disable-next-line:no-unused
-import _UpdatePersonaResult from // tslint:disable-line:import-spacing
-  '../serviceFactory/results/UpdatePersonaResult';
 import Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
