@@ -18,18 +18,18 @@ export const toCursor = (data: object): string => {
 export const fromCursor = (cursor: string): object | null => {
   try {
     const parsedCursor = JSON.parse(unbase64(cursor));
+
     if (parsedCursor === false) {
       return null;
     }
-    const parsedCursorWithOid = mapValues(parsedCursor, (value) => {
+
+    return mapValues(parsedCursor, (value) => {
       if (value instanceof Object && get(value, '$oid')) {
         return new ObjectID(get(value, '$oid'));
       }
       return value;
     });
-
-    return parsedCursorWithOid;
-  } catch (err) {
+  } catch {
     return null;
   }
 };
@@ -124,9 +124,7 @@ export const cursorToFilter = ({
     { oldKeys: [] as string[], conditions: [] } as SortConditionsInterface,
   );
 
-  const out = { $or: sortConditions.conditions };
-
-  return out;
+  return { $or: sortConditions.conditions };
 };
 
 export const modelToCursor = ({
@@ -136,16 +134,10 @@ export const modelToCursor = ({
   readonly model: object; // a mongo model
   readonly sort: object;
 }): string => {
-  const data: object = pick(model, keys(sort));
+  const pickedFields = pick(model, keys(sort));
 
-  const dataWithOid = mapValues(data, (value) => {
-    if (value instanceof ObjectID) {
-      return {
-        $oid: value.toHexString(),
-      };
-    }
-    return value;
-  });
-  const cursor = toCursor(dataWithOid);
-  return cursor;
+  return toCursor(
+    mapValues(pickedFields, (pickedField: any) =>
+      pickedField instanceof ObjectID ? { $oid: pickedField.toHexString() } : pickedField),
+  );
 }; // tslint:disable-line: max-file-line-count

@@ -2,14 +2,11 @@ import GetIfisByPersonaOptions from '../serviceFactory/options/GetIfisByPersonaO
 import GetIfisByPersonaResult from '../serviceFactory/results/GetIfisByPersonaResult';
 import Config from './Config';
 
-export default (config: Config) => {
-  return async ({
-    persona: personaId,
-    ...opts,
-  }: GetIfisByPersonaOptions): Promise<GetIfisByPersonaResult> => {
-    return config.repo.getIfisByPersona({
+export default (config: Config) =>
+  async (
+    { persona: personaId, ...opts }: GetIfisByPersonaOptions,
+  ): Promise<GetIfisByPersonaResult> =>
+    config.repo.getIfisByPersona({
       ...opts,
       personaId,
     });
-  };
-};

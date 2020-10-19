@@ -3,12 +3,6 @@ import GetPersonaAttributeCountOptions from // tslint:disable-line:import-spacin
   '../repoFactory/options/GetPersonaAttributeCountOptions';
 import GetPersonaAttributeCountResult from // tslint:disable-line:import-spacing
   '../repoFactory/results/GetPersonaAttributeCountResult';
-// tslint:disable-next-line:no-unused import-spacing
-import _GetPersonaAttributeCountOptions from
-  '../serviceFactory/options/GetPersonaAttributeCountOptions';
-// tslint:disable-next-line:no-unused import-spacing
-import _GetPersonaAttributeCountResult from
-  '../serviceFactory/results/GetPersonaAttributeCountResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 

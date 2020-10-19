@@ -1,10 +1,6 @@
 import { ObjectID } from 'mongodb';
 import GetPersonaAttributesOptions from '../repoFactory/options/GetPersonaAttributesOptions';
 import GetPersonaAttributesResult from '../repoFactory/results/GetPersonaAttributesResult';
-// tslint:disable-next-line:no-unused
-import _GetPersonaAttributesOptions from '../serviceFactory/options/GetPersonaAttributesOptions';
-// tslint:disable-next-line:no-unused
-import _GetPersonaAttributesResult from '../serviceFactory/results/GetPersonaAttributesResult';
 import Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 

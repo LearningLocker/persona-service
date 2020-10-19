@@ -1,8 +1,6 @@
 import { ObjectID } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import DeletePersonaIdentifierOptions from '../repoFactory/options/DeletePersonaIdentifierOptions';
-import _DeletePersonaIdentifierOptions from // tslint:disable-line:no-unused import-spacing
-  '../serviceFactory/options/DeletePersonaIdentifierOptions';
 import Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 

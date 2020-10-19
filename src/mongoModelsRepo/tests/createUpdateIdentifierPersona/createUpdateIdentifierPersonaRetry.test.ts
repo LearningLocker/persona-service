@@ -28,6 +28,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
 
   let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
   let theService: Service; // tslint:disable-line:no-let
+
   beforeEach(async () => {
     const repoFacade = repoFactory();
     serviceConfig = {repo: repoFacade};
@@ -35,13 +36,17 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     theService = service(serviceConfig);
   });
 
+  const getMongoDB = async () => {
+    const client = await MongoClient.connect(
+      config.mongoModelsRepo.url,
+      config.mongoModelsRepo.options,
+    );
+
+    return client.db();
+  };
+
   it('Should error aftery trying 3 times and the identifier is locked', async () => {
-    const repoConfig = {
-      db: MongoClient.connect(
-        config.mongoModelsRepo.url,
-        config.mongoModelsRepo.options,
-      ),
-    };
+    const repoConfig = { db: getMongoDB() };
 
     // Create mock
     await createIdentifier(repoConfig)({
@@ -63,13 +68,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     'should error if unlocked, but persona is not set, (should not be possible in rl)',
     async () =>
   { // tslint:disable-line:one-line
-    const repoConfig = {
-      db: MongoClient.connect(
-        config.mongoModelsRepo.url,
-        config.mongoModelsRepo.options,
-      ),
-    };
-
+    const repoConfig = { db: getMongoDB() };
     const createIdentifierPromise = createIdentifier(repoConfig)({
       ifi: TEST_IFI,
       locked: false,
@@ -121,13 +120,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     //   organisation: TEST_ORGANISATION,
     //   personaName: 'Dave 6',
     // });
-    const repoConfig = {
-      db: MongoClient.connect(
-        config.mongoModelsRepo.url,
-        config.mongoModelsRepo.options,
-      ),
-    };
-
+    const repoConfig = { db: getMongoDB() };
     const result = await createUpdateIdentifierPersona(repoConfig)({
       getIdentifier: mockGetIdentifier,
       ifi: TEST_IFI,

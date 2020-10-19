@@ -7,9 +7,10 @@ import {
 
 export default (config: Config) => {
   return async () => {
-    const personasCollection = (await config.db).collection(PERSONAS_COLLECTION);
-    const attributesCollection = (await config.db).collection(PERSONA_ATTRIBUTES_COLLECTION);
-    const identCollection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
+    const db = await config.db;
+    const personasCollection = db.collection(PERSONAS_COLLECTION);
+    const attributesCollection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
+    const identCollection = db.collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     /* tslint:disable:object-literal-sort-keys */
     await personasCollection.createIndex({

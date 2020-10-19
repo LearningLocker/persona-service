@@ -1,10 +1,6 @@
 import { ObjectID } from 'mongodb';
 import GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
 import GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
-// tslint:disable-next-line:no-unused
-import _GetPersonaIdentifiersOptions from '../serviceFactory/options/GetPersonaIdentifiersOptions';
-// tslint:disable-next-line:no-unused
-import _GetPersonaIdentifiersResult from '../serviceFactory/results/GetPersonaIdentifiersResult';
 import Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
