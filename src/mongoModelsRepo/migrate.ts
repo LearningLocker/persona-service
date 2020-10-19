@@ -1,8 +1,8 @@
 import Config from './Config';
 import {
-  PERSONAS_COLLECTION,
   PERSONA_ATTRIBUTES_COLLECTION,
   PERSONA_IDENTIFIERS_COLLECTION,
+  PERSONAS_COLLECTION,
 } from './utils/constants/collections';
 
 export default (config: Config) => {

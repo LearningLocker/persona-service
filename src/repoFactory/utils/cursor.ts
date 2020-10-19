@@ -18,18 +18,18 @@ export const toCursor = (data: object): string => {
 export const fromCursor = (cursor: string): object | null => {
   try {
     const parsedCursor = JSON.parse(unbase64(cursor));
+
     if (parsedCursor === false) {
       return null;
     }
-    const parsedCursorWithOid = mapValues(parsedCursor, (value) => {
+
+    return mapValues(parsedCursor, (value) => {
       if (value instanceof Object && get(value, '$oid')) {
         return new ObjectID(get(value, '$oid'));
       }
       return value;
     });
-
-    return parsedCursorWithOid;
-  } catch (err) {
+  } catch {
     return null;
   }
 };
