@@ -1,6 +1,5 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import {
-  Collection,
   Db,
   FindAndModifyWriteOpResultObject,
   FindOneAndReplaceOption,
@@ -38,11 +37,11 @@ describe('createUpdateIdentifierPersona mongo', () => {
 
       return {
         ...db,
-        collection: (name: string): Collection => {
+        collection: (name: string) => {
+          /* istanbul ignore next */
           if (name !== 'personaIdentifiers') {
             return db.collection(name);
           }
-
           const collection2 = db.collection(name);
 
           return Object.setPrototypeOf({
