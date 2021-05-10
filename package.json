@@ -45,7 +45,7 @@
     "jscommons": "^2.4.14",
     "lodash": "^4.17.4",
     "mongodb": "^3.6.2",
-    "node-fetch": "^1.6.3",
+    "node-fetch": "^2.6.1",
     "promise-retry": "^1.1.1",
     "rulr": "^4.0.0",
     "sha1": "^1.1.1",
