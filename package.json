@@ -71,7 +71,7 @@
     "@types/uuid": "3.4.10",
     "@types/winston": "2.3.9",
     "assert": "1.5.0",
-    "commitizen": "2.10.1",
+    "commitizen": "4.2.4",
     "cz-conventional-changelog": "2.1.0",
     "jscpd": "1.2.3",
     "mocha": "5.2.0",
