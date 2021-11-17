@@ -65,7 +65,7 @@
     "@types/mocha": "5.2.7",
     "@types/mongodb": "3.5.27",
     "@types/node": "9.6.56",
-    "@types/node-fetch": "1.6.9",
+    "@types/node-fetch": "3.0.2",
     "@types/source-map-support": "0.5.4",
     "@types/supertest": "2.0.11",
     "@types/uuid": "3.4.10",
