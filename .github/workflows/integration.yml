@@ -19,11 +19,6 @@ jobs:
       mongodb:
         image: mongo:3.7.9
         env:
-          # MCLI_OPS_MANAGER_SKIP_VERIFY: yes
-          # MCLI_SKIP_UPDATE_CHECK: yes
-          # HTTP_PROXY: username:password@<my.proxy.address>
-          # MONGO_INITDB_ROOT_USERNAME: test
-          # MONGO_INITDB_ROOT_PASSWORD: password
           MONGO_INITDB_DATABASE: test
           ALLOW_EMPTY_PASSWORD: yes
         ports:
@@ -37,11 +32,6 @@ jobs:
         with:
           node-version: "14"
           cache: 'npm'
-
-      # - name: Start MongoDB
-      #   uses: supercharge/mongodb-github-action@1.2.0
-      #   with:
-      #     mongodb-version: 3.7.9
 
       - name: Installing Dependencies
         run: npm ci
