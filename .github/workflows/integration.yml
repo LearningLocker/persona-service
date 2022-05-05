@@ -10,13 +10,10 @@ jobs:
   integrate:
     name: Integration
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        mongodb-version: [3.7.9]
     env:
       NPM_CONFIG_LOGLEVEL: warn
-      KNEX_DATABASE: ga_test
-      KNEX_USER: root
+      WINSTON_CONSOLE_LEVEL: none
+      EXPRESS_PORT: 1337
 
     steps:
       - uses: actions/checkout@v3
@@ -26,10 +23,10 @@ jobs:
           node-version: "14"
           cache: 'npm'
 
-      - name: Start MongoDB v${{ matrix.mongodb-version }}
+      - name: Start MongoDB
         uses: supercharge/mongodb-github-action@1.2.0
         with:
-          mongodb-version: ${{ matrix.mongodb-version }}
+          mongodb-version: 3.7.9
 
       - name: Installing Dependencies
         run: npm ci
