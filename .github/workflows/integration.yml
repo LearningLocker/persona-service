@@ -25,7 +25,7 @@ jobs:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: root
         ports:
-          - 1337
+          - 27017
 
     steps:
       - uses: actions/checkout@v3
@@ -39,9 +39,6 @@ jobs:
       #   uses: supercharge/mongodb-github-action@1.2.0
       #   with:
       #     mongodb-version: 3.7.9
-
-      - name: Start MongoDB
-        run: npm start
 
       - name: Installing Dependencies
         run: npm ci
