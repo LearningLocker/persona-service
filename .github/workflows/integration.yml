@@ -18,6 +18,10 @@ jobs:
     services:
       mongodb:
         image: mongo:3.7.9
+        env:
+          MCLI_OPS_MANAGER_SKIP_VERIFY: yes
+          MCLI_SKIP_UPDATE_CHECK: yes
+          # HTTP_PROXY: username:password@<my.proxy.address>
         ports:
           - 1337
 
