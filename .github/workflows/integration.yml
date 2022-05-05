@@ -15,6 +15,12 @@ jobs:
       WINSTON_CONSOLE_LEVEL: none
       EXPRESS_PORT: 1337
 
+    services:
+      mongodb:
+        image: mongo:3.7.9
+        ports:
+          - 1337
+
     steps:
       - uses: actions/checkout@v3
 
@@ -23,10 +29,10 @@ jobs:
           node-version: "14"
           cache: 'npm'
 
-      - name: Start MongoDB
-        uses: supercharge/mongodb-github-action@1.2.0
-        with:
-          mongodb-version: 3.7.9
+      # - name: Start MongoDB
+      #   uses: supercharge/mongodb-github-action@1.2.0
+      #   with:
+      #     mongodb-version: 3.7.9
 
       - name: Installing Dependencies
         run: npm ci
