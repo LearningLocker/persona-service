@@ -22,10 +22,11 @@ jobs:
           MCLI_OPS_MANAGER_SKIP_VERIFY: yes
           MCLI_SKIP_UPDATE_CHECK: yes
           # HTTP_PROXY: username:password@<my.proxy.address>
-          MONGO_INITDB_ROOT_USERNAME: root
-          MONGO_INITDB_ROOT_PASSWORD: root
+          # MONGO_INITDB_ROOT_USERNAME: root
+          # MONGO_INITDB_ROOT_PASSWORD: root
         ports:
           - 27017
+        options: --health-cmd="mongo" --health-interval=10s --health-timeout=5s --health-retries=5
 
     steps:
       - uses: actions/checkout@v3
