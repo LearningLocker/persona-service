@@ -1,0 +1,60 @@
+name: Integration Suite
+
+on: ['push']
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/master' }}
+
+jobs:
+  integrate:
+    name: Integration
+    runs-on: ubuntu-latest
+    env:
+      NPM_CONFIG_LOGLEVEL: warn
+      KNEX_DATABASE: ga_test
+      KNEX_USER: root
+    
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: ga_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14"
+          cache: 'npm'
+
+      - name: Verify MySQL connection
+        env:
+          PORT: ${{ job.services.mysql.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done
+
+      - name: Installing Dependencies
+        run: npm ci
+
+      - name: Compiling Code
+        run: npm run build
+
+      - name: Running Tests
+        run: npm run cover-ci
+
+      - name: Linting Code
+        run: npm run lint
+
+      - name: Semantic Release
+        if: github.ref == 'refs/heads/master'
+        run: npm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_GITHUB_TOKEN }}
