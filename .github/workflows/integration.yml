@@ -40,6 +40,9 @@ jobs:
       #   with:
       #     mongodb-version: 3.7.9
 
+      - name: Start MongoDB
+        run: npm start
+
       - name: Installing Dependencies
         run: npm ci
 
