@@ -36,13 +36,12 @@
     }
   },
   "dependencies": {
-    "aws-sdk": "^2.0.1",
     "bluebird": "^3.5.0",
     "boolean": "^0.2.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "fs-extra": "^5.0.0",
-    "jscommons": "^2.4.14",
+    "jscommons": "^4.0.0",
     "lodash": "^4.17.4",
     "mongodb": "^3.6.2",
     "promise-retry": "^1.1.1",
