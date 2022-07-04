@@ -1,10 +1,11 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import { assign, map, times } from 'lodash';
+import { assign } from 'lodash';
+import { ObjectId } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import Identifier from '../../models/Identifier';
+import Persona from '../../models/Persona';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
-import CreateIdentifierResult from '../../serviceFactory/results/CreateIdentifierResult';
 import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
@@ -40,25 +41,33 @@ describe('getIdentifiers', () => {
     },
   });
 
-  const addTestIdentifiers = async () => {
-    const NUM_IDENTIFIERS = 12;
-    const persona = await createTestPersona();
-    const resultsPromise: Promise<CreateIdentifierResult>[] = times(NUM_IDENTIFIERS,
-      (i) => {
-        return service.createIdentifier({
+  const getMboxFromPersona = (persona: Persona, index: number) => `${persona.name?.replace(/\s/g, '_')}_${index}@test.com`;
+
+  const addTestIdentifiers = async (
+    customPersona?: Persona,
+    amount = 12,
+  ): Promise<Identifier[]> => {
+    const persona = customPersona === undefined
+      ? await createTestPersona()
+      : customPersona;
+    const results = [];
+
+    for (let i = 0; i < amount; i++) {
+      results.push(
+        await service.createIdentifier({
           ifi: {
             key: 'mbox',
-            value: `${i}_${TEST_IFI.value}`,
+            value: customPersona === undefined
+              ? `${i}_${TEST_IFI.value}`
+              : getMboxFromPersona(persona, i),
           },
           organisation: TEST_ORGANISATION,
           persona: persona.id,
-        });
-      },
-    );
+        }),
+      );
+    }
 
-    const results: ArrayLike<CreateIdentifierResult> = await Promise.all(resultsPromise);
-
-    return map<CreateIdentifierResult, Identifier>(results, ({identifier}) => identifier );
+    return results.map((result) => result.identifier);
   };
 
   it('Should return the first 10 items', async () => {
@@ -179,7 +188,7 @@ describe('getIdentifiers', () => {
     assert.equal(identifiersResult.pageInfo.hasPreviousPage, false);
   });
 
-  it('should return undefiend cursor, if no identifiers', async () => {
+  it('should return undefined cursor, if no identifiers', async () => {
     const identifiersResult = await service.getIdentifiers(
       assign({}, getIdentifiersOptions, {
         limit: 1,
@@ -225,5 +234,66 @@ describe('getIdentifiers', () => {
 
     assert.equal(identifiersResult.edges.length, 1);
     assert.equal(identifiersResult.edges[0].node.ifi.value, '9_test@test.com');
+  });
+
+  it('should properly use combination of filter with $or and cursor', async () => {
+    const firstPersona = await createTestPersona('Test Persona 1');
+    const secondPersona = await createTestPersona('Test Persona 2');
+    const thirdPersona = await createTestPersona('Test Persona 3');
+
+    const pageSize = 3;
+
+    await addTestIdentifiers(firstPersona, 2);
+    await addTestIdentifiers(secondPersona, 2);
+    await addTestIdentifiers(thirdPersona, 1);
+
+    const filter = {
+      $or: [
+        {
+          persona: new ObjectId(firstPersona.id),
+        },
+        {
+          persona: new ObjectId(secondPersona.id),
+        },
+      ],
+    };
+
+    const queryOptions: GetOptions = {
+      ...getIdentifiersOptions,
+      filter,
+      limit: pageSize,
+      sort: { _id: 1 },
+    };
+
+    const firstPageResult = await service.getIdentifiers(queryOptions);
+
+    assert.equal(firstPageResult.edges.length, pageSize);
+    assert.equal(firstPageResult.pageInfo.hasNextPage, true);
+    assert.equal(firstPageResult.pageInfo.hasPreviousPage, false);
+
+    assert.equal(
+      firstPageResult.edges.map((edge) => edge.node.ifi.value).join(','),
+      [
+        getMboxFromPersona(firstPersona, 0),
+        getMboxFromPersona(firstPersona, 1),
+        getMboxFromPersona(secondPersona, 0),
+      ].join(','),
+    );
+
+    const secondPageResult = await service.getIdentifiers({
+      ...queryOptions,
+      cursor: firstPageResult.pageInfo.endCursor,
+    });
+
+    assert.equal(secondPageResult.edges.length, 1);
+    assert.equal(secondPageResult.pageInfo.hasNextPage, false);
+    assert.equal(secondPageResult.pageInfo.hasPreviousPage, true);
+
+    assert.equal(
+      secondPageResult.edges.map((edge) => edge.node.ifi.value).join(','),
+      [
+        getMboxFromPersona(secondPersona, 1),
+      ].join(','),
+    );
   });
 }); // tslint:disable-line: max-file-line-count
