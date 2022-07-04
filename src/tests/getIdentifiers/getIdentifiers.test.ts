@@ -41,10 +41,9 @@ describe('getIdentifiers', () => {
   });
 
   const addTestIdentifiers = async () => {
+    const NUM_IDENTIFIERS = 12;
     const persona = await createTestPersona();
-
-    const NUM_IDENTIFERS = 12;
-    const resultsPromise: Promise<CreateIdentifierResult>[] = times(NUM_IDENTIFERS,
+    const resultsPromise: Promise<CreateIdentifierResult>[] = times(NUM_IDENTIFIERS,
       (i) => {
         return service.createIdentifier({
           ifi: {
