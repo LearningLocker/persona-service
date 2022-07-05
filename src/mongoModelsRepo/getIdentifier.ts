@@ -6,6 +6,8 @@ import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
+import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
+import logger from '../logger';
 
 export default (config: Config) => {
   return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
@@ -33,7 +35,7 @@ export default (config: Config) => {
     const lockedAt = document.lockedAt?.getTime();
     const lockAge = (new Date()).getTime() - lockedAt;
     
-    if (document.locked && (lockedAt === undefined || lockAge > 30000)) {
+    if (document.locked && (lockedAt === undefined || lockAge > IDENTIFIER_LOCK_EXPIRATION_MS)) {
       throw new ExpiredLock(identifier, lockedAt === undefined);
     }
     
