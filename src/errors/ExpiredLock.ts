@@ -4,8 +4,8 @@ import Identifier from '../models/Identifier';
 export class ExpiredLock extends BaseError {
   constructor(
     public identifier: Identifier,
-    public ignorePersonaId: boolean
-    ) {
+    public ignorePersonaId: boolean,
+  ) {
     super();
   }
 }

@@ -26,7 +26,7 @@ export default (config: Config) => {
       },
       $unset: {
         lockedAt: '',
-      }
+      },
     };
 
     return await createOrUpdateIdentifier(config)({

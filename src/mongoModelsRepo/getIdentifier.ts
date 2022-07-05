@@ -1,13 +1,13 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ExpiredLock } from '../errors/ExpiredLock';
 import { ObjectID } from 'mongodb';
+
+import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
+import { ExpiredLock } from '../errors/ExpiredLock';
 import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
-import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
-import logger from '../logger';
 
 export default (config: Config) => {
   return async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
@@ -34,11 +34,11 @@ export default (config: Config) => {
 
     const lockedAt = document.lockedAt?.getTime();
     const lockAge = (new Date()).getTime() - lockedAt;
-    
+
     if (document.locked && (lockedAt === undefined || lockAge > IDENTIFIER_LOCK_EXPIRATION_MS)) {
       throw new ExpiredLock(identifier, lockedAt === undefined);
     }
-    
+
     return { identifier, locked: document.locked };
   };
 };

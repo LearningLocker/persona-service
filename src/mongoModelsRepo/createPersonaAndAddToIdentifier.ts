@@ -32,7 +32,8 @@ export const createPersonaAndAddToIdentifier = (config: Config) =>
         wasCreated: true,
       };
     } else {
-      // Identifier has a persona, but is still locked. This shouldn't happen, but we will unlock it.
+      // Identifier has a persona, but is still locked.
+      // This shouldn't happen, but we will unlock it.
       const filter = {
         _id: new ObjectID(identifier.id),
         organisation: new ObjectID(identifier.organisation),
@@ -46,7 +47,7 @@ export const createPersonaAndAddToIdentifier = (config: Config) =>
         filter,
         update,
         upsert: false,
-      })
+      });
 
       return {
         identifier,

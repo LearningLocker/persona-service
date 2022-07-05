@@ -1,6 +1,6 @@
-import Identifier from "../../models/Identifier";
+import Identifier from '../../models/Identifier';
 
 export interface CreatePersonaAndAddToIdentifierOptions {
-  readonly identifier: Identifier,
-  readonly personaName?: string,
+  readonly identifier: Identifier;
+  readonly personaName?: string;
 }

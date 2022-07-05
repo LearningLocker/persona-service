@@ -28,7 +28,10 @@ const getMongoNumberOption = (option?: string) => {
 };
 
 const DEFAULT_IDENTIFIER_LOCK_EXPIRATION_MS = 30000; // 30 seconds.
-export const IDENTIFIER_LOCK_EXPIRATION_MS = getNumberOption(process.env.IDENTIFIER_LOCK_EXPIRATION_MS, DEFAULT_IDENTIFIER_LOCK_EXPIRATION_MS);
+export const IDENTIFIER_LOCK_EXPIRATION_MS = getNumberOption(
+  process.env.IDENTIFIER_LOCK_EXPIRATION_MS,
+  DEFAULT_IDENTIFIER_LOCK_EXPIRATION_MS,
+);
 
 export default {
   defaultTimeout: getNumberOption(process.env.DEFAULT_TIMEOUT_MS, DEFAULT_TIMEOUT_MS),

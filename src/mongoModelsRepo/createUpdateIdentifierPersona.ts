@@ -1,7 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import * as promiseRetry from 'promise-retry';
-import Locked from '../errors/Locked';
+
 import { ExpiredLock } from '../errors/ExpiredLock';
+import Locked from '../errors/Locked';
 import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacing
   from '../repoFactory/options/CreateUpdateIdentifierPersonaOptions';
 import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
@@ -13,9 +14,9 @@ import Config from './Config';
 import { createPersonaAndAddToIdentifier } from './createPersonaAndAddToIdentifier';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
-import createIdentifier from './utils/createIdentifier';
 import { refreshIdentifierLock } from './refreshIdentifierLock';
 import { unsetIdentifierPersona } from './unsetIdentifierPersona';
+import createIdentifier from './utils/createIdentifier';
 
 type TheCreateUpdateIdentifierPersonaOptions = CreateUpdateIdentifierPersonaOptions & {
   readonly getIdentifier?: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult & Lockable>;
@@ -109,7 +110,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
 
         return await createPersonaAndAddToIdentifier(config)({
           identifier: identifierWithoutPersona,
-          personaName
+          personaName,
         });
       }
 

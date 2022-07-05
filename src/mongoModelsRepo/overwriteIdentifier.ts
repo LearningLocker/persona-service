@@ -32,7 +32,7 @@ export default (config: Config) => {
       },
       $unset: {
         lockedAt: '',
-      }
+      },
     };
 
     return createOrUpdateIdentifier(config)({

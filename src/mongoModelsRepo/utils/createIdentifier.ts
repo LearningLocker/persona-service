@@ -20,12 +20,12 @@ export interface Result {
 
 interface Update {
   $setOnInsert: {
-    ifi: Ifi,
-    locked: boolean,
-    organisation: ObjectID,
-    persona?: ObjectID,
-    lockedAt?: Date,
-  }
+    ifi: Ifi;
+    locked: boolean;
+    organisation: ObjectID;
+    persona?: ObjectID;
+    lockedAt?: Date;
+  };
 }
 
 export default (config: Config) => {
@@ -57,7 +57,7 @@ export default (config: Config) => {
       },
     };
 
-    if (persona) {
+    if (persona !== undefined) {
       update.$setOnInsert.persona = new ObjectID(persona);
     }
 
