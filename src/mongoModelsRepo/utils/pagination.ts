@@ -1,4 +1,4 @@
-import { first, last } from 'lodash';
+import { first, isEmpty, isUndefined, last } from 'lodash';
 import { ObjectID } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import BaseModel from '../../models/BaseModel';
@@ -26,18 +26,28 @@ export default (config: Config, collectionName: string) => {
 
     const collection = (await config.db).collection(collectionName);
 
-    const theFilter = {
-      ...filter,
-      ...cursorToFilter({
-        cursor,
-        direction,
-        sort,
-      }),
+    const cursorFilter = cursorToFilter({
+      cursor,
+      direction,
+      sort,
+    });
+
+    const filters = [
+      filter,
+      cursorFilter,
+    ].filter((item) => !isUndefined(item) && !isEmpty(item));
+
+    const combinedFilters = filters.length <= 1
+      ? filters[0]
+      : { $and: filters };
+
+    const scopedFilter = {
+      ...combinedFilters,
       organisation: new ObjectID(organisation),
     };
 
     const mongoCursor = collection.find()
-      .filter(theFilter)
+      .filter(scopedFilter)
       .sort(sort)
       .project(project)
       .limit(limit + 1)
