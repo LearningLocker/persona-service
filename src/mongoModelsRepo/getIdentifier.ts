@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { ExpiredLock } from '../errors/ExpiredLock';
 import { ObjectID } from 'mongodb';
 import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
@@ -26,9 +27,16 @@ export default (config: Config) => {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
-      /* istanbul ignore next */ // shouldnt be null..
-      persona: document.persona === null ? null : document.persona.toString(),
+      persona: document.persona?.toString(),
     };
+
+    const lockedAt = document.lockedAt?.getTime();
+    const lockAge = (new Date()).getTime() - lockedAt;
+    
+    if (document.locked && (lockedAt === undefined || lockAge > 30000)) {
+      throw new ExpiredLock(identifier, lockedAt === undefined);
+    }
+    
     return { identifier, locked: document.locked };
   };
 };

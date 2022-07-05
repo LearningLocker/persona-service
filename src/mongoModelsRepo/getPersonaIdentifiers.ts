@@ -32,8 +32,7 @@ export default (config: Config) => {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
-      /* istanbul ignore next */ // shouldnt be null..
-      persona: document.persona === null ? null : document.persona.toString(),
+      persona: document.persona?.toString(),
     }));
 
     const identifiers = await formattedDocuments.toArray();

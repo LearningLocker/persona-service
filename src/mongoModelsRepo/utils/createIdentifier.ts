@@ -18,14 +18,23 @@ export interface Result {
   readonly wasCreated: boolean;
 }
 
+interface Update {
+  $setOnInsert: {
+    ifi: Ifi,
+    locked: boolean,
+    organisation: ObjectID,
+    persona?: ObjectID,
+    lockedAt?: Date,
+  }
+}
+
 export default (config: Config) => {
   return async ({
     persona,
     locked = ((persona === undefined) ? true : false),
-    organisation,
     ifi,
+    organisation,
   }: Options & Lockable): Promise<Result> => {
-
     if (!locked && persona === undefined) {
       throw new PersonaNotSetAndUnlocked();
     }
@@ -40,14 +49,21 @@ export default (config: Config) => {
 
     // Sets properties when the Identifier is created (not found).
     // Docs: https://docs.mongodb.com/manual/reference/operator/update/setOnInsert/
-    const update = {
+    const update: Update = {
       $setOnInsert: {
         ifi,
-        locked,
+        locked, // sets lock
         organisation: new ObjectID(organisation),
-        persona: new ObjectID(persona),
       },
     };
+
+    if (persona) {
+      update.$setOnInsert.persona = new ObjectID(persona);
+    }
+
+    if (locked) {
+      update.$setOnInsert.lockedAt = new Date();
+    }
 
     return createOrUpdateIdentifier(config)({
       filter,
