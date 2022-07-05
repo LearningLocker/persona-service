@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
-import Identifier from '../models/Identifier';
-import Config from './Config';
-import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
+import Identifier from '../../models/Identifier';
+import Config from '../Config';
+import createOrUpdateIdentifier from './createOrUpdateIdentifier';
 
 export const unsetIdentifierPersona = (config: Config) =>
   async (idenifier: Identifier) => {

@@ -1,9 +1,9 @@
 import { ObjectID } from 'mongodb';
 
-import Identifier from '../models/Identifier';
-import { RefreshIdentifierLockOptions } from '../repoFactory/options/RefreshIdentifierLockOptions.types';
-import Config from './Config';
-import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
+import Identifier from '../../models/Identifier';
+import { RefreshIdentifierLockOptions } from '../../repoFactory/options/RefreshIdentifierLockOptions.types';
+import Config from '../Config';
+import createOrUpdateIdentifier from './createOrUpdateIdentifier';
 
 export const refreshIdentifierLock = (config: Config) =>
     async ({

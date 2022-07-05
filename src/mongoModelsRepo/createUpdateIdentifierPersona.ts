@@ -11,11 +11,11 @@ import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
-import { createPersonaAndAddToIdentifier } from './createPersonaAndAddToIdentifier';
+import { createPersonaAndAddToIdentifier } from './utils/createPersonaAndAddToIdentifier';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
-import { refreshIdentifierLock } from './refreshIdentifierLock';
-import { unsetIdentifierPersona } from './unsetIdentifierPersona';
+import { refreshIdentifierLock } from './utils/refreshIdentifierLock';
+import { unsetIdentifierPersona } from './utils/unsetIdentifierPersona';
 import createIdentifier from './utils/createIdentifier';
 
 type TheCreateUpdateIdentifierPersonaOptions = CreateUpdateIdentifierPersonaOptions & {

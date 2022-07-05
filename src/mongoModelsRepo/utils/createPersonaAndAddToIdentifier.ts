@@ -1,11 +1,11 @@
 import { ObjectID } from 'mongodb';
-import logger from '../logger';
-import { CreatePersonaAndAddToIdentifierOptions } from '../repoFactory/options/CreatePersonaAndAddToIdentifierOptions.types';
-import { CreatePersonaAndAddToIdentifierResult } from '../repoFactory/results/CreatePersonaAndAddToIdentifierResult.types';
-import Config from './Config';
-import createPersona from './createPersona';
-import setIdentifierPersona from './setIdentifierPersona';
-import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
+
+import { CreatePersonaAndAddToIdentifierOptions } from '../../repoFactory/options/CreatePersonaAndAddToIdentifierOptions.types';
+import { CreatePersonaAndAddToIdentifierResult } from '../../repoFactory/results/CreatePersonaAndAddToIdentifierResult.types';
+import Config from '../Config';
+import createPersona from '../createPersona';
+import setIdentifierPersona from '../setIdentifierPersona';
+import createOrUpdateIdentifier from './createOrUpdateIdentifier';
 
 export const createPersonaAndAddToIdentifier = (config: Config) =>
   async ({
