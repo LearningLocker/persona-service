@@ -106,9 +106,11 @@ const createUpdateIdentifierPersona = (config: Config) =>
           },
           update: {
             $set: { lockedAt: new Date() },
-            $unset: {
-              ...(ignorePersonaId ? { persona : '' } : {}),
-            },
+            ...(
+              ignorePersonaId
+              ? { $unset: { persona: '' } }
+              : {}
+            ),
           },
           upsert: false,
         });
