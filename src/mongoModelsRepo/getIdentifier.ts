@@ -3,6 +3,7 @@ import { ObjectID } from 'mongodb';
 
 import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
 import { ExpiredLock } from '../errors/ExpiredLock';
+import Identifier from '../models/Identifier';
 import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
@@ -25,18 +26,17 @@ export default (config: Config) => {
       throw new NoModel('Identifier');
     }
 
-    const identifier = {
+    const identifier: Identifier = {
       id: document._id.toString(),
       ifi: document.ifi,
       organisation: document.organisation.toString(),
       persona: document.persona?.toString(),
     };
 
-    const lockedAt = document.lockedAt?.getTime();
-    const lockAge = (new Date()).getTime() - lockedAt;
+    const lockAge = (new Date()).getTime() - (document.lockedAt?.getTime() ?? 0);
 
-    if (document.locked && (lockedAt === undefined || lockAge > IDENTIFIER_LOCK_EXPIRATION_MS)) {
-      throw new ExpiredLock(identifier, lockedAt === undefined);
+    if (document.locked && lockAge > IDENTIFIER_LOCK_EXPIRATION_MS) {
+      throw new ExpiredLock(identifier, document.lockedAt === undefined);
     }
 
     return { identifier, locked: document.locked };

@@ -1,4 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { ObjectID } from 'mongodb';
 import * as promiseRetry from 'promise-retry';
 
 import { ExpiredLock } from '../errors/ExpiredLock';
@@ -14,9 +15,8 @@ import Config from './Config';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import createIdentifier from './utils/createIdentifier';
+import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 import { createPersonaAndAddToIdentifier } from './utils/createPersonaAndAddToIdentifier';
-import { refreshIdentifierLock } from './utils/refreshIdentifierLock';
-import { unsetIdentifierPersona } from './utils/unsetIdentifierPersona';
 
 type TheCreateUpdateIdentifierPersonaOptions = CreateUpdateIdentifierPersonaOptions & {
   readonly getIdentifier?: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult & Lockable>;
@@ -99,14 +99,19 @@ const createUpdateIdentifierPersona = (config: Config) =>
           ignorePersonaId,
         } = err;
 
-        const refreshedIdentifier = await refreshIdentifierLock(config)({
-          identifierId: expiredIdentifier.id,
-          organisation,
+        const { identifier: identifierWithoutPersona } = await createOrUpdateIdentifier(config)({
+          filter: {
+            _id: new ObjectID(expiredIdentifier.id),
+            organisation: new ObjectID(organisation),
+          },
+          update: {
+            $set: { lockedAt: new Date() },
+            $unset: {
+              ...(ignorePersonaId ? { persona : '' } : {}),
+            },
+          },
+          upsert: false,
         });
-
-        const identifierWithoutPersona = (ignorePersonaId)
-          ? await unsetIdentifierPersona(config)(refreshedIdentifier)
-          : refreshedIdentifier;
 
         return await createPersonaAndAddToIdentifier(config)({
           identifier: identifierWithoutPersona,
