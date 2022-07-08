@@ -45,20 +45,11 @@ describe('', async () => {
         personaName: 'David Tennant',
       });
 
-      // identifier: updatedIdentifier,
-      // identifierId: updatedIdentifier.id,
-      // personaId: updatedIdentifier.persona,
-      // wasCreated: true,
-
       assert.equal(identifierWithPersona.persona !== undefined, true, 'Should create and add persona to identifier');
       assert.equal(wasCreated, true, 'Should create a new persona document');
     });
 
   it('Should just return identifier unchanged if it already has persona', async () => {
-    // identifier,
-    // identifierId: identifier.id,
-    // personaId: identifier.persona,
-    // wasCreated: false,
     const dbConfig = { db: generateMockDb() };
 
     const { identifier: identifierWithPersona } = await createUpdateIdentifierPersona(dbConfig)({
