@@ -3,7 +3,7 @@ import BaseError from 'jscommons/dist/errors/BaseError';
 import Identifier from '../models/Identifier';
 
 export default class extends BaseError {
-  readonly message: string;
+  public readonly message: string;
 
   constructor(public identifier: Identifier) {
     super();
