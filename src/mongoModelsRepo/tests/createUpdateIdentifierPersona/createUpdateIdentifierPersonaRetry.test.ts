@@ -45,7 +45,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     return client.db();
   };
 
-  it('Should error aftery trying 3 times and the identifier is locked', async () => {
+  it('Should error after trying 3 times and the identifier is locked', async () => {
     const repoConfig = { db: getMongoDB() };
 
     // Create mock

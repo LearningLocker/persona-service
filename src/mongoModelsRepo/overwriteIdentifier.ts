@@ -30,6 +30,9 @@ export default (config: Config) => {
         ifi,
         organisation: new ObjectID(organisation),
       },
+      $unset: {
+        lockedAt: '',
+      },
     };
 
     return createOrUpdateIdentifier(config)({

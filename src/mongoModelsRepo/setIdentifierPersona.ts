@@ -24,12 +24,15 @@ export default (config: Config) => {
         locked: false,
         persona: new ObjectID(persona),
       },
+      $unset: {
+        lockedAt: '',
+      },
     };
 
     return await createOrUpdateIdentifier(config)({
       filter,
       update,
       upsert: false,
-    });
+    }) as SetIdentifierPersonaResult;
   };
 };

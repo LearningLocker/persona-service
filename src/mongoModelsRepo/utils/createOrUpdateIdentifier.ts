@@ -37,8 +37,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // Formats the document into an identifier to be returned.
     const document = opResult.value;
 
-     /* istanbul ignore next */ // service should never be being passed a null persona
-    const personaString = document.persona ? document.persona.toString() : null;
+    const personaString = document.persona?.toString();
     const identifier: Identifier = {
       id: document._id.toString(),
       ifi: document.ifi,

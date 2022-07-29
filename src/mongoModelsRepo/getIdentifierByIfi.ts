@@ -20,8 +20,7 @@ export default (config: Config) => {
     }
 
     const identifierId = document._id.toString();
-    /* istanbul ignore next */ // shouldnt be null..
-    const personaId = document.persona === null ? null : document.persona.toString();
+    const personaId = document.persona?.toString();
     return { identifierId, personaId };
   };
 };
