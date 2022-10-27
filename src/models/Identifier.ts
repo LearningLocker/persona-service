@@ -7,4 +7,8 @@ interface Identifier extends BaseModel {
   readonly ifi: Ifi;
 }
 
+export interface IdentifierWithPersona extends Identifier {
+  readonly persona: string;
+}
+
 export default Identifier;

@@ -1,5 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
+import { ObjectID } from 'mongodb';
 import * as promiseRetry from 'promise-retry';
+
+import { ExpiredLock } from '../errors/ExpiredLock';
 import Locked from '../errors/Locked';
 import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacing
   from '../repoFactory/options/CreateUpdateIdentifierPersonaOptions';
@@ -9,11 +12,15 @@ import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
 import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
 import Lockable from '../repoFactory/utils/Lockable';
 import Config from './Config';
-import createPersona from './createPersona';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
-import setIdentifierPersona from './setIdentifierPersona';
 import createIdentifier from './utils/createIdentifier';
+import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
+import { createPersonaAndAddToIdentifier } from './utils/createPersonaAndAddToIdentifier';
+
+type TheCreateUpdateIdentifierPersonaOptions = CreateUpdateIdentifierPersonaOptions & {
+  readonly getIdentifier?: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult & Lockable>;
+};
 
 const create = (config: Config) =>
   async ({
@@ -32,23 +39,10 @@ const create = (config: Config) =>
       throw new Locked(identifier);
     }
 
-    const { persona } = await createPersona(config)({
-      name: personaName,
-      organisation,
+    return await createPersonaAndAddToIdentifier(config)({
+      identifier,
+      personaName,
     });
-
-    const { identifier: updatedIdentifier } = await setIdentifierPersona(config)({
-      id: identifier.id,
-      organisation,
-      persona: persona.id,
-    });
-
-    return {
-      identifier: updatedIdentifier,
-      identifierId: identifier.id,
-      personaId: persona.id,
-      wasCreated,
-    };
   };
 
 const createUpdateIdentifierPersona = (config: Config) =>
@@ -70,7 +64,7 @@ const createUpdateIdentifierPersona = (config: Config) =>
         organisation,
       });
 
-      if ( locked === true ) {
+      if (locked === true) {
         // We are locked, wait for unlock
         throw new Locked(foundIdentifier);
       }
@@ -85,8 +79,8 @@ const createUpdateIdentifierPersona = (config: Config) =>
       // currently it doesn't get updated
 
       return {
-        identifier: foundIdentifier,
         identifierId,
+        identifier: foundIdentifier,
         personaId: foundIdentifier.persona,
         wasCreated: false,
       };
@@ -99,14 +93,37 @@ const createUpdateIdentifierPersona = (config: Config) =>
           personaName,
         });
       }
+      if (err instanceof ExpiredLock) {
+        const {
+          identifier: expiredIdentifier,
+          ignorePersonaId,
+        } = err;
+
+        const { identifier: identifierWithoutPersona } = await createOrUpdateIdentifier(config)({
+          filter: {
+            _id: new ObjectID(expiredIdentifier.id),
+            organisation: new ObjectID(organisation),
+          },
+          update: {
+            $set: { lockedAt: new Date() },
+            ...(
+              ignorePersonaId
+              ? { $unset: { persona: '' } }
+              : {}
+            ),
+          },
+          upsert: false,
+        });
+
+        return await createPersonaAndAddToIdentifier(config)({
+          identifier: identifierWithoutPersona,
+          personaName,
+        });
+      }
+
       throw err;
     }
-
   };
-
-type TheCreateUpdateIdentifierPersonaOptions = CreateUpdateIdentifierPersonaOptions & {
-  readonly getIdentifier?: (opts: GetIdentifierOptions) => Promise<GetIdentifierResult & Lockable>;
-};
 
 const retryCreateUpdateIdentifierPersona = (config: Config) =>
   async (opts: TheCreateUpdateIdentifierPersonaOptions):
@@ -116,7 +133,8 @@ const retryCreateUpdateIdentifierPersona = (config: Config) =>
 
   return promiseRetry<CreateUpdateIdentifierPersonaResult>(async (retry) => {
     try {
-      return await createUpdateIdentifierPersonaFn(opts);
+      const res = await createUpdateIdentifierPersonaFn(opts);
+      return res;
     } catch (err) {
       /* istanbul ignore else */
       if (err instanceof Locked) {
