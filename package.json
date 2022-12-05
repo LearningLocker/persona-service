@@ -43,7 +43,7 @@
     "fs-extra": "^5.0.0",
     "jscommons": "^4.0.0",
     "lodash": "^4.17.4",
-    "mongodb": "^3.6.2",
+    "mongodb": "^4.12.1",
     "promise-retry": "^1.1.1",
     "rulr": "^4.0.0",
     "sha1": "^1.1.1",
