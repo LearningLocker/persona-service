@@ -1,4 +1,5 @@
-import { Db, MongoClient } from 'mongodb';
+import { MongoClient } from 'mongodb';
+import type { Db } from 'mongodb';
 
 export interface CreateMongoClientOptions {
   readonly options: object;
