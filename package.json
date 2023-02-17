@@ -45,7 +45,7 @@
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "fs-extra": "^5.0.0",
-    "jscommons": "^4.0.0",
+    "jscommons": "^6.0.0",
     "lodash": "^4.17.4",
     "mongodb": "^3.6.2",
     "promise-retry": "^1.1.1",
