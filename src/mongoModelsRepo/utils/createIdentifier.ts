@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import PersonaNotSetAndUnlocked from '../../errors/PersonaNotSetAndUnlocked';
 import Identifier from '../../models/Identifier';
 import Ifi from '../../models/Ifi';
@@ -22,8 +22,8 @@ interface Update {
   $setOnInsert: {
     ifi: Ifi;
     locked: boolean;
-    organisation: ObjectID;
-    persona?: ObjectID;
+    organisation: ObjectId;
+    persona?: ObjectId;
     lockedAt?: Date;
   };
 }
@@ -53,12 +53,12 @@ export default (config: Config) => {
       $setOnInsert: {
         ifi,
         locked, // sets lock
-        organisation: new ObjectID(organisation),
+        organisation: new ObjectId(organisation),
       },
     };
 
     if (persona !== undefined) {
-      update.$setOnInsert.persona = new ObjectID(persona);
+      update.$setOnInsert.persona = new ObjectId(persona);
     }
 
     if (locked) {

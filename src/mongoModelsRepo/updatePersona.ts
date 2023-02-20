@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import UpdatePersonaOptions from '../repoFactory/options/UpdatePersonaOptions';
 import UpdatePersonaResult from '../repoFactory/results/UpdatePersonaResult';
@@ -15,8 +15,8 @@ export default (config: Config) => {
     const collection = (await config.db).collection(PERSONAS_COLLECTION);
 
     const result = await collection.findOneAndUpdate({
-      _id: new ObjectID(personaId),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(personaId),
+      organisation: new ObjectId(organisation),
     },
     {
       $set: {
@@ -24,7 +24,7 @@ export default (config: Config) => {
       },
     },
     {
-      returnOriginal: false,
+      returnDocument: 'after',
       upsert,
     });
 

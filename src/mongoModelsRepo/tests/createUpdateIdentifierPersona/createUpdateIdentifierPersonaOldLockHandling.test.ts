@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import {
   MongoClient,
-  ObjectID,
+  ObjectId,
 } from 'mongodb';
 
 import config from '../../../config';
@@ -50,8 +50,8 @@ describe('createUpdateIdentifierPersona identifier old lock handling mongo', asy
     // Set locked: true and remove lockedAt.
     await createOrUpdateIdentifier(dbConfig)({
       filter: {
-        _id: new ObjectID(testIdentifier.id),
-        organisation: new ObjectID(testIdentifier.organisation),
+        _id: new ObjectId(testIdentifier.id),
+        organisation: new ObjectId(testIdentifier.organisation),
       },
       update: {
         $set: { locked: true },
@@ -85,9 +85,9 @@ describe('createUpdateIdentifierPersona identifier old lock handling mongo', asy
 
     // the document should have locked: false, and no lockedAt
     const identifierDocument = await (await getPersonaIdentifiersCollection(dbConfig))
-      .findOne({ _id: new ObjectID(correctedIdentifier.id) });
+      .findOne({ _id: new ObjectId(correctedIdentifier.id) });
 
-    assert.equal(identifierDocument.locked, false, 'Identifier should now be unlocked');
-    assert.equal(identifierDocument.lockedAt, undefined, 'Identifier document should not have lockedAt field');
+    assert.equal(identifierDocument?.locked, false, 'Identifier should now be unlocked');
+    assert.equal(identifierDocument?.lockedAt, undefined, 'Identifier document should not have lockedAt field');
   });
 });

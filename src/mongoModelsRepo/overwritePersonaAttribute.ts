@@ -1,4 +1,4 @@
-import { MongoError, ObjectID } from 'mongodb';
+import { MongoError, ObjectId } from 'mongodb';
 import OverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
   '../repoFactory/options/OverwritePersonaAttributeOptions';
 import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
@@ -23,8 +23,8 @@ const overwritePersonaAttribute = (config: Config) => {
     try {
       const result = await collection.findOneAndUpdate({
         key,
-        organisation: new ObjectID(organisation),
-        personaId: new ObjectID(personaId),
+        organisation: new ObjectId(organisation),
+        personaId: new ObjectId(personaId),
       },
       {
         $set: {
@@ -32,9 +32,13 @@ const overwritePersonaAttribute = (config: Config) => {
         },
       },
       {
-        returnOriginal: false,
+        returnDocument: 'after',
         upsert: true,
       });
+
+      if (!result.value) {
+        throw new Error('No persona attribute found');
+      }
 
       const attribute = {
         id: result.value._id.toString(),

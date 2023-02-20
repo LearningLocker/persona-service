@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { MongoError } from 'mongodb';
+import { MongoError, WithId } from 'mongodb';
 import Identifier from '../../models/Identifier';
 import OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
 import Config from '../Config';
@@ -23,15 +23,19 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#findOneAndUpdate
     // Docs: http://bit.ly/findAndModifyWriteOpResult
     // Update JM 2018-09-12
-    // findOneAndupdate is NOT atomic! https://stackoverflow.com/a/37485551
+    // findOneAndUpdate is NOT atomic! https://stackoverflow.com/a/37485551
     const opResult = await collection.findOneAndUpdate(filter, update, {
-      returnOriginal: false, // Ensures the updated document is returned.
+      returnDocument: 'after', // Ensures the updated document is returned.
       upsert, // Creates the identifier when it's not found.
     });
 
     // upsert === false and no model has been found.
-    if (opResult.lastErrorObject.updatedExisting === false && opResult.lastErrorObject.n === 0) {
+    if (opResult.lastErrorObject?.updatedExisting === false && opResult.lastErrorObject.n === 0) {
       throw new NoModel('Persona Identifier');
+    }
+
+    if (!opResult.value) {
+      throw new Error('Can not update identifier');
     }
 
     // Formats the document into an identifier to be returned.
@@ -47,7 +51,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
 
     // Determines if the identifier was created or found.
     // Docs: https://docs.mongodb.com/manual/reference/command/getLastError/#getLastError.n
-    const wasCreated = opResult.lastErrorObject.upserted !== undefined;
+    const wasCreated = opResult.lastErrorObject?.upserted !== undefined;
     return { identifier, wasCreated };
   } catch (err) {
     // if we catch a duplicate error, we can be sure to find it next time round

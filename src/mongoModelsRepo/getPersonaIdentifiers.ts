@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId, Sort } from 'mongodb';
 import GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
 import GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
 import Config from './Config';
@@ -17,14 +17,14 @@ export default (config: Config) => {
     const collection = db.collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     // tslint:disable-next-line:strict-boolean-expressions
-    const personaFilter = persona ? { persona: new ObjectID(persona) } : {};
+    const personaFilter = persona ? { persona: new ObjectId(persona) } : {};
 
     const documents = collection.find({
       ...filter,
       ...personaFilter,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     })
-    .sort(sort)
+    .sort(sort as Sort)
     .skip(skip)
     .limit(limit);
 

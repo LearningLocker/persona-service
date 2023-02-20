@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId, Sort } from 'mongodb';
 import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
 import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
 
@@ -18,9 +18,9 @@ export default (config: Config) => {
 
     const documents = collection.find({
       ...filter,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     })
-    .sort(sort)
+    .sort(sort as Sort)
     .skip(skip)
     .limit(limit);
 

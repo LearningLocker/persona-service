@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import UpdateIdentifierOptions from '../serviceFactory/options/UpdateIdentifierOptions';
 import UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
@@ -14,15 +14,15 @@ export default (config: Config) => {
     const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const result = await collection.findOneAndUpdate({
-      _id: new ObjectID(id),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(id),
+      organisation: new ObjectId(organisation),
     },
     {
       $set: {
         persona,
       },
     }, {
-      returnOriginal: false,
+      returnDocument: 'after',
       upsert: false,
     });
     if (result.value === null || result.value === undefined) {

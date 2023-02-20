@@ -1,8 +1,8 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import {
   Db,
-  FindAndModifyWriteOpResultObject,
-  FindOneAndReplaceOption,
+  FindOneAndUpdateOptions,
+  ModifyResult,
   MongoClient,
 } from 'mongodb';
 
@@ -48,8 +48,8 @@ describe('createUpdateIdentifierPersona mongo', async () => {
           findOneAndUpdate: async (
             filter: Object,
             update: Object,
-            options: FindOneAndReplaceOption<any>,
-          ): Promise<FindAndModifyWriteOpResultObject<any>> => {
+            options: FindOneAndUpdateOptions,
+          ): Promise<ModifyResult> => {
             const result = await collection2.findOneAndUpdate(filter, update, options);
             return {
               ...result,

@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import PersonaHasIdentsError from '../errors/PersonaHasIdentsError';
 import DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
 import Config from './Config';
@@ -18,14 +18,19 @@ export default (config: Config) => {
     const personaAttributesCollection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const orgFilter = {
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     };
-    const personaObjectID = new ObjectID(personaId);
+    const personaObjectId = new ObjectId(personaId);
 
-    const existingIdent = await personaIdentifiersCollection.findOne({
-      ...orgFilter,
-      persona: personaObjectID,
-    }, { fields: {_id: 1}});
+    const existingIdent = await personaIdentifiersCollection
+      .findOne({
+          ...orgFilter,
+          persona: personaObjectId,
+        },
+        {
+          projection: {_id: 1},
+        },
+      );
 
     if (existingIdent) {
       throw new PersonaHasIdentsError();
@@ -34,12 +39,12 @@ export default (config: Config) => {
     // remove all attributes
     await personaAttributesCollection.deleteMany({
       ...orgFilter,
-      personaId: personaObjectID,
+      personaId: personaObjectId,
     });
 
     const result = await collection.deleteOne({
       ...orgFilter,
-      _id: personaObjectID,
+      _id: personaObjectId,
     });
 
     if (result.deletedCount === 0) {
