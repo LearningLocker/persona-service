@@ -35,6 +35,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     }
 
     if (!opResult.value) {
+      /* istanbul ignore next */
       throw new Error('Can not update identifier');
     }
 

@@ -37,6 +37,7 @@ const overwritePersonaAttribute = (config: Config) => {
       });
 
       if (!result.value) {
+        /* istanbul ignore next */
         throw new Error('No persona attribute found');
       }
 
