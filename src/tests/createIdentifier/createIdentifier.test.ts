@@ -1,4 +1,3 @@
-/* tslint:disable:max-file-line-count */
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import Conflict from '../../errors/Conflict';
@@ -16,7 +15,7 @@ describe('createIdentifier', () => {
 
   it('Should create identifier', async () => {
     const persona = await createTestPersona();
-    const {identifier} = await service.createIdentifier({
+    const { identifier } = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
@@ -67,7 +66,6 @@ describe('createIdentifier', () => {
       persona: persona.id,
     });
 
-    /* tslint:disable:object-literal-sort-keys */
     const createPromise = service.createIdentifier({
       ifi: {
         key: 'account',
@@ -79,9 +77,7 @@ describe('createIdentifier', () => {
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
-    /* tslint:enable:object-literal-sort-keys */
 
-    /* tslint:disable:object-literal-sort-keys */
     const createPromise2 = service.createIdentifier({
       ifi: {
         value: {
@@ -96,7 +92,6 @@ describe('createIdentifier', () => {
     await assertError(Conflict, createPromise);
     await assertError(Conflict, createPromise2);
   });
-  /* tslint:enable:object-literal-sort-keys */
 
   it('Should create identifiers in different organisations', async () => {
     const persona = await createTestPersona();
@@ -105,16 +100,16 @@ describe('createIdentifier', () => {
       TEST_ORGANISATION_OUTSIDE_STORE,
     );
 
-      await service.createIdentifier({
-        ifi: TEST_IFI,
-        organisation: TEST_ORGANISATION,
-        persona: persona.id,
-      });
+    await service.createIdentifier({
+      ifi: TEST_IFI,
+      organisation: TEST_ORGANISATION,
+      persona: persona.id,
+    });
 
-      await service.createIdentifier({
-        ifi: TEST_IFI,
-        organisation: TEST_ORGANISATION_OUTSIDE_STORE,
-        persona: otherOrgPersona.id,
-      });
+    await service.createIdentifier({
+      ifi: TEST_IFI,
+      organisation: TEST_ORGANISATION_OUTSIDE_STORE,
+      persona: otherOrgPersona.id,
+    });
   });
 });

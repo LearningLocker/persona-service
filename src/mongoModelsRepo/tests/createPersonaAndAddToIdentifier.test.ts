@@ -11,9 +11,9 @@ import createUpdateIdentifierPersona from '../createUpdateIdentifierPersona';
 import creatIdentifier from '../utils/createIdentifier';
 import { createPersonaAndAddToIdentifier } from '../utils/createPersonaAndAddToIdentifier';
 
-describe('', async () => {
+describe('', () => {
+  let serviceConfig: ServiceConfig;
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
   beforeEach(async () => {
     const repoFacade = repoFactory();
     serviceConfig = {repo: repoFacade};

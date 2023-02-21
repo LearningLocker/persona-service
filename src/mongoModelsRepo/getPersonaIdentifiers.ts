@@ -19,14 +19,15 @@ export default (config: Config) => {
     // tslint:disable-next-line:strict-boolean-expressions
     const personaFilter = persona ? { persona: new ObjectId(persona) } : {};
 
-    const documents = collection.find({
-      ...filter,
-      ...personaFilter,
-      organisation: new ObjectId(organisation),
-    })
-    .sort(sort as Sort)
-    .skip(skip)
-    .limit(limit);
+    const documents = collection
+      .find({
+        ...filter,
+        ...personaFilter,
+        organisation: new ObjectId(organisation),
+      })
+      .sort(sort as Sort)
+      .skip(skip)
+      .limit(limit);
 
     const formattedDocuments = documents.map((document: any) => ({
       id: document._id.toString(),

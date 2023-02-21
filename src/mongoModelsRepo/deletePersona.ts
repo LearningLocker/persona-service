@@ -23,12 +23,13 @@ export default (config: Config) => {
     const personaObjectId = new ObjectId(personaId);
 
     const existingIdent = await personaIdentifiersCollection
-      .findOne({
+      .findOne(
+        {
           ...orgFilter,
           persona: personaObjectId,
         },
         {
-          projection: {_id: 1},
+          projection: { _id: 1 },
         },
       );
 

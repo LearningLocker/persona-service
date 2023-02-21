@@ -66,34 +66,31 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
 
   it(
     'should error if unlocked, but persona is not set, (should not be possible in rl)',
-    async () =>
-  { // tslint:disable-line:one-line
-    const repoConfig = { db: getMongoDB() };
-    const createIdentifierPromise = createIdentifier(repoConfig)({
-      ifi: TEST_IFI,
-      locked: false,
-      organisation: TEST_ORGANISATION,
+    async () => {
+      const repoConfig = { db: getMongoDB() };
+      const createIdentifierPromise = createIdentifier(repoConfig)({
+        ifi: TEST_IFI,
+        locked: false,
+        organisation: TEST_ORGANISATION,
+      });
+
+      await assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
     });
 
-    await assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
-  });
-
-  it('should retry twice and succed on 3rd attempt', async () => {
+  it('should retry twice and succeed on 3rd attempt', async () => {
     const repoFacade = repoFactory();
 
     // SETUP MOCK
-    let getIdentifierCount = 0; // tslint:disable-line:no-let
+    let getIdentifierCount = 0;
     const RETRY_SUCCESS = 2;
 
-    const mockGetIdentifier = async (opts: GetIdentifierOptions):
-    Promise<GetIdentifierResult & Lockable> => {
-
+    const mockGetIdentifier = async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
       getIdentifierCount = getIdentifierCount + 1;
       const realResult = await repoFacade.getIdentifier(opts);
 
       return {
         ...realResult,
-        locked: getIdentifierCount > RETRY_SUCCESS ? false : true,
+        locked: getIdentifierCount <= RETRY_SUCCESS,
       };
     };
 

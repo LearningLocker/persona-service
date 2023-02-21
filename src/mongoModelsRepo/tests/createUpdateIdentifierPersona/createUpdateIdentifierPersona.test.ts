@@ -1,27 +1,28 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import {
   Db,
+  Filter,
   FindOneAndUpdateOptions,
   ModifyResult,
   MongoClient,
+  UpdateFilter,
 } from 'mongodb';
 
 import config from '../../../config';
 import Locked from '../../../errors/Locked';
 import repoFactory from '../../../repoFactory';
-import ServiceConfig from '../../../service/Config';
+import type ServiceConfig from '../../../service/Config';
 import { TEST_IFI, TEST_ORGANISATION } from '../../../tests/utils/values';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 
-describe('createUpdateIdentifierPersona mongo', async () => {
-
+describe('createUpdateIdentifierPersona mongo', () => {
   // Only test mongo repo
   /* istanbul ignore next */
   if (config.repoFactory.modelsRepoName !== 'mongo') {
     return;
   }
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
+  let serviceConfig: ServiceConfig;
   beforeEach(async () => {
     const repoFacade = repoFactory();
     serviceConfig = {repo: repoFacade};
@@ -46,11 +47,12 @@ describe('createUpdateIdentifierPersona mongo', async () => {
         return Object.setPrototypeOf({
           ...collection2,
           findOneAndUpdate: async (
-            filter: Object,
-            update: Object,
+            filter: Filter<any>,
+            update: UpdateFilter<any>,
             options: FindOneAndUpdateOptions,
           ): Promise<ModifyResult> => {
             const result = await collection2.findOneAndUpdate(filter, update, options);
+
             return {
               ...result,
               lastErrorObject: {

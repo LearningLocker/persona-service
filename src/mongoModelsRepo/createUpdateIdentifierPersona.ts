@@ -108,8 +108,8 @@ const createUpdateIdentifierPersona = (config: Config) =>
             $set: { lockedAt: new Date() },
             ...(
               ignorePersonaId
-              ? { $unset: { persona: '' } }
-              : {}
+                ? { $unset: { persona: '' } }
+                : {}
             ),
           },
           upsert: false,
@@ -128,26 +128,29 @@ const createUpdateIdentifierPersona = (config: Config) =>
 const retryCreateUpdateIdentifierPersona = (config: Config) =>
   async (opts: TheCreateUpdateIdentifierPersonaOptions):
   Promise<CreateUpdateIdentifierPersonaResult> => {
+    const createUpdateIdentifierPersonaFn = createUpdateIdentifierPersona(config);
 
-  const createUpdateIdentifierPersonaFn = createUpdateIdentifierPersona(config);
+    return promiseRetry<CreateUpdateIdentifierPersonaResult>(
+      async (retry) => {
+        try {
+          const res = await createUpdateIdentifierPersonaFn(opts);
 
-  return promiseRetry<CreateUpdateIdentifierPersonaResult>(async (retry) => {
-    try {
-      const res = await createUpdateIdentifierPersonaFn(opts);
-      return res;
-    } catch (err) {
-      /* istanbul ignore else */
-      if (err instanceof Locked) {
-        return retry(err);
+          return res;
+        } catch (err) {
+          /* istanbul ignore else */
+          if (err instanceof Locked) {
+            return retry(err);
+          }
+          /* istanbul ignore next */
+          throw err;
+        }
+      },
+      {
+        maxTimeout: 300,
+        minTimeout: 30,
+        retries: 3,
       }
-      /* istanbul ignore next */
-      throw err;
-    }
-  }, {
-    maxTimeout: 300,
-    minTimeout: 30,
-    retries: 3,
-  });
-};
+    );
+  };
 
 export default retryCreateUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count

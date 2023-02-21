@@ -4,7 +4,6 @@ import { CursorDirection } from '../../../serviceFactory/utils/GetOptions';
 import { cursorToFilter, modelToCursor } from '../../utils/cursor';
 
 describe('cursor', () => {
-
   it('Should generate a cursor from a model and sort', () => {
 
     const mockModel = {
@@ -98,7 +97,7 @@ describe('cursor', () => {
       });
       /* istanbul ignore next */
       assert.equal(true, false, 'should not happen');
-    } catch (err) {
+    } catch (err: any) {
       assert.equal(err.constructor, InvalidCursor);
     }
   });
@@ -116,8 +115,8 @@ describe('cursor', () => {
       });
       /* istanbul ignore next */
       assert.equal(true, false, 'should not happen');
-    } catch (err) {
+    } catch (err: any) {
       assert.equal(err.constructor, InvalidCursor);
     }
   });
-}); // tslint:disable-line: max-file-line-count
+});

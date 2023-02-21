@@ -1,4 +1,3 @@
-// tslint:disable:max-file-line-count
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import {
@@ -15,14 +14,14 @@ import Config from '../../Config';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 import createOrUpdateIdentifier from '../../utils/createOrUpdateIdentifier';
 
-describe('createUpdateIdentifierPersona identifier lockedAt handling mongo', async () => {
+describe('createUpdateIdentifierPersona identifier lockedAt handling mongo', () => {
   // Only test mongo repo
   /* istanbul ignore next */
   if (config.repoFactory.modelsRepoName !== 'mongo') {
     return;
   }
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
+  let serviceConfig: ServiceConfig;
   beforeEach(async () => {
     const repoFacade = repoFactory();
     serviceConfig = {repo: repoFacade};
@@ -39,8 +38,7 @@ describe('createUpdateIdentifierPersona identifier lockedAt handling mongo', asy
     (await dbConfig.db).collection('personaIdentifiers')
   );
 
-  it('Should throw a Locked Error for a locked personaIdentifier, '
-    + 'with a persona still attached and with a recent lockedAt field',
+  it('Should throw a Locked Error for a locked personaIdentifier, with a persona still attached and with a recent lockedAt field',
     async () => {
       const dbConfig = { db: generateMockDb() };
 
@@ -80,8 +78,7 @@ describe('createUpdateIdentifierPersona identifier lockedAt handling mongo', asy
       );
     });
 
-  it('Should throw a Locked Error for a locked personaIdentifier'
-    + 'without a persona and with a recent lockedAt field',
+  it('Should throw a Locked Error for a locked personaIdentifier without a persona and with a recent lockedAt field',
     async () => {
       const dbConfig = { db: generateMockDb() };
 

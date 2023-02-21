@@ -16,13 +16,14 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection(PERSONAS_COLLECTION);
 
-    const documents = collection.find({
-      ...filter,
-      organisation: new ObjectId(organisation),
-    })
-    .sort(sort as Sort)
-    .skip(skip)
-    .limit(limit);
+    const documents = collection
+      .find({
+        ...filter,
+        organisation: new ObjectId(organisation),
+      })
+      .sort(sort as Sort)
+      .skip(skip)
+      .limit(limit);
 
     const formattedDocuments = documents.map((document: any) => ({
       id: document._id.toString(),

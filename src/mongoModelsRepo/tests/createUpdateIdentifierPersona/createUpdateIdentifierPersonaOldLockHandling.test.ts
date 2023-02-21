@@ -12,17 +12,17 @@ import Config from '../../Config';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 import createOrUpdateIdentifier from '../../utils/createOrUpdateIdentifier';
 
-describe('createUpdateIdentifierPersona identifier old lock handling mongo', async () => {
+describe('createUpdateIdentifierPersona identifier old lock handling mongo', () => {
   // Only test mongo repo
   /* istanbul ignore next */
   if (config.repoFactory.modelsRepoName !== 'mongo') {
     return;
   }
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
+  let serviceConfig: ServiceConfig;
   beforeEach(async () => {
     const repoFacade = repoFactory();
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     await serviceConfig.repo.clearRepo();
   });
 

@@ -18,13 +18,13 @@ describe('getIfisByPersona', () => {
   });
 
   it('should return nothing if outside organisation', async () => {
-    const {personaId} = await createTestIdentifier();
+    const { personaId } = await createTestIdentifier();
 
-        const result = await service.getIfisByPersona({
-          organisation: TEST_ORGANISATION_OUTSIDE_STORE,
-          persona: personaId,
-        });
+    const result = await service.getIfisByPersona({
+      organisation: TEST_ORGANISATION_OUTSIDE_STORE,
+      persona: personaId,
+    });
 
-        assert.equal(result.ifis.length, 0);
+    assert.equal(result.ifis.length, 0);
   });
 });

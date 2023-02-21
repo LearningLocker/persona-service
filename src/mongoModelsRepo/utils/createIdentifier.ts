@@ -31,7 +31,7 @@ interface Update {
 export default (config: Config) => {
   return async ({
     persona,
-    locked = ((persona === undefined) ? true : false),
+    locked = persona === undefined,
     ifi,
     organisation,
   }: Options & Lockable): Promise<Result> => {

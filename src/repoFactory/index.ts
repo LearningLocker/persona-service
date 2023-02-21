@@ -5,7 +5,8 @@ import createMongoClient from './utils/createMongoClient';
 
 export default (): Repo => {
   switch (config.repoFactory.modelsRepoName) {
-    default: case 'mongo':
+    case 'mongo':
+    default:
       return mongoModelsRepo({
         db: createMongoClient({
           options: config.mongoModelsRepo.options,

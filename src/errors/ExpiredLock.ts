@@ -1,5 +1,5 @@
 import BaseError from 'jscommons/dist/errors/BaseError';
-import Identifier from '../models/Identifier';
+import type Identifier from '../models/Identifier';
 
 export class ExpiredLock extends BaseError {
   constructor(

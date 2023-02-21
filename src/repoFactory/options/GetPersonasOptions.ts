@@ -1,5 +1,4 @@
-import ServiceGetPersonasOptions from // tslint:disable-line:import-spacing
-'../../serviceFactory/options/GetPersonasOptions';
+import ServiceGetPersonasOptions from '../../serviceFactory/options/GetPersonasOptions';
 
 type GetPersonasOptions = ServiceGetPersonasOptions;
 
