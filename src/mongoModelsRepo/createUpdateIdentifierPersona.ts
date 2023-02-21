@@ -4,14 +4,12 @@ import * as promiseRetry from 'promise-retry';
 
 import { ExpiredLock } from '../errors/ExpiredLock';
 import Locked from '../errors/Locked';
-import CreateUpdateIdentifierPersonaOptions // tslint:disable-line:import-spacing
-  from '../repoFactory/options/CreateUpdateIdentifierPersonaOptions';
-import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
-import CreateUpdateIdentifierPersonaResult // tslint:disable-line:import-spacing
-  from '../repoFactory/results/CreateUpdateIdentifierPersonaResult';
-import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
-import Lockable from '../repoFactory/utils/Lockable';
-import Config from './Config';
+import type CreateUpdateIdentifierPersonaOptions from '../repoFactory/options/CreateUpdateIdentifierPersonaOptions';
+import type GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
+import type CreateUpdateIdentifierPersonaResult from '../repoFactory/results/CreateUpdateIdentifierPersonaResult';
+import type GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
+import type Lockable from '../repoFactory/utils/Lockable';
+import type Config from './Config';
 import getTheIdentifier from './getIdentifier';
 import getIdentifierByIfi from './getIdentifierByIfi';
 import createIdentifier from './utils/createIdentifier';
@@ -52,14 +50,13 @@ const createUpdateIdentifierPersona = (config: Config) =>
     personaName,
     getIdentifier = getTheIdentifier(config), // for testing.
   }: TheCreateUpdateIdentifierPersonaOptions): Promise<CreateUpdateIdentifierPersonaResult> => {
-
     // find the ifi
     try { // Identifier exists, so do nothing.
       const { identifierId } = await getIdentifierByIfi(config)({
         ifi,
         organisation,
       });
-      const {identifier: foundIdentifier, locked} = await getIdentifier({
+      const { identifier: foundIdentifier, locked } = await getIdentifier({
         id: identifierId,
         organisation,
       });
@@ -84,10 +81,9 @@ const createUpdateIdentifierPersona = (config: Config) =>
         personaId: foundIdentifier.persona,
         wasCreated: false,
       };
-
     } catch (err) {
       if (err instanceof NoModel) {
-        return create(config)({
+        return await create(config)({
           ifi,
           organisation,
           personaName,
@@ -130,7 +126,7 @@ const retryCreateUpdateIdentifierPersona = (config: Config) =>
   Promise<CreateUpdateIdentifierPersonaResult> => {
     const createUpdateIdentifierPersonaFn = createUpdateIdentifierPersona(config);
 
-    return promiseRetry<CreateUpdateIdentifierPersonaResult>(
+    return await promiseRetry<CreateUpdateIdentifierPersonaResult>(
       async (retry) => {
         try {
           const res = await createUpdateIdentifierPersonaFn(opts);
@@ -139,7 +135,7 @@ const retryCreateUpdateIdentifierPersona = (config: Config) =>
         } catch (err) {
           /* istanbul ignore else */
           if (err instanceof Locked) {
-            return retry(err);
+            return await retry(err);
           }
           /* istanbul ignore next */
           throw err;
@@ -149,8 +145,8 @@ const retryCreateUpdateIdentifierPersona = (config: Config) =>
         maxTimeout: 300,
         minTimeout: 30,
         retries: 3,
-      }
+      },
     );
   };
 
-export default retryCreateUpdateIdentifierPersona; // tslint:disable-line:max-file-line-count
+export default retryCreateUpdateIdentifierPersona;

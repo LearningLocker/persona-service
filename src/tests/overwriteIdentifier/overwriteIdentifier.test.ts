@@ -14,31 +14,31 @@ describe('overwriteIdentifier', () => {
   it('Should overwrite an identifier', async () => {
     const persona = await createTestPersona();
 
-    const {persona: persona2} = await service.createPersona({
+    const { persona: persona2 } = await service.createPersona({
       name: 'Dave 2',
       organisation: TEST_ORGANISATION,
     });
 
     // should not be changed
-    const {identifier: shouldBeSameIdentifier} = await service.createIdentifier({
+    const { identifier: shouldBeSameIdentifier } = await service.createIdentifier({
       ifi: TEST_OPENID_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
 
-    const {identifier} = await service.createIdentifier({
+    const { identifier } = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
 
-    const {wasCreated} = await service.overwriteIdentifier({
+    const { wasCreated } = await service.overwriteIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona2.id,
     });
 
-    const {identifier: actualIdentifier} = await service.getIdentifier({
+    const { identifier: actualIdentifier } = await service.getIdentifier({
       id: identifier.id,
       organisation: TEST_ORGANISATION,
     });
@@ -51,13 +51,13 @@ describe('overwriteIdentifier', () => {
   it('Should create on identifier if it does not exist', async () => {
     const persona = await createTestPersona('Dave', TEST_ORGANISATION_OUTSIDE_STORE);
 
-    const {identifier, wasCreated} = await service.overwriteIdentifier({
+    const { identifier, wasCreated } = await service.overwriteIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION_OUTSIDE_STORE,
       persona: persona.id,
     });
 
-    const {identifier: actualIdentifier} = await service.getIdentifier({
+    const { identifier: actualIdentifier } = await service.getIdentifier({
       id: identifier.id,
       organisation: TEST_ORGANISATION_OUTSIDE_STORE,
     });

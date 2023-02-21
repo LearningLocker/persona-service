@@ -1,5 +1,3 @@
-// tslint:disable:no-magic-numbers
-// tslint:disable:max-file-line-count
 import * as assert from 'assert';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
@@ -41,8 +39,7 @@ describe('getPersonaAttributes', () => {
       personaId: newPersona.id,
     });
 
-    assert.equal(result.attributes.length, 2); // tslint:disable-line:no-magic-numbers
-
+    assert.equal(result.attributes.length, 2);
     assert.deepEqual(result.attributes[0], attribute1);
     assert.deepEqual(result.attributes[1], attribute2);
   });

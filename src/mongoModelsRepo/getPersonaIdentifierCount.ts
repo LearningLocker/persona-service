@@ -1,9 +1,7 @@
 import { ObjectID } from 'mongodb';
-import GetPersonaIdentifierCountOptions from // tslint:disable-line:import-spacing
-  '../repoFactory/options/GetPersonaIdentifierCountOptions';
-import GetPersonaIdentifierCountResult from // tslint:disable-line:import-spacing
-  '../repoFactory/results/GetPersonaIdentifierCountResult';
-import Config from './Config';
+import type GetPersonaIdentifierCountOptions from '../repoFactory/options/GetPersonaIdentifierCountOptions';
+import type GetPersonaIdentifierCountResult from '../repoFactory/results/GetPersonaIdentifierCountResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

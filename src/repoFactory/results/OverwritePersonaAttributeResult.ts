@@ -1,5 +1,4 @@
-import ServiceOverwritePersonaAttributeResult from // tslint:disable-line:import-spacing max-line-length
-  '../../serviceFactory/results/OverwritePersonaAttributeResult';
+import type ServiceOverwritePersonaAttributeResult from '../../serviceFactory/results/OverwritePersonaAttributeResult';
 
 type OverwritePersonaAttributeResult = ServiceOverwritePersonaAttributeResult;
 

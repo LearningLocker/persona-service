@@ -1,7 +1,7 @@
 import commonMongoRepo from 'jscommons/dist/mongoRepo';
-import Repo from '../repoFactory/Repo';
+import type Repo from '../repoFactory/Repo';
 import clearRepo from './clearRepo';
-import Config from './Config';
+import type Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';

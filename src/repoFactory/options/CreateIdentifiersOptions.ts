@@ -1,5 +1,5 @@
 
-import Ifi from '../../models/Ifi';
+import type Ifi from '../../models/Ifi';
 
 interface Options {
   readonly organisation: string;

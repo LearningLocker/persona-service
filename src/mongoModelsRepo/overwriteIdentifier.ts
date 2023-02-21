@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
-import OverwriteIdentifierOptions from '../repoFactory/options/OverwriteIdentifierOptions';
-import OverwriteIdentifierResult from '../repoFactory/results/OverwriteIdentifierResult';
-import Config from './Config';
+import type OverwriteIdentifierOptions from '../repoFactory/options/OverwriteIdentifierOptions';
+import type OverwriteIdentifierResult from '../repoFactory/results/OverwriteIdentifierResult';
+import type Config from './Config';
 import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 import getPersonaById from './utils/getPersonaById';
@@ -12,7 +12,6 @@ export default (config: Config) => {
     organisation,
     ifi,
   }: OverwriteIdentifierOptions): Promise<OverwriteIdentifierResult> => {
-
     // check persona exists
     await getPersonaById(config)({ organisation, personaId: persona });
 
@@ -35,7 +34,7 @@ export default (config: Config) => {
       },
     };
 
-    return createOrUpdateIdentifier(config)({
+    return await createOrUpdateIdentifier(config)({
       filter,
       update,
       upsert: true,

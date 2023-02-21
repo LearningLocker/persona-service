@@ -1,4 +1,4 @@
-import ServiceGetIdentifiersResult from '../../serviceFactory/results/GetIdentifiersResult';
+import type ServiceGetIdentifiersResult from '../../serviceFactory/results/GetIdentifiersResult';
 
 type GetIdentifiersResult = ServiceGetIdentifiersResult;
 

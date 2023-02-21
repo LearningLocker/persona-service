@@ -8,7 +8,7 @@ import {
 describe('getAttribute', () => {
   it('getAttribute with no persona', async () => {
     const repoFacade = repoFactory();
-    const config = {repo: repoFacade};
+    const config = { repo: repoFacade };
     await config.repo.clearRepo();
     const theService = service(config);
 
@@ -17,14 +17,14 @@ describe('getAttribute', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    const {attribute} = await config.repo.overwritePersonaAttribute({
+    const { attribute } = await config.repo.overwritePersonaAttribute({
       key: 'hair',
       organisation: TEST_ORGANISATION,
       personaId: persona.id,
       value: 'green',
     });
 
-    const {attribute: attributeResult} = await theService.getAttribute({
+    const { attribute: attributeResult } = await theService.getAttribute({
       id: attribute.id,
       organisation: TEST_ORGANISATION,
     });

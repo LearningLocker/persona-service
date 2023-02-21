@@ -6,9 +6,9 @@ import {
 
 import config from '../../../config';
 import repoFactory from '../../../repoFactory';
-import ServiceConfig from '../../../service/Config';
+import type ServiceConfig from '../../../service/Config';
 import { TEST_IFI, TEST_ORGANISATION } from '../../../tests/utils/values';
-import Config from '../../Config';
+import type Config from '../../Config';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 import createOrUpdateIdentifier from '../../utils/createOrUpdateIdentifier';
 
@@ -55,7 +55,7 @@ describe('createUpdateIdentifierPersona identifier old lock handling mongo', () 
       },
       update: {
         $set: { locked: true },
-        $unset: { lockedAt: ''},
+        $unset: { lockedAt: '' },
       },
       upsert: false,
     });

@@ -1,4 +1,4 @@
-import ServiceUpdatePersonaResult from '../../serviceFactory/results/UpdatePersonaResult';
+import type ServiceUpdatePersonaResult from '../../serviceFactory/results/UpdatePersonaResult';
 
 export type UpdatePersonaResult = ServiceUpdatePersonaResult;
 

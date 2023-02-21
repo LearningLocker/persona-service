@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
-import UpdateIdentifierOptions from '../serviceFactory/options/UpdateIdentifierOptions';
-import UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
-import Config from './Config';
+import type UpdateIdentifierOptions from '../serviceFactory/options/UpdateIdentifierOptions';
+import type UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

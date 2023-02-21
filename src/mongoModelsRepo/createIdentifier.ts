@@ -1,9 +1,9 @@
 import { has, isPlainObject } from 'lodash';
 import { MongoError, ObjectID } from 'mongodb';
 import Conflict from '../errors/Conflict';
-import CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
-import CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
-import Config from './Config';
+import type CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
+import type CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 import { DUPLICATE_KEY } from './utils/constants/errorcodes';
 import getPersonaById from './utils/getPersonaById';

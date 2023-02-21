@@ -1,8 +1,8 @@
-import CreatePersonaOptions from '../serviceFactory/options/CreatePersonaOptions';
-import CreatePersonaResult from '../serviceFactory/results/CreatePersonaResult';
-import Config from './Config';
+import type CreatePersonaOptions from '../serviceFactory/options/CreatePersonaOptions';
+import type CreatePersonaResult from '../serviceFactory/results/CreatePersonaResult';
+import type Config from './Config';
 
 export default (config: Config) =>
   async (opts: CreatePersonaOptions): Promise<CreatePersonaResult> => {
-    return config.repo.createPersona(opts);
+    return await config.repo.createPersona(opts);
   };

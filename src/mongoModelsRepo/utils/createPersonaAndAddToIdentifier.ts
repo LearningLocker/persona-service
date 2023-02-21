@@ -1,8 +1,8 @@
 import { ObjectID } from 'mongodb';
 
-import { CreatePersonaAndAddToIdentifierOptions } from '../../repoFactory/options/CreatePersonaAndAddToIdentifierOptions.types';
-import { CreatePersonaAndAddToIdentifierResult } from '../../repoFactory/results/CreatePersonaAndAddToIdentifierResult.types';
-import Config from '../Config';
+import { type CreatePersonaAndAddToIdentifierOptions } from '../../repoFactory/options/CreatePersonaAndAddToIdentifierOptions.types';
+import { type CreatePersonaAndAddToIdentifierResult } from '../../repoFactory/results/CreatePersonaAndAddToIdentifierResult.types';
+import type Config from '../Config';
 import createPersona from '../createPersona';
 import setIdentifierPersona from '../setIdentifierPersona';
 import createOrUpdateIdentifier from './createOrUpdateIdentifier';

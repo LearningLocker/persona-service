@@ -1,4 +1,4 @@
-import ServiceGetPersonaCountOptions from '../../serviceFactory/options/GetPersonaCountOptions';
+import type ServiceGetPersonaCountOptions from '../../serviceFactory/options/GetPersonaCountOptions';
 
 type GetPersonaCountOptions = ServiceGetPersonaCountOptions;
 

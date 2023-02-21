@@ -3,10 +3,11 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import { assign } from 'lodash';
 import { ObjectId } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
-import Identifier from '../../models/Identifier';
-import Persona from '../../models/Persona';
+import type Identifier from '../../models/Identifier';
+import type Persona from '../../models/Persona';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import type GetOptions from '../../serviceFactory/utils/GetOptions';
+import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import setup from '../utils/setup';
 import {
@@ -71,10 +72,8 @@ describe('getIdentifiers', () => {
   };
 
   it('Should return the first 10 items', async () => {
-
     // Add 12 Identifiers
-    const identifiers = await addTestIdentifiers(); // tslint:disable-line
-
+    const identifiers = await addTestIdentifiers();
     // Get the first 10 identifiers
     const identifiersResults = await service.getIdentifiers(
       {
@@ -130,9 +129,7 @@ describe('getIdentifiers', () => {
   });
 
   it('Should return the last 2 identifiers', async () => {
-
-    const identifiers = await addTestIdentifiers(); // tslint:disable-line
-
+    const identifiers = await addTestIdentifiers();
     const fromCursor = modelToCursor({
       model: {
         ifi: {
@@ -158,8 +155,7 @@ describe('getIdentifiers', () => {
 
   it('Should throw error when direction is BACKWARDS and cursor is undefined', async () => {
     // Add 12 Identifiers
-    const identifiers = await addTestIdentifiers(); // tslint:disable-line
-
+    const identifiers = await addTestIdentifiers();
     // Get the first 10 identifiers
     const identifiersPromise = service.getIdentifiers(
       assign({}, getIdentifiersOptions, {
@@ -167,13 +163,12 @@ describe('getIdentifiers', () => {
       }),
     );
 
-    return assertError(NoCursorBackwardsDirection, identifiersPromise);
+    await assertError(NoCursorBackwardsDirection, identifiersPromise);
   });
 
   it('Should return the previous 2 cursors when direction is BACKWARDS', async () => {
     // Add 12 Identifiers
-    const identifiers = await addTestIdentifiers(); // tslint:disable-line
-
+    const identifiers = await addTestIdentifiers();
     // Get the first 10 identifiers
     const identifiersResult = await service.getIdentifiers(
       assign({}, getIdentifiersOptions, {
@@ -199,8 +194,7 @@ describe('getIdentifiers', () => {
   });
 
   it('Should return the previous 1 cursors when limit 1', async () => {
-    const identifiers = await addTestIdentifiers(); // tslint:disable-line
-
+    const identifiers = await addTestIdentifiers();
     // Get the first identifier
     const identifiersResult = await service.getIdentifiers(
       assign({}, getIdentifiersOptions, {
@@ -222,7 +216,7 @@ describe('getIdentifiers', () => {
       assign({}, getIdentifiersOptions, {
         filter: {
           $and: [{
-            'ifi.value': {$eq: '9_test@test.com'},
+            'ifi.value': { $eq: '9_test@test.com' },
           }],
         },
         limit: 6,
@@ -296,4 +290,4 @@ describe('getIdentifiers', () => {
       ].join(','),
     );
   });
-}); // tslint:disable-line: max-file-line-count
+});

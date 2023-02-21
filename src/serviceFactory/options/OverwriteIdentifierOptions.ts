@@ -1,4 +1,4 @@
-import Ifi from '../../models/Ifi';
+import type Ifi from '../../models/Ifi';
 
 interface OverwriteIdentifierOptions {
   readonly organisation: string;

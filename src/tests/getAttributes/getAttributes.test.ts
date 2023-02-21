@@ -68,7 +68,7 @@ describe('getAttributes forwards', () => {
       ...getAttributesOptions,
       filter: {
         $and: [{
-          value: {$eq: 'brown9'},
+          value: { $eq: 'brown9' },
         }],
       },
       limit: 6,

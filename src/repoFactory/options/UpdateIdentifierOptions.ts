@@ -1,5 +1,5 @@
 
-import ServiceUpdateIdentifierOptions from '../../serviceFactory/options/UpdateIdentifierOptions';
+import type ServiceUpdateIdentifierOptions from '../../serviceFactory/options/UpdateIdentifierOptions';
 
 export type UpdateIdentifierOptions = ServiceUpdateIdentifierOptions;
 

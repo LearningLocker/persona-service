@@ -20,7 +20,7 @@ describe('getPersona with non-existing model', () => {
   });
 
   it('should error getting model outside the org', async () => {
-    const {persona} = await service.createPersona({
+    const { persona } = await service.createPersona({
       name: 'Dave',
       organisation: TEST_ORGANISATION,
     });
@@ -30,6 +30,5 @@ describe('getPersona with non-existing model', () => {
       personaId: persona.id,
     });
     await assertError(NoModelWithId, promise);
-
   });
 });

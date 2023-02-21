@@ -1,6 +1,6 @@
 import repoFactory from '../repoFactory';
 import service from '../service';
-import Service from './Service';
+import type Service from './Service';
 
 export default (): Service => {
   const repoFacade = repoFactory();

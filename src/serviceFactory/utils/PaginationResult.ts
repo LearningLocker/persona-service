@@ -5,8 +5,8 @@ export interface Edge<T> {
 }
 
 export interface PageInfo {
-  readonly startCursor: string|undefined;
-  readonly endCursor: string|undefined;
+  readonly startCursor: string | undefined;
+  readonly endCursor: string | undefined;
   readonly hasNextPage: boolean;
   readonly hasPreviousPage: boolean;
 }

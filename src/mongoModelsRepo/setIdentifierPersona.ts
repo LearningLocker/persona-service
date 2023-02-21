@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
-import SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
-import SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
-import Config from './Config';
+import type SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
+import type SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
+import type Config from './Config';
 import createOrUpdateIdentifier from './utils/createOrUpdateIdentifier';
 import getPersonaById from './utils/getPersonaById';
 

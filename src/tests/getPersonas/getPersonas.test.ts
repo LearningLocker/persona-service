@@ -1,5 +1,3 @@
-// tslint:disable:no-magic-numbers
-// tslint:disable:max-file-line-count
 import * as assert from 'assert';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION, TEST_ORGANISATION_2 } from '../utils/values';
@@ -33,8 +31,7 @@ describe('getPersonas', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    assert.equal(result.personas.length, 2); // tslint:disable-line:no-magic-numbers
-
+    assert.equal(result.personas.length, 2);
     assert.deepEqual(result.personas[0], persona1);
     assert.deepEqual(result.personas[1], persona2);
   });

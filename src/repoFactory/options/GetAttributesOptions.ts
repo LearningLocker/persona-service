@@ -1,4 +1,4 @@
-import ServiceGetAttributesOptions from '../../serviceFactory/options/GetAttributesOptions';
+import type ServiceGetAttributesOptions from '../../serviceFactory/options/GetAttributesOptions';
 
 type GetAttributesOptions = ServiceGetAttributesOptions;
 

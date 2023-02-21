@@ -1,17 +1,16 @@
-/* tslint:disable:no-magic-numbers */
 import { config } from 'dotenv';
-config();
 
 import getBooleanOption from 'jscommons/dist/config/getBooleanOption';
 import getNumberOption from 'jscommons/dist/config/getNumberOption';
 import getStringOption from 'jscommons/dist/config/getStringOption';
 import { defaultTo } from 'lodash';
 import {
-  MongoClientOptions,
+  type MongoClientOptions,
   ReadPreference,
-  ReadPreferenceMode,
+  type ReadPreferenceMode,
 } from 'mongodb';
 import * as os from 'os';
+config();
 
 const DEFAULT_TIMEOUT_MS = 300000; // 5 minutes.
 
@@ -24,7 +23,7 @@ const getMongoReadPreference = (readPrefMode = 'primary'): ReadPreference => {
 };
 
 const getMongoNumberOption = (option?: string) => {
-  return defaultTo<number|undefined>(Number(option), undefined);
+  return defaultTo<number | undefined>(Number(option), undefined);
 };
 
 const DEFAULT_IDENTIFIER_LOCK_EXPIRATION_MS = 30000; // 30 seconds.

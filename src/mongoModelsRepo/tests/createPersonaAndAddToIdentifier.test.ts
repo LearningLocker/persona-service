@@ -5,7 +5,7 @@ import {
 
 import config from '../../config';
 import repoFactory from '../../repoFactory';
-import ServiceConfig from '../../service/Config';
+import type ServiceConfig from '../../service/Config';
 import { TEST_IFI, TEST_ORGANISATION } from '../../tests/utils/values';
 import createUpdateIdentifierPersona from '../createUpdateIdentifierPersona';
 import creatIdentifier from '../utils/createIdentifier';
@@ -16,7 +16,7 @@ describe('', () => {
 
   beforeEach(async () => {
     const repoFacade = repoFactory();
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     await serviceConfig.repo.clearRepo();
   });
 

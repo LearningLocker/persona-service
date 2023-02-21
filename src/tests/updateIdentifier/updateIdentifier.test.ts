@@ -22,13 +22,13 @@ describe('updateIdentifier', () => {
       persona: persona.id,
     });
 
-    const {identifier: newIdentifier} = await service.updateIdentifier({
+    const { identifier: newIdentifier } = await service.updateIdentifier({
       id: identifier.id,
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
 
-    const {identifier: actualIdentifier} = await service.getIdentifier({
+    const { identifier: actualIdentifier } = await service.getIdentifier({
       id: identifier.id,
       organisation: TEST_ORGANISATION,
     });
@@ -36,12 +36,12 @@ describe('updateIdentifier', () => {
     assert.deepEqual(newIdentifier, actualIdentifier);
   });
 
-  it('should throw error if no model found', () => {
+  it('should throw error if no model found', async () => {
     const updatePromise = service.updateIdentifier({
       id: '58fe11e24effd3c35a7fc4b8',
       organisation: TEST_ORGANISATION,
     });
 
-    return assertError(NoModelWithId, updatePromise);
+    await assertError(NoModelWithId, updatePromise);
   });
 });

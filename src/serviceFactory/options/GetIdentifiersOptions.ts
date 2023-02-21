@@ -1,4 +1,4 @@
-import GetOptions from '../utils/GetOptions';
+import type GetOptions from '../utils/GetOptions';
 
 type GetIdentifiersOptions = GetOptions;
 

@@ -1,8 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { MongoError, WithId } from 'mongodb';
-import Identifier from '../../models/Identifier';
-import OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
-import Config from '../Config';
+import type Identifier from '../../models/Identifier';
+import type OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
+import type Config from '../Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './constants/collections';
 import { DUPLICATE_KEY } from './constants/errorcodes';
 
@@ -34,7 +34,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
       throw new NoModel('Persona Identifier');
     }
 
-    if (!opResult.value) {
+    if (opResult.value == null) {
       /* istanbul ignore next */
       throw new Error('Can not update identifier');
     }
@@ -58,7 +58,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // if we catch a duplicate error, we can be sure to find it next time round
     if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
       /* istanbul ignore next */
-      return createOrUpdateIdentifier(config)({filter, update, upsert});
+      return await createOrUpdateIdentifier(config)({ filter, update, upsert });
     }
     throw err;
   }

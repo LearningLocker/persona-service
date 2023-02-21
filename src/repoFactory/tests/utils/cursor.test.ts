@@ -5,7 +5,6 @@ import { cursorToFilter, modelToCursor } from '../../utils/cursor';
 
 describe('cursor', () => {
   it('Should generate a cursor from a model and sort', () => {
-
     const mockModel = {
       _id: 'abcdef',
       name: 'the_name',
@@ -38,8 +37,8 @@ describe('cursor', () => {
 
     assert.deepEqual(result, {
       $or: [
-        {_id: {$gt: 'abcdef'}},
-        {_id: 'abcdef', name: {$lt: 'the_name'}},
+        { _id: { $gt: 'abcdef' } },
+        { _id: 'abcdef', name: { $lt: 'the_name' } },
       ],
     });
   });
@@ -78,8 +77,8 @@ describe('cursor', () => {
 
     assert.deepEqual(result, {
       $or: [
-        {_id: {$lt: 'abcdef'}},
-        {_id: 'abcdef', name: {$gt: 'the_name'}},
+        { _id: { $lt: 'abcdef' } },
+        { _id: 'abcdef', name: { $gt: 'the_name' } },
       ],
     });
   });

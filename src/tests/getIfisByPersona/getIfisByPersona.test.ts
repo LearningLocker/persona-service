@@ -7,7 +7,7 @@ describe('getIfisByPersona', () => {
   const service = setup();
 
   it('should get the ifis for the persona', async () => {
-    const {personaId} = await createTestIdentifier();
+    const { personaId } = await createTestIdentifier();
 
     const result = await service.getIfisByPersona({
       organisation: TEST_ORGANISATION,

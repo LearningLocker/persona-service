@@ -1,4 +1,4 @@
-import ServiceGetPersonasOptions from '../../serviceFactory/options/GetPersonasOptions';
+import type ServiceGetPersonasOptions from '../../serviceFactory/options/GetPersonasOptions';
 
 type GetPersonasOptions = ServiceGetPersonasOptions;
 

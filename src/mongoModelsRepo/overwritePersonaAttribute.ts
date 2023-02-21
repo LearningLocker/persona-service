@@ -1,9 +1,7 @@
 import { MongoError, ObjectId } from 'mongodb';
-import OverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
-  '../repoFactory/options/OverwritePersonaAttributeOptions';
-import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
-  '../repoFactory/results/OverwritePersonaAttributeResult';
-import Config from './Config';
+import type OverwritePersonaAttributeOptions from '../repoFactory/options/OverwritePersonaAttributeOptions';
+import type OverwritePersonaAttributeResult from '../repoFactory/results/OverwritePersonaAttributeResult';
+import type Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 import { DUPLICATE_KEY } from './utils/constants/errorcodes';
 import getPersonaById from './utils/getPersonaById';
@@ -36,7 +34,7 @@ const overwritePersonaAttribute = (config: Config) => {
         upsert: true,
       });
 
-      if (!result.value) {
+      if (result.value == null) {
         /* istanbul ignore next */
         throw new Error('No persona attribute found');
       }
@@ -57,7 +55,7 @@ const overwritePersonaAttribute = (config: Config) => {
       /* istanbul ignore next */
       if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
         /* istanbul ignore next */
-        return overwritePersonaAttribute(config)({
+        return await overwritePersonaAttribute(config)({
           key,
           organisation,
           personaId,

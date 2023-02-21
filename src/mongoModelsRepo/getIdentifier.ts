@@ -3,11 +3,11 @@ import { ObjectID } from 'mongodb';
 
 import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
 import { ExpiredLock } from '../errors/ExpiredLock';
-import Identifier from '../models/Identifier';
-import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
-import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
-import Lockable from '../repoFactory/utils/Lockable';
-import Config from './Config';
+import type Identifier from '../models/Identifier';
+import type GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
+import type GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
+import type Lockable from '../repoFactory/utils/Lockable';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

@@ -19,11 +19,11 @@ describe('setIdentifierPersona', () => {
       persona: newPersona.id,
     });
 
-    return assertError(NoModel, resultPromise);
+    await assertError(NoModel, resultPromise);
   });
 
   it('should NoModel error if no found persona', async () => {
-    const {identifier} = await createTestIdentifier();
+    const { identifier } = await createTestIdentifier();
 
     const resultPromise = service.setIdentifierPersona({
       id: identifier.id,
@@ -31,11 +31,11 @@ describe('setIdentifierPersona', () => {
       persona: '58fe13e34effd3c33a7fc4b8',
     });
 
-    return assertError(NoModelWithId, resultPromise);
+    await assertError(NoModelWithId, resultPromise);
   });
 
   it('should update existing model', async () => {
-    const {identifier} = await createTestIdentifier();
+    const { identifier } = await createTestIdentifier();
 
     const newPersona = await createTestPersona('Dave 2');
 
@@ -49,7 +49,7 @@ describe('setIdentifierPersona', () => {
   });
 
   it('should not update identifier outside organisation', async () => {
-    const {identifier} = await createTestIdentifier();
+    const { identifier } = await createTestIdentifier();
 
     const newPersona = await createTestPersona('Dave 2', TEST_ORGANISATION_OUTSIDE_STORE);
 
@@ -59,6 +59,6 @@ describe('setIdentifierPersona', () => {
       persona: newPersona.id,
     });
 
-    return assertError(NoModel, resultPromise);
+    await assertError(NoModel, resultPromise);
   });
 });

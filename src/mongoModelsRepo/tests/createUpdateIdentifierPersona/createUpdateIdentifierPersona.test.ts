@@ -1,11 +1,11 @@
 import assertError from 'jscommons/dist/tests/utils/assertError';
 import {
-  Db,
-  Filter,
-  FindOneAndUpdateOptions,
-  ModifyResult,
+  type Db,
+  type Filter,
+  type FindOneAndUpdateOptions,
+  type ModifyResult,
   MongoClient,
-  UpdateFilter,
+  type UpdateFilter,
 } from 'mongodb';
 
 import config from '../../../config';
@@ -25,7 +25,7 @@ describe('createUpdateIdentifierPersona mongo', () => {
   let serviceConfig: ServiceConfig;
   beforeEach(async () => {
     const repoFacade = repoFactory();
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     await serviceConfig.repo.clearRepo();
   });
 

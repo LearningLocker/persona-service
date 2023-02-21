@@ -1,8 +1,7 @@
-/* tslint:disable:deprecation - find isn't really deprecated */
 import { ObjectID } from 'mongodb';
-import GetIfisByPersonaOptions from '../repoFactory/options/GetIfisByPersonaOptions';
-import GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResult';
-import Config from './Config';
+import type GetIfisByPersonaOptions from '../repoFactory/options/GetIfisByPersonaOptions';
+import type GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

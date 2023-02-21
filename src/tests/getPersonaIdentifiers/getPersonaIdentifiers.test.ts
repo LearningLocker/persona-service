@@ -56,8 +56,7 @@ describe('getPersonaIdentifiers', () => {
       persona,
     });
 
-    assert.equal(result.identifiers.length, 3); // tslint:disable-line:no-magic-numbers
-    assert.deepEqual(result.identifiers[0], identifier1);
+    assert.equal(result.identifiers.length, 3); assert.deepEqual(result.identifiers[0], identifier1);
     assert.deepEqual(result.identifiers[1], identifier2);
     assert.deepEqual(result.identifiers[2], identifier3);
   });

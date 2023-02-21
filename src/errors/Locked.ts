@@ -1,6 +1,5 @@
-/* tslint:disable:no-class */
 import BaseError from 'jscommons/dist/errors/BaseError';
-import Identifier from '../models/Identifier';
+import type Identifier from '../models/Identifier';
 
 export default class extends BaseError {
   public readonly message: string;

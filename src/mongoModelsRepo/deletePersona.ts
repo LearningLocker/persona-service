@@ -1,8 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectId } from 'mongodb';
 import PersonaHasIdentsError from '../errors/PersonaHasIdentsError';
-import DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
-import Config from './Config';
+import type DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
+import type Config from './Config';
 import {
   PERSONA_ATTRIBUTES_COLLECTION,
   PERSONA_IDENTIFIERS_COLLECTION,
@@ -10,7 +10,7 @@ import {
 } from './utils/constants/collections';
 
 export default (config: Config) => {
-  return async ({personaId, organisation}: DeletePersonaOptions): Promise<void> => {
+  return async ({ personaId, organisation }: DeletePersonaOptions): Promise<void> => {
     const db = await config.db;
 
     const collection = db.collection(PERSONAS_COLLECTION);
@@ -33,7 +33,7 @@ export default (config: Config) => {
         },
       );
 
-    if (existingIdent) {
+    if (existingIdent != null) {
       throw new PersonaHasIdentsError();
     }
 

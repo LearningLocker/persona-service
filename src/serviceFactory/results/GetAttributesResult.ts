@@ -1,5 +1,5 @@
-import Attribute from '../../models/Attribute';
-import PaginationResult from '../utils/PaginationResult';
+import type Attribute from '../../models/Attribute';
+import type PaginationResult from '../utils/PaginationResult';
 
 type GetAttributesResult = PaginationResult<Attribute>;
 

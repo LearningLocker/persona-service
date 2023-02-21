@@ -1,10 +1,11 @@
 import * as assert from 'assert';
 import { map, times } from 'lodash';
 import { ObjectID } from 'mongodb';
-import Persona from '../../models/Persona';
+import type Persona from '../../models/Persona';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
-import CreatePersonaResult from '../../serviceFactory/results/CreatePersonaResult';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import type CreatePersonaResult from '../../serviceFactory/results/CreatePersonaResult';
+import type GetOptions from '../../serviceFactory/utils/GetOptions';
+import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import setup from '../utils/setup';
 import { TEST_ORGANISATION } from '../utils/values';
 
@@ -14,8 +15,8 @@ describe('getPersonasConnectionId', () => {
   const addTestPersonas = async () => {
     const NUM_PERSONAS = 4;
 
-    const resultsPromise: Promise<CreatePersonaResult>[] = times(NUM_PERSONAS, (i) => {
-      return service.createPersona({
+    const resultsPromise: Promise<CreatePersonaResult>[] = times(NUM_PERSONAS, async (i) => {
+      return await service.createPersona({
         name: `Dave ${i}`,
         organisation: TEST_ORGANISATION,
       });
@@ -23,7 +24,7 @@ describe('getPersonasConnectionId', () => {
 
     const results: ArrayLike<CreatePersonaResult> = await Promise.all(resultsPromise);
 
-    return map<CreatePersonaResult, Persona>(results, ({persona}) => persona );
+    return map<CreatePersonaResult, Persona>(results, ({ persona }) => persona);
   };
 
   it('Should get personas with id sort', async () => {

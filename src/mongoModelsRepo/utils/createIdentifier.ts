@@ -1,9 +1,9 @@
 import { ObjectId } from 'mongodb';
 import PersonaNotSetAndUnlocked from '../../errors/PersonaNotSetAndUnlocked';
-import Identifier from '../../models/Identifier';
-import Ifi from '../../models/Ifi';
-import Lockable from '../../repoFactory/utils/Lockable';
-import Config from '../Config';
+import type Identifier from '../../models/Identifier';
+import type Ifi from '../../models/Ifi';
+import type Lockable from '../../repoFactory/utils/Lockable';
+import type Config from '../Config';
 import createOrUpdateIdentifier from './createOrUpdateIdentifier';
 import getIdentifierIfiFilter from './getIdentifierIfiFilter';
 
@@ -65,7 +65,7 @@ export default (config: Config) => {
       update.$setOnInsert.lockedAt = new Date();
     }
 
-    return createOrUpdateIdentifier(config)({
+    return await createOrUpdateIdentifier(config)({
       filter,
       update,
       upsert: true,

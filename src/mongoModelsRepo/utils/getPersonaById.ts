@@ -1,9 +1,9 @@
 import { defaultTo } from 'lodash';
 import { ObjectID } from 'mongodb';
 import NoModelWithId from '../../errors/NoModelWithId';
-import Persona from '../../models/Persona';
-import GetPersonaOptions from '../../repoFactory/options/GetPersonaOptions';
-import Config from '../Config';
+import type Persona from '../../models/Persona';
+import type GetPersonaOptions from '../../repoFactory/options/GetPersonaOptions';
+import type Config from '../Config';
 import { PERSONAS_COLLECTION } from '../utils/constants/collections';
 
 export interface Options {
@@ -28,7 +28,7 @@ export default (config: Config) => {
 
     return {
       id: personaId,
-      name: defaultTo<string|undefined>(document.name, undefined),
+      name: defaultTo<string | undefined>(document.name, undefined),
       organisation,
     };
   };

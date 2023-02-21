@@ -1,8 +1,8 @@
-import { ObjectId, Sort } from 'mongodb';
-import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
-import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
+import { ObjectId, type Sort } from 'mongodb';
+import type GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
+import type GetPersonasResult from '../repoFactory/results/GetPersonasResult';
 
-import Config from './Config';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

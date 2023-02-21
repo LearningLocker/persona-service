@@ -20,7 +20,7 @@ describe('createIdentifier', () => {
       organisation: TEST_ORGANISATION,
       persona: persona.id,
     });
-    const {identifier: actualIdentifier} = await service.getIdentifier({
+    const { identifier: actualIdentifier } = await service.getIdentifier({
       id: identifier.id,
       organisation: TEST_ORGANISATION,
     });

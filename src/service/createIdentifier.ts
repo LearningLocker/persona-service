@@ -1,9 +1,9 @@
-import CreateIdentifierOptions from '../serviceFactory/options/CreateIdentifierOptions';
-import CreateIdentifierResult from '../serviceFactory/results/CreateIdentifierResult';
-import Config from './Config';
+import type CreateIdentifierOptions from '../serviceFactory/options/CreateIdentifierOptions';
+import type CreateIdentifierResult from '../serviceFactory/results/CreateIdentifierResult';
+import type Config from './Config';
 
 // Deprecated: use createUpdateIdentifierPersona
 export default (config: Config) =>
   async (opts: CreateIdentifierOptions): Promise<CreateIdentifierResult> => {
-    return config.repo.createIdentifier(opts);
+    return await config.repo.createIdentifier(opts);
   };

@@ -11,7 +11,7 @@ describe('getIdentifierByIfi', () => {
   it('Should get the identifier by ifi', async () => {
     const { personaId } = await createTestIdentifier();
 
-    const {personaId: actualPersonaId} = await service.getIdentifierByIfi({
+    const { personaId: actualPersonaId } = await service.getIdentifierByIfi({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
     });
@@ -25,6 +25,6 @@ describe('getIdentifierByIfi', () => {
       organisation: TEST_ORGANISATION,
     });
 
-    return assertError(NoModel, resultPromise);
+    await assertError(NoModel, resultPromise);
   });
 });

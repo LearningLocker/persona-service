@@ -1,7 +1,7 @@
-import { ObjectId, Sort } from 'mongodb';
-import GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
-import GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
-import Config from './Config';
+import { ObjectId, type Sort } from 'mongodb';
+import type GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
+import type GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -16,7 +16,6 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection(PERSONA_IDENTIFIERS_COLLECTION);
 
-    // tslint:disable-next-line:strict-boolean-expressions
     const personaFilter = persona ? { persona: new ObjectId(persona) } : {};
 
     const documents = collection

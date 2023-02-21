@@ -29,14 +29,14 @@ describe('updatePersona', () => {
     assert.equal(newPersona2.name, 'Test 2');
   });
 
-  it('should throw error if no model found and not upsert', () => {
+  it('should throw error if no model found and not upsert', async () => {
     const updatePromise = service.updatePersona({
       name: 'Test 3',
       organisation: TEST_ORGANISATION,
       personaId: '58fe11e24effd3c35a7fc4b8',
     });
 
-    return assertError(NoModelWithId, updatePromise);
+    await assertError(NoModelWithId, updatePromise);
   });
 
   it('should create the persona if upsert is true', async () => {

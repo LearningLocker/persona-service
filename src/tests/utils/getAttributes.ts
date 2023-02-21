@@ -1,10 +1,10 @@
 import { map, times } from 'lodash';
-import Attribute from '../../models/Attribute';
+import type Attribute from '../../models/Attribute';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
-import OverwritePersonaAttributeResult from // tslint:disable-line:import-spacing
-  '../../serviceFactory/results/OverwritePersonaAttributeResult';
-import Service from '../../serviceFactory/Service';
-import GetOptions, { CursorDirection } from '../../serviceFactory/utils/GetOptions';
+import type OverwritePersonaAttributeResult from '../../serviceFactory/results/OverwritePersonaAttributeResult';
+import type Service from '../../serviceFactory/Service';
+import type GetOptions from '../../serviceFactory/utils/GetOptions';
+import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 import createTestPersona from '../utils/createTestPersona';
 import { TEST_ORGANISATION } from '../utils/values';
 
@@ -35,8 +35,8 @@ export const addTestAttributes = async (service: Service) => {
 
   const NUM_IDENTIFERS = 12;
   const resultsPromise: Promise<OverwritePersonaAttributeResult>[] = times(NUM_IDENTIFERS,
-    (i) => {
-      return service.overwritePersonaAttribute({
+    async (i) => {
+      return await service.overwritePersonaAttribute({
         key: `hair${i}`,
         organisation: TEST_ORGANISATION,
         personaId: persona.id,
@@ -47,5 +47,5 @@ export const addTestAttributes = async (service: Service) => {
 
   const results: ArrayLike<OverwritePersonaAttributeResult> = await Promise.all(resultsPromise);
 
-  return map<OverwritePersonaAttributeResult, Attribute>(results, ({attribute}) => attribute );
+  return map<OverwritePersonaAttributeResult, Attribute>(results, ({ attribute }) => attribute);
 };

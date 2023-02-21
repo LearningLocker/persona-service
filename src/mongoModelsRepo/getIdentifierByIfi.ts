@@ -1,7 +1,7 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import GetIdentifierByIfiOptions from '../repoFactory/options/GetIdentifierByIfiOptions';
-import GetIdentifierByIfiResult from '../repoFactory/results/GetIdentifierByIfiResult';
-import Config from './Config';
+import type GetIdentifierByIfiOptions from '../repoFactory/options/GetIdentifierByIfiOptions';
+import type GetIdentifierByIfiResult from '../repoFactory/results/GetIdentifierByIfiResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 import getIdentifierIfiFilter from './utils/getIdentifierIfiFilter';
 

@@ -1,7 +1,7 @@
 import { ObjectID } from 'mongodb';
-import GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
-import GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
-import Config from './Config';
+import type GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
+import type GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

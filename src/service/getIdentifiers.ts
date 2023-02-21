@@ -1,7 +1,7 @@
-import GetIdentifiersOptions from '../serviceFactory/options/GetIdentifiersOptions';
-import GetIdentifiersResult from '../serviceFactory/results/GetIdentifiersResult';
-import Config from './Config';
+import type GetIdentifiersOptions from '../serviceFactory/options/GetIdentifiersOptions';
+import type GetIdentifiersResult from '../serviceFactory/results/GetIdentifiersResult';
+import type Config from './Config';
 
 export default (config: Config) =>
   async (opts: GetIdentifiersOptions): Promise<GetIdentifiersResult> =>
-    config.repo.getIdentifiers(opts);
+    await config.repo.getIdentifiers(opts);

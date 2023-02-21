@@ -1,5 +1,4 @@
-import ServiceGetAttributeOptions from // tslint:disable-line:import-spacing
-  '../../serviceFactory/options/GetAttributeOptions';
+import type ServiceGetAttributeOptions from '../../serviceFactory/options/GetAttributeOptions';
 
 export type GetAttributeOptions = ServiceGetAttributeOptions;
 

@@ -1,8 +1,8 @@
 import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
-import UpdatePersonaOptions from '../repoFactory/options/UpdatePersonaOptions';
-import UpdatePersonaResult from '../repoFactory/results/UpdatePersonaResult';
-import Config from './Config';
+import type UpdatePersonaOptions from '../repoFactory/options/UpdatePersonaOptions';
+import type UpdatePersonaResult from '../repoFactory/results/UpdatePersonaResult';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

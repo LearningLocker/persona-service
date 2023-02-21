@@ -1,8 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
 import { ObjectID } from 'mongodb';
-import GetAttributeOptions from '../repoFactory/options/GetAttributeOptions';
-import GetAttributeResult from '../repoFactory/results/GetAttributeResult';
-import Config from './Config';
+import type GetAttributeOptions from '../repoFactory/options/GetAttributeOptions';
+import type GetAttributeResult from '../repoFactory/results/GetAttributeResult';
+import type Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

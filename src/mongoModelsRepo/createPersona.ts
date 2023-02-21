@@ -1,8 +1,8 @@
 import { ObjectID } from 'mongodb';
-import Persona from '../models/Persona';
-import CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
-import CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
-import Config from './Config';
+import type Persona from '../models/Persona';
+import type CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
+import type CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {

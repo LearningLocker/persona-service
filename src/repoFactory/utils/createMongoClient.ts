@@ -10,7 +10,6 @@ const createMongoClient = async ({
   options,
   url,
 }: CreateMongoClientOptions): Promise<Db> => {
-
   const client = await MongoClient.connect(
     url,
     options,

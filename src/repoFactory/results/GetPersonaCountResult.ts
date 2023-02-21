@@ -1,4 +1,4 @@
-import ServiceGetPersonaCountResult from '../../serviceFactory/results/GetPersonaCountResult';
+import type ServiceGetPersonaCountResult from '../../serviceFactory/results/GetPersonaCountResult';
 
 type GetPersonaCountResult = ServiceGetPersonaCountResult;
 
