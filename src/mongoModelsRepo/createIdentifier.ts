@@ -1,5 +1,5 @@
 import { has, isPlainObject } from 'lodash';
-import { MongoError, ObjectID } from 'mongodb';
+import { MongoError, ObjectId } from 'mongodb';
 import Conflict from '../errors/Conflict';
 import type CreateIdentifierOptions from '../repoFactory/options/CreateIdentifierOptions';
 import type CreateIdentifierResult from '../repoFactory/results/CreateIdentifierResult';
@@ -36,8 +36,8 @@ export default (config: Config) => {
 
       const result = await collection.insertOne({
         ifi: orderedIfi,
-        organisation: new ObjectID(organisation),
-        persona: new ObjectID(persona),
+        organisation: new ObjectId(organisation),
+        persona: new ObjectId(persona),
       });
       const identifierId = result.insertedId.toString();
       const identifier = {

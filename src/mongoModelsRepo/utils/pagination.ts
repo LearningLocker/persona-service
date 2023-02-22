@@ -1,5 +1,5 @@
 import { first, isEmpty, isUndefined, last } from 'lodash';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import type BaseModel from '../../models/BaseModel';
 import { cursorToFilter, modelToCursor } from '../../repoFactory/utils/cursor';
@@ -43,7 +43,7 @@ export default (config: Config, collectionName: string) => {
 
     const scopedFilter = {
       ...combinedFilters,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     };
 
     const mongoCursor = collection.find()

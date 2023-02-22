@@ -1,5 +1,5 @@
 import { defaultTo } from 'lodash';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../../errors/NoModelWithId';
 import type Persona from '../../models/Persona';
 import type GetPersonaOptions from '../../repoFactory/options/GetPersonaOptions';
@@ -17,8 +17,8 @@ export default (config: Config) => {
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#findOne
     const document = await collection.findOne({
-      _id: new ObjectID(personaId),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(personaId),
+      organisation: new ObjectId(organisation),
     });
 
     if (document === null || document === undefined) {

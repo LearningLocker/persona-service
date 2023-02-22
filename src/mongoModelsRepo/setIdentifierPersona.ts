@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import type SetIdentifierPersonaOptions from '../repoFactory/options/SetIdentifierPersonaOptions';
 import type SetIdentifierPersonaResult from '../repoFactory/results/SetIdentifierPersonaResult';
 import type Config from './Config';
@@ -15,14 +15,14 @@ export default (config: Config) => {
     await getPersonaById(config)({ organisation, personaId: persona });
 
     const filter = {
-      _id: new ObjectID(id),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(id),
+      organisation: new ObjectId(organisation),
     };
 
     const update = {
       $set: {
         locked: false,
-        persona: new ObjectID(persona),
+        persona: new ObjectId(persona),
       },
       $unset: {
         lockedAt: '',

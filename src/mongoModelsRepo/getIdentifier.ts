@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
 import { ExpiredLock } from '../errors/ExpiredLock';
@@ -15,8 +15,8 @@ export default (config: Config) => {
     const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const filter = {
-      _id: new ObjectID(opts.id),
-      organisation: new ObjectID(opts.organisation),
+      _id: new ObjectId(opts.id),
+      organisation: new ObjectId(opts.organisation),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find

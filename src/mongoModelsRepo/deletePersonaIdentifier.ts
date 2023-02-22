@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import type DeletePersonaIdentifierOptions from '../repoFactory/options/DeletePersonaIdentifierOptions';
 import type Config from './Config';
@@ -9,8 +9,8 @@ export default (config: Config) => {
     const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const result = await collection.deleteOne({
-      _id: new ObjectID(id),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(id),
+      organisation: new ObjectId(organisation),
     });
 
     if (result.deletedCount === 0) {

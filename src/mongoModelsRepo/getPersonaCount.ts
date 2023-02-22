@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import type GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
 import type GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
 import type Config from './Config';
@@ -13,7 +13,7 @@ export default (config: Config) => {
 
     const result = await collection.count({
       ...filter,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     });
 
     return {

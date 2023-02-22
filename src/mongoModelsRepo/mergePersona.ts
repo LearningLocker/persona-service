@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import type MergePersonaOptions from '../repoFactory/options/MergePersonaOptions';
 import type MergePersonaResult from '../repoFactory/results/MergePersonaResult';
 import type Config from './Config';
@@ -14,8 +14,8 @@ export default (config: Config) => {
     const personaAttributesCollection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const identFilter = {
-      organisation: new ObjectID(opts.organisation),
-      persona: new ObjectID(opts.fromPersonaId),
+      organisation: new ObjectId(opts.organisation),
+      persona: new ObjectId(opts.fromPersonaId),
     };
 
     const toMaybeUpdateIdentifierIds = (
@@ -23,12 +23,12 @@ export default (config: Config) => {
     ).map(({ _id }) => _id.toString());
 
     const identUpdate = {
-      $set: { persona: new ObjectID(opts.toPersonaId) },
+      $set: { persona: new ObjectId(opts.toPersonaId) },
     };
 
     const attributeFilter = {
-      organisation: new ObjectID(opts.organisation),
-      personaId: new ObjectID(opts.fromPersonaId),
+      organisation: new ObjectId(opts.organisation),
+      personaId: new ObjectId(opts.fromPersonaId),
     };
 
     const toMaybeUpdateAttributeIds = (
@@ -36,7 +36,7 @@ export default (config: Config) => {
     ).map(({ _id }) => _id.toString());
 
     const attributeUpdate = {
-      $set: { personaId: new ObjectID(opts.toPersonaId) },
+      $set: { personaId: new ObjectId(opts.toPersonaId) },
     };
 
     await personaIdentifiersCollection.updateMany(identFilter, identUpdate);

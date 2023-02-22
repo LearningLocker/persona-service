@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 import { type CreatePersonaAndAddToIdentifierOptions } from '../../repoFactory/options/CreatePersonaAndAddToIdentifierOptions.types';
 import { type CreatePersonaAndAddToIdentifierResult } from '../../repoFactory/results/CreatePersonaAndAddToIdentifierResult.types';
@@ -35,8 +35,8 @@ export const createPersonaAndAddToIdentifier = (config: Config) =>
       // Identifier has a persona, but is still locked.
       // This shouldn't happen, but we will unlock it.
       const filter = {
-        _id: new ObjectID(identifier.id),
-        organisation: new ObjectID(identifier.organisation),
+        _id: new ObjectId(identifier.id),
+        organisation: new ObjectId(identifier.organisation),
       };
       const update = {
         $set: { locked: false },

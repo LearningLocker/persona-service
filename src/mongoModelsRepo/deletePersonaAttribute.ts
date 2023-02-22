@@ -1,4 +1,4 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import type DeletePersonaAttributeOptions from '../repoFactory/options/DeletePersonaAttributeOptions';
 import type Config from './Config';
@@ -8,8 +8,8 @@ export default (config: Config) => {
   return async ({ id, organisation }: DeletePersonaAttributeOptions): Promise<void> => {
     const collection = (await config.db).collection(PERSONA_ATTRIBUTES_COLLECTION);
     const result = await collection.deleteOne({
-      _id: new ObjectID(id),
-      organisation: new ObjectID(organisation),
+      _id: new ObjectId(id),
+      organisation: new ObjectId(organisation),
     });
 
     if (result.deletedCount === 0) {

@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import * as promiseRetry from 'promise-retry';
 
 import { ExpiredLock } from '../errors/ExpiredLock';
@@ -97,8 +97,8 @@ const createUpdateIdentifierPersona = (config: Config) =>
 
         const { identifier: identifierWithoutPersona } = await createOrUpdateIdentifier(config)({
           filter: {
-            _id: new ObjectID(expiredIdentifier.id),
-            organisation: new ObjectID(organisation),
+            _id: new ObjectId(expiredIdentifier.id),
+            organisation: new ObjectId(organisation),
           },
           update: {
             $set: { lockedAt: new Date() },

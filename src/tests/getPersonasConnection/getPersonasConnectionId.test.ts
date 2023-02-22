@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import { map, times } from 'lodash';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import type Persona from '../../models/Persona';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import type CreatePersonaResult from '../../serviceFactory/results/CreatePersonaResult';
@@ -48,7 +48,7 @@ describe('getPersonasConnectionId', () => {
     const result = await service.getPersonasConnection({
       ...getPersonaOptionsIdSort,
       cursor: modelToCursor({
-        model: { _id: new ObjectID(personas[TWO].id) },
+        model: { _id: new ObjectId(personas[TWO].id) },
         sort: {
           _id: 1,
         },
