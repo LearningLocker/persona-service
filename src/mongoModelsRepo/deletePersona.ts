@@ -33,7 +33,7 @@ export default (config: Config) => {
         },
       );
 
-    if (existingIdent != null) {
+    if (existingIdent !== null) {
       throw new PersonaHasIdentsError();
     }
 
