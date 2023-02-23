@@ -52,9 +52,8 @@ const overwritePersonaAttribute = (config: Config) => {
       };
     } catch (err) {
       // if we catch a duplicate error, we can be sure to find it next time round
-      /* istanbul ignore next */
+      /* istanbul ignore if */
       if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
-        /* istanbul ignore next */
         return await overwritePersonaAttribute(config)({
           key,
           organisation,
