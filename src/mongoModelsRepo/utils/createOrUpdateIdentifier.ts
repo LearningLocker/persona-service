@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { MongoError, WithId } from 'mongodb';
+import { MongoError } from 'mongodb';
 import type Identifier from '../../models/Identifier';
 import type OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
 import type Config from '../Config';
@@ -53,13 +53,15 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // Determines if the identifier was created or found.
     // Docs: https://docs.mongodb.com/manual/reference/command/getLastError/#getLastError.n
     const wasCreated = opResult.lastErrorObject?.upserted !== undefined;
+
     return { identifier, wasCreated };
   } catch (err) {
     // if we catch a duplicate error, we can be sure to find it next time round
+    /* istanbul ignore if */
     if (err instanceof MongoError && err.code === DUPLICATE_KEY) {
-      /* istanbul ignore next */
       return await createOrUpdateIdentifier(config)({ filter, update, upsert });
     }
+
     throw err;
   }
 };
