@@ -1,5 +1,5 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { MongoError } from 'mongodb';
+import { MongoError, ReturnDocument } from 'mongodb';
 import type Identifier from '../../models/Identifier';
 import type OverwriteIdentifierResult from '../../repoFactory/results/OverwriteIdentifierResult';
 import type Config from '../Config';
@@ -25,7 +25,7 @@ const createOrUpdateIdentifier = (config: Config) => async ({
     // Update JM 2018-09-12
     // findOneAndUpdate is NOT atomic! https://stackoverflow.com/a/37485551
     const opResult = await collection.findOneAndUpdate(filter, update, {
-      returnDocument: 'after', // Ensures the updated document is returned.
+      returnDocument: ReturnDocument.AFTER, // Ensures the updated document is returned.
       upsert, // Creates the identifier when it's not found.
     });
 

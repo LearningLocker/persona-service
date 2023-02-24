@@ -25,7 +25,9 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     return;
   }
 
-  let serviceConfig: ServiceConfig; let theService: Service;
+  let serviceConfig: ServiceConfig;
+  let theService: Service;
+
   beforeEach(async () => {
     const repoFacade = repoFactory();
     serviceConfig = { repo: repoFacade };

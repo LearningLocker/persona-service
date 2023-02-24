@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { ObjectId, ReturnDocument } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import type UpdatePersonaOptions from '../repoFactory/options/UpdatePersonaOptions';
 import type UpdatePersonaResult from '../repoFactory/results/UpdatePersonaResult';
@@ -24,7 +24,7 @@ export default (config: Config) => {
       },
     },
     {
-      returnDocument: 'after',
+      returnDocument: ReturnDocument.AFTER,
       upsert,
     });
 

@@ -1,4 +1,4 @@
-import { ObjectId } from 'mongodb';
+import { ObjectId, ReturnDocument } from 'mongodb';
 import NoModelWithId from '../errors/NoModelWithId';
 import type UpdateIdentifierOptions from '../serviceFactory/options/UpdateIdentifierOptions';
 import type UpdateIdentifierResult from '../serviceFactory/results/UpdateIdentifierResult';
@@ -22,7 +22,7 @@ export default (config: Config) => {
         persona,
       },
     }, {
-      returnDocument: 'after',
+      returnDocument: ReturnDocument.AFTER,
       upsert: false,
     });
     if (result.value === null || result.value === undefined) {

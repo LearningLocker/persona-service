@@ -1,4 +1,4 @@
-import { MongoError, ObjectId } from 'mongodb';
+import { MongoError, ObjectId, ReturnDocument } from 'mongodb';
 import type OverwritePersonaAttributeOptions from '../repoFactory/options/OverwritePersonaAttributeOptions';
 import type OverwritePersonaAttributeResult from '../repoFactory/results/OverwritePersonaAttributeResult';
 import type Config from './Config';
@@ -30,7 +30,7 @@ const overwritePersonaAttribute = (config: Config) => {
         },
       },
       {
-        returnDocument: 'after',
+        returnDocument: ReturnDocument.AFTER,
         upsert: true,
       });
 
