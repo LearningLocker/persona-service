@@ -1,5 +1,4 @@
-import ServiceOverwritePersonaAttributeOptions from // tslint:disable-line:import-spacing
-  '../../serviceFactory/options/OverwritePersonaAttributeOptions';
+import type ServiceOverwritePersonaAttributeOptions from '../../serviceFactory/options/OverwritePersonaAttributeOptions';
 
 export type OverwritePersonaAttributeOptions = ServiceOverwritePersonaAttributeOptions;
 

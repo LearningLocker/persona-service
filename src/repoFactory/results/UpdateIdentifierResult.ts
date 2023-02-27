@@ -1,4 +1,4 @@
-import ServiceUpdateIdentifierResult from '../../serviceFactory/results/UpdateIdentifierResult';
+import type ServiceUpdateIdentifierResult from '../../serviceFactory/results/UpdateIdentifierResult';
 
 export type UpdateIdentifierResult = ServiceUpdateIdentifierResult;
 

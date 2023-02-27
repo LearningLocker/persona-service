@@ -1,6 +1,4 @@
 import commonWinston from 'jscommons/dist/winston';
-// tslint:disable-next-line:no-unused
-import * as winston from 'winston'; // tslint:disable-line
 import config from './config';
 
 export default commonWinston({

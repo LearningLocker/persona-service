@@ -18,7 +18,7 @@ jobs:
 
     services:
       mongodb:
-        image: mongo:3.7.9
+        image: mongo:4.4
         env:
           MONGO_INITDB_DATABASE: test
           ALLOW_EMPTY_PASSWORD: yes
@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "14"
+          node-version: "16"
           cache: 'npm'
 
       - name: Installing Dependencies

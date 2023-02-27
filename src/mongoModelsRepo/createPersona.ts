@@ -1,8 +1,8 @@
-import { ObjectID } from 'mongodb';
-import Persona from '../models/Persona';
-import CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
-import CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
-import Config from './Config';
+import { ObjectId } from 'mongodb';
+import type Persona from '../models/Persona';
+import type CreatePersonaOptions from '../repoFactory/options/CreatePersonaOptions';
+import type CreatePersonaResult from '../repoFactory/results/CreatePersonaResult';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -13,7 +13,7 @@ export default (config: Config) => {
     // Docs: http://bit.ly/insertOneWriteOpResult
     const opResult = await collection.insertOne({
       name: opts.name,
-      organisation: new ObjectID(opts.organisation),
+      organisation: new ObjectId(opts.organisation),
     }, {});
 
     // Formats the persona to be returned.

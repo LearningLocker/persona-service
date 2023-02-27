@@ -1,13 +1,13 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 import { IDENTIFIER_LOCK_EXPIRATION_MS } from '../config';
 import { ExpiredLock } from '../errors/ExpiredLock';
-import Identifier from '../models/Identifier';
-import GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
-import GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
-import Lockable from '../repoFactory/utils/Lockable';
-import Config from './Config';
+import type Identifier from '../models/Identifier';
+import type GetIdentifierOptions from '../repoFactory/options/GetIdentifierOptions';
+import type GetIdentifierResult from '../repoFactory/results/GetIdentifierResult';
+import type Lockable from '../repoFactory/utils/Lockable';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -15,8 +15,8 @@ export default (config: Config) => {
     const collection = (await config.db).collection(PERSONA_IDENTIFIERS_COLLECTION);
 
     const filter = {
-      _id: new ObjectID(opts.id),
-      organisation: new ObjectID(opts.organisation),
+      _id: new ObjectId(opts.id),
+      organisation: new ObjectId(opts.organisation),
     };
 
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find

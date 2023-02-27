@@ -1,4 +1,4 @@
-import Identifier from '../../models/Identifier';
+import type Identifier from '../../models/Identifier';
 
 export interface CreatePersonaAndAddToIdentifierOptions {
   readonly identifier: Identifier;

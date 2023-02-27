@@ -1,17 +1,15 @@
-import { ObjectID } from 'mongodb';
-import Ifi from '../../models/Ifi';
+import { ObjectId } from 'mongodb';
+import type Ifi from '../../models/Ifi';
 
 export default (ifi: Ifi, organisation: string) => {
-  const valueFilter = (
-    ifi.key === 'account'
+  const valueFilter = ifi.key === 'account'
     ? {
-      'ifi.value.homePage': ifi.value.homePage,
-      'ifi.value.name': ifi.value.name,
-    }
+        'ifi.value.homePage': ifi.value.homePage,
+        'ifi.value.name': ifi.value.name,
+      }
     : {
-      'ifi.value': ifi.value,
-    }
-  );
+        'ifi.value': ifi.value,
+      };
   const out = {
     'ifi.key': ifi.key,
     ...valueFilter,
@@ -19,7 +17,6 @@ export default (ifi: Ifi, organisation: string) => {
 
   return {
     ...out,
-    organisation: new ObjectID(organisation),
+    organisation: new ObjectId(organisation),
   };
-
 };

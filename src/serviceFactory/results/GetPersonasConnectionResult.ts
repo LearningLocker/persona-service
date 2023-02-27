@@ -1,5 +1,5 @@
-import Persona from '../../models/Persona';
-import PaginationResult from '../utils/PaginationResult';
+import type Persona from '../../models/Persona';
+import type PaginationResult from '../utils/PaginationResult';
 
 type GetPersonasConnectionResult = PaginationResult<Persona>;
 

@@ -23,7 +23,7 @@ describe('getIdentifier with non-existing model', () => {
 
   it('should error getting model outside the org', async () => {
     const persona = await createTestPersona();
-    const {identifier} = await service.createIdentifier({
+    const { identifier } = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: persona.id,

@@ -1,14 +1,15 @@
-import { Dictionary, get, keys, map, mapValues, pick, reduce, zipObject } from 'lodash';
-import { ObjectID } from 'mongodb';
+import { get, keys, map, mapValues, pick, reduce, zipObject } from 'lodash';
+import type { Dictionary } from 'lodash';
+import { ObjectId } from 'mongodb';
 import InvalidCursor from '../../errors/InvalidCursor';
 import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
 
 const base64 = (i: string): string => {
-  return new Buffer(i, 'ascii').toString('base64');
+  return Buffer.from(i, 'ascii').toString('base64');
 };
 
 const unbase64 = (i: string): string => {
-  return new Buffer(i, 'base64').toString('ascii');
+  return Buffer.from(i, 'base64').toString('ascii');
 };
 
 export const toCursor = (data: object): string => {
@@ -25,7 +26,7 @@ export const fromCursor = (cursor: string): object | null => {
 
     return mapValues(parsedCursor, (value) => {
       if (value instanceof Object && get(value, '$oid')) {
-        return new ObjectID(get(value, '$oid'));
+        return new ObjectId(get(value, '$oid'));
       }
       return value;
     });
@@ -137,7 +138,11 @@ export const modelToCursor = ({
   const pickedFields = pick(model, keys(sort));
 
   return toCursor(
-    mapValues(pickedFields, (pickedField: any) =>
-      pickedField instanceof ObjectID ? { $oid: pickedField.toHexString() } : pickedField),
+    mapValues(
+      pickedFields,
+      (pickedField: any) => pickedField instanceof ObjectId
+        ? { $oid: pickedField.toHexString() }
+        : pickedField,
+    ),
   );
-}; // tslint:disable-line: max-file-line-count
+};

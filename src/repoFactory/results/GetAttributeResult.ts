@@ -1,4 +1,4 @@
-import ServiceGetAttributeResult from '../../serviceFactory/results/GetAttributeResult';
+import type ServiceGetAttributeResult from '../../serviceFactory/results/GetAttributeResult';
 
 type GetAttributeResult = ServiceGetAttributeResult;
 

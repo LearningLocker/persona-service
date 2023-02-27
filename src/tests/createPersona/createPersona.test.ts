@@ -8,7 +8,7 @@ describe('createPersona', () => {
 
   it('Should create persona', async () => {
     const persona = await createTestPersona();
-    const {persona: actualPersona} = await service.getPersona({
+    const { persona: actualPersona } = await service.getPersona({
       organisation: TEST_ORGANISATION,
       personaId: persona.id,
     });

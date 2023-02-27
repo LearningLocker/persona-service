@@ -5,12 +5,12 @@ import config from '../../../config';
 import Locked from '../../../errors/Locked';
 import PersonaNotSetAndUnlocked from '../../../errors/PersonaNotSetAndUnlocked';
 import repoFactory from '../../../repoFactory';
-import GetIdentifierOptions from '../../../repoFactory/options/GetIdentifierOptions';
-import GetIdentifierResult from '../../../repoFactory/results/GetIdentifierResult';
-import Lockable from '../../../repoFactory/utils/Lockable';
+import type GetIdentifierOptions from '../../../repoFactory/options/GetIdentifierOptions';
+import type GetIdentifierResult from '../../../repoFactory/results/GetIdentifierResult';
+import type Lockable from '../../../repoFactory/utils/Lockable';
 import service from '../../../service';
-import ServiceConfig from '../../../service/Config';
-import Service from '../../../serviceFactory/Service';
+import type ServiceConfig from '../../../service/Config';
+import type Service from '../../../serviceFactory/Service';
 import {
   TEST_IFI,
   TEST_ORGANISATION,
@@ -19,19 +19,18 @@ import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 import createIdentifier from '../../utils/createIdentifier';
 
 describe('createUpdateIdentifierPersona mongo retry', () => {
-
   // Only test mongo repo
   /* istanbul ignore next */
   if (config.repoFactory.modelsRepoName !== 'mongo') {
     return;
   }
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
-  let theService: Service; // tslint:disable-line:no-let
+  let serviceConfig: ServiceConfig;
+  let theService: Service;
 
   beforeEach(async () => {
     const repoFacade = repoFactory();
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     await serviceConfig.repo.clearRepo();
     theService = service(serviceConfig);
   });
@@ -66,43 +65,40 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
 
   it(
     'should error if unlocked, but persona is not set, (should not be possible in rl)',
-    async () =>
-  { // tslint:disable-line:one-line
-    const repoConfig = { db: getMongoDB() };
-    const createIdentifierPromise = createIdentifier(repoConfig)({
-      ifi: TEST_IFI,
-      locked: false,
-      organisation: TEST_ORGANISATION,
+    async () => {
+      const repoConfig = { db: getMongoDB() };
+      const createIdentifierPromise = createIdentifier(repoConfig)({
+        ifi: TEST_IFI,
+        locked: false,
+        organisation: TEST_ORGANISATION,
+      });
+
+      await assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
     });
 
-    await assertError(PersonaNotSetAndUnlocked, createIdentifierPromise);
-  });
-
-  it('should retry twice and succed on 3rd attempt', async () => {
+  it('should retry twice and succeed on 3rd attempt', async () => {
     const repoFacade = repoFactory();
 
     // SETUP MOCK
-    let getIdentifierCount = 0; // tslint:disable-line:no-let
+    let getIdentifierCount = 0;
     const RETRY_SUCCESS = 2;
 
-    const mockGetIdentifier = async (opts: GetIdentifierOptions):
-    Promise<GetIdentifierResult & Lockable> => {
-
+    const mockGetIdentifier = async (opts: GetIdentifierOptions): Promise<GetIdentifierResult & Lockable> => {
       getIdentifierCount = getIdentifierCount + 1;
       const realResult = await repoFacade.getIdentifier(opts);
 
       return {
         ...realResult,
-        locked: getIdentifierCount > RETRY_SUCCESS ? false : true,
+        locked: getIdentifierCount <= RETRY_SUCCESS,
       };
     };
 
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     theService = service(serviceConfig);
 
     // SETUP IDENTIFIER
 
-    const {persona} = await theService.createPersona({
+    const { persona } = await theService.createPersona({
       name: 'Dave',
       organisation: TEST_ORGANISATION,
     });
@@ -130,7 +126,7 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
 
     // TEST
 
-    const {persona: personaResult} = await theService.getPersona({
+    const { persona: personaResult } = await theService.getPersona({
       organisation: TEST_ORGANISATION,
       personaId: result.personaId,
     });
@@ -139,4 +135,4 @@ describe('createUpdateIdentifierPersona mongo retry', () => {
     const THREE = 3;
     assert.equal(getIdentifierCount, THREE);
   });
-}); // tslint:disable-line:max-file-line-count
+});

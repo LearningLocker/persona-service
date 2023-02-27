@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import assertError from 'jscommons/dist/tests/utils/assertError';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoModelWithId from '../../errors/NoModelWithId';
 import createTestIdentifier from '../utils/createTestIdentifier';
 import setup from '../utils/setup';
@@ -26,7 +26,7 @@ describe('deletePersonaIdentifier', () => {
 
   it('should fail delete if persona does not exist', async () => {
     const result = service.deletePersonaIdentifier({
-      id: new ObjectID().toString(),
+      id: new ObjectId().toString(),
       organisation: TEST_ORGANISATION,
     });
 

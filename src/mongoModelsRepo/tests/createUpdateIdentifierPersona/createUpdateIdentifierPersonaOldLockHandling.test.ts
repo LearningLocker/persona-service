@@ -1,28 +1,28 @@
 import * as assert from 'assert';
 import {
   MongoClient,
-  ObjectID,
+  ObjectId,
 } from 'mongodb';
 
 import config from '../../../config';
 import repoFactory from '../../../repoFactory';
-import ServiceConfig from '../../../service/Config';
+import type ServiceConfig from '../../../service/Config';
 import { TEST_IFI, TEST_ORGANISATION } from '../../../tests/utils/values';
-import Config from '../../Config';
+import type Config from '../../Config';
 import createUpdateIdentifierPersona from '../../createUpdateIdentifierPersona';
 import createOrUpdateIdentifier from '../../utils/createOrUpdateIdentifier';
 
-describe('createUpdateIdentifierPersona identifier old lock handling mongo', async () => {
+describe('createUpdateIdentifierPersona identifier old lock handling mongo', () => {
   // Only test mongo repo
   /* istanbul ignore next */
   if (config.repoFactory.modelsRepoName !== 'mongo') {
     return;
   }
 
-  let serviceConfig: ServiceConfig; // tslint:disable-line:no-let
+  let serviceConfig: ServiceConfig;
   beforeEach(async () => {
     const repoFacade = repoFactory();
-    serviceConfig = {repo: repoFacade};
+    serviceConfig = { repo: repoFacade };
     await serviceConfig.repo.clearRepo();
   });
 
@@ -50,12 +50,12 @@ describe('createUpdateIdentifierPersona identifier old lock handling mongo', asy
     // Set locked: true and remove lockedAt.
     await createOrUpdateIdentifier(dbConfig)({
       filter: {
-        _id: new ObjectID(testIdentifier.id),
-        organisation: new ObjectID(testIdentifier.organisation),
+        _id: new ObjectId(testIdentifier.id),
+        organisation: new ObjectId(testIdentifier.organisation),
       },
       update: {
         $set: { locked: true },
-        $unset: { lockedAt: ''},
+        $unset: { lockedAt: '' },
       },
       upsert: false,
     });
@@ -85,9 +85,9 @@ describe('createUpdateIdentifierPersona identifier old lock handling mongo', asy
 
     // the document should have locked: false, and no lockedAt
     const identifierDocument = await (await getPersonaIdentifiersCollection(dbConfig))
-      .findOne({ _id: new ObjectID(correctedIdentifier.id) });
+      .findOne({ _id: new ObjectId(correctedIdentifier.id) });
 
-    assert.equal(identifierDocument.locked, false, 'Identifier should now be unlocked');
-    assert.equal(identifierDocument.lockedAt, undefined, 'Identifier document should not have lockedAt field');
+    assert.equal(identifierDocument?.locked, false, 'Identifier should now be unlocked');
+    assert.equal(identifierDocument?.lockedAt, undefined, 'Identifier document should not have lockedAt field');
   });
 });

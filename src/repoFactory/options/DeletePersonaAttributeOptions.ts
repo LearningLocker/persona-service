@@ -1,5 +1,4 @@
-import ServiceDeletePersonaAttributeOptions from // tslint:disable-line:import-spacing
-  '../../serviceFactory/options/DeletePersonaAttributeOptions';
+import type ServiceDeletePersonaAttributeOptions from '../../serviceFactory/options/DeletePersonaAttributeOptions';
 
 export type DeletePersonaAttributeOptions = ServiceDeletePersonaAttributeOptions;
 

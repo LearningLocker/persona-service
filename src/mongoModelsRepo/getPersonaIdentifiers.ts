@@ -1,7 +1,7 @@
-import { ObjectID } from 'mongodb';
-import GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
-import GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
-import Config from './Config';
+import { ObjectId, type Sort } from 'mongodb';
+import type GetPersonaIdentifiersOptions from '../repoFactory/options/GetPersonaIdentifiersOptions';
+import type GetPersonaIdentifiersResult from '../repoFactory/results/GetPersonaIdentifiersResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -16,17 +16,17 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection(PERSONA_IDENTIFIERS_COLLECTION);
 
-    // tslint:disable-next-line:strict-boolean-expressions
-    const personaFilter = persona ? { persona: new ObjectID(persona) } : {};
+    const personaFilter = persona ? { persona: new ObjectId(persona) } : {};
 
-    const documents = collection.find({
-      ...filter,
-      ...personaFilter,
-      organisation: new ObjectID(organisation),
-    })
-    .sort(sort)
-    .skip(skip)
-    .limit(limit);
+    const documents = collection
+      .find({
+        ...filter,
+        ...personaFilter,
+        organisation: new ObjectId(organisation),
+      })
+      .sort(sort as Sort)
+      .skip(skip)
+      .limit(limit);
 
     const formattedDocuments = documents.map((document: any) => ({
       id: document._id.toString(),

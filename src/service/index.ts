@@ -1,7 +1,7 @@
 import commonService from 'jscommons/dist/service';
-import Service from '../serviceFactory/Service';
+import type Service from '../serviceFactory/Service';
 import clearService from './clearService';
-import Config from './Config';
+import type Config from './Config';
 import createIdentifier from './createIdentifier';
 import createPersona from './createPersona';
 import createUpdateIdentifierPersona from './createUpdateIdentifierPersona';

@@ -1,8 +1,8 @@
-import { ObjectID } from 'mongodb';
-import GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
-import GetPersonasResult from '../repoFactory/results/GetPersonasResult';
+import { ObjectId, type Sort } from 'mongodb';
+import type GetPersonasOptions from '../repoFactory/options/GetPersonasOptions';
+import type GetPersonasResult from '../repoFactory/results/GetPersonasResult';
 
-import Config from './Config';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -16,13 +16,14 @@ export default (config: Config) => {
     const db = await config.db;
     const collection = db.collection(PERSONAS_COLLECTION);
 
-    const documents = collection.find({
-      ...filter,
-      organisation: new ObjectID(organisation),
-    })
-    .sort(sort)
-    .skip(skip)
-    .limit(limit);
+    const documents = collection
+      .find({
+        ...filter,
+        organisation: new ObjectId(organisation),
+      })
+      .sort(sort as Sort)
+      .skip(skip)
+      .limit(limit);
 
     const formattedDocuments = documents.map((document: any) => ({
       id: document._id.toString(),

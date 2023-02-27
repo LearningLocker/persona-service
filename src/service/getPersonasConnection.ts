@@ -1,7 +1,7 @@
-import GetPersonasConnectionOptions from '../serviceFactory/options/GetPersonasConnectionOptions';
-import GetPersonasConnectionResult from '../serviceFactory/results/GetPersonasConnectionResult';
-import Config from './Config';
+import type GetPersonasConnectionOptions from '../serviceFactory/options/GetPersonasConnectionOptions';
+import type GetPersonasConnectionResult from '../serviceFactory/results/GetPersonasConnectionResult';
+import type Config from './Config';
 
 export default (config: Config) =>
   async (opts: GetPersonasConnectionOptions): Promise<GetPersonasConnectionResult> =>
-    config.repo.getPersonasConnection(opts);
+    await config.repo.getPersonasConnection(opts);

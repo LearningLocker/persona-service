@@ -1,8 +1,7 @@
-/* tslint:disable:deprecation - find isn't really deprecated */
-import { ObjectID } from 'mongodb';
-import GetIfisByPersonaOptions from '../repoFactory/options/GetIfisByPersonaOptions';
-import GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResult';
-import Config from './Config';
+import { ObjectId } from 'mongodb';
+import type GetIfisByPersonaOptions from '../repoFactory/options/GetIfisByPersonaOptions';
+import type GetIfisByPersonaResult from '../repoFactory/results/GetIfisByPersonaResult';
+import type Config from './Config';
 import { PERSONA_IDENTIFIERS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -15,8 +14,8 @@ export default (config: Config) => {
     // Finds all Persona Identifiers matching the personaId.
     // Docs: http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#find
     const documents = await collection.find({
-      organisation: new ObjectID(organisation),
-      persona: new ObjectID(personaId),
+      organisation: new ObjectId(organisation),
+      persona: new ObjectId(personaId),
     }).toArray();
 
     // Retrieves the IFI from the documents for the result.

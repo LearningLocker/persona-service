@@ -4,11 +4,11 @@ export enum CursorDirection {
 }
 
 export type Hint = string | {
-  readonly [hintKey: string]: (-1 | 1);
+  readonly [hintKey: string]: -1 | 1;
 };
 
 export interface Sort {
-  readonly [sortKey: string]: (-1 | 1);
+  readonly [sortKey: string]: -1 | 1;
 }
 
 export interface PaginationOptions {

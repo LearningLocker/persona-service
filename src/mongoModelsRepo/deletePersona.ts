@@ -1,8 +1,8 @@
 import NoModel from 'jscommons/dist/errors/NoModel';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import PersonaHasIdentsError from '../errors/PersonaHasIdentsError';
-import DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
-import Config from './Config';
+import type DeletePersonaOptions from '../repoFactory/options/DeletePersonaOptions';
+import type Config from './Config';
 import {
   PERSONA_ATTRIBUTES_COLLECTION,
   PERSONA_IDENTIFIERS_COLLECTION,
@@ -10,7 +10,7 @@ import {
 } from './utils/constants/collections';
 
 export default (config: Config) => {
-  return async ({personaId, organisation}: DeletePersonaOptions): Promise<void> => {
+  return async ({ personaId, organisation }: DeletePersonaOptions): Promise<void> => {
     const db = await config.db;
 
     const collection = db.collection(PERSONAS_COLLECTION);
@@ -18,28 +18,34 @@ export default (config: Config) => {
     const personaAttributesCollection = db.collection(PERSONA_ATTRIBUTES_COLLECTION);
 
     const orgFilter = {
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     };
-    const personaObjectID = new ObjectID(personaId);
+    const personaObjectId = new ObjectId(personaId);
 
-    const existingIdent = await personaIdentifiersCollection.findOne({
-      ...orgFilter,
-      persona: personaObjectID,
-    }, { fields: {_id: 1}});
+    const existingIdent = await personaIdentifiersCollection
+      .findOne(
+        {
+          ...orgFilter,
+          persona: personaObjectId,
+        },
+        {
+          projection: { _id: 1 },
+        },
+      );
 
-    if (existingIdent) {
+    if (existingIdent !== null) {
       throw new PersonaHasIdentsError();
     }
 
     // remove all attributes
     await personaAttributesCollection.deleteMany({
       ...orgFilter,
-      personaId: personaObjectID,
+      personaId: personaObjectId,
     });
 
     const result = await collection.deleteOne({
       ...orgFilter,
-      _id: personaObjectID,
+      _id: personaObjectId,
     });
 
     if (result.deletedCount === 0) {

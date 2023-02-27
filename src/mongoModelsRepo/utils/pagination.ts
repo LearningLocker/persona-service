@@ -1,11 +1,12 @@
 import { first, isEmpty, isUndefined, last } from 'lodash';
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
-import BaseModel from '../../models/BaseModel';
+import type BaseModel from '../../models/BaseModel';
 import { cursorToFilter, modelToCursor } from '../../repoFactory/utils/cursor';
-import GetOptions, { CursorDirection, DEFAULT_LIMIT } from '../../serviceFactory/utils/GetOptions';
-import PaginationResult from '../../serviceFactory/utils/PaginationResult';
-import Config from '../Config';
+import type GetOptions from '../../serviceFactory/utils/GetOptions';
+import { CursorDirection, DEFAULT_LIMIT } from '../../serviceFactory/utils/GetOptions';
+import type PaginationResult from '../../serviceFactory/utils/PaginationResult';
+import type Config from '../Config';
 
 export default (config: Config, collectionName: string) => {
   return async <T extends BaseModel>({
@@ -19,7 +20,6 @@ export default (config: Config, collectionName: string) => {
     sort,
     hint,
   }: GetOptions): Promise<PaginationResult<T>> => {
-
     if (direction === CursorDirection.BACKWARDS && cursor === undefined) {
       throw new NoCursorBackwardsDirection();
     }
@@ -43,7 +43,7 @@ export default (config: Config, collectionName: string) => {
 
     const scopedFilter = {
       ...combinedFilters,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     };
 
     const mongoCursor = collection.find()

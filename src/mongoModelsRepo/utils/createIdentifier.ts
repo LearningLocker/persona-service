@@ -1,9 +1,9 @@
-import { ObjectID } from 'mongodb';
+import { ObjectId } from 'mongodb';
 import PersonaNotSetAndUnlocked from '../../errors/PersonaNotSetAndUnlocked';
-import Identifier from '../../models/Identifier';
-import Ifi from '../../models/Ifi';
-import Lockable from '../../repoFactory/utils/Lockable';
-import Config from '../Config';
+import type Identifier from '../../models/Identifier';
+import type Ifi from '../../models/Ifi';
+import type Lockable from '../../repoFactory/utils/Lockable';
+import type Config from '../Config';
 import createOrUpdateIdentifier from './createOrUpdateIdentifier';
 import getIdentifierIfiFilter from './getIdentifierIfiFilter';
 
@@ -22,8 +22,8 @@ interface Update {
   $setOnInsert: {
     ifi: Ifi;
     locked: boolean;
-    organisation: ObjectID;
-    persona?: ObjectID;
+    organisation: ObjectId;
+    persona?: ObjectId;
     lockedAt?: Date;
   };
 }
@@ -31,7 +31,7 @@ interface Update {
 export default (config: Config) => {
   return async ({
     persona,
-    locked = ((persona === undefined) ? true : false),
+    locked = persona === undefined,
     ifi,
     organisation,
   }: Options & Lockable): Promise<Result> => {
@@ -53,19 +53,19 @@ export default (config: Config) => {
       $setOnInsert: {
         ifi,
         locked, // sets lock
-        organisation: new ObjectID(organisation),
+        organisation: new ObjectId(organisation),
       },
     };
 
     if (persona !== undefined) {
-      update.$setOnInsert.persona = new ObjectID(persona);
+      update.$setOnInsert.persona = new ObjectId(persona);
     }
 
     if (locked) {
       update.$setOnInsert.lockedAt = new Date();
     }
 
-    return createOrUpdateIdentifier(config)({
+    return await createOrUpdateIdentifier(config)({
       filter,
       update,
       upsert: true,

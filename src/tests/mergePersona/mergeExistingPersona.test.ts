@@ -37,10 +37,9 @@ describe('mergePersona with existing personas', () => {
   });
 
   it('Should add the persona from the merge source', async () => {
-
     const fromPersona = await createTestPersona();
 
-    const {identifier: fromIdentifier} = await service.createIdentifier({
+    const { identifier: fromIdentifier } = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: fromPersona.id,
@@ -57,21 +56,21 @@ describe('mergePersona with existing personas', () => {
 
     const toPersona = await createTestPersona();
 
-    const {identifierIds} = await service.mergePersona({
+    const { identifierIds } = await service.mergePersona({
       fromPersonaId: fromPersona.id,
       organisation: TEST_ORGANISATION,
       toPersonaId: toPersona.id,
     });
 
     // Assert identifiers points to the toPersona
-    const {identifier: resultIdentifier} = await service.getIdentifier({
+    const { identifier: resultIdentifier } = await service.getIdentifier({
       id: fromIdentifier.id,
       organisation: TEST_ORGANISATION,
     });
     assert.equal(resultIdentifier.persona, toPersona.id);
 
     // Assert identifiers points to the toPersona
-    const {attribute: resultAttribute} = await service.getAttribute({
+    const { attribute: resultAttribute } = await service.getAttribute({
       id: fromAttribute.id,
       organisation: TEST_ORGANISATION,
     });
@@ -83,21 +82,21 @@ describe('mergePersona with existing personas', () => {
   it('Should keep identifiers that already exist on the merge target', async () => {
     const sourcePersona = await createTestPersona();
     const targetPersona = await createTestPersona();
-    const {identifier: existingIdentifier} = await service.createIdentifier({
+    const { identifier: existingIdentifier } = await service.createIdentifier({
       ifi: TEST_IFI,
       organisation: TEST_ORGANISATION,
       persona: targetPersona.id,
     });
-    const {identifierIds} = await service.mergePersona({
+    const { identifierIds } = await service.mergePersona({
       fromPersonaId: sourcePersona.id,
       organisation: TEST_ORGANISATION,
       toPersonaId: targetPersona.id,
     });
-    const {identifier: resultIdentifier} = await service.getIdentifier({
+    const { identifier: resultIdentifier } = await service.getIdentifier({
       id: existingIdentifier.id,
       organisation: TEST_ORGANISATION,
     });
     assert.equal(resultIdentifier.persona, targetPersona.id);
     assert.deepEqual(identifierIds, []);
   });
-}); // tslint:disable-line:max-file-line-count
+});

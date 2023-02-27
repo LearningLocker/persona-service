@@ -1,4 +1,4 @@
-import Config from './Config';
+import type Config from './Config';
 import {
   PERSONA_ATTRIBUTES_COLLECTION,
   PERSONA_IDENTIFIERS_COLLECTION,

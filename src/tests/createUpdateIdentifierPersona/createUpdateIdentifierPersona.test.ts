@@ -11,7 +11,6 @@ describe('createUpdateIdentifierPersona', () => {
   const service = setup();
 
   it('Should create a new identifier and persona', async () => {
-
     const {
       identifier,
       identifierId,
@@ -27,7 +26,7 @@ describe('createUpdateIdentifierPersona', () => {
     assert.equal(personaId, identifier.persona);
     assert.equal(wasCreated, true);
 
-    const {identifier: fetchIdentifier} = await service.getIdentifier({
+    const { identifier: fetchIdentifier } = await service.getIdentifier({
       id: identifierId,
       organisation: TEST_ORGANISATION,
     });
@@ -40,7 +39,7 @@ describe('createUpdateIdentifierPersona', () => {
       throw Error('Persona is not set');
     }
 
-    const {persona: personaResult} = await service.getPersona({
+    const { persona: personaResult } = await service.getPersona({
       organisation: TEST_ORGANISATION,
       personaId: identifier.persona,
     });
@@ -49,8 +48,7 @@ describe('createUpdateIdentifierPersona', () => {
   });
 
   it('Should create a new account identifier with the correct ifi', async () => {
-
-    const {identifierId, wasCreated} = await service.createUpdateIdentifierPersona({
+    const { identifierId, wasCreated } = await service.createUpdateIdentifierPersona({
       ifi: TEST_ACCOUNT_IFI,
       organisation: TEST_ORGANISATION,
       personaName: 'Dave',
@@ -58,7 +56,7 @@ describe('createUpdateIdentifierPersona', () => {
 
     assert.equal(wasCreated, true);
 
-    const {identifier} = await service.getIdentifier({
+    const { identifier } = await service.getIdentifier({
       id: identifierId,
       organisation: TEST_ORGANISATION,
     });
@@ -68,7 +66,7 @@ describe('createUpdateIdentifierPersona', () => {
   });
 
   it('Should return the current persona if it already exist', async () => {
-    const {identifier, personaId} = await createTestIdentifier();
+    const { identifier, personaId } = await createTestIdentifier();
 
     const {
       identifierId: actualIdentifierId,

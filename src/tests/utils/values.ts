@@ -1,4 +1,4 @@
-import Ifi from '../../models/Ifi';
+import type Ifi from '../../models/Ifi';
 
 export const TEST_ORGANISATION = '58fe13e34effd3c26a7fc4b8';
 export const TEST_ORGANISATION_2 = '58fe13e34effd3c26a7fc4c8';

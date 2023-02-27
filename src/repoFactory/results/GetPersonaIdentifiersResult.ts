@@ -1,5 +1,4 @@
-import ServiceGetPersonaIdentifiersResult from // tslint:disable-line:import-spacing
-  '../../serviceFactory/results/GetPersonaIdentifiersResult';
+import type ServiceGetPersonaIdentifiersResult from '../../serviceFactory/results/GetPersonaIdentifiersResult';
 
 type GetPersonaIdentifiersResult = ServiceGetPersonaIdentifiersResult;
 

@@ -1,12 +1,12 @@
-import GetIfisByPersonaOptions from '../serviceFactory/options/GetIfisByPersonaOptions';
-import GetIfisByPersonaResult from '../serviceFactory/results/GetIfisByPersonaResult';
-import Config from './Config';
+import type GetIfisByPersonaOptions from '../serviceFactory/options/GetIfisByPersonaOptions';
+import type GetIfisByPersonaResult from '../serviceFactory/results/GetIfisByPersonaResult';
+import type Config from './Config';
 
 export default (config: Config) =>
   async (
     { persona: personaId, ...opts }: GetIfisByPersonaOptions,
   ): Promise<GetIfisByPersonaResult> =>
-    config.repo.getIfisByPersona({
+    await config.repo.getIfisByPersona({
       ...opts,
       personaId,
     });

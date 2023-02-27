@@ -1,7 +1,7 @@
-import { ObjectID } from 'mongodb';
-import GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
-import GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
-import Config from './Config';
+import { ObjectId } from 'mongodb';
+import type GetPersonaCountOptions from '../repoFactory/options/GetPersonaCountOptions';
+import type GetPersonaCountResult from '../repoFactory/results/GetPersonaCountResult';
+import type Config from './Config';
 import { PERSONAS_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -13,7 +13,7 @@ export default (config: Config) => {
 
     const result = await collection.count({
       ...filter,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     });
 
     return {

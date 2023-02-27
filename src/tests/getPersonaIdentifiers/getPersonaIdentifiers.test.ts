@@ -1,17 +1,15 @@
-// tslint:disable:no-magic-numbers
-// tslint:disable:max-file-line-count
 import * as assert from 'assert';
 import config from '../../config';
 import createIdentifier from '../../mongoModelsRepo/utils/createIdentifier';
 import createMongoClient from '../../repoFactory/utils/createMongoClient';
-import CreateIdentifierOptions from '../../serviceFactory/options/CreateIdentifierOptions';
+import type CreateIdentifierOptions from '../../serviceFactory/options/CreateIdentifierOptions';
 import setup from '../utils/setup';
 import {
   TEST_ORGANISATION,
   TEST_PERSONA_ID,
 } from '../utils/values';
 
-describe('getPersonaIdentifiers', async () => {
+describe('getPersonaIdentifiers', () => {
   const persona = TEST_PERSONA_ID;
   const service = setup();
   const repoConfig = {
@@ -58,7 +56,7 @@ describe('getPersonaIdentifiers', async () => {
       persona,
     });
 
-    assert.equal(result.identifiers.length, 3); // tslint:disable-line:no-magic-numbers
+    assert.equal(result.identifiers.length, 3);
     assert.deepEqual(result.identifiers[0], identifier1);
     assert.deepEqual(result.identifiers[1], identifier2);
     assert.deepEqual(result.identifiers[2], identifier3);

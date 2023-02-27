@@ -1,9 +1,7 @@
-import { ObjectID } from 'mongodb';
-import GetPersonaAttributeCountOptions from // tslint:disable-line:import-spacing
-  '../repoFactory/options/GetPersonaAttributeCountOptions';
-import GetPersonaAttributeCountResult from // tslint:disable-line:import-spacing
-  '../repoFactory/results/GetPersonaAttributeCountResult';
-import Config from './Config';
+import { ObjectId } from 'mongodb';
+import type GetPersonaAttributeCountOptions from '../repoFactory/options/GetPersonaAttributeCountOptions';
+import type GetPersonaAttributeCountResult from '../repoFactory/results/GetPersonaAttributeCountResult';
+import type Config from './Config';
 import { PERSONA_ATTRIBUTES_COLLECTION } from './utils/constants/collections';
 
 export default (config: Config) => {
@@ -15,7 +13,7 @@ export default (config: Config) => {
 
     const result = await collection.count({
       ...filter,
-      organisation: new ObjectID(organisation),
+      organisation: new ObjectId(organisation),
     });
 
     return {

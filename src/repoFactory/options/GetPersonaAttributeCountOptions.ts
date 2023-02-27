@@ -1,5 +1,4 @@
-import ServiceGetPersonaAttributeCountOptions from // tslint:disable-line:import-spacing
-  '../../serviceFactory/options/GetPersonaAttributeCountOptions';
+import type ServiceGetPersonaAttributeCountOptions from '../../serviceFactory/options/GetPersonaAttributeCountOptions';
 
 type GetPersonaAttributeCountOptions = ServiceGetPersonaAttributeCountOptions;
 

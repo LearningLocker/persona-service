@@ -1,0 +1,74 @@
+{
+  "root": true,
+  "env": {
+    "mocha": true
+  },
+  "extends": "standard-with-typescript",
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "import",
+    "n",
+    "promise"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "semi": "off",
+    "@typescript-eslint/semi": ["error", "always"],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": ["warn", "always-multiline"],
+    "@typescript-eslint/object-curly-spacing": ["warn", "always"],
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "space-in-parens": "warn",
+    "@typescript-eslint/ban-tslint-comment": "warn",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/promise-function-async": "warn",
+    "@typescript-eslint/return-await": "warn",
+    "padded-blocks": "warn",
+    "@typescript-eslint/consistent-type-assertions": "warn",
+    "@typescript-eslint/array-type": [
+      "error",
+      {
+        "default": "array"
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-base-to-string": "warn",
+    "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/space-infix-ops": "warn",
+    "@typescript-eslint/no-throw-literal": "warn",
+    "@typescript-eslint/consistent-indexed-object-style": ["error", "index-signature"],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "comma",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/key-spacing": [
+      "error",
+      {
+        "afterColon": true,
+        "beforeColon": false
+      }
+    ],
+    "import/first": "warn",
+    "no-mixed-operators": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "warn",
+    "@typescript-eslint/space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ]
+  }
+}

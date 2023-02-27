@@ -1,9 +1,8 @@
-import GetIdentifierByIfiOptions from '../serviceFactory/options/GetIdentifierByIfiOptions';
-import GetIdentifierByIfiResult from '../serviceFactory/results/GetIdentifierByIfiResult';
-import Config from './Config';
+import type GetIdentifierByIfiOptions from '../serviceFactory/options/GetIdentifierByIfiOptions';
+import type GetIdentifierByIfiResult from '../serviceFactory/results/GetIdentifierByIfiResult';
+import type Config from './Config';
 
 export default (config: Config) => {
-
   return async (opts: GetIdentifierByIfiOptions): Promise<GetIdentifierByIfiResult> =>
-    config.repo.getIdentifierByIfi(opts);
+    await config.repo.getIdentifierByIfi(opts);
 };

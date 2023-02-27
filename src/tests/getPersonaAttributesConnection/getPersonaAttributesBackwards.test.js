@@ -3,17 +3,15 @@ import assertError from 'jscommons/dist/tests/utils/assertError';
 import NoCursorBackwardsDirection from '../../errors/NoCursorBackwardsDirection';
 import { modelToCursor } from '../../repoFactory/utils/cursor';
 import { CursorDirection } from '../../serviceFactory/utils/GetOptions';
-import { addTestAttributes, fromFirstCursor, getAttributesOptions,
-} from '../utils/getAttributes';
+import { addTestAttributes, fromFirstCursor, getAttributesOptions } from '../utils/getAttributes';
 import setup from '../utils/setup';
-import { TEST_ORGANISATION } from '../utils/values';
 
 describe('getAttributes forwards', () => {
   const service = setup();
 
   it('Should return the previous 2 cursors when direction is BACKWARDS', async () => {
     // Add 12 Attributes
-    const attributes = await addTestAttributes(service); // tslint:disable-line
+    await addTestAttributes(service);
 
     // Get the first 10 attributes
     const attributesResult = await service.getAttributes({
@@ -30,7 +28,7 @@ describe('getAttributes forwards', () => {
 
   it('Should throw error when direction is BACKWARDS and cursor is undefined', async () => {
     // Add 12 Attributes
-    const attributes = await addTestAttributes(service); // tslint:disable-line
+    await addTestAttributes(service);
     // Get the first 10 attributes
     const attributesPromise = service.getAttributes({
       ...getAttributesOptions,

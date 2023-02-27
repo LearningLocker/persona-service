@@ -48,7 +48,7 @@ describe('overwritePersonaAttribute', () => {
 
     const result2 = await service.overwritePersonaAttribute(attribute2);
 
-    assert.deepEqual(result2.attribute, {...attribute2, id: result2.attribute.id});
+    assert.deepEqual(result2.attribute, { ...attribute2, id: result2.attribute.id });
 
     const result3 = await service.getPersonaAttributes({
       organisation: TEST_ORGANISATION,

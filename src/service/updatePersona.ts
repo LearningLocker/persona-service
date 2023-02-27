@@ -1,8 +1,8 @@
-import UpdatePersonaOptions from '../serviceFactory/options/UpdatePersonaOptions';
-import UpdatePersonaResult from '../serviceFactory/results/UpdatePersonaResult';
-import Config from './Config';
+import type UpdatePersonaOptions from '../serviceFactory/options/UpdatePersonaOptions';
+import type UpdatePersonaResult from '../serviceFactory/results/UpdatePersonaResult';
+import type Config from './Config';
 
 export default (config: Config) =>
   async (opts: UpdatePersonaOptions): Promise<UpdatePersonaResult> => {
-    return config.repo.updatePersona(opts);
+    return await config.repo.updatePersona(opts);
   };

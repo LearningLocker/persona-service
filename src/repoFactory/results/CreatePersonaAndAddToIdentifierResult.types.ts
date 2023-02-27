@@ -1,4 +1,5 @@
-import Identifier, { IdentifierWithPersona } from '../../models/Identifier';
+import type Identifier from '../../models/Identifier';
+import { IdentifierWithPersona } from '../../models/Identifier';
 
 export interface CreatePersonaAndAddToIdentifierResult {
   readonly identifierId: string;

@@ -2,9 +2,9 @@ import NoModel from 'jscommons/dist/errors/NoModel';
 import DuplicateMergeId from '../errors/DuplicateMergeId';
 import MissingMergeToPersona from '../errors/MissingMergeToPersona';
 import NoModelWithId from '../errors/NoModelWithId';
-import MergePersonaOptions from '../serviceFactory/options/MergePersonaOptions';
-import MergePersonaResult from '../serviceFactory/results/MergePersonaResult';
-import Config from './Config';
+import type MergePersonaOptions from '../serviceFactory/options/MergePersonaOptions';
+import type MergePersonaResult from '../serviceFactory/results/MergePersonaResult';
+import type Config from './Config';
 
 export default (config: Config) => async ({
   fromPersonaId,

@@ -1,5 +1,5 @@
-import BaseModel from './BaseModel';
-import Ifi from './Ifi';
+import type BaseModel from './BaseModel';
+import type Ifi from './Ifi';
 
 interface Identifier extends BaseModel {
   // Identifier should allways have a persona. It's optional as the persona will be created after

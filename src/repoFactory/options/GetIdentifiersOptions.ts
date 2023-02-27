@@ -1,4 +1,4 @@
-import ServiceGetIdentifiersOptions from '../../serviceFactory/options/GetIdentifiersOptions';
+import type ServiceGetIdentifiersOptions from '../../serviceFactory/options/GetIdentifiersOptions';
 
 type GetIdentifiersOptions = ServiceGetIdentifiersOptions;
 

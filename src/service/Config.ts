@@ -1,4 +1,4 @@
-import Repo from '../repoFactory/Repo';
+import type Repo from '../repoFactory/Repo';
 
 interface Config {
   readonly repo: Repo;

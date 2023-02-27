@@ -1,4 +1,4 @@
-import BaseModel from './BaseModel';
+import type BaseModel from './BaseModel';
 
 export default interface Attribute extends BaseModel {
   readonly personaId: string;

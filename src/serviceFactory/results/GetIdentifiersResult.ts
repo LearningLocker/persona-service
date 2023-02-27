@@ -1,5 +1,5 @@
-import Identifier from '../../models/Identifier';
-import PaginationResult from '../utils/PaginationResult';
+import type Identifier from '../../models/Identifier';
+import type PaginationResult from '../utils/PaginationResult';
 
 type GetIdentifiersResult = PaginationResult<Identifier>;
 
